@@ -7,7 +7,6 @@ export default class Navbar extends Component {
                 <div className="nav-center">
                     <div className="nav-header">
                         <div className="nav-left">
-
                             <ul className="nav-links">
                                 <li>
                                     <Link to="/">Home</Link>
@@ -18,19 +17,18 @@ export default class Navbar extends Component {
                                 <li>
                                     <Link to="/about">About</Link>
                                 </li>
-                                </ul>
-                            </div>
-                            <div className="nav-right">
-                                <ul className="nav-links">
+                            </ul>
+                        </div>
+                        <div className="nav-right">
+                            <ul className="nav-links">
                                 <li>
                                     <Link to="/login">Log in</Link>
                                 </li>
                                 <li>
                                     <Link to="/singin">Sing in</Link>
                                 </li>
-                        </ul>
+                            </ul>
                         </div>
-
                     </div>
                 </div>
             </nav>
