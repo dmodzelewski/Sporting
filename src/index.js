@@ -7,6 +7,3 @@ const rootApp = document.getElementById('app');
 
 render(<App />, rootApp);
 
-if (module.hot) {
-  module.hot.accept();
-}
