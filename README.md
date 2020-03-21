@@ -5,4 +5,4 @@
 
 ## Instalation 
 > npm install \
-> webpack-dev-server --mode development --open --hot \
+> webpack-dev-server --mode development --open --hot
