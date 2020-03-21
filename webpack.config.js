@@ -23,19 +23,23 @@ module.exports = {
             }
         },
         {
-          test: /\.js$/,
-          exclude: /node_modules/,
-          use: [{
-              loader: require.resolve('eslint-loader'),
-              options: {
-                  eslintPath: require.resolve('eslint'),
-                  emitWarning: true,
-              },
-          }],
+            test: /\.js$/,
+            exclude: /node_modules/,
+            use: [{
+                loader: require.resolve('eslint-loader'),
+                options: {
+                    eslintPath: require.resolve('eslint'),
+                    emitWarning: true,
+                },
+            }],
         },
         {
-          test: /\.css$/i,
-          use: ['style-loader', 'css-loader'],
+            test: /\.s[ac]ss$/i,
+            use: [
+                'style-loader',
+                'css-loader',
+                'sass-loader',
+            ],
         },
         {
             test: /\.(png|jpg|gif)$/,
