@@ -5,7 +5,7 @@ class App extends Component {
         return (
             <div>
                 <h1>iSportio</h1>
-                <p>Najlepsze miejsce by zacząć sport</p>
+                <p>Najlepsze miejsce by zacząć sporting</p>
             </div>
             
             
