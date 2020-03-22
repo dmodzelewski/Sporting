@@ -6,7 +6,8 @@ import Error from './Pages/Error'
 import Singin from './Functionality/Singin';
 import Login from './Functionality/Login';
 import Navbar from "./Components/Navbar"
-import './style.scss'
+import './app.scss'
+import 'bootstrap';
 import { Route, Switch, Router } from "react-router-dom"
 class App extends Component {
     render() {
