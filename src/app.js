@@ -7,7 +7,6 @@ import Signin from './Functionality/Signin';
 import Login from './Functionality/Login';
 import NavigationBar from "./Components/NavigationBar"
 import './app.scss'
-
 import { Route, Switch, Router } from "react-router-dom"
 class App extends Component {
     render() {
