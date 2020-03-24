@@ -6,7 +6,7 @@
     "scripts": {
         "start": "node_modules/.bin/webpack-dev-server --mode development --open --hot",
         "build": "webpack --mode production",
-        "send_build_daniel_dev": "scp dist/* dmodzelewski@isportio.pl:/home/nginx/development/html",
+        "send_build_daniel_dev": "webpack --mode production && scp dist/* modze@isportio.pl:/home/nginx/development/html",
         "send_build_jedrzej_dev": "scp dist/* rearden@isportio.pl:/home/nginx/development/html",
         "test": "echo \"Error: no test specified\" && exit 1"
     },
