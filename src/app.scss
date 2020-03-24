@@ -3,7 +3,7 @@
 $primaryColor: #af9a7d;
 $mainWhite: rgb(25, 116, 13);
 $offBlue: rgb(40, 78, 184);
-$mainBlack: rgb(252, 252, 252);
+$mainFont: rgb(252, 252, 252);
 $mainGrey: #ececec;
 $darkGrey: #cfcfcf;
 $mainTransition: all 0.3s linear;
@@ -20,8 +20,8 @@ $darkShadow: 4px 10px 5px 0px rgba(0, 0, 0, 0.5);
 
 /* globals */
 body {
-  padding-top: 70px;
-  color: $mainBlack;
+  padding-top: 100px;
+  color: $mainFont;
   background: $mainWhite;
   font-family: Verdana, Geneva, Tahoma, sans-serif;
   line-height: 1.4;
@@ -60,7 +60,7 @@ h6 {
 //   display: inline-block;
 //   text-decoration: none;
 //   letter-spacing: $mainSpacing;
-//   color: $mainBlack;
+//   color: $mainFont;
 //   background: $primaryColor;
 //   padding: 0.4rem 0.9rem;
 //   border: 3px solid $primaryColor;
@@ -125,7 +125,7 @@ h6 {
     display: block;
     text-decoration: none;
     padding: 1rem 0;
-    color: $mainBlack;
+    color: $mainFont;
     transition: $mainTransition;
     text-align: center;
     font-size: 1rem;
@@ -486,7 +486,7 @@ h6 {
 // .size-input {
 //   width: 40%;
 //   padding: 0.2rem;
-//   border: 1px solid $mainBlack;
+//   border: 1px solid $mainFont;
 //   border-radius: 0.3rem;
 //   margin-right: 0.3rem;
 // }
