@@ -23,19 +23,39 @@ module.exports = {
             }
         },
         {
-          test: /\.js$/,
-          exclude: /node_modules/,
-          use: [{
-              loader: require.resolve('eslint-loader'),
-              options: {
-                  eslintPath: require.resolve('eslint'),
-                  emitWarning: true,
-              },
-          }],
+            test: /\.js$/,
+            exclude: /node_modules/,
+            use: [{
+                loader: require.resolve('eslint-loader'),
+                options: {
+                    eslintPath: require.resolve('eslint'),
+                    emitWarning: true,
+                },
+            }],
         },
         {
-          test: /\.css$/i,
-          use: ['style-loader', 'css-loader'],
+            test: /\.(scss)$/,
+            use: [
+                {
+                    loader: 'style-loader'
+                },
+                {
+                    loader: 'css-loader'
+                },
+                {
+                    loader: 'postcss-loader',
+                    options: {
+                        plugins: function () {
+                            return [
+                                require('autoprefixer')
+                            ];
+                        }
+                    }
+                },
+                {
+                    loader: 'sass-loader'
+                }
+            ]
         },
         {
             test: /\.(png|jpg|gif)$/,
