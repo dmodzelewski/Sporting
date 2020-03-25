@@ -1,9 +1,33 @@
 import React from 'react'
+import { Form, Col, Button, Container, Row } from 'react-bootstrap'
 
 export default function Login() {
     return (
-        <div>
-            Login page or window
-        </div>
+        
+        <Container>
+            <Row>
+                <Col sm={{ span: 7, offset: 3 }} >
+                    <Form>
+                        <Form.Group controlId="FormLoginEmail">
+                            <Form.Label>Email address</Form.Label>
+                            <Form.Control type="email" placeholder="email@example.com" />
+                        </Form.Group>
+
+                        <Form.Group controlId="FormLoginPassword">
+                            <Form.Label>Password</Form.Label>
+                            <Form.Control type="password" placeholder="Password" />
+                        </Form.Group>
+
+
+                        <Form.Group as={Row}>
+                            <Col sm={{ span: 4, offset: 5 }}>
+                                <Button type="submit">Sign in</Button>
+                            </Col>
+                        </Form.Group>
+
+                    </Form>
+                </Col>
+            </Row>
+        </Container>
     )
 }
