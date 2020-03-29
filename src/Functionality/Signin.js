@@ -11,7 +11,7 @@ export default function Signin() {
       </Col>
 
         <Col sm={9} md={{ span: 7, offset: 1 }} >
-          <Form>
+          <Form className="pushz">
             <Form.Group controlId="FormEmail">
               <Form.Label>Email address</Form.Label>
               <Form.Control type="email" placeholder="email@example.com" />
