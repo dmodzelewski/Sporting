@@ -6,8 +6,7 @@ const userSchema = new Schema({
     Password: String,
     Name:String,
     Surname:String,
-    Age:Number,
-    reservationId:String
+    Age:Number
 })
 //Tworzenie modelu User na podstawie schematu userSchema
 module.exports = mongoose.model('User',userSchema)

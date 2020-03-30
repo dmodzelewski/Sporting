@@ -2,6 +2,8 @@ const graphql = require('graphql');
 const graphqldate = require('graphql-iso-date')
 const User = require('../models/User')
 const Reservation = require('../models/Reservation')
+const Gym = require('../models/Gym')
+const Equipment = require('../models/Equipment')
 
 
 
@@ -19,9 +21,6 @@ const {
     GraphQLTime
 } = graphqldate
 
-
-
-
 const UserType = new GraphQLObjectType({
     name: 'User',
     fields: () => ({
@@ -34,14 +33,14 @@ const UserType = new GraphQLObjectType({
         reservation: {
             type: new GraphQLList(ReservationType),
             resolve(parent) {
-                return Reservation.find({ reservationId: parent.id })
+                return Reservation.find({ userID: parent.id })
             }
         }
     })
 });
 
 const ReservationType = new GraphQLObjectType({
-    name: 'Reserve',
+    name: 'Reservation',
     fields: () => ({
         id: { type: GraphQLID },
         Date: { type: GraphQLDate },
@@ -50,12 +49,55 @@ const ReservationType = new GraphQLObjectType({
         user: {
             type: UserType,
             resolve(parent) {
-                return User.findById(parent.reservationId)
+                return User.findById(parent.userID)
+            }
+        },
+        gym:{
+            type:GymType,
+            resolve(parent){
+               return Gym.findById(parent.gymID)
+            }
+        }
+
+    })
+});
+
+const GymType = new GraphQLObjectType({
+    name: 'Gym',
+    fields: () => ({
+        id: { type: GraphQLID },
+        Type: { type: GraphQLString },
+        Quantity: { type: GraphQLInt },
+        reservation: {
+            type: new GraphQLList(ReservationType),
+            resolve(parent) {
+                return Reservation.find({ gymID: parent.id })
+            }
+        },
+        equipment:{
+            type:new GraphQLList(EquipmentType),
+            resolve(parent){
+                return Equipment.find({gymID:parent.id})
+            }
+        }
+        
+    })
+});
+
+const EquipmentType = new GraphQLObjectType({
+    name: 'Equipment',
+    fields: () => ({
+        id: { type: GraphQLID },
+        Type: { type: GraphQLString },
+        Count: { type: GraphQLInt },
+        gym:{
+            type: new GraphQLList(GymType),
+            resolve(parent){
+                return Gym.findById(parent.gymID)
             }
         }
     })
 });
-
 
 const RootQuery = new GraphQLObjectType({
     name: 'RootQueryType',
@@ -77,6 +119,20 @@ const RootQuery = new GraphQLObjectType({
                 return Reservation.findById(args.id)
             }
         },
+        gym: {
+            type: GymType,
+            args: { id: { type: GraphQLID } },
+            resolve(parent, args) {
+                return Gym.findById(args.id)
+            }
+        },
+        equipment: {
+            type: EquipmentType,
+            args: { id: { type: GraphQLID } },
+            resolve(parent, args) {
+                return Equipment.findById(args.id)
+            }
+        },
         users: {
             type: new GraphQLList(UserType),
             resolve() {
@@ -87,6 +143,18 @@ const RootQuery = new GraphQLObjectType({
             type: new GraphQLList(ReservationType),
             resolve() {
                 return Reservation.find({})
+            }
+        },
+        gyms: {
+            type: new GraphQLList(GymType),
+            resolve() {
+                return Gym.find({})
+            }
+        },
+        equipments: {
+            type: new GraphQLList(EquipmentType),
+            resolve() {
+                return Equipment.find({})
             }
         }
     }
@@ -103,7 +171,6 @@ const Mutation = new GraphQLObjectType({
                 Name: { type: GraphQLString },
                 Surname: { type: GraphQLString },
                 Age: { type: GraphQLInt },
-                reservationId: { type: GraphQLID }
             },
             resolve(parent, args) {
                 let user = new User({
@@ -112,7 +179,6 @@ const Mutation = new GraphQLObjectType({
                     Name: args.Name,
                     Surname: args.Surname,
                     Age: args.Age,
-                    reservationId: args.reservationId,
                 })
                 return user.save()
             }
@@ -123,16 +189,50 @@ const Mutation = new GraphQLObjectType({
                 Date: { type: GraphQLDate },
                 Start_Reservation: { type: GraphQLTime },
                 End_Reservation: { type: GraphQLTime },
+                userID:{type:GraphQLID},
+                gymID:{type:GraphQLID}
             },
             resolve(parent, args) {
                 let reservation = new Reservation({
                     Date: args.Date,
                     Start_Reservation: args.Start_Reservation,
-                    End_Reservation: args.End_Reservation
+                    End_Reservation: args.End_Reservation,
+                    userID:args.userID,
+                    gymID:args.gymID
                 })
                 return reservation.save()
             }
-        }
+        },
+        addGym: {
+            type: GymType,
+            args: {
+                Type: { type: GraphQLString },
+                Quantity: { type:GraphQLInt },
+            },
+            resolve(parent, args) {
+                let gym = new Gym({
+                    Type: args.Type,
+                    Quantity:args.Quantity
+                })
+                return gym.save()
+            }
+        },
+        addEquipment: {
+            type: EquipmentType,
+            args: {
+                Type: { type: GraphQLString },
+                Count: { type:GraphQLInt },
+                gymID: {type:GraphQLID}
+            },
+            resolve(parent, args) {
+                let equipment = new Equipment({
+                    Type: args.Type,
+                    Count:args.Count,
+                    gymID:args.gymID
+                })
+                return equipment.save()
+            }
+        },
     }
 })
 
