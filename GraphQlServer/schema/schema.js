@@ -6,6 +6,9 @@ const Gym = require('../models/Gym')
 const Equipment = require('../models/Equipment')
 const SportObject = require('../models/SportObject')
 const Opinion = require('../models/Opinion')
+const Address = require('../models/Address')
+const Company = require('../models/Company')
+
 
 
 
@@ -39,7 +42,14 @@ const UserType = new GraphQLObjectType({
             resolve(parent) {
                 return Reservation.find({ userID: parent.id })
             }
-        }
+        },
+        opinions: {
+            type: new GraphQLList(OpinionType),
+            resolve(parent) {
+                return Opinion.find({ userID: parent.id })
+            }
+        },
+
     })
 });
 
@@ -87,7 +97,7 @@ const GymType = new GraphQLObjectType({
         opinions: {
             type: new GraphQLList(OpinionType),
             resolve(parent) {
-                return Option.find({ gymID: parent.id })
+                return Opinion.find({ gymID: parent.id })
             }
         }
 
@@ -121,12 +131,12 @@ const SportObjectType = new GraphQLObjectType({
                 return Gym.find({ SportObjectID: parent.id })
             }
         },
-        opinions: {
-            type: new GraphQLList(OpinionType),
+        address: {
+            type:new GraphQLList(AddressType),
             resolve(parent) {
-                return Option.find({ SportObjectID: parent.id })
+                return Address.find({SportObjectID: parent.id})
             }
-        }
+        },
     })
 });
 
@@ -134,23 +144,64 @@ const OpinionType = new GraphQLObjectType({
     name: 'Opinion',
     fields: () => ({
         id: { type: GraphQLID },
-        Descryption: { type:  new GraphQLNonNull(GraphQLString) },
-        StarRate: { type:  new GraphQLNonNull(GraphQLFloat) },
-        sportObject: {
-            type: new GraphQLList(SportObjectType),
-            resolve(parent) {
-                return SportObject.findById(parent.SportObjectID)
-            }
-        },
+        Descryption: { type: new GraphQLNonNull(GraphQLString) },
+        StarRate: { type: new GraphQLNonNull(GraphQLFloat) },
         gym: {
-            type: new GraphQLList(GymType),
+            type: GymType,
             resolve(parent) {
                 return Gym.findById(parent.gymID)
+            }
+        },
+        user: {
+            type: UserType,
+            resolve(parent) {
+                return User.findById(parent.userID)
             }
         }
 
     })
 });
+
+const AddressType = new GraphQLObjectType({
+    name: 'Address',
+    fields: () => ({
+        id: { type: GraphQLID },
+        Street: { type: new GraphQLNonNull(GraphQLString) },
+        Number: { type: new GraphQLNonNull(GraphQLString) },
+        ZipCode: { type: new GraphQLNonNull(GraphQLString) },
+        City: { type: new GraphQLNonNull(GraphQLString) },
+        Province: { type: new GraphQLNonNull(GraphQLString) },
+        sportObject: {
+            type: SportObjectType,
+            resolve(parent) {
+                return SportObject.findById(parent.SportObjectID)
+            }
+        },
+        company:{
+            type: CompanyType,
+            resolve(parent) {
+                return Company.findById(parent.CompanyID)
+            }
+        }
+    })
+});
+
+const CompanyType = new GraphQLObjectType({
+    name: 'Company',
+    fields: () => ({
+        id: { type: GraphQLID },
+        Name: { type: new GraphQLNonNull(GraphQLString) },
+        Nip: { type: new GraphQLNonNull(GraphQLString) },
+        address: {
+            type:new GraphQLList(AddressType),
+            resolve(parent) {
+                return Address.find({SportObjectID: parent.id})
+            }
+        },
+    })
+});
+
+
 
 const RootQuery = new GraphQLObjectType({
     name: 'RootQueryType',
@@ -200,6 +251,20 @@ const RootQuery = new GraphQLObjectType({
                 return Opinion.findById(args.id)
             }
         },
+        address: {
+            type: AddressType,
+            args: { id: { type: GraphQLID } },
+            resolve(parent, args) {
+                return Address.findById(args.id)
+            }
+        },
+        company: {
+            type: CompanyType,
+            args: { id: { type: GraphQLID } },
+            resolve(parent, args) {
+                return Company.findById(args.id)
+            }
+        },
         users: {
             type: new GraphQLList(UserType),
             resolve() {
@@ -227,13 +292,25 @@ const RootQuery = new GraphQLObjectType({
         sportObjects: {
             type: new GraphQLList(SportObjectType),
             resolve() {
-                return Equipment.find({})
+                return SportObject.find({})
             }
         },
         opinions: {
             type: new GraphQLList(OpinionType),
             resolve() {
                 return Opinion.find({})
+            }
+        },
+        adresses: {
+            type: new GraphQLList(AddressType),
+            resolve() {
+                return Address.find({})
+            }
+        },
+        companies: {
+            type: new GraphQLList(CompanyType),
+            resolve() {
+                return Company.find({})
             }
         },
     }
@@ -245,8 +322,8 @@ const Mutation = new GraphQLObjectType({
         addUser: {
             type: UserType,
             args: {
-                Login: { type:  new GraphQLNonNull(GraphQLString) },
-                Password: { type:  new GraphQLNonNull(GraphQLString) },
+                Login: { type: new GraphQLNonNull(GraphQLString) },
+                Password: { type: new GraphQLNonNull(GraphQLString) },
                 Name: { type: GraphQLString },
                 Surname: { type: GraphQLString },
                 Age: { type: GraphQLInt },
@@ -260,7 +337,7 @@ const Mutation = new GraphQLObjectType({
             type: UserType,
             args: {
                 id: { type: GraphQLID },
-                Password: { type:  new GraphQLNonNull(GraphQLString) },
+                Password: { type: new GraphQLNonNull(GraphQLString) },
                 Name: { type: GraphQLString },
                 Surname: { type: GraphQLString },
                 Age: { type: GraphQLInt }
@@ -279,8 +356,8 @@ const Mutation = new GraphQLObjectType({
         addReservation: {
             type: ReservationType,
             args: {
-                Date: { type:  new GraphQLNonNull(GraphQLDate) },
-                Start_Reservation: { type:  new GraphQLNonNull(GraphQLTime) },
+                Date: { type: new GraphQLNonNull(GraphQLDate) },
+                Start_Reservation: { type: new GraphQLNonNull(GraphQLTime) },
                 End_Reservation: { type: GraphQLTime },
                 userID: { type: GraphQLID },
                 gymID: { type: GraphQLID }
@@ -293,8 +370,8 @@ const Mutation = new GraphQLObjectType({
         updateReservation: {
             type: ReservationType,
             args: {
-                Date: { type:  new GraphQLNonNull(GraphQLDate) },
-                Start_Reservation: { type:  new GraphQLNonNull(GraphQLTime) },
+                Date: { type: new GraphQLNonNull(GraphQLDate) },
+                Start_Reservation: { type: new GraphQLNonNull(GraphQLTime) },
                 End_Reservation: { type: GraphQLTime },
                 userID: { type: GraphQLID },
                 gymID: { type: GraphQLID }
@@ -393,6 +470,7 @@ const Mutation = new GraphQLObjectType({
                 id: { type: GraphQLID },
                 Name: { type: GraphQLString },
                 NumberOfGyms: { type: GraphQLInt },
+                AddressID:{type:GraphQLID}
             },
             resolve(parent, args) {
                 return SportObject.findByIdAndUpdate(args.id, args);
@@ -410,8 +488,10 @@ const Mutation = new GraphQLObjectType({
         addOpinion: {
             type: OpinionType,
             args: {
-                Descryption: { type: new GraphQLNonNull( GraphQLString) },
-                StarRate: { type:  new GraphQLNonNull(GraphQLFloat) },
+                Descryption: { type: new GraphQLNonNull(GraphQLString) },
+                StarRate: { type: new GraphQLNonNull(GraphQLFloat) },
+                gymID: { type: new GraphQLNonNull(GraphQLID) },
+                userID: { type: new GraphQLNonNull(GraphQLID) }
             },
             resolve(parent, args) {
                 let opinion = new Opinion(args)
@@ -422,8 +502,10 @@ const Mutation = new GraphQLObjectType({
             type: OpinionType,
             args: {
                 id: { type: GraphQLID },
-                Descryption: { type:  new GraphQLNonNull(GraphQLString)},
-                StarRate: { type:  new GraphQLNonNull(GraphQLFloat) },
+                Descryption: { type: new GraphQLNonNull(GraphQLString) },
+                StarRate: { type: new GraphQLNonNull(GraphQLFloat) },
+                gymID: { type: new GraphQLNonNull(GraphQLID) },
+                userID: { type: new GraphQLNonNull(GraphQLID) }
             },
             resolve(parent, args) {
                 return Opinion.findByIdAndUpdate(args.id, args);
@@ -438,6 +520,76 @@ const Mutation = new GraphQLObjectType({
                 return Opinion.findOneAndDelete(args.id)
             }
         },
+        addAddress: {
+            type: AddressType,
+            args: {
+                Street: { type: new GraphQLNonNull(GraphQLString) },
+                Number: { type: new GraphQLNonNull(GraphQLString) },
+                ZipCode: { type: new GraphQLNonNull(GraphQLString) },
+                City: { type: new GraphQLNonNull(GraphQLString) },
+                Province: { type: new GraphQLNonNull(GraphQLString) },
+                SportObjectID: { type: GraphQLID }
+
+            },
+            resolve(parent, args) {
+                let address = new Address(args)
+                return address.save()
+            }
+        },
+        updateAdress: {
+            type: AddressType,
+            args: {
+                Street: { type: GraphQLString },
+                Number: { type: GraphQLString },
+                ZipCode: { type: GraphQLString },
+                City: { type: GraphQLString },
+                Province: { type: GraphQLString },
+                SportObjectID: { type: GraphQLID }
+            },
+            resolve(parent, args) {
+                return Address.findByIdAndUpdate(args.id, args);
+            }
+        },
+        deleteAddress: {
+            type: AddressType,
+            args: {
+                id: { type: GraphQLID },
+            },
+            resolve(parent, args) {
+                return Address.findOneAndDelete(args.id)
+            }
+        },
+        addCompany: {
+            type: CompanyType,
+            args: {
+                Name: { type: new GraphQLNonNull(GraphQLString) },
+                Nip: { type: new GraphQLNonNull(GraphQLString) },               
+            },
+            resolve(parent, args) {
+                let company = new Company(args)
+                return company.save()
+            }
+        },
+        updateCompany: {
+            type: CompanyType,
+            args: {
+                Name: { type: new GraphQLNonNull(GraphQLString) },
+                Nip: { type: new GraphQLNonNull(GraphQLString) },  
+            },
+            resolve(parent, args) {
+                return Company.findByIdAndUpdate(args.id, args);
+            }
+        },
+        deleteCompany: {
+            type: CompanyType,
+            args: {
+                id: { type: GraphQLID },
+            },
+            resolve(parent, args) {
+                return Company.findOneAndDelete(args.id)
+            }
+        },
+
     }
 })
 

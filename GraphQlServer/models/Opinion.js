@@ -3,10 +3,11 @@ const mongoose = require('mongoose')
 const Schema = mongoose.Schema
 
 const opinionsSchema = new Schema({
-    Description: String,
+    Descryption: String,
     StarRate:Number,
     SportObjectID:String,
-    gymID:String
+    gymID:String,
+    userID:String   
 })
 //Tworzenie modelu User na podstawie schematu userSchema
 module.exports = mongoose.model('Opinion',opinionsSchema)
