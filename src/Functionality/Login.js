@@ -18,12 +18,17 @@ export default function Login() {
                             <Form.Control type="password" placeholder="Password" />
                         </Form.Group>
 
+                        <Form.Row>
 
                         <Form.Group as={Row}>
-                            <Col sm={{ span: 4, offset: 5 }}>
-                                <Button type="submit">Sign in</Button>
+                            <Col sm={{ span: 4, offset: 2 }}>
+                                <Button type="submit">Login</Button>
+                            </Col>
+                            <Col sm={{ span: 6}}>
+                                <Button type="submit">Register</Button>
                             </Col>
                         </Form.Group>
+                        </Form.Row>
 
                     </Form>
                 </Col>

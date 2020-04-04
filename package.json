@@ -5,7 +5,7 @@
     "main": "index.js",
     "scripts": {
         "start": "node_modules/.bin/webpack-dev-server --mode development --open --hot",
-        "build": "webpack --mode production",
+        "build": "npx cap copy && npx cap sync && webpack --mode production",
         "send_build_daniel_dev": "webpack --mode development && scp dist/* modze@isportio.pl:/home/nginx/development/html",
         "send_build_jedrzej_dev": "scp dist/* rearden@isportio.pl:/home/nginx/development/html",
         "test": "echo \"Error: no test specified\" && exit 1"
@@ -16,6 +16,10 @@
     "author": "",
     "license": "ISC",
     "dependencies": {
+        "@capacitor/android": "^2.0.0",
+        "@capacitor/cli": "^2.0.0",
+        "@capacitor/core": "^2.0.0",
+        "@capacitor/ios": "^2.0.0",
         "bootstrap": "^4.4.1",
         "bootstrap-sass": "^3.4.1",
         "jquery": "^3.4.1",
@@ -42,6 +46,7 @@
         "eslint-plugin-import": "^2.20.1",
         "eslint-plugin-react": "^7.19.0",
         "extract-text-webpack-plugin": "^3.0.2",
+        "file-loader": "^6.0.0",
         "html-webpack-plugin": "^3.2.0",
         "http-server": "^0.12.1",
         "node-sass": "^4.13.1",
