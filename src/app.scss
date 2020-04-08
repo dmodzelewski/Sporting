@@ -1,16 +1,15 @@
 @import "node_modules/bootstrap/scss/bootstrap.scss";
 
 $primaryColor: #af9a7d;
-$mainWhite: rgb(25, 116, 13);
-$offBlue: rgb(40, 78, 184);
-$mainFont: rgb(252, 252, 252);
-$mainGrey: #ececec;
-$darkGrey: #cfcfcf;
+$mainGreen: #29b347;
+$offBlue: #2f2fa2;
+$offBlueHover: #4444b3;
+$mainFont: rgb(48, 48, 48);
+
 $mainTransition: all 0.3s linear;
 $mainSpacing: 3px;
 $lightShadow: 2px 5px 3px 0px rgba(0, 0, 0, 0.5);
 $darkShadow: 4px 10px 5px 0px rgba(0, 0, 0, 0.5);
-
 
 * {
   margin: 0;
@@ -22,7 +21,7 @@ $darkShadow: 4px 10px 5px 0px rgba(0, 0, 0, 0.5);
 body {
   padding-top: 100px;
   color: $mainFont;
-  background: $mainWhite;
+  background: $mainGreen;
   font-family: Verdana, Geneva, Tahoma, sans-serif;
   line-height: 1.4;
 }
@@ -56,7 +55,6 @@ h6 {
   margin-bottom: 1.5em;
 }
 
-
 .navbar {
   position: fixed;
   top: 0;
@@ -82,12 +80,11 @@ h6 {
 }
 
 .nav-links {
-  
   height: 0;
   overflow: hidden;
   transition: $mainTransition;
   list-style-type: none;
-  a{
+  a {
     display: block;
     text-decoration: none;
     padding: 1rem 0;
@@ -98,8 +95,8 @@ h6 {
     font-weight: 600;
     letter-spacing: $mainSpacing;
   }
-  a:hover{
-    color: $primaryColor;
+  a:hover {
+    color: $offBlueHover;
   }
 }
 .show-nav {
@@ -115,7 +112,7 @@ h6 {
     height: auto;
     display: flex;
     margin-left: 4rem;
-    a{
+    a {
       margin: 0 1rem;
       padding: 0.5rem 0;
     }
@@ -129,8 +126,22 @@ h6 {
   justify-content: center;
 }
 
-.pushz{
-  z-index: 2;
-  background-color: green($color: #af9a7d);
+.singinForm {
+  background-color: rgb(46, 68, 189);
+  color: black;
+  padding: 2rem;
 }
 
+.ContainerSingin {
+  margin-bottom: 5rem;
+}
+@media screen and (max-width: 768px) {
+  .SigninCard {
+    display: none !important;
+  }
+}
+.Footer {
+  background-color: rgb(216, 128, 77);
+  position: absolute;
+  width: 100%;
+}

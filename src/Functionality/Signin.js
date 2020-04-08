@@ -1,17 +1,39 @@
-import React from 'react'
-import { Form, Col, Button, Container, Row } from 'react-bootstrap'
-
+import React from "react";
+import {
+  Form,
+  Col,
+  Button,
+  Container,
+  Row,
+  Card,
+  ListGroup,
+  ListGroupItem,
+} from "react-bootstrap";
 
 export default function Signin() {
   return (
-    <Container>
+    <Container fluid className="ContainerSingin">
       <Row>
-        <Col sm={{ span: 3, offset: 0 }} md={{ offset: 1 }} >
-          Witaj w ISportio
-      </Col>
+        <Col md={{ span: 4, offset: 1 }} lg={{ span: 4, offset: 1 }}>
+          <Card style={{ width: "20rem" }} className="SigninCard">
+            <Card.Body>
+              <Card.Title>Dołacz do Isportio!</Card.Title>
+              <Card.Text>
+                Chesz zaczac ćwiczyć, ale nie wiesz gdzie? Próbujesz przekazać
+                swoje umiejętności ale nie wiesz jak? A może zdedydowałeś się na
+                rozwój swojego biznesu?
+              </Card.Text>
+            </Card.Body>
+            <ListGroup>
+              <ListGroupItem>Dołącz do nas </ListGroupItem>
+              <ListGroupItem>Wystarczy założyć konto</ListGroupItem>
+              <ListGroupItem>i gotowe!</ListGroupItem>
+            </ListGroup>
+          </Card>
+        </Col>
 
-        <Col sm={9} md={{ span: 7, offset: 1 }} >
-          <Form className="pushz">
+        <Col sm={12} md={{ span: 6 }} lg={{ span: 6 }}>
+          <Form className="singinForm">
             <Form.Group controlId="FormEmail">
               <Form.Label>Email address</Form.Label>
               <Form.Control type="email" placeholder="email@example.com" />
@@ -28,7 +50,6 @@ export default function Signin() {
             </Form.Group>
 
             <Form.Row>
-
               <Form.Group as={Col} controlId="FormProvince">
                 <Form.Label>Province</Form.Label>
                 <Form.Control as="select" value="Choose...">
@@ -47,7 +68,6 @@ export default function Signin() {
             </Form.Row>
 
             <Form.Row>
-
               <Form.Group as={Col} sm={5} controlId="FormAddress">
                 <Form.Label>Address</Form.Label>
                 <Form.Control placeholder="Grunwaldzka Street" />
@@ -64,7 +84,7 @@ export default function Signin() {
               </Form.Group>
             </Form.Row>
             <Form.Group as={Row}>
-              <Col sm={{ span: 10, offset: 2 }}>
+              <Col sm={{ span: 8, offset: 4 }}>
                 <Button type="submit">Sign in</Button>
               </Col>
             </Form.Group>
@@ -72,5 +92,5 @@ export default function Signin() {
         </Col>
       </Row>
     </Container>
-  )
+  );
 }

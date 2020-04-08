@@ -1,9 +1,27 @@
-import React from 'react'
+import React, { Component } from "react";
+import { graphql } from "react-apollo";
+import { gql } from "apollo-boost";
 
-export default function Reserve() {
+const getAllUsers = gql`
+  {
+    users {
+      Name
+      Login
+    }
+  }
+`;
+
+class Reserve extends Component {
+  render() {
+    console.log(this.props);
     return (
-        <div>
-            Rezerwacje
-        </div>
-    )
+      <div>
+        <ul id="user-list">
+          <li>Book Name</li>
+        </ul>
+      </div>
+    );
+  }
 }
+
+export default graphql(getAllUsers)(Reserve);

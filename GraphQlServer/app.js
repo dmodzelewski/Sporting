@@ -2,8 +2,12 @@ const express = require('express')
 const graphqlHTTP = require('express-graphql')
 const schema = require('./schema/schema')
 const mongoose = require('mongoose')
+const cors = require('cors')
 
 const app = express()
+
+
+
 
 mongoose.connect('mongodb+srv://dmodzelewski:Start1234@isportio-oqbfe.mongodb.net/isportiodatabase?retryWrites=true&w=majority', {
     useUnifiedTopology: true,
@@ -13,7 +17,7 @@ mongoose.connect('mongodb+srv://dmodzelewski:Start1234@isportio-oqbfe.mongodb.ne
         console.log('DB Connection Error');
     });
 
-app.use('/graphql', graphqlHTTP({
+app.use('/graphql',cors(), graphqlHTTP({
     schema,
     graphiql: true
 }))
