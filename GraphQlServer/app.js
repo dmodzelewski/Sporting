@@ -7,8 +7,6 @@ const cors = require('cors')
 const app = express()
 
 
-
-
 mongoose.connect('mongodb+srv://dmodzelewski:Start1234@isportio-oqbfe.mongodb.net/isportiodatabase?retryWrites=true&w=majority', {
     useUnifiedTopology: true,
     useNewUrlParser: true,

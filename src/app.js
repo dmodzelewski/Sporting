@@ -12,16 +12,16 @@ import { Route, Switch } from "react-router-dom";
 import ApolloClient from "apollo-boost";
 import { ApolloProvider } from "@apollo/react-hooks";
 
-const Client = new ApolloClient({
+const clientApollo = new ApolloClient({
   // Do zmiany
-  url: "http://localhost:4000/graphql",
+  uri: "http://localhost:4000/graphql",
 });
 
 class App extends Component {
   render() {
     return (
       <>
-        <ApolloProvider client={Client}>
+        <ApolloProvider client={clientApollo}>
           <NavigationBar />
           <Switch>
             <Route exact path="/" component={Home} />
