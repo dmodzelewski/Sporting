@@ -6,7 +6,7 @@ export default class Home extends Component {
   render() {
     return (
       <>
-        <Button>Cokolwiek</Button>
+        <Button onClick={this.props.auth.login}>Cokolwiek</Button>
       </>
     );
   }
