@@ -2,6 +2,7 @@
 
 const path = require("path");
 const HtmlWebPackPlugin = require("html-webpack-plugin");
+const dotenv = require('dotenv');
 
 module.exports = {
   devtool: "source-map",
@@ -75,3 +76,4 @@ module.exports = {
     }),
   ],
 };
+

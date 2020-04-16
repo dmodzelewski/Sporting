@@ -4,7 +4,6 @@ import Reserve from "./Pages/Reserve";
 import About from "./Pages/About";
 import Error from "./Pages/Error";
 import Signin from "./Functionality/Signin";
-import Login from "./Functionality/Login";
 import NavigationBar from "./Components/NavigationBar";
 import Footer from "./Components/Footer";
 import "./app.scss";
@@ -13,6 +12,7 @@ import ApolloClient from "apollo-boost";
 import { ApolloProvider } from "@apollo/react-hooks";
 import Auth from "./Auth/Auth";
 import Callback from "./Pages/Callback";
+import Profile from "./Pages/Profile";
 
 const clientApollo = new ApolloClient({
   // Do zmiany
@@ -29,21 +29,27 @@ class App extends Component {
     return (
       <>
         <ApolloProvider client={clientApollo}>
-          <NavigationBar />
+          <NavigationBar auth={this.auth} />
           <Switch>
-            <Route
-              exact
-              path="/"
-              render={(props) => <Home auth={this.auth} {...props} />}
-            />
+            <Route exact path="/" component={Home} />
             <Route
               path="/callback"
               render={(props) => <Callback auth={this.auth} {...props} />}
             />
             <Route exact path="/reserve" component={Reserve} />
             <Route exact path="/about" component={About} />
-            <Route exact path="/login" component={Login} />
-            <Route exact path="/signin" component={Signin} />
+
+            <Route
+              exact
+              path="/profile"
+              render={(props) => <Profile auth={this.auth} {...props} />}
+            />
+
+            <Route
+              exact
+              path="/signin"
+              render={(props) => <Signin auth={this.auth} {...props} />}
+            />
             <Route component={Error} />
           </Switch>
           <Footer />
