@@ -1,8 +1,11 @@
 import React, { Component } from "react";
 import { Link, NavLink } from "react-router-dom";
 import { Navbar, Nav, NavDropdown } from "react-bootstrap";
+
 export default class NavigationBar extends Component {
   render() {
+    const { isAuthenticatetd, logout } = this.props.auth;
+    
     return (
       <Navbar collapseOnSelect expand="lg" bg="prime" variant="dark">
         <Navbar.Brand as={Link} to="/">
@@ -20,6 +23,7 @@ export default class NavigationBar extends Component {
             <Nav.Link as={NavLink} exact to="/about">
               About
             </Nav.Link>
+
             <NavDropdown title="More Options" id="collasible-nav-dropdown">
               <NavDropdown.Item href="#option/1">Need to</NavDropdown.Item>
               <NavDropdown.Item href="#option/2">Think</NavDropdown.Item>
@@ -29,12 +33,21 @@ export default class NavigationBar extends Component {
             </NavDropdown>
           </Nav>
           <Nav>
-            <Nav.Link as={NavLink} to="/login">
-              Login
-            </Nav.Link>
-            <Nav.Link as={NavLink} to="/signin">
-              Sign in
-            </Nav.Link>
+            {isAuthenticatetd() ? (
+              <Nav.Link as={NavLink} exact to="/profile">
+                Profile
+              </Nav.Link>
+            ) : null}
+
+            {isAuthenticatetd() ? (
+              <NavLink as={NavLink} to="/">
+                <div onClick={logout}>Log Out</div>
+              </NavLink>
+            ) : (
+              <Nav.Link as={NavLink} to="/signin">
+                Signin
+              </Nav.Link>
+            )}
           </Nav>
         </Navbar.Collapse>
       </Navbar>
