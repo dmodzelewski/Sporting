@@ -1,14 +1,14 @@
-import React from 'react';
-import { useQuery } from '@apollo/react-hooks';
-import { gql } from 'apollo-boost';
+import React from "react";
+import { useQuery } from "@apollo/react-hooks";
+import { gql } from "apollo-boost";
 
 const getAllUsers = gql`
   {
-    users{
-      Name
-      Surname
-      Login
-      Password
+    users {
+      firstName
+      lastName
+      loginEmail
+      password
     }
   }
 `;
@@ -19,14 +19,14 @@ function Reserve() {
   if (loading) return <p>Loading...</p>;
   if (error) return <p>Error :(</p>;
 
-  return data.users.map(({ Name, Surname,Login,Password }) => (
-    <div key={Name}>
+  return data.users.map(({ firstName, lastName, loginEmail, password }) => (
+    <div key={loginEmail}>
       <p>
-       Imię i nazwisko:  {Name} {Surname} login i hasło {Login} {Password} 
+        Imię i nazwisko: {firstName} {lastName} login i hasło {loginEmail}{" "}
+        {password}
       </p>
     </div>
   ));
 }
-
 
 export default Reserve;
