@@ -16,7 +16,7 @@ import Profile from "./Pages/Profile";
 
 const clientApollo = new ApolloClient({
   // Do zmiany
-  uri: "http://localhost:4000/graphql",
+  uri: "http://localhost:3001/graphql",
 });
 
 class App extends Component {
