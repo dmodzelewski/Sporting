@@ -14,7 +14,7 @@ import { ApolloProvider } from "@apollo/react-hooks";
 
 const clientApollo = new ApolloClient({
   // Do zmiany
-  uri: "http://localhost:4000/graphql",
+  uri: "http://localhost:3001/graphql",
 });
 
 class App extends Component {
