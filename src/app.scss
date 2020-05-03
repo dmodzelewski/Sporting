@@ -1,9 +1,8 @@
 @import "node_modules/bootstrap/scss/bootstrap.scss";
 @import url(https://fonts.googleapis.com/css2?family=Quicksand&display=swap);
-
+//global variables
 $phone: 320px;
 $tablet: 960px;
-
 $primaryColor: #af9a7d;
 $mainGreen: #29b347;
 $NavbarColor: #b4d920;
@@ -15,6 +14,7 @@ $mainSpacing: 3px;
 $lightShadow: 2px 5px 3px 0px rgba(0, 0, 0, 0.5);
 $darkShadow: 4px 10px 5px 0px rgba(0, 0, 0, 0.5);
 
+//global settings
 body {
   width: 100%;
   overflow-x: scroll;
@@ -56,7 +56,7 @@ h6 {
   font-weight: bold;
   margin-bottom: 1.5em;
 }
-
+//Start navbar
 .navbar {
   width: 100%;
   height: 90px;
@@ -153,7 +153,8 @@ h6 {
   box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
   border-radius: 26px;
 }
-
+//End navbar
+//Start footbar
 .footer-headers {
   background: #f2f2f2;
   font-weight: bold;
@@ -164,8 +165,10 @@ h6 {
   background: #f2f2f2;
   padding-left: 20px;
 }
+//End footbar
+// Start Home Search
 .search-bg {
-  min-height: calc(70vh - 70px);
+  min-height: calc(60vh - 70px);
   background: url("https://cdn.discordapp.com/attachments/656944730537459722/706539200308314202/photo-1459865264687-595d652de67e.webp");
   background-repeat: no-repeat;
   background-position: center center;
@@ -204,7 +207,7 @@ h6 {
     }
   }
   .search-line {
-    margin-top: 40px;
+    margin-top: 27px;
     border-left: 30px solid black;
     transform: rotate(90deg);
   }
@@ -212,6 +215,66 @@ h6 {
     margin-top: 18px;
     .search-filters-headers {
       font-weight: bold;
+    }
+  }
+}
+// End Home Search
+.choice {
+  min-height: calc(70vh - 70px);
+  background: #c8e25c;
+  .choice-object {
+    height: 339px;
+    background: #ffffff;
+    border: 3px solid #000000;
+    border-radius: 50px;
+    margin: 80px 100px;
+    .choice-header {
+      margin: 33px 315px 0px;
+      font-family: Quicksand;
+      font-style: normal;
+      font-weight: 500;
+      font-size: 36px;
+      line-height: 45px;
+    }
+    @media screen and (max-width: $tablet) {
+      .choice-header {
+        font-size: 26px;
+        margin: 10px 130px;
+      }
+    }
+    .choice-sports {
+      margin: 40px 28px;
+      .choice-sports-objects {
+        height: 142px;
+        margin: 0px 8px;
+        border: 1px solid #000000;
+        box-sizing: border-box;
+        border-radius: 10px;
+      }
+      .choice-sports-text {
+        font-family: Quicksand;
+        font-style: normal;
+        font-weight: bold;
+        font-size: 21px;
+        line-height: 26px;
+        display: flex;
+        margin-left: 4px;
+      }
+      .choice-sports-body {
+        background: #ffffff;
+        border: 1px solid #000000;
+        box-sizing: border-box;
+        width: 100px;
+        height: 100px;
+        border-radius: 50px;
+        flex: none;
+        align-self: center;
+        margin: 8px 12px 0;
+      }
+      .choice-sports-icons {
+        width: 64px;
+        height: 80px;
+      }
     }
   }
 }
