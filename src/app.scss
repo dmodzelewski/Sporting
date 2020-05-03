@@ -1,143 +1,217 @@
 @import "node_modules/bootstrap/scss/bootstrap.scss";
+@import url(https://fonts.googleapis.com/css2?family=Quicksand&display=swap);
+
+$phone: 320px;
+$tablet: 960px;
 
 $primaryColor: #af9a7d;
 $mainGreen: #29b347;
-$offBlue: #2f2fa2;
-$offBlueHover: #4444b3;
+$NavbarColor: #b4d920;
+$NavbarColorHover: #4444b3;
 $mainFont: rgb(48, 48, 48);
-
+$mainFontFamily: "Quicksand";
 $mainTransition: all 0.3s linear;
 $mainSpacing: 3px;
 $lightShadow: 2px 5px 3px 0px rgba(0, 0, 0, 0.5);
 $darkShadow: 4px 10px 5px 0px rgba(0, 0, 0, 0.5);
 
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
+body {
+  width: 100%;
+  overflow-x: scroll;
+  background: #ffffff;
 }
 
-/* globals */
-body {
-  padding-top: 100px;
-  color: $mainFont;
-  background: $mainGreen;
-  font-family: Verdana, Geneva, Tahoma, sans-serif;
-  line-height: 1.4;
-}
 h1 {
+  font-family: $mainFontFamily;
   font-size: 3em;
   line-height: 1;
   margin-bottom: 0.5em;
 }
 h2 {
+  font-family: $mainFontFamily;
   font-size: 2em;
   margin-bottom: 0.75em;
 }
 h3 {
+  font-family: $mainFontFamily;
   font-size: 1.5em;
   line-height: 1;
   margin-bottom: 1em;
 }
 h4 {
+  font-family: $mainFontFamily;
   font-size: 1.2em;
   line-height: 1.25;
   margin-bottom: 1.25em;
 }
 h5 {
+  font-family: $mainFontFamily;
   font-size: 1em;
   font-weight: bold;
   margin-bottom: 1.5em;
 }
 h6 {
+  font-family: $mainFontFamily;
   font-size: 1em;
   font-weight: bold;
   margin-bottom: 1.5em;
 }
 
 .navbar {
-  position: fixed;
-  top: 0;
-  left: 0;
   width: 100%;
-  padding: 0.75rem 2rem;
-  background: $offBlue;
-  z-index: 1;
+  height: 90px;
+  left: 1px;
+  top: 0px;
+  background: #b4d920;
+  box-sizing: border-box;
+  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
 }
-.nav-header {
+.navbar-brand {
+  color: black !important;
   display: flex;
-  justify-content: space-between;
+  flex-direction: row;
+  padding: 0px;
+  width: 177px;
+  height: 55px;
+  left: 39px;
+  top: 18px;
+  .nav-icon {
+    width: 54px;
+    height: 55px;
+    left: 0px;
+    top: 0px;
+    flex: none;
+    order: 0;
+    align-self: center;
+    margin: 20px 0px;
+  }
+  .nav-text {
+    width: 103px;
+    height: 53px;
+    left: 74px;
+    top: 1px;
+    font-family: Oswald !important;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 36px;
+    line-height: 53px;
+    display: flex;
+    align-items: center;
+    text-align: center;
+    color: #000000;
+    flex: none;
+    order: 1;
+    align-self: center;
+  }
 }
-.nav-btn {
-  background: transparent;
-  border: none;
-  cursor: pointer;
-  outline: none;
+.nav-buttons {
+  width: 363px;
+  height: 39px;
+  left: calc(50% - 363px / 2 + 297px);
+  top: calc(50% - 39px / 2 + 0.5px);
+  .nav-button-rent {
+    color: black !important;
+    display: flex;
+    flex-direction: row;
+    padding: 0px 29px;
+    width: 197px;
+    height: 39px;
+    right: 172px;
+    top: 0px;
+    background: #ffffff;
+    border: 1px solid #ffffff;
+    box-sizing: border-box;
+    border-radius: 26px;
+  }
+  .nav-button-help {
+    color: black !important;
+    display: flex;
+    flex-direction: row;
+    padding: 0px 31px;
+    width: 142px;
+    height: 39px;
+    right: 11px;
+    top: 0px;
+
+    background: #ffffff;
+    border: 1px solid #ffffff;
+    box-sizing: border-box;
+    border-radius: 26px;
+  }
 }
-.nav-icon {
-  font-size: 1.5rem;
-  color: $primaryColor;
+.nav-button-login {
+  display: flex;
+  flex-direction: row;
+  width: 185px;
+  height: 55px;
+  right: 38px;
+  top: 18px;
+
+  background: #ffffff;
+  border: 1px solid #ffffff;
+  box-sizing: border-box;
+  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+  border-radius: 26px;
 }
 
-.nav-links {
-  height: 0;
-  overflow: hidden;
-  transition: $mainTransition;
-  list-style-type: none;
-  a {
-    display: block;
-    text-decoration: none;
-    padding: 1rem 0;
-    color: $mainFont;
-    transition: $mainTransition;
-    text-align: center;
-    font-size: 1rem;
-    font-weight: 600;
-    letter-spacing: $mainSpacing;
-  }
-  a:hover {
-    color: $offBlueHover;
-  }
+.footer-headers {
+  background: #f2f2f2;
+  font-weight: bold;
+  padding-bottom: 10px;
+  text-align: left;
 }
-.show-nav {
-  height: 100px;
+.footer-body {
+  background: #f2f2f2;
+  padding-left: 20px;
 }
-@media screen and (min-width: 768px) {
-  .nav-center {
-    max-width: 1170px;
-    margin: 0 auto;
-    display: flex;
+.search-bg {
+  min-height: calc(70vh - 70px);
+  background: url("https://cdn.discordapp.com/attachments/656944730537459722/706539200308314202/photo-1459865264687-595d652de67e.webp");
+  background-repeat: no-repeat;
+  background-position: center center;
+  background-size: cover;
+  .search-object {
+    background: white;
+    height: 100px;
+    margin: 125px 100px;
+    border: 3px solid #000000;
+    box-sizing: border-box;
+    border-radius: 30px;
   }
-  .nav-links {
-    height: auto;
-    display: flex;
-    margin-left: 4rem;
-    a {
-      margin: 0 1rem;
-      padding: 0.5rem 0;
+  @media screen and (max-width: $tablet) {
+    .search-object {
+      margin: 125px 1em;
     }
   }
-}
-
-.defaultHero {
-  min-height: calc(100vh - 66px);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
-.singinForm {
-  background-color: rgb(46, 68, 189);
-  color: black;
-  padding: 2rem;
-}
-
-.ContainerSingin {
-  margin-bottom: 5rem;
-}
-
-.Footer {
-  background-color: rgb(216, 128, 77);
-  position: absolute;
-  width: 100%;
+  .search-button {
+    color: black;
+    background: #8aa718;
+    box-shadow: 0px 6px 4px rgba(0, 0, 0, 0.42);
+    border-radius: 17px;
+    margin: 26px 0;
+    margin-left: 2em;
+    padding-right: 2em;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 24px;
+    line-height: 30px;
+    display: flex;
+    align-items: center;
+  }
+  @media screen and (max-width: $tablet) {
+    .search-button {
+      margin-left: 1em;
+    }
+  }
+  .search-line {
+    margin-top: 40px;
+    border-left: 30px solid black;
+    transform: rotate(90deg);
+  }
+  .search-filters {
+    margin-top: 18px;
+    .search-filters-headers {
+      font-weight: bold;
+    }
+  }
 }

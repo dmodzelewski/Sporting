@@ -1,46 +1,36 @@
 import React from "react";
-import { MDBCol, MDBContainer, MDBRow, MDBFooter } from "mdbreact";
+import { Container, Row, Col } from "react-bootstrap";
 
-const FooterPagePro = () => {
+export default function Footer() {
   return (
-    <MDBFooter className="font-small pt-0 Footer">
-      <MDBContainer>
-        <MDBRow className="pt-5 mb-3 text-center d-flex justify-content-center">
-          <MDBCol md="2" className="b-3">
-            <h6 className="title font-weight-bold">
-              <a href="#!">About us</a>
-            </h6>
-          </MDBCol>
-          <MDBCol md="2" className="b-3">
-            <h6 className="title font-weight-bold">
-              <a href="#!">Products</a>
-            </h6>
-          </MDBCol>
-          <MDBCol md="2" className="b-3">
-            <h6 className="title font-weight-bold">
-              <a href="#!">Awards</a>
-            </h6>
-          </MDBCol>
-          <MDBCol md="2" className="b-3">
-            <h6 className="title font-weight-bold">
-              <a href="#!">Help</a>
-            </h6>
-          </MDBCol>
-          <MDBCol md="2" className="b-3">
-            <h6 className="title font-weight-bold">
-              <a href="#!">Contact</a>
-            </h6>
-          </MDBCol>
-        </MDBRow>
-      </MDBContainer>
-      <div className="footer-copyright text-center py-3">
-        <MDBContainer fluid>
-          &copy; {new Date().getFullYear()} Copyright:
-          <p> Daniel Modzelewski & Jędrzej Kowaliński </p>
-        </MDBContainer>
-      </div>
-    </MDBFooter>
+    <Container fluid>
+      <Row className="footer-headers">
+        <Col>Informacje</Col>
+        <Col>Dla właścicieli obiektów sportowych </Col>
+        <Col>Kariera</Col>
+        <Col>Support</Col>
+      </Row>
+      <Row className="footer-body">
+        <Col>
+          <Row>O nas</Row>
+          <Row>Zasady dostępności</Row>
+          <Row>Zasady bezpieczeństwa</Row>
+          <Row>Newsletter</Row>
+        </Col>
+        <Col>
+          <Row>Wynajmuj z nami</Row>
+          <Row>Panel administracyjny</Row>
+          <Row>Zasady wynajmu</Row>
+          <Row>Często zadawane pytania</Row>
+        </Col>
+        <Col>
+          <Row>Oferty pracy</Row>
+          <Row>Poleć znajomego</Row>
+        </Col>
+        <Col>
+          <Row>Centrum pomocy</Row>
+        </Col>
+      </Row>
+    </Container>
   );
-};
-
-export default FooterPagePro;
+}
