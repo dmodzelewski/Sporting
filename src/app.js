@@ -6,7 +6,7 @@ import Error from "./Pages/Error";
 import Signin from "./Functionality/Signin";
 import NavigationBar from "./Components/NavigationBar";
 import Footer from "./Components/Footer";
-import "./app.scss";
+import "./Styles/app.scss";
 import { Route, Switch } from "react-router-dom";
 import ApolloClient from "apollo-boost";
 import { ApolloProvider } from "@apollo/react-hooks";
