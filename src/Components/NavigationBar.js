@@ -5,6 +5,13 @@ import { Link, NavLink } from "react-router-dom";
 import { Navbar, Nav } from "react-bootstrap";
 
 export default class NavigationBar extends Component {
+  state = {
+    isOpen: false,
+  };
+  handleToggle = () => {
+    this.setState({ isOpen: !this.state.isOpen });
+    
+  };
   render() {
     const { isAuthenticatetd, logout } = this.props.auth;
 
@@ -14,7 +21,10 @@ export default class NavigationBar extends Component {
           <Icon icon={running} className="nav-icon" />
           <text className="nav-text"> ISportio</text>
         </Navbar.Brand>
-        <Navbar.Toggle aria-controls="responsive-navbar-nav" />
+        <Navbar.Toggle
+          onClick={this.handleToggle}
+          aria-controls="responsive-navbar-nav"
+        />
         <Navbar.Collapse id="responsive-navbar-nav">
           <Nav className="nav-buttons">
             <Nav.Link

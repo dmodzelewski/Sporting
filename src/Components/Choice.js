@@ -61,7 +61,7 @@ export default class Choice extends Component {
                 style={{ background: "#CECECE" }}
               >
                 <Row>
-                  <Col className="choice-sports-body">
+                  <Col className="choice-sports-body football">
                     <FaFutbol className="choice-sports-icons" />
                   </Col>
                 </Row>
@@ -77,7 +77,7 @@ export default class Choice extends Component {
                 style={{ background: "#B4C084" }}
               >
                 <Row>
-                  <Col className="choice-sports-body">
+                  <Col className="choice-sports-body tennis">
                     <IoMdTennisball className="choice-sports-icons" />
                   </Col>
                 </Row>
@@ -93,7 +93,7 @@ export default class Choice extends Component {
                 style={{ background: "#CDB8D4" }}
               >
                 <Row>
-                  <Col className="choice-sports-body">
+                  <Col className="choice-sports-body yoga">
                     <FaSwimmingPool className="choice-sports-icons" />
                   </Col>
                 </Row>
@@ -109,7 +109,7 @@ export default class Choice extends Component {
                 style={{ background: "#CA6D6D" }}
               >
                 <Row>
-                  <Col className="choice-sports-body">
+                  <Col className="choice-sports-body gym">
                     <FaDumbbell className="choice-sports-icons" />
                   </Col>
                 </Row>
@@ -125,7 +125,7 @@ export default class Choice extends Component {
                 style={{ background: "#AB9382" }}
               >
                 <Row>
-                  <Col className="choice-sports-body">
+                  <Col className="choice-sports-body quidditch">
                     <FaQuidditch className="choice-sports-icons" />
                   </Col>
                 </Row>
@@ -141,7 +141,7 @@ export default class Choice extends Component {
                 style={{ background: "#DABB6C" }}
               >
                 <Row>
-                  <Col className="choice-sports-body">
+                  <Col className="choice-sports-body fight">
                     <FaSwimmingPool className="choice-sports-icons" />
                   </Col>
                 </Row>

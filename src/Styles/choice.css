@@ -3,7 +3,7 @@
   vertical-align: middle;
   -webkit-transform: perspective(1px) translateZ(0);
   transform: perspective(1px) translateZ(0);
-  box-shadow: 0 0 1px rgba(0, 0, 0, 0);
+  box-shadow: 0 0 1px transparent;
   position: relative;
   background: #e1e1e1;
   -webkit-transition-property: color;
@@ -41,13 +41,12 @@
   -webkit-transform: scale(1);
   transform: scale(1);
 }
-
 .basketball {
   display: inline-block;
   vertical-align: middle;
   -webkit-transform: perspective(1px) translateZ(0);
   transform: perspective(1px) translateZ(0);
-  box-shadow: 0 0 1px rgba(0, 0, 0, 0);
+  box-shadow: 0 0 1px transparent;
   position: relative;
   background: #e1e1e1;
   -webkit-transition-property: color;
@@ -85,13 +84,12 @@
   -webkit-transform: scale(1);
   transform: scale(1);
 }
-
 .football {
   display: inline-block;
   vertical-align: middle;
   -webkit-transform: perspective(1px) translateZ(0);
   transform: perspective(1px) translateZ(0);
-  box-shadow: 0 0 1px rgba(0, 0, 0, 0);
+  box-shadow: 0 0 1px transparent;
   position: relative;
   background: #e1e1e1;
   -webkit-transition-property: color;
@@ -129,13 +127,12 @@
   -webkit-transform: scale(1);
   transform: scale(1);
 }
-
 .tennis {
   display: inline-block;
   vertical-align: middle;
   -webkit-transform: perspective(1px) translateZ(0);
   transform: perspective(1px) translateZ(0);
-  box-shadow: 0 0 1px rgba(0, 0, 0, 0);
+  box-shadow: 0 0 1px transparent;
   position: relative;
   background: #e1e1e1;
   -webkit-transition-property: color;
@@ -173,13 +170,12 @@
   -webkit-transform: scale(1);
   transform: scale(1);
 }
-
 .yoga {
   display: inline-block;
   vertical-align: middle;
   -webkit-transform: perspective(1px) translateZ(0);
   transform: perspective(1px) translateZ(0);
-  box-shadow: 0 0 1px rgba(0, 0, 0, 0);
+  box-shadow: 0 0 1px transparent;
   position: relative;
   background: #e1e1e1;
   -webkit-transition-property: color;
@@ -217,13 +213,12 @@
   -webkit-transform: scale(1);
   transform: scale(1);
 }
-
 .gym {
   display: inline-block;
   vertical-align: middle;
   -webkit-transform: perspective(1px) translateZ(0);
   transform: perspective(1px) translateZ(0);
-  box-shadow: 0 0 1px rgba(0, 0, 0, 0);
+  box-shadow: 0 0 1px transparent;
   position: relative;
   background: #e1e1e1;
   -webkit-transition-property: color;
@@ -261,13 +256,12 @@
   -webkit-transform: scale(1);
   transform: scale(1);
 }
-
 .quidditch {
   display: inline-block;
   vertical-align: middle;
   -webkit-transform: perspective(1px) translateZ(0);
   transform: perspective(1px) translateZ(0);
-  box-shadow: 0 0 1px rgba(0, 0, 0, 0);
+  box-shadow: 0 0 1px transparent;
   position: relative;
   background: #e1e1e1;
   -webkit-transition-property: color;
@@ -305,13 +299,12 @@
   -webkit-transform: scale(1);
   transform: scale(1);
 }
-
 .fight {
   display: inline-block;
   vertical-align: middle;
   -webkit-transform: perspective(1px) translateZ(0);
   transform: perspective(1px) translateZ(0);
-  box-shadow: 0 0 1px rgba(0, 0, 0, 0);
+  box-shadow: 0 0 1px transparent;
   position: relative;
   background: #e1e1e1;
   -webkit-transition-property: color;
