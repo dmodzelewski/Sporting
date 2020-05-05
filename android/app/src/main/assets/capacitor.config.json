@@ -1,8 +1,0 @@
-{
-  "appId": "com.isportio.android",
-  "appName": "isportio",
-  "bundledWebRuntime": false,
-  "npmClient": "npm",
-  "webDir": "dist",
-  "cordova": {}
-}
