@@ -105,3 +105,8 @@ dist
 
 distProd/
 distDev/
+GraphQlServer/
+electron/
+android/
+ios/
+package-lock.json
