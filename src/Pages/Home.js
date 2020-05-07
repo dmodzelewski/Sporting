@@ -10,6 +10,7 @@ export default class Home extends Component {
         <Search />
         <Choice />
         <Slider/>
+        
       </>
     );
   }

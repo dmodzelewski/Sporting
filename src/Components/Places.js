@@ -12,7 +12,12 @@ export default class Places extends Component {
         <Row>
           <Col className="places-counter">12 z 123 obiektów</Col>
         </Row>
-        <Place />
+        <Place className="place" />
+        <br />
+
+        <Row>
+          <Col className="place-show-more center">Pokaz Więcej Wyników</Col>
+        </Row>
       </div>
     );
   }

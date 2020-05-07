@@ -15,7 +15,9 @@ export default class Reserve extends Component {
           </Col>
           <Col md={9}>
             <Places />
+            
           </Col>
+
         </Row>
       </>
     );

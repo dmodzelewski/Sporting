@@ -294,9 +294,7 @@ h6 {
 }
 
 .filters {
-  margin: 2em;
   border: 1px solid black;
-  width: 100%;
   padding: 2em 1em;
   font-size: 22px;
   display: flex;
@@ -316,6 +314,7 @@ h6 {
 }
 
 //Places
+
 .places-header {
   display: flex;
   align-items: center;
@@ -366,6 +365,12 @@ h6 {
 .place-button {
   background: #b82525;
   border-radius: 23px;
+}
+.place-show-more {
+  background: #c93030;
+  border-radius: 15px;
+  margin: 3em 2em;
+  height: 70px;
 }
 
 .center {
