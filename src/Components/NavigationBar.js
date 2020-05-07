@@ -10,28 +10,30 @@ export default class NavigationBar extends Component {
   };
   handleToggle = () => {
     this.setState({ isOpen: !this.state.isOpen });
-    
   };
   render() {
     const { isAuthenticatetd, logout } = this.props.auth;
 
     return (
-      <Navbar collapseOnSelect expand="lg" className="navbar">
+      <Navbar
+        collapseOnSelect
+        expand="lg"
+        className={this.state.isOpen ? "nabar-toogle" : "navbar"}
+      >
+        {console.log(this.state.isOpen)}
         <Navbar.Brand as={Link} to="/">
           <Icon icon={running} className="nav-icon" />
-          <text className="nav-text"> ISportio</text>
+          <text className="nav-text"> iSportio</text>
         </Navbar.Brand>
-        <Navbar.Toggle
-          onClick={this.handleToggle}
-          aria-controls="responsive-navbar-nav"
-        />
-        <Navbar.Collapse id="responsive-navbar-nav">
+        <Navbar.Toggle onClick={this.handleToggle} />
+
+        <Navbar.Collapse>
           <Nav className="nav-buttons">
             <Nav.Link
               as={NavLink}
               exact
               to="/reserve"
-              className="nav-button-rent hvr-float-shadow"
+              className="nav-button hvr-float-shadow"
             >
               Wynajmij Obiekt
             </Nav.Link>
@@ -39,13 +41,11 @@ export default class NavigationBar extends Component {
               as={NavLink}
               exact
               to="/about"
-              className="nav-button-help hvr-float-shadow"
+              className="nav-button hvr-float-shadow"
             >
               Pomoc
             </Nav.Link>
-          </Nav>
 
-          <Nav>
             {isAuthenticatetd() ? (
               <Nav.Link as={NavLink} exact to="/profile">
                 Profile
@@ -60,7 +60,7 @@ export default class NavigationBar extends Component {
               <Nav.Link
                 as={NavLink}
                 to="/signin"
-                className="nav-button-login hvr-float-shadow"
+                className="nav-button hvr-float-shadow"
               >
                 Zaloguj
               </Nav.Link>

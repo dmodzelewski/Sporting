@@ -2,7 +2,7 @@
 
 const path = require("path");
 const HtmlWebPackPlugin = require("html-webpack-plugin");
-const dotenv = require('dotenv');
+const dotenv = require("dotenv");
 
 module.exports = {
   devtool: "source-map",
@@ -10,6 +10,7 @@ module.exports = {
   output: {
     path: path.join(__dirname, "/dist"),
     filename: "index_bundle.js",
+    publicPath: "/",
   },
   module: {
     rules: [
@@ -68,6 +69,9 @@ module.exports = {
       },
     ],
   },
+  devServer: {
+    historyApiFallback: true,
+  },
   plugins: [
     new HtmlWebPackPlugin({
       hash: true,
@@ -76,4 +80,3 @@ module.exports = {
     }),
   ],
 };
-

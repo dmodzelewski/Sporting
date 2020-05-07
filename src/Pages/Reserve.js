@@ -1,32 +1,23 @@
-import React from "react";
-import { useQuery } from "@apollo/react-hooks";
-import { gql } from "apollo-boost";
+import Search from "../Components/Search";
+import { Row, Col } from "react-bootstrap";
+import React, { Component } from "react";
+import Filter from "../Components/Filter";
+import Places from "../Components/Places";
 
-const getAllUsers = gql`
-  {
-    users {
-      firstName
-      lastName
-      loginEmail
-      password
-    }
+export default class Reserve extends Component {
+  render() {
+    return (
+      <>
+        <Search />
+        <Row>
+          <Col sm={3} md={3}>
+            <Filter />
+          </Col>
+          <Col sm={9} md={7}>
+            <Places />
+          </Col>
+        </Row>
+      </>
+    );
   }
-`;
-
-function Reserve() {
-  const { loading, error, data } = useQuery(getAllUsers);
-
-  if (loading) return <p>Loading...</p>;
-  if (error) return <p>Error :(</p>;
-
-  return data.users.map(({ firstName, lastName, loginEmail, password }) => (
-    <div key={loginEmail}>
-      <p>
-        Imię i nazwisko: {firstName} {lastName} login i hasło {loginEmail}{" "}
-        {password}
-      </p>
-    </div>
-  ));
 }
-
-export default Reserve;

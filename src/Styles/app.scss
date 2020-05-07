@@ -2,7 +2,7 @@
 @import url(https://fonts.googleapis.com/css2?family=Quicksand&display=swap);
 //global variables
 $phone: 320px;
-$tablet: 960px;
+$tablet: 768px;
 $primaryColor: #af9a7d;
 $mainGreen: #29b347;
 $NavbarColor: #b4d920;
@@ -63,7 +63,9 @@ h6 {
   box-sizing: border-box;
   box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
 }
-
+.nabar-toogle {
+  height: 280px !important;
+}
 .navbar-brand {
   color: black !important;
   display: flex;
@@ -149,32 +151,21 @@ h6 {
 
 //End Styling
 .nav-buttons {
-  font-size: 1.3em;
+  font-size: 1.4em;
   height: 50px;
   margin-left: auto;
-  .nav-button-rent {
+  .nav-button {
     margin-right: 2em;
     display: flex;
     justify-content: center;
     align-items: center;
   }
-  .nav-button-help {
-    margin-right: 2em;
-    padding: 1em;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-  }
-}
-.nav-button-login {
-  margin-right: 1em;
-  font-size: 1.3em;
-  height: 50px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
 }
 
+@media screen and (min-width: 768px) {
+  .nav-buttons {
+  }
+}
 //End navbar
 //Start footbar
 .footer-headers {
@@ -304,4 +295,82 @@ h6 {
       }
     }
   }
+}
+
+.filters {
+  margin: 2em;
+  border: 1px solid black;
+  width: 100%;
+  padding: 2em 1em;
+  font-size: 22px;
+  display: flex;
+  align-items: flex-start;
+  justify-content: flex-start;
+}
+.filters-header {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 30px;
+}
+.filter-section-header {
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+}
+
+//Places
+.places-header {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 50px;
+}
+.places-counter {
+  margin: 1em;
+}
+
+.place-object {
+  border-radius: 36px 36px 90px 0px;
+  background: blue;
+}
+
+.place-name {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.place-image {
+  border-radius: 36px 36px 90px 0px;
+}
+.place-localization {
+  font-size: 0.8em;
+}
+.place-rate {
+  background: #b82525;
+  border-radius: 19px 19px 31px 0px;
+  font-size: large;
+  height: 2.5em;
+  color: black;
+  font-weight: bold;
+}
+.place-name {
+  font-size: 1.5em;
+  line-height: 26px;
+}
+.place-rate-text {
+  font-size: small;
+}
+.no-padding {
+  padding: 0px;
+}
+
+.two {
+  color: white;
+  padding: 1em 2em;
+}
+.center {
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
