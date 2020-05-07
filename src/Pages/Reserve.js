@@ -10,10 +10,10 @@ export default class Reserve extends Component {
       <>
         <Search />
         <Row>
-          <Col sm={3} md={3}>
+          <Col md={3} >
             <Filter />
           </Col>
-          <Col sm={9} md={7}>
+          <Col md={9}>
             <Places />
           </Col>
         </Row>

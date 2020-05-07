@@ -162,10 +162,6 @@ h6 {
   }
 }
 
-@media screen and (min-width: 768px) {
-  .nav-buttons {
-  }
-}
 //End navbar
 //Start footbar
 .footer-headers {
@@ -332,20 +328,13 @@ h6 {
 
 .place-object {
   border-radius: 36px 36px 90px 0px;
-  background: blue;
+  background: #b4d920;
 }
 
-.place-name {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
 .place-image {
   border-radius: 36px 36px 90px 0px;
 }
-.place-localization {
-  font-size: 0.8em;
-}
+
 .place-rate {
   background: #b82525;
   border-radius: 19px 19px 31px 0px;
@@ -355,22 +344,33 @@ h6 {
   font-weight: bold;
 }
 .place-name {
-  font-size: 1.5em;
+  font-size: 2em;
   line-height: 26px;
+  display: flex;
 }
-.place-rate-text {
+.place-text {
   font-size: small;
 }
 .no-padding {
   padding: 0px;
 }
 
-.two {
-  color: white;
-  padding: 1em 2em;
+.place-info {
+  color: black;
+  padding-left: 2em;
+  padding-right: 2em;
 }
+.place-section {
+  margin-top: 1em;
+}
+.place-button {
+  background: #b82525;
+  border-radius: 23px;
+}
+
 .center {
   display: flex;
   align-items: center;
   justify-content: center;
+  flex-direction: column;
 }
