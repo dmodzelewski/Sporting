@@ -1,7 +1,9 @@
-import React, { Component } from "react";
-
-export default class PlaceInfo extends Component {
-  render() {
-    return <div></div>;
-  }
+import React from "react";
+import Header from "../Components/PlaceComponents/Header";
+export default function PlaceInfo() {
+  return (
+    <>
+      <Header />;
+    </>
+  );
 }

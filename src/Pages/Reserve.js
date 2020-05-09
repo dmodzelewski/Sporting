@@ -1,8 +1,8 @@
-import Search from "../Components/Search";
+import Search from "../Components/CommonComponents/Search";
 import { Row, Col } from "react-bootstrap";
 import React, { Component } from "react";
-import Filter from "../Components/Filter";
-import Places from "../Components/Places";
+import Filter from "../Components/ReserveComponents/Filter";
+import Places from "../Components/ReserveComponents/Places";
 
 export default class Reserve extends Component {
   render() {

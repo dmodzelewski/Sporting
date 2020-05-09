@@ -23,7 +23,7 @@ export default class NavigationBar extends Component {
         {console.log(this.state.isOpen)}
         <Navbar.Brand as={Link} to="/">
           <Icon icon={running} className="nav-icon" />
-          <text className="nav-text"> iSportio</text>
+          <h1 className="nav-text"> iSportio</h1>
         </Navbar.Brand>
         <Navbar.Toggle onClick={this.handleToggle} />
 

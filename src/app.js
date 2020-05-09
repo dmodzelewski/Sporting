@@ -3,17 +3,17 @@ import Home from "./Pages/Home";
 import Reserve from "./Pages/Reserve";
 import About from "./Pages/About";
 import Error from "./Pages/Error";
-import Signin from "./Functionality/Signin";
-import NavigationBar from "./Components/NavigationBar";
-import Footer from "./Components/Footer";
+import Signin from "./Components/LoginComponents/Signin";
+import NavigationBar from "./Components/CommonComponents/NavigationBar";
+import Footer from "./Components/CommonComponents/Footer";
 import "./Styles/app.scss";
 import { Route, Switch } from "react-router-dom";
 import ApolloClient from "apollo-boost";
 import { ApolloProvider } from "@apollo/react-hooks";
-import Auth from "./Auth/Auth";
+import Auth from "./Functionality/Auth/Auth";
 import Callback from "./Pages/Callback";
 import Profile from "./Pages/Profile";
-
+import PlaceInfo from "./Pages/PlaceInfo";
 const clientApollo = new ApolloClient({
   // Do zmiany
   uri: "http://isportio.pl:3001/graphql",
@@ -38,7 +38,7 @@ class App extends Component {
             />
             <Route exact path="/reserve" component={Reserve} />
             <Route exact path="/about" component={About} />
-
+            <Route exact path="/placeinfo" component={PlaceInfo} />
             <Route
               exact
               path="/profile"
