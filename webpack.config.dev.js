@@ -20,6 +20,7 @@ module.exports = {
     overlay: true,
     disableHostCheck: true,
     https: false,
+    historyApiFallback: true
   },
   plugins: [
     new HtmlWebPackPlugin({

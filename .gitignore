@@ -110,3 +110,5 @@ electron/
 android/
 ios/
 package-lock.json
+distDev/
+distProd/
