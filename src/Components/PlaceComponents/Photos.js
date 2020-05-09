@@ -9,12 +9,12 @@ export default class Photos extends Component {
           <Row>
             <Col md={6} className="no-padding">
               <Image
-                className="place-image-main"
+                className="place-image-side"
                 src="https://upload.wikimedia.org/wikipedia/commons/thumb/9/92/Backyardpool.jpg/1200px-Backyardpool.jpg"
                 fluid
               />
             </Col>
-            <Col md={6} className="place-image-side">
+            <Col md={6} className="no-padding">
               <Row>
                 <Col md={6} className="no-padding">
                   {" "}

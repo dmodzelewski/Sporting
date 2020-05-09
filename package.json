@@ -4,23 +4,15 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start": "node_modules/.bin/webpack-dev-server --mode development --open --hot",
-    "build": "npx cap copy && npx cap sync && webpack --mode production",
-    "send_build_daniel_dev": "webpack --mode development && scp dist/* modze@isportio.pl:/home/nginx/development/html",
-    "send_build_jedrzej_dev": "scp dist/* rearden@isportio.pl:/home/nginx/development/html",
+    "start": "webpack-dev-server --config webpack.config.dev.js --open --hot",
+    "buildDev": "webpack --config webpack.config.dev.js",
+    "buildProd": "webpack --config webpack.config.prod.js",
+    "send_build_daniel_dev": "npm run buildDev && scp dist/* modze@isportio.pl:/home/nginx/development/html",
+    "send_build_jedrzej_dev": "npm run buildDev && scp dist/* rearden@isportio.pl:/home/nginx/development/html",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
     "url": "https://github.com/dmodzelewski/Sporting"
-  },
-  "babel": {
-    "presets": [
-      "@babel/preset-env",
-      "@babel/preset-react"
-    ],
-    "plugins": [
-      "@babel/plugin-proposal-class-properties"
-    ]
   },
   "author": "",
   "license": "ISC",
