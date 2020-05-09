@@ -102,3 +102,11 @@ dist
 
 # TernJS port file
 .tern-port
+
+distProd/
+distDev/
+GraphQlServer/
+electron/
+android/
+ios/
+package-lock.json

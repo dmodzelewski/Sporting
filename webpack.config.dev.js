@@ -4,38 +4,57 @@ const path = require("path");
 const HtmlWebPackPlugin = require("html-webpack-plugin");
 const dotenv = require("dotenv");
 
+process.env.NODE_ENV = "development";
+
 module.exports = {
-  devtool: "source-map",
+  mode: "development",
+  devtool: "cheap-source-map",
   entry: "./src/index.js",
   output: {
-    path: path.join(__dirname, "/dist"),
-    filename: "index_bundle.js",
+    path: path.join(__dirname, "/distDev"),
     publicPath: "/",
+    filename: "bundle.js",
   },
+  devServer: {
+    stats: "minimal",
+    overlay: true,
+    disableHostCheck: true,
+    https: false,
+  },
+  plugins: [
+    new HtmlWebPackPlugin({
+      hash: true,
+      filename: "index.html",
+      template: "src/index.html",
+      favicon: "src/favicon.ico",
+    }),
+  ],
   module: {
     rules: [
       {
-        test: /\.js$/,
-        exclude: /node_modules/,
-        use: {
-          loader: "babel-loader",
-          options: {
-            presets: ["@babel/preset-react"],
-          },
-        },
-      },
-      {
-        test: /\.js$/,
+        enforce: "pre",
+        test: /\.jsx?$/,
         exclude: /node_modules/,
         use: [
           {
-            loader: require.resolve("eslint-loader"),
+            loader: "eslint-loader",
             options: {
-              eslintPath: require.resolve("eslint"),
+              eslintPath: "eslint",
               emitWarning: true,
             },
           },
         ],
+      },
+      {
+        test: /\.jsx?$/,
+        exclude: /node_modules/,
+        use: {
+          loader: "babel-loader",
+          options: {
+            presets: ["@babel/preset-env", "@babel/preset-react"],
+            plugins: ["@babel/plugin-proposal-class-properties"],
+          },
+        },
       },
       {
         test: /\.(scss)$/,
@@ -69,14 +88,4 @@ module.exports = {
       },
     ],
   },
-  devServer: {
-    historyApiFallback: true,
-  },
-  plugins: [
-    new HtmlWebPackPlugin({
-      hash: true,
-      filename: "index.html", //target html
-      template: "./src/index.html", //source html
-    }),
-  ],
 };
