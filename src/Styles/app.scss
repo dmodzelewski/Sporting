@@ -396,5 +396,8 @@ h6 {
   margin-bottom: 2em;
 }
 //Image
-.place-image-side {
+@media screen and (max-width: $tablet) {
+  .place-image-side {
+    display: none;
+  }
 }
