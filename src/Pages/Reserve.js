@@ -1,9 +1,25 @@
-import React from 'react'
+import Search from "../Components/CommonComponents/Search";
+import { Row, Col } from "react-bootstrap";
+import React, { Component } from "react";
+import Filter from "../Components/ReserveComponents/Filter";
+import Places from "../Components/ReserveComponents/Places";
 
-export default function Reserve() {
+export default class Reserve extends Component {
+  render() {
     return (
-        <div>
-            Rezerwacje
-        </div>
-    )
+      <>
+        <Search />
+        <Row>
+          <Col md={3} >
+            <Filter />
+          </Col>
+          <Col md={9}>
+            <Places />
+            
+          </Col>
+
+        </Row>
+      </>
+    );
+  }
 }

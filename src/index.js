@@ -1,14 +1,17 @@
 /* eslint-disable no-undef */
-import React from 'react';
-import { render } from 'react-dom';
-import App from './app';
-import { BrowserRouter as Router } from "react-router-dom"
+import React from "react";
+import App from "./app";
+import {
+  BrowserRouter as Router,
+  Route,
 
-const rootApp = document.getElementById('app');
+} from "react-router-dom";
+import { render } from "react-dom";
 
+const rootApp = document.getElementById("app");
 render(
-    <Router>
-        <App />
-    </Router>
-    , rootApp);
-
+  <Router>
+    <Route  component={App} />
+  </Router>,
+  rootApp
+);
