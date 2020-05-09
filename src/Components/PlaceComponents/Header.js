@@ -3,12 +3,14 @@ import { Container, Row, Col } from "react-bootstrap";
 
 export default function Header() {
   return (
-    <Container>
+    <Container className="place-header no-padding" fluid>
       <Row>
-        <Col className="center">Basen Jagiełło</Col>
+        <Col className="center place-header-name">Basen Jagiełło</Col>
       </Row>
       <Row>
-        <Col className="center">Ul.Grunwaldzka 12, Gdańsk</Col>
+        <Col className="center place-header-street">
+          Ul.Grunwaldzka 12, Gdańsk
+        </Col>
       </Row>
     </Container>
   );

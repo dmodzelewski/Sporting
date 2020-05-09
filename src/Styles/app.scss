@@ -1,4 +1,4 @@
-@import "node_modules/bootstrap/scss/bootstrap.scss";
+@import "~bootstrap/scss/bootstrap";
 @import url(https://fonts.googleapis.com/css2?family=Quicksand&display=swap);
 //global variables
 $phone: 320px;
@@ -20,7 +20,17 @@ body {
   overflow-x: scroll;
   background: #ffffff;
 }
+.no-padding {
+  padding: 0px;
+}
+.center {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+}
 
+//fonts settings
 h1 {
   font-family: $mainFontFamily;
   font-size: 3em;
@@ -146,7 +156,7 @@ h6 {
   opacity: 1;
   -webkit-transform: translateY(5px);
   transform: translateY(5px);
-  /* move the element down by 5px (it will stay in place because it's attached to the element that also moves up 5px) */
+  /* move the element down by 5px (it will stay in places because it's attached to the element that also moves up 5px) */
 }
 
 //End Styling
@@ -313,7 +323,7 @@ h6 {
   align-items: flex-start;
 }
 
-//Places
+//placess
 
 .places-header {
   display: flex;
@@ -325,16 +335,16 @@ h6 {
   margin: 1em;
 }
 
-.place-object {
+.places-object {
   border-radius: 36px 36px 90px 0px;
   background: #b4d920;
 }
 
-.place-image {
+.places-image {
   border-radius: 36px 36px 90px 0px;
 }
 
-.place-rate {
+.places-rate {
   background: #b82525;
   border-radius: 19px 19px 31px 0px;
   font-size: large;
@@ -342,40 +352,49 @@ h6 {
   color: black;
   font-weight: bold;
 }
-.place-name {
+.places-name {
   font-size: 2em;
   line-height: 26px;
   display: flex;
 }
-.place-text {
+.places-text {
   font-size: small;
 }
-.no-padding {
-  padding: 0px;
-}
 
-.place-info {
+.places-info {
   color: black;
   padding-left: 2em;
   padding-right: 2em;
 }
-.place-section {
+.places-section {
   margin-top: 1em;
 }
-.place-button {
+.places-button {
   background: #b82525;
   border-radius: 23px;
 }
-.place-show-more {
+.places-show-more {
   background: #c93030;
   border-radius: 15px;
   margin: 3em 2em;
   height: 70px;
 }
+//PlaceInfo
 
-.center {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  flex-direction: column;
+//Header
+.place-header {
+  border: 1px solid #000000;
+}
+.place-header-name {
+  font-weight: 500;
+  font-size: 48px;
+  line-height: 60px;
+  margin-top: 1em;
+}
+.place-header-street {
+  margin-top: 0.5em;
+  margin-bottom: 2em;
+}
+//Image
+.place-image-side {
 }

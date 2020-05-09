@@ -8,23 +8,23 @@ export default function Place() {
     history.push("placeinfo");
   }
   return (
-    <Container className="place-object">
+    <Container className="places-object">
       <Row>
         <Col md={4} className="no-padding">
           <Image
-            className="place-image"
+            className="places-image"
             src="https://upload.wikimedia.org/wikipedia/commons/thumb/9/92/Backyardpool.jpg/1200px-Backyardpool.jpg"
             fluid
           />
         </Col>
-        <Col md={8} className="place-info">
+        <Col md={8} className="places-info">
           <Row>
-            <Col className="place-section" md={12}>
+            <Col className="places-section" md={12}>
               <Row>
-                <Col className="place-name center" md={8}>
+                <Col className="places-name center" md={8}>
                   Basen Jagiełło
                 </Col>
-                <Col md={4} className="place-localization">
+                <Col md={4} className="places-localization">
                   <Row>
                     {" "}
                     <Col className="no-padding center">
@@ -42,17 +42,17 @@ export default function Place() {
           </Row>
           <Row>
             {" "}
-            <Col className="place-section" md={12}>
+            <Col className="places-section" md={12}>
               <Row>
                 <Col md={3} className="center">
                   <Row>
-                    <Col className="place-text">liczba pomieszczeń</Col>
+                    <Col className="places-text">liczba pomieszczeń</Col>
                   </Row>
                   <Row>
                     <Col className="">2</Col>
                   </Row>
                   <Row>
-                    <Col className="place-text ceter">Max osób</Col>
+                    <Col className="places-text ceter">Max osób</Col>
                   </Row>
                   <Row>
                     <Col className="">40</Col>
@@ -64,26 +64,26 @@ export default function Place() {
                     <Col md={1}>
                       <FaArrowAltCircleRight />
                     </Col>
-                    <Col className="place-text"> Darmowy Parking</Col>
+                    <Col className="places-text"> Darmowy Parking</Col>
                   </Row>
                   <Row>
                     <Col md={1}>
                       <FaArrowAltCircleRight />
                     </Col>
-                    <Col className="place-text"> Brodzik dla dzieci </Col>
+                    <Col className="places-text"> Brodzik dla dzieci </Col>
                   </Row>
 
                   <Row>
                     <Col md={1}>
                       <FaArrowAltCircleRight />
                     </Col>
-                    <Col className="place-text"> Prysznice</Col>
+                    <Col className="places-text"> Prysznice</Col>
                   </Row>
                   <Row>
                     <Col md={1}>
                       <FaArrowAltCircleRight />
                     </Col>
-                    <Col className="place-text"> Suszarki </Col>
+                    <Col className="places-text"> Suszarki </Col>
                   </Row>
                 </Col>
               </Row>
@@ -91,26 +91,26 @@ export default function Place() {
           </Row>
           <Row>
             {" "}
-            <Col className="place-section" md={12}>
+            <Col className="places-section" md={12}>
               <Row>
                 <Col className="center" md={1}>
                   <Row>
-                    <Col className="place-rate center">2.8</Col>
+                    <Col className="places-rate center">2.8</Col>
                   </Row>
                 </Col>
                 <Col md={2}>
                   <Row>
-                    <Col className="place-text">Średni</Col>
+                    <Col className="places-text">Średni</Col>
                   </Row>
                   <Row>
-                    <Col className="place-text"> 1234 opinii</Col>
+                    <Col className="places-text"> 1234 opinii</Col>
                   </Row>
                 </Col>
                 <Col>
                   <NavLink as={NavLink}>zobacz ceny</NavLink>
                 </Col>
                 <Col>
-                  <Button className="place-button" onClick={InfoHandler}>
+                  <Button className="places-button" onClick={InfoHandler}>
                     Wyświetl szczegóły
                   </Button>{" "}
                 </Col>
