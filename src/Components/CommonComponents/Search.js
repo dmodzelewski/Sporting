@@ -31,7 +31,12 @@ export default function Search() {
                     <Col className="search-filters-headers">Kalendarz</Col>
                   </Row>
                   <Row>
-                    <Col>Zarezerwuj obiekt lub sale treningową</Col>
+                    <Col>
+                      <Form.Control
+                        plaintext
+                        placeholder="Zarezerwuj obiekt lub sale treningową"
+                      />
+                    </Col>
                   </Row>
                 </Col>
                 <hr className="search-line" />

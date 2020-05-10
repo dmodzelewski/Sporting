@@ -22,9 +22,7 @@ export default class Choice extends Component {
             </Row>
             <Row className="choice-sports">
               <Col
-                xs={6}
-                sm={3}
-                md={{ span: 1, offset: 2 }}
+                
                 className="choice-sports-objects"
                 style={{ background: "#819ABE" }}
               >
@@ -38,9 +36,7 @@ export default class Choice extends Component {
                 </Row>
               </Col>
               <Col
-                xs={6}
-                sm={3}
-                md={1}
+             
                 className="choice-sports-objects"
                 style={{ background: "#CBA967" }}
               >
@@ -54,9 +50,7 @@ export default class Choice extends Component {
                 </Row>
               </Col>
               <Col
-                xs={6}
-                sm={3}
-                md={1}
+            
                 className="choice-sports-objects"
                 style={{ background: "#CECECE" }}
               >
@@ -70,9 +64,7 @@ export default class Choice extends Component {
                 </Row>
               </Col>
               <Col
-                xs={6}
-                sm={3}
-                md={1}
+              
                 className="choice-sports-objects"
                 style={{ background: "#B4C084" }}
               >
@@ -86,9 +78,7 @@ export default class Choice extends Component {
                 </Row>
               </Col>
               <Col
-                xs={6}
-                sm={3}
-                md={1}
+              
                 className="choice-sports-objects"
                 style={{ background: "#CDB8D4" }}
               >
@@ -102,9 +92,7 @@ export default class Choice extends Component {
                 </Row>
               </Col>
               <Col
-                xs={6}
-                sm={3}
-                md={1}
+              
                 className="choice-sports-objects"
                 style={{ background: "#CA6D6D" }}
               >
@@ -118,9 +106,7 @@ export default class Choice extends Component {
                 </Row>
               </Col>
               <Col
-                xs={6}
-                sm={3}
-                md={1}
+              
                 className="choice-sports-objects"
                 style={{ background: "#AB9382" }}
               >
@@ -134,9 +120,7 @@ export default class Choice extends Component {
                 </Row>
               </Col>
               <Col
-                xs={6}
-                sm={3}
-                md={1}
+               
                 className="choice-sports-objects"
                 style={{ background: "#DABB6C" }}
               >

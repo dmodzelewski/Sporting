@@ -16,7 +16,7 @@ export default class Places extends Component {
         <br />
 
         <Row>
-          <Col className="place-show-more center">Pokaz Więcej Wyników</Col>
+          <Col className="places-show-more center">Pokaz Więcej Wyników</Col>
         </Row>
       </div>
     );
