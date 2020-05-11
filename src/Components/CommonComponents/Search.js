@@ -2,12 +2,13 @@ import { Container, Col, Row, Button, Form } from "react-bootstrap";
 import { FaSearch } from "react-icons/fa";
 import { useHistory } from "react-router-dom";
 import React from "react";
-
+import Localization from "../SearchComponents/Localization";
 export default function Search() {
   const history = useHistory();
   function SearchHandle() {
     history.push("reserve");
   }
+
   return (
     <Container fluid className="search-bg">
       <Row>
@@ -15,16 +16,7 @@ export default function Search() {
           <Row>
             <Col sm={8} className="search-filters">
               <Row>
-                <Col>
-                  <Row>
-                    <Col className="search-filters-headers">Lokalizacja</Col>
-                  </Row>
-                  <Row>
-                    <Col>
-                      <Form.Control plaintext placeholder="Gdańsk" />
-                    </Col>
-                  </Row>
-                </Col>
+                <Localization />
                 <hr className="search-line" />
                 <Col>
                   <Row>
