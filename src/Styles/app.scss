@@ -194,7 +194,6 @@ h6 {
   background-size: cover;
   .search-object {
     background: white;
-    height: 100px;
     margin: 125px 100px;
     border: 3px solid #000000;
     box-sizing: border-box;
@@ -225,11 +224,7 @@ h6 {
       margin-left: 1em;
     }
   }
-  .search-line {
-    margin-top: 27px;
-    border-left: 30px solid black;
-    transform: rotate(90deg);
-  }
+
   .search-filters {
     margin-top: 18px;
     .search-filters-headers {
@@ -237,6 +232,27 @@ h6 {
     }
   }
 }
+.search-calendarShow {
+  visibility: visible;
+  z-index: 2 !important;
+  height: 30px;
+}
+.search-calendarHide {
+  visibility: hidden;
+  height: 30px;
+}
+@media screen and (max-width: $tablet) {
+  .search-calendarShow {
+    visibility: visible;
+    z-index: 2 !important;
+    height: 30px;
+  }
+  .search-calendarHide {
+    visibility: hidden;
+    height: 30px;
+  }
+}
+
 // End Home Search
 .choice {
   min-height: calc(70vh - 70px);

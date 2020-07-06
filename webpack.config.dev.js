@@ -20,7 +20,7 @@ module.exports = {
     overlay: true,
     disableHostCheck: true,
     https: false,
-    historyApiFallback: true
+    historyApiFallback: true,
   },
   plugins: [
     new HtmlWebPackPlugin({
@@ -58,7 +58,7 @@ module.exports = {
         },
       },
       {
-        test: /\.(scss)$/,
+        test: /\.(sa|sc|c)ss$/,
         use: [
           {
             loader: "style-loader",
