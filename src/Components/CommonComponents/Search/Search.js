@@ -2,9 +2,9 @@ import { Container, Col, Row, Button } from "react-bootstrap";
 import { FaSearch } from "react-icons/fa";
 import { useHistory } from "react-router-dom";
 import React from "react";
-import Localization from "./Localization";
+import Localization from "./Localization/Localization";
 import CalendarField from "./Calendar/CalendarField";
-import PeopleCounter from "./PeopleCounter";
+import PeopleCounter from "./Quantity/PeopleCounter";
 export default function Search() {
   const history = useHistory();
   function SearchHandle() {
@@ -40,8 +40,6 @@ export default function Search() {
           </Row>
         </Col>
       </Row>
-     
-  
     </Container>
   );
 }

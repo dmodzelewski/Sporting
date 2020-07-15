@@ -1,15 +1,47 @@
 import React, { Component } from "react";
 import { Col, Row, Form } from "react-bootstrap";
-
-import CalendarFunction from "./CalendarFunction";
+import Calendar from "react-calendar";
+import "react-calendar/dist/Calendar.css";
 
 export default class CalendarField extends Component {
   state = {
     isClicked: false,
+    date: new Date(),
+  };
+  FormatDate = (dateToFormat) => {
+    const BeginDate = new Intl.DateTimeFormat("pl", {
+      day: "numeric",
+      month: "short",
+    }).format(dateToFormat[0]);
+    const EndDate = new Intl.DateTimeFormat("pl", {
+      day: "numeric",
+      month: "short",
+    }).format(dateToFormat[1]);
+    if (BeginDate == EndDate) {
+      return BeginDate;
+    } else {
+      const FullDate = BeginDate + " - " + EndDate;
+      return FullDate;
+    }
+  };
+  //Set Type of JS object
+  toType = function (obj) {
+    return {}.toString
+      .call(obj)
+      .match(/\s([a-zA-Z]+)/)[1]
+      .toLowerCase();
   };
   Calendarhandler = () => {
     this.setState({ isClicked: !this.state.isClicked });
   };
+  HowMany = (dates) => {
+    if (this.toType(dates)) {
+      console.log(this.FormatDate(dates));
+    } else if (this.toType(dates)) {
+      console.log(dates);
+    }
+  };
+  onChange = (date) => this.setState({ date });
   render() {
     return (
       <Col sm={4}>
@@ -20,8 +52,9 @@ export default class CalendarField extends Component {
           <Col>
             <Form.Control
               plaintext
-              placeholder={"sdsd"}
+              placeholder="Podaj datę"
               onClick={this.Calendarhandler}
+              defaultValue={this.state.date}
             />
             <Col
               className={
@@ -30,8 +63,13 @@ export default class CalendarField extends Component {
                   : "search-calendarHide"
               }
             >
-             
-              <CalendarFunction />
+              <Calendar
+                onChange={this.onChange}
+                value={this.state.date}
+                selectRange={true}
+                showDoubleView={true}
+              />
+              {this.HowMany(this.state.date)}
             </Col>
           </Col>
         </Row>
