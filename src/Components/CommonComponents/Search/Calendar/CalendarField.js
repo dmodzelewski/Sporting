@@ -8,6 +8,7 @@ export default class CalendarField extends Component {
     isClicked: false,
     date: new Date(),
   };
+
   FormatDate = (dateToFormat) => {
     const BeginDate = new Intl.DateTimeFormat("pl", {
       day: "numeric",
@@ -31,17 +32,21 @@ export default class CalendarField extends Component {
       .match(/\s([a-zA-Z]+)/)[1]
       .toLowerCase();
   };
+
   Calendarhandler = () => {
     this.setState({ isClicked: !this.state.isClicked });
   };
+
   HowMany = (dates) => {
     if (this.toType(dates)) {
-      console.log(this.FormatDate(dates));
+      return this.FormatDate(dates);
     } else if (this.toType(dates)) {
-      console.log(dates);
+      return this.FormatDate(dates);
     }
   };
+
   onChange = (date) => this.setState({ date });
+
   render() {
     return (
       <Col sm={4}>
@@ -54,7 +59,8 @@ export default class CalendarField extends Component {
               plaintext
               placeholder="Podaj datę"
               onClick={this.Calendarhandler}
-              defaultValue={this.state.date}
+              defaultValue={this.HowMany(this.state.date)}
+              value={this.HowMany(this.state.date)}
             />
             <Col
               className={
@@ -69,7 +75,6 @@ export default class CalendarField extends Component {
                 selectRange={true}
                 showDoubleView={true}
               />
-              {this.HowMany(this.state.date)}
             </Col>
           </Col>
         </Row>

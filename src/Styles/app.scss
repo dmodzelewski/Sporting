@@ -287,34 +287,24 @@ h6 {
       width: 70vw;
       margin: 0 auto;
       .choice-sports-objects {
-        height: 142px;
         margin-bottom: 12px;
-
         padding: 2px 12px;
         border: 1px solid #000000;
         box-sizing: border-box;
         border-radius: 10px;
       }
-      // .choice-sports-text {
-      //   font-family: Quicksand;
-      //   font-style: normal;
-      //   font-weight: bold;
-      //   font-size: 14px;
-      //   align-items: center !important;
-      //   line-height: 26px;
-      //   display: flex;
-      //   margin-left: 4px;
-      // }
+
       .choice-sports-body {
         background: #ffffff;
         border: 1px solid #000000;
-        box-sizing: border-box;
-        width: 100px;
         border-radius: 50px;
-        margin: 8px 12px 0;
+        margin-left: 0.5rem;
+        margin-right: 0.5rem;
+        padding: 0px;
+        text-align: center;
       }
       .choice-sports-icons {
-        width: 68px;
+        width: 60%;
         height: 100px;
       }
     }
