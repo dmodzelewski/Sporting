@@ -17,6 +17,7 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "@apollo/client": "^3.0.2",
     "@apollo/react-hooks": "^3.1.4",
     "@capacitor/android": "^2.0.1",
     "@capacitor/cli": "^2.0.1",
@@ -39,7 +40,7 @@
     "express": "^4.17.1",
     "express-jwt": "^5.3.3",
     "express-jwt-authz": "^1.0.0",
-    "graphql": "^15.0.0",
+    "graphql": "^15.3.0",
     "jquery": "^3.5.0",
     "json2mq": "^0.2.0",
     "jwks-rsa": "^1.7.0",

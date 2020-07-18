@@ -1,31 +1,27 @@
-import React, { Component } from "react";
+import React from "react";
 import { Col, Row } from "react-bootstrap";
 import Filter from "./Filter";
-var dane = {
-  data: [{ Nazwa: "Gdańsk" }, { Nazwa: "Sopot" }, { Nazwa: "Gdynia" }],
-};
+import { gql } from "@apollo/client";
 
-export default class Localization extends Component {
-  constructor() {
-    super();
-    this.state = {
-      filterString: "",
-    };
+const cities = gql`
+  {
+    cities {
+      NAZWA
+    }
   }
+`;
 
-  render() {
-    return (
-      <Col sm={4}>
-        <Row>
-          <Col className="search-filters-headers">Lokalizacja</Col>
-        </Row>
-        <Row>
-          <Col>
-            <Filter props = {dane}/>
-            
-          </Col>
-        </Row>
-      </Col>
-    );
-  }
+export default function Localization() {
+  return (
+    <Col sm={4}>
+      <Row>
+        <Col className="search-filters-headers">Lokalizacja</Col>
+      </Row>
+      <Row>
+        <Col>
+          <Filter cities={cities} />
+        </Col>
+      </Row>
+    </Col>
+  );
 }

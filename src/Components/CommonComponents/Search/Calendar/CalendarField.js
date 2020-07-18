@@ -59,8 +59,8 @@ export default class CalendarField extends Component {
               plaintext
               placeholder="Podaj datę"
               onClick={this.Calendarhandler}
-              defaultValue={this.HowMany(this.state.date)}
               value={this.HowMany(this.state.date)}
+              readOnly
             />
             <Col
               className={
@@ -71,7 +71,7 @@ export default class CalendarField extends Component {
             >
               <Calendar
                 onChange={this.onChange}
-                value={this.state.date}
+                defaultValue={this.state.date}
                 selectRange={true}
                 showDoubleView={true}
               />
