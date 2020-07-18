@@ -3,6 +3,7 @@ import { Icon } from "@iconify/react";
 import running from "@iconify/icons-mdi/run-fast";
 import { Link, NavLink } from "react-router-dom";
 import { Navbar, Nav } from "react-bootstrap";
+import PropTypes from "prop-types";
 
 export default class NavigationBar extends Component {
   state = {
@@ -70,4 +71,8 @@ export default class NavigationBar extends Component {
       </Navbar>
     );
   }
+}
+
+NavigationBar.propTypes = {
+  auth: PropTypes.bool
 }
