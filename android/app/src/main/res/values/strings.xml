@@ -1,0 +1,7 @@
+<?xml version='1.0' encoding='utf-8'?>
+<resources>
+    <string name="app_name">isportio</string>
+    <string name="title_activity_main">isportio</string>
+    <string name="package_name">com.isportio.android</string>
+    <string name="custom_url_scheme">com.isportio.android</string>
+</resources>

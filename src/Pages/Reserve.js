@@ -1,4 +1,4 @@
-import Search from "../Components/CommonComponents/Search";
+import Search from "../Components/CommonComponents/Search/Search";
 import { Row, Col } from "react-bootstrap";
 import React, { Component } from "react";
 import Filter from "../Components/ReserveComponents/Filter";
@@ -10,14 +10,12 @@ export default class Reserve extends Component {
       <>
         <Search />
         <Row>
-          <Col md={3} >
+          <Col md={3}>
             <Filter />
           </Col>
           <Col md={9}>
             <Places />
-            
           </Col>
-
         </Row>
       </>
     );
