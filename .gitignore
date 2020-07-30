@@ -112,3 +112,4 @@ ios/
 package-lock.json
 distDev/
 distProd/
+.vscode/
