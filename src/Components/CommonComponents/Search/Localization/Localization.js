@@ -1,15 +1,6 @@
 import React from "react";
 import { Col, Row } from "react-bootstrap";
 import Filter from "./Filter";
-import { gql } from "@apollo/client";
-
-const cities = gql`
-  {
-    cities {
-      NAZWA
-    }
-  }
-`;
 
 export default function Localization() {
   return (
@@ -19,7 +10,7 @@ export default function Localization() {
       </Row>
       <Row>
         <Col>
-          <Filter cities={cities} />
+          <Filter />
         </Col>
       </Row>
     </Col>
