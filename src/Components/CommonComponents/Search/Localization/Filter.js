@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 import { gql, useQuery } from "@apollo/client";
 import { Form } from "react-bootstrap";
-import ListOfLocation from "./ListOfLocation";
 
 export default function Filter() {
   const cities = gql`
@@ -41,6 +40,7 @@ export default function Filter() {
         defaultValue=""
         onChange={(e) => GetData()}
       />
+      {/* tu możesz narazie zmieniać */}
       {GetData("Gdańs")}
       {/* 
       <Row>
