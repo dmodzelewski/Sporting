@@ -22,7 +22,7 @@ export default function Filter(props) {
     <div>
       <Form.Control
         plaintext
-        placeholder="Podaj datę"
+        placeholder="Podssaj datę"
         defaultValue=""
         onClick={GetData}
       />
