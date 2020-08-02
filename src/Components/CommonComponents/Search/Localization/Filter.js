@@ -1,26 +1,22 @@
 import React, { useState } from "react";
-import { gql, useQuery } from "@apollo/client";
 import { Form } from "react-bootstrap";
+import { useQuery } from "@apollo/client";
+import PropTypes from "prop-types";
 
-export default function Filter() {
-  const cities = gql`
-    query City($localization: String!) {
-      cities(first: 10, filter: $localization) {
-        NAZWA
-      }
-    }
-  `;
+export default function Filter({ cities }) {
+  const [city, setcity] = useState("");
 
-  function GetData(loc) {
+  function RenderData() {
     const { loading, error, data } = useQuery(cities, {
-      variables: { localization: loc },
+      variables: { localization: city },
       pollInterval: 500,
     });
-    if (loading) return <p>Loading...</p>;
+    if (loading) return <p className="search-filter-city">Loading...</p>;
     if (error) return `Error! ${error.message} `;
+    if (city === "") return "";
     return (
       <>
-        <div className="lol">
+        <div className="search-filter-city">
           <ul>
             {data.cities.map(({ NAZWA }) => (
               <li key={NAZWA}>{NAZWA}</li>
@@ -30,28 +26,24 @@ export default function Filter() {
       </>
     );
   }
-
   return (
     <>
       <Form.Control
+        className="search-filter-city-form"
         plaintext
         placeholder="Podaj miejscowość"
         //Podać aktualną lokalizację
-        defaultValue=""
-        onChange={(e) => GetData()}
+        onChange={(e) => setcity(e.target.value)}
+        value={city}
       />
-      {/* tu możesz narazie zmieniać */}
-      {GetData("Gdańs")}
-      {/* 
-      <Row>
-        <Col className="lol">
-          <ul>
-            {props.cities.map((city) => (
-              <li>{city}</li>
-            ))}
-          </ul>
-        </Col>
-      </Row> */}
+
+      {RenderData()}
     </>
   );
 }
+Filter.propTypes = {
+  cities: PropTypes.object.isRequired,
+};
+Filter.defaultProps = {
+  cities: "",
+};

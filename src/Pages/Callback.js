@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import PropTypes from "prop-types";
 
 export default class Callback extends Component {
   componentDidMount = () => {
@@ -13,3 +14,8 @@ export default class Callback extends Component {
     return <h1>Loading...</h1>;
   }
 }
+
+Callback.propTypes = {
+  auth: PropTypes.object.isRequired,
+  location: PropTypes.object.isRequired,
+};

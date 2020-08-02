@@ -230,22 +230,35 @@ h6 {
     .search-filters-headers {
       font-weight: bold;
     }
-    .lol {
-      // display: none;
-      margin-top: 20px;
-      background-color: $mainGreen;
-      ul {
-        background-color: $NavbarColor;
-        list-style-type: none;
-        li {
-          list-style: none;
-          border: 1px solid #ccc;
-          margin-top: -1px;
-          line-height: 2;
-          padding: 5px 20px;
-          background: white;
-        }
-      }
+  }
+}
+.search-filter-city-form {
+  width: 100%;
+}
+.search-filter-city {
+  position: absolute;
+  width: 85%;
+  border: none;
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 14px;
+  color: rgba(0, 0, 0, 0.73);
+  box-sizing: border-box;
+  outline: none;
+  z-index: 10;
+  ul {
+    list-style-type: none;
+    text-align: left;
+    margin: 0;
+    padding: 0;
+    border-top: 1px solid gray;
+    background-color: silver;
+    li {
+      padding: 10px 5px;
+      cursor: pointer;
+    }
+    li:hover {
+      background: lightgray;
+      text-decoration: underline;
     }
   }
 }

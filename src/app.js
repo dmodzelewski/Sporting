@@ -13,6 +13,7 @@ import Callback from "./Pages/Callback";
 import Profile from "./Pages/Profile";
 import PlaceInfo from "./Pages/PlaceInfo";
 import { ApolloClient, InMemoryCache, ApolloProvider } from "@apollo/client";
+import PropTypes from "prop-types";
 
 const clientApollo = new ApolloClient({
   // Do zmiany
@@ -59,5 +60,7 @@ class App extends Component {
     );
   }
 }
-
+App.propTypes = {
+  history: PropTypes.object.isRequired,
+};
 export default App;
