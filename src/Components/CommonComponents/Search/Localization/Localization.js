@@ -1,9 +1,10 @@
-import React from "react";
+import React, { useState, useCallback } from "react";
 import { Col, Row } from "react-bootstrap";
 import Filter from "./Filter";
 import { gql } from "@apollo/client";
 
-export default function Localization() {
+export default function Localization({ getCity }) {
+  const [city, setCity] = useState("");
   const cities = gql`
     query City($localization: String!) {
       cities(first: 5, filter: $localization) {
@@ -12,6 +13,14 @@ export default function Localization() {
     }
   `;
 
+  const whereis = useCallback(
+    (value) => {
+      setCity(value);
+      getCity(city);
+    },
+    [city, setCity]
+  );
+
   return (
     <Col sm={4}>
       <Row>
@@ -19,7 +28,7 @@ export default function Localization() {
       </Row>
       <Row>
         <Col>
-          <Filter cities={cities} />
+          <Filter cities={cities} getCity={whereis} />
         </Col>
       </Row>
     </Col>

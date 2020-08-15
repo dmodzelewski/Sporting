@@ -1,7 +1,11 @@
 import React, { Component } from "react";
 import { Col, Row, Form } from "react-bootstrap";
+import PropTypes from "prop-types";
 
 export default class PeopleCounter extends Component {
+  SelectHandler = (e) => {
+    this.props.getQuantity(e.target.value);
+  };
   render() {
     return (
       <Col sm={4}>
@@ -13,7 +17,10 @@ export default class PeopleCounter extends Component {
             {" "}
             <Form>
               <Form.Group controlId="exampleForm.ControlSelect1">
-                <Form.Control as="select">
+                <Form.Control
+                  as="select"
+                  onChange={this.SelectHandler.bind(this)}
+                >
                   <option>1</option>
                   <option>2</option>
                   <option>{"<"}10</option>
@@ -27,3 +34,6 @@ export default class PeopleCounter extends Component {
     );
   }
 }
+PeopleCounter.propTypes = {
+  getQuantity: PropTypes.string.isRequired,
+};

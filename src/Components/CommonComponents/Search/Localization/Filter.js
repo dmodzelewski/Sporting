@@ -3,10 +3,12 @@ import { Form } from "react-bootstrap";
 import { useQuery } from "@apollo/client";
 import PropTypes from "prop-types";
 
-export default function Filter({ cities }) {
+export default function Filter({ cities, getCity }) {
   const [city, setcity] = useState("");
+
   const SelectCityHandler = (e) => {
     setcity(e.target.innerHTML.toString());
+    getCity(city);
   };
 
   const { loading, error, data } = useQuery(cities, {
