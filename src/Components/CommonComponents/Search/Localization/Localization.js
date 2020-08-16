@@ -9,6 +9,8 @@ export default function Localization({ getCity }) {
     query City($localization: String!) {
       cities(first: 5, filter: $localization) {
         NAZWA
+        Wojewodztwo
+        Gmina
       }
     }
   `;
@@ -21,7 +23,7 @@ export default function Localization({ getCity }) {
   );
 
   return (
-    <Col sm={4}>
+    <Col sm={3}>
       <Row>
         <Col className="search-filters-headers">Lokalizacja</Col>
       </Row>

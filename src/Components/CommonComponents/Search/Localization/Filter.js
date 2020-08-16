@@ -7,8 +7,13 @@ export default function Filter({ cities, getCity }) {
   const [city, setcity] = useState("");
 
   const SelectCityHandler = (e) => {
-    setcity(e.target.innerHTML.toString());
-    getCity(city);
+    const formatCity = e.target.innerHTML
+      .toString()
+      .split(",")[0]
+      .split(":")[1];
+
+    setcity(formatCity);
+    getCity(formatCity);
   };
 
   const { loading, error, data } = useQuery(cities, {
@@ -24,10 +29,13 @@ export default function Filter({ cities, getCity }) {
     return (
       <>
         <div className="search-filter-city">
-          <ul>
-            {data.cities.map(({ NAZWA }) => (
-              <li key={NAZWA} onClick={SelectCityHandler.bind(this)}>
-                {NAZWA}
+          <ul role="listbox">
+            {data.cities.map(({ NAZWA, Wojewodztwo, Gmina }) => (
+              <li
+                key={NAZWA + Wojewodztwo}
+                onClick={SelectCityHandler.bind(this)}
+              >
+                Miasto: {NAZWA}, Województwo: {Wojewodztwo}, Gmina : {Gmina}
               </li>
             ))}
           </ul>
@@ -52,6 +60,9 @@ export default function Filter({ cities, getCity }) {
 }
 Filter.propTypes = {
   cities: PropTypes.object.isRequired,
+};
+Filter.propTypes = {
+  getCity: PropTypes.func.isRequired,
 };
 Filter.defaultProps = {
   cities: "",

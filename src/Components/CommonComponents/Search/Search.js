@@ -5,12 +5,13 @@ import React, { useCallback, useState } from "react";
 import Localization from "./Localization/Localization";
 import CalendarField from "./Calendar/CalendarField";
 import PeopleCounter from "./Quantity/PeopleCounter";
-import getCurrentPosition from "./Localization/Geo";
+
 export default function Search() {
-  const [city, setCity] = useState();
+  const [city, setCity] = useState("");
   const [date, setDate] = useState();
   const [quantity, setQuantity] = useState(1);
   const history = useHistory();
+
   function SearchHandle() {
     history.push({
       pathname: "/reserve",
@@ -24,7 +25,6 @@ export default function Search() {
     },
     [city, setCity]
   );
-
   const whenis = useCallback(
     (date) => {
       setDate(date);
@@ -37,29 +37,28 @@ export default function Search() {
     },
     [quantity, setQuantity]
   );
+
   return (
     <Container fluid className="search-bg">
       <Row>
         <Col className="search-object">
           <Row>
-            <Col sm={8} className="search-filters">
+            <Col sm={12} className="search-filters">
               <Row>
                 <Localization getCity={whereis} />
-                <hr className="search-line" />
                 <CalendarField getDate={whenis} />
-                <hr className="search-line" />
                 <PeopleCounter getQuantity={howmany} />
+                <Col>
+                  <Button className="search-button" onClick={SearchHandle}>
+                    <Row>
+                      <Col sm={3}>
+                        <FaSearch />
+                      </Col>
+                      <Col sm={{ span: 4, offset: 1 }}>Szukaj</Col>
+                    </Row>
+                  </Button>
+                </Col>
               </Row>
-            </Col>
-            <Col sm={4}>
-              <Button className="search-button" onClick={SearchHandle}>
-                <Row>
-                  <Col sm={3}>
-                    <FaSearch />
-                  </Col>
-                  <Col sm={{ span: 4, offset: 1 }}>Szukaj</Col>
-                </Row>
-              </Button>
             </Col>
           </Row>
         </Col>

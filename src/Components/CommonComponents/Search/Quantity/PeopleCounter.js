@@ -8,7 +8,7 @@ export default class PeopleCounter extends Component {
   };
   render() {
     return (
-      <Col sm={4}>
+      <Col sm={3}>
         <Row>
           <Col className="search-filters-headers">Liczba osób</Col>
         </Row>
