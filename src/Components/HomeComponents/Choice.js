@@ -7,8 +7,8 @@ import {
   FaDumbbell,
   FaQuidditch,
 } from "react-icons/fa";
-
 import { IoMdTennisball } from "react-icons/io";
+
 export default class Choice extends Component {
   render() {
     return (
@@ -22,7 +22,6 @@ export default class Choice extends Component {
             </Row>
             <Row className="choice-sports">
               <Col
-                
                 className="choice-sports-objects"
                 style={{ background: "#819ABE" }}
               >
@@ -36,7 +35,6 @@ export default class Choice extends Component {
                 </Row>
               </Col>
               <Col
-             
                 className="choice-sports-objects"
                 style={{ background: "#CBA967" }}
               >
@@ -50,7 +48,6 @@ export default class Choice extends Component {
                 </Row>
               </Col>
               <Col
-            
                 className="choice-sports-objects"
                 style={{ background: "#CECECE" }}
               >
@@ -64,7 +61,6 @@ export default class Choice extends Component {
                 </Row>
               </Col>
               <Col
-              
                 className="choice-sports-objects"
                 style={{ background: "#B4C084" }}
               >
@@ -78,7 +74,6 @@ export default class Choice extends Component {
                 </Row>
               </Col>
               <Col
-              
                 className="choice-sports-objects"
                 style={{ background: "#CDB8D4" }}
               >
@@ -92,7 +87,6 @@ export default class Choice extends Component {
                 </Row>
               </Col>
               <Col
-              
                 className="choice-sports-objects"
                 style={{ background: "#CA6D6D" }}
               >
@@ -106,7 +100,6 @@ export default class Choice extends Component {
                 </Row>
               </Col>
               <Col
-              
                 className="choice-sports-objects"
                 style={{ background: "#AB9382" }}
               >
@@ -120,7 +113,6 @@ export default class Choice extends Component {
                 </Row>
               </Col>
               <Col
-               
                 className="choice-sports-objects"
                 style={{ background: "#DABB6C" }}
               >

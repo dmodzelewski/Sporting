@@ -6,18 +6,18 @@ import Localization from "./Localization/Localization";
 import CalendarField from "./Calendar/CalendarField";
 import PeopleCounter from "./Quantity/PeopleCounter";
 
-export default function Search() {
+const Search = () => {
   const [city, setCity] = useState("");
   const [date, setDate] = useState();
   const [quantity, setQuantity] = useState(1);
   const history = useHistory();
 
-  function SearchHandle() {
+  const SearchHandle = () => {
     history.push({
       pathname: "/reserve",
       state: { passCity: city, passDate: date, passQuantity: quantity },
     });
-  }
+  };
 
   const whereis = useCallback(
     (place) => {
@@ -65,4 +65,5 @@ export default function Search() {
       </Row>
     </Container>
   );
-}
+};
+export default Search;

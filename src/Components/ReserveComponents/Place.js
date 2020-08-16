@@ -2,7 +2,7 @@ import { Row, Col, Image, Container, NavLink, Button } from "react-bootstrap";
 import { FaArrowAltCircleRight } from "react-icons/fa";
 import React from "react";
 import { useHistory } from "react-router-dom";
-export default function Place() {
+const Place = () => {
   const history = useHistory();
   function InfoHandler() {
     history.push("placeinfo");
@@ -121,4 +121,5 @@ export default function Place() {
       </Row>
     </Container>
   );
-}
+};
+export default Place;

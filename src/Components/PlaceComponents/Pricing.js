@@ -1,7 +1,7 @@
 import React from "react";
 import { Container, Row, Col, Button } from "react-bootstrap";
 
-export default function Pricing() {
+const Pricing = () => {
   return (
     <Container className="center">
       <Row>
@@ -41,4 +41,5 @@ export default function Pricing() {
       </Row>
     </Container>
   );
-}
+};
+export default Pricing;

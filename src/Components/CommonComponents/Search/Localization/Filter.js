@@ -3,7 +3,7 @@ import { Form } from "react-bootstrap";
 import { useQuery } from "@apollo/client";
 import PropTypes from "prop-types";
 
-export default function Filter({ cities, getCity }) {
+const Filter = ({ cities, getCity }) => {
   const [city, setcity] = useState("");
 
   const SelectCityHandler = (e) => {
@@ -21,7 +21,7 @@ export default function Filter({ cities, getCity }) {
     pollInterval: 500,
   });
 
-  function RenderData() {
+  const RenderData = () => {
     if (loading) return <p className="search-filter-city">Loading...</p>;
     if (error) return `Error! ${error.message} `;
     if (city === "") return "";
@@ -42,7 +42,7 @@ export default function Filter({ cities, getCity }) {
         </div>
       </>
     );
-  }
+  };
 
   return (
     <>
@@ -57,7 +57,7 @@ export default function Filter({ cities, getCity }) {
       {RenderData()}
     </>
   );
-}
+};
 Filter.propTypes = {
   cities: PropTypes.object.isRequired,
 };
@@ -67,3 +67,5 @@ Filter.propTypes = {
 Filter.defaultProps = {
   cities: "",
 };
+
+export default Filter;

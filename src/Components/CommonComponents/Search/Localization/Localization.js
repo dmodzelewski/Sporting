@@ -3,7 +3,7 @@ import { Col, Row } from "react-bootstrap";
 import Filter from "./Filter";
 import { gql } from "@apollo/client";
 
-export default function Localization({ getCity }) {
+const Localization = (getCity) => {
   const [city, setCity] = useState("");
   const cities = gql`
     query City($localization: String!) {
@@ -34,4 +34,5 @@ export default function Localization({ getCity }) {
       </Row>
     </Col>
   );
-}
+};
+export default Localization;
