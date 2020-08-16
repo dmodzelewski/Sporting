@@ -7,8 +7,8 @@
     "start": "webpack-dev-server --config webpack.config.dev.js --open --hot",
     "buildDev": "webpack --config webpack.config.dev.js",
     "buildProd": "webpack --config webpack.config.prod.js",
-    "send_build_daniel_dev": "npm run buildDev && scp distDev/* modze@isportio.pl:/home/nginx/development/html",
-    "send_build_jedrzej_dev": "npm run buildDev && scp distDev/* rearden@isportio.pl:/home/nginx/development/html",
+    "send_build_daniel_dev": "npm run buildDev && scp distDev/* modze@159.69.41.224:/var/nginx/development/html",
+    "send_build_jedrzej_dev": "npm run buildDev && scp distDev/* rearden@159.69.41.224:/var/nginx/development/html",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
