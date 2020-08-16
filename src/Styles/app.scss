@@ -232,6 +232,36 @@ h6 {
     }
   }
 }
+.search-filter-city-form {
+  width: 100%;
+}
+.search-filter-city {
+  position: absolute;
+  width: 85%;
+  border: none;
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 14px;
+  color: rgba(0, 0, 0, 0.73);
+  box-sizing: border-box;
+  outline: none;
+  z-index: 10;
+  ul {
+    list-style-type: none;
+    text-align: left;
+    margin: 0;
+    padding: 0;
+    border-top: 1px solid gray;
+    background-color: silver;
+    li {
+      padding: 10px 5px;
+      cursor: pointer;
+    }
+    li:hover {
+      background: lightgray;
+      text-decoration: underline;
+    }
+  }
+}
 .search-calendarShow {
   visibility: visible;
   z-index: 2 !important;
@@ -261,7 +291,7 @@ h6 {
     background: #ffffff;
     border: 3px solid #000000;
     border-radius: 50px;
-    margin: 80px 100px;
+    margin: 1em 1em;
 
     .choice-header {
       margin: 33px 0px;

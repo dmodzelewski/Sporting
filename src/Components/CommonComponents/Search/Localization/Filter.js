@@ -1,31 +1,58 @@
-import React from "react";
-import { useQuery } from "@apollo/client";
+import React, { useState } from "react";
 import { Form } from "react-bootstrap";
+import { useQuery } from "@apollo/client";
+import PropTypes from "prop-types";
 
-export default function Filter(props) {
-  const { loading, error, data } = useQuery(props.cities);
+export default function Filter({ cities, getCity }) {
+  const [city, setcity] = useState("");
 
-  function GetData() {
-    if (loading) return <p>Loading...</p>;
-    if (error) return <p>Error :(</p>;
+  const SelectCityHandler = (e) => {
+    setcity(e.target.innerHTML.toString());
+    getCity(city);
+  };
+
+  const { loading, error, data } = useQuery(cities, {
+    variables: { localization: city },
+    pollInterval: 500,
+  });
+
+  function RenderData() {
+    if (loading) return <p className="search-filter-city">Loading...</p>;
+    if (error) return `Error! ${error.message} `;
+    if (city === "") return "";
+
     return (
       <>
-        {data.cities.map(({ NAZWA }) => (
-          <div key={NAZWA}>
-            <p>{NAZWA}</p>
-          </div>
-        ))}
+        <div className="search-filter-city">
+          <ul>
+            {data.cities.map(({ NAZWA }) => (
+              <li key={NAZWA} onClick={SelectCityHandler.bind(this)}>
+                {NAZWA}
+              </li>
+            ))}
+          </ul>
+        </div>
       </>
     );
   }
+
   return (
-    <div>
+    <>
       <Form.Control
+        className="search-filter-city-form"
         plaintext
-        placeholder="Podaj datę"
-        defaultValue=""
-        onClick={GetData}
+        placeholder="Podaj miejscowość"
+        //Podać aktualną lokalizację
+        onChange={(e) => setcity(e.target.value)}
+        value={city}
       />
-    </div>
+      {RenderData()}
+    </>
   );
 }
+Filter.propTypes = {
+  cities: PropTypes.object.isRequired,
+};
+Filter.defaultProps = {
+  cities: "",
+};

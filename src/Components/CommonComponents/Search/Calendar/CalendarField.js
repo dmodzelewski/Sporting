@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import { Col, Row, Form } from "react-bootstrap";
 import Calendar from "react-calendar";
 import "react-calendar/dist/Calendar.css";
+import PropTypes from "prop-types";
 
 export default class CalendarField extends Component {
   state = {
@@ -19,9 +20,11 @@ export default class CalendarField extends Component {
       month: "short",
     }).format(dateToFormat[1]);
     if (BeginDate == EndDate) {
+      this.props.getDate(BeginDate);
       return BeginDate;
     } else {
       const FullDate = BeginDate + " - " + EndDate;
+      this.props.getDate(FullDate);
       return FullDate;
     }
   };
@@ -82,3 +85,6 @@ export default class CalendarField extends Component {
     );
   }
 }
+CalendarField.propTypes = {
+  getDate: PropTypes.func.isRequired,
+};
