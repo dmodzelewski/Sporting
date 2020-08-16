@@ -1,0 +1,16 @@
+version: '3'
+services:
+  isporio-production:
+    image: "nginx:stable"
+    ports:
+      - "80:80"
+    volumes:
+      - "/var/nginx/production/nginx.conf:/etc/nginx/nginx.conf:ro"
+      - "/var/nginx/production/html:/etc/nginx/html:ro"
+  isporio-development:
+    image: "nginx:stable"
+    ports:
+      - "3000:3000"
+    volumes:
+      - "/var/nginx/development/nginx.conf:/etc/nginx/nginx.conf:ro"
+      - "/var/nginx/development/html:/etc/nginx/html:ro"
