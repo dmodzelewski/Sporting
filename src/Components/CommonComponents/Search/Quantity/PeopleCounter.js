@@ -35,5 +35,5 @@ export default class PeopleCounter extends Component {
   }
 }
 PeopleCounter.propTypes = {
-  getQuantity: PropTypes.string.isRequired,
+  getQuantity: PropTypes.func.isRequired,
 };

@@ -5,26 +5,12 @@ import React, { useCallback, useState } from "react";
 import Localization from "./Localization/Localization";
 import CalendarField from "./Calendar/CalendarField";
 import PeopleCounter from "./Quantity/PeopleCounter";
-import { Plugins } from "@capacitor/core";
-
-const { Geolocation } = Plugins;
-
-class GeolocationExample {
-  async getCurrentPosition() {
-    const coordinates = await Geolocation.getCurrentPosition();
-    console.log("Current", coordinates);
-  }
-
-  watchPosition() {
-    const wait = Geolocation.watchPosition({}, (position, err) => {});
-  }
-}
+import getCurrentPosition from "./Geo";
 export default function Search() {
-  const [city, setCity] = useState(GeolocationExample.getCurrentPosition);
+  const [city, setCity] = useState();
   const [date, setDate] = useState();
-  const [quantity, setQuantity] = useState(0);
+  const [quantity, setQuantity] = useState(1);
   const history = useHistory();
-
   function SearchHandle() {
     history.push({
       pathname: "/reserve",

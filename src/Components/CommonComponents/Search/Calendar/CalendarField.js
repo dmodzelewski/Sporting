@@ -86,5 +86,5 @@ export default class CalendarField extends Component {
   }
 }
 CalendarField.propTypes = {
-  getDate: PropTypes.string.isRequired,
+  getDate: PropTypes.func.isRequired,
 };
