@@ -15,8 +15,7 @@ export default function Localization({ getCity }) {
 
   const whereis = useCallback(
     (value) => {
-      setCity(value);
-      getCity(city);
+      getCity(value);
     },
     [city, setCity]
   );

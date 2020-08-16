@@ -74,5 +74,5 @@ export default class NavigationBar extends Component {
 }
 
 NavigationBar.propTypes = {
-  auth: PropTypes.object
-}
+  auth: PropTypes.object,
+};
