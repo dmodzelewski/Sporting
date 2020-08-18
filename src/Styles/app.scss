@@ -363,7 +363,11 @@ h6 {
   justify-content: center;
   align-items: flex-start;
 }
-
+.filter-price {
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+}
 //placess
 
 .places-header {

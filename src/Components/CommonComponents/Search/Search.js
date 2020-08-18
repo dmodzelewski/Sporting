@@ -10,6 +10,7 @@ const Search = () => {
   const [city, setCity] = useState("");
   const [date, setDate] = useState();
   const [quantity, setQuantity] = useState(1);
+
   const history = useHistory();
 
   const SearchHandle = () => {

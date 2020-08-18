@@ -58,7 +58,6 @@ const Place = () => {
                     <Col className="">40</Col>
                   </Row>
                 </Col>
-                {/* Zastosować map */}
                 <Col md={3}>
                   <Row>
                     <Col md={1}>
@@ -90,7 +89,6 @@ const Place = () => {
             </Col>
           </Row>
           <Row>
-            {" "}
             <Col className="places-section" md={12}>
               <Row>
                 <Col className="center" md={1}>
@@ -112,7 +110,7 @@ const Place = () => {
                 <Col>
                   <Button className="places-button" onClick={InfoHandler}>
                     Wyświetl szczegóły
-                  </Button>{" "}
+                  </Button>
                 </Col>
               </Row>
             </Col>
