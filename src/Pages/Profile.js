@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import PropTypes from "prop-types";
 
 class Profile extends Component {
   state = {
@@ -37,5 +38,7 @@ class Profile extends Component {
     );
   }
 }
-
+Profile.propTypes = {
+  auth: PropTypes.object.isRequired,
+};
 export default Profile;

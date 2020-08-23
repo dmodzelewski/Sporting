@@ -5,7 +5,7 @@ import { Row, Col } from "react-bootstrap";
 import Informations from "../Components/PlaceComponents/Informations";
 import Pricing from "../Components/PlaceComponents/Pricing";
 
-export default function PlaceInfo() {
+const PlaceInfo = () => {
   return (
     <>
       <Header />
@@ -15,10 +15,10 @@ export default function PlaceInfo() {
           <Informations />
         </Col>
         <Col md={4}>
-          
           <Pricing />
         </Col>
       </Row>
     </>
   );
-}
+};
+export default PlaceInfo;

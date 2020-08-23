@@ -8,15 +8,17 @@ import NavigationBar from "./Components/CommonComponents/NavigationBar";
 import Footer from "./Components/CommonComponents/Footer";
 import "./Styles/app.scss";
 import { Route, Switch } from "react-router-dom";
-import ApolloClient from "apollo-boost";
-import { ApolloProvider } from "@apollo/react-hooks";
 import Auth from "./Functionality/Auth/Auth";
 import Callback from "./Pages/Callback";
 import Profile from "./Pages/Profile";
 import PlaceInfo from "./Pages/PlaceInfo";
+import { ApolloClient, InMemoryCache, ApolloProvider } from "@apollo/client";
+import PropTypes from "prop-types";
+
 const clientApollo = new ApolloClient({
   // Do zmiany
-  uri: "http://isportio.pl:3001/graphql",
+  uri: "http://159.69.41.224:3001/graphql",
+  cache: new InMemoryCache(),
 });
 
 class App extends Component {
@@ -58,5 +60,7 @@ class App extends Component {
     );
   }
 }
-
+App.propTypes = {
+  history: PropTypes.object.isRequired,
+};
 export default App;

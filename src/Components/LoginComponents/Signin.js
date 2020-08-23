@@ -10,6 +10,7 @@ import {
   ListGroup,
   ListGroupItem,
 } from "react-bootstrap";
+import PropTypes from "prop-types";
 
 export default class Signin extends Component {
   render() {
@@ -50,3 +51,6 @@ export default class Signin extends Component {
     );
   }
 }
+Signin.propTypes = {
+  auth: PropTypes.string.isRequired,
+};

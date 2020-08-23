@@ -1,7 +1,7 @@
 import React from "react";
 import { Container, Row, Col } from "react-bootstrap";
 import { FaCheckSquare } from "react-icons/fa";
-export default function Informations() {
+const Informations = () => {
   return (
     <Container>
       <Row>
@@ -63,22 +63,26 @@ export default function Informations() {
                   <FaCheckSquare />
                 </Col>
                 <Col>Darmowy Parking</Col>
-              </Row>{" "}<Row>
+              </Row>{" "}
+              <Row>
                 <Col md={1}>
                   <FaCheckSquare />
                 </Col>
                 <Col>Darmowy Parking</Col>
-              </Row>{" "}<Row>
+              </Row>{" "}
+              <Row>
                 <Col md={1}>
                   <FaCheckSquare />
                 </Col>
                 <Col>Darmowy Parking</Col>
-              </Row>{" "}<Row>
+              </Row>{" "}
+              <Row>
                 <Col md={1}>
                   <FaCheckSquare />
                 </Col>
                 <Col>Darmowy Parking</Col>
-              </Row>{" "}<Row>
+              </Row>{" "}
+              <Row>
                 <Col md={1}>
                   <FaCheckSquare />
                 </Col>
@@ -90,4 +94,5 @@ export default function Informations() {
       </Row>
     </Container>
   );
-}
+};
+export default Informations;

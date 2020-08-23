@@ -13,6 +13,7 @@ export default class Auth {
       scope: "openid profile email",
     });
   }
+
   login = () => {
     this.auth0.authorize();
   };
@@ -36,7 +37,7 @@ export default class Auth {
     localStorage.setItem("id_token", authResult.idToken);
     localStorage.setItem("expires_at", expiresAt);
   };
-  isAuthenticatetd() {
+  isAuthenticateted() {
     const expiresAt = JSON.parse(localStorage.getItem("expires_at"));
     return new Date().getTime() < expiresAt;
   }

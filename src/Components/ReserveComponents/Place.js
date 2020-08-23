@@ -2,7 +2,7 @@ import { Row, Col, Image, Container, NavLink, Button } from "react-bootstrap";
 import { FaArrowAltCircleRight } from "react-icons/fa";
 import React from "react";
 import { useHistory } from "react-router-dom";
-export default function Place() {
+const Place = () => {
   const history = useHistory();
   function InfoHandler() {
     history.push("placeinfo");
@@ -58,7 +58,6 @@ export default function Place() {
                     <Col className="">40</Col>
                   </Row>
                 </Col>
-                {/* Zastosować map */}
                 <Col md={3}>
                   <Row>
                     <Col md={1}>
@@ -90,7 +89,6 @@ export default function Place() {
             </Col>
           </Row>
           <Row>
-            {" "}
             <Col className="places-section" md={12}>
               <Row>
                 <Col className="center" md={1}>
@@ -112,7 +110,7 @@ export default function Place() {
                 <Col>
                   <Button className="places-button" onClick={InfoHandler}>
                     Wyświetl szczegóły
-                  </Button>{" "}
+                  </Button>
                 </Col>
               </Row>
             </Col>
@@ -121,4 +119,5 @@ export default function Place() {
       </Row>
     </Container>
   );
-}
+};
+export default Place;
