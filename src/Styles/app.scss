@@ -68,6 +68,7 @@ h6 {
 }
 //Start navbar
 .navbar {
+  align-items: unset !important;
   height: 90px;
   background: #b4d920;
   box-sizing: border-box;
@@ -162,7 +163,6 @@ h6 {
 //End Styling
 .nav-buttons {
   font-size: 1.4em;
-  height: 50px;
   margin-left: auto;
   .nav-button {
     margin-right: 2em;
@@ -171,7 +171,11 @@ h6 {
     align-items: center;
   }
 }
-
+@media screen and (min-width: $tablet) {
+  .navbar {
+    height: 90px !important;
+  }
+}
 //End navbar
 //Start footbar
 .footer-headers {
@@ -209,19 +213,13 @@ h6 {
     background: #8aa718;
     box-shadow: 0px 6px 4px rgba(0, 0, 0, 0.42);
     border-radius: 17px;
-    margin: 26px 0;
-    margin-left: 2em;
-    padding-right: 2em;
-    font-style: normal;
-    font-weight: normal;
     font-size: 24px;
     line-height: 30px;
     display: flex;
-    align-items: center;
+    margin-top: 10px;
   }
-  @media screen and (max-width: $tablet) {
+  @media screen and (max-width: $phone) {
     .search-button {
-      margin-left: 1em;
     }
   }
 
@@ -292,7 +290,6 @@ h6 {
     border: 3px solid #000000;
     border-radius: 50px;
     margin: 5vw;
-    
 
     .choice-header {
       margin: 33px 0px;
@@ -333,7 +330,6 @@ h6 {
         margin-right: 0.5rem;
         padding: 0px;
         text-align: center;
-        
       }
       .choice-sports-icons {
         width: 100%;
@@ -367,7 +363,11 @@ h6 {
   justify-content: center;
   align-items: flex-start;
 }
-
+.filter-price {
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+}
 //placess
 
 .places-header {

@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { Carousel } from "react-bootstrap";
-export default function Slider() {
+
+const Slider = () => {
   const [index, setIndex] = useState(0);
 
   const handleSelect = (selectedIndex) => {
@@ -48,4 +49,5 @@ export default function Slider() {
       </Carousel.Item>
     </Carousel>
   );
-}
+};
+export default Slider;

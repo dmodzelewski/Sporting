@@ -21,7 +21,6 @@ export default class NavigationBar extends Component {
         expand="lg"
         className={this.state.isOpen ? "nabar-toogle" : "navbar"}
       >
-        {console.log(this.state.isOpen)}
         <Navbar.Brand as={Link} to="/">
           <Icon icon={running} className="nav-icon" />
           <h1 className="nav-text"> iSportio</h1>
@@ -74,5 +73,5 @@ export default class NavigationBar extends Component {
 }
 
 NavigationBar.propTypes = {
-  auth: PropTypes.object
-}
+  auth: PropTypes.object,
+};

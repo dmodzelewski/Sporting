@@ -52,7 +52,7 @@ export default class CalendarField extends Component {
 
   render() {
     return (
-      <Col sm={4}>
+      <Col sm={3}>
         <Row>
           <Col className="search-filters-headers">Kalendarz</Col>
         </Row>
@@ -75,8 +75,6 @@ export default class CalendarField extends Component {
               <Calendar
                 onChange={this.onChange}
                 defaultValue={this.state.date}
-                selectRange={true}
-                showDoubleView={true}
               />
             </Col>
           </Col>

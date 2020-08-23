@@ -17,7 +17,7 @@ import PropTypes from "prop-types";
 
 const clientApollo = new ApolloClient({
   // Do zmiany
-  uri: "http://isportio.pl:3001/graphql",
+  uri: "http://159.69.41.224:3001/graphql",
   cache: new InMemoryCache(),
 });
 

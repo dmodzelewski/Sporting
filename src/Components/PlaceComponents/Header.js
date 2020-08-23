@@ -1,7 +1,7 @@
 import React from "react";
 import { Container, Row, Col } from "react-bootstrap";
 
-export default function Header() {
+const Header = () => {
   return (
     <Container className="place-header no-padding" fluid>
       <Row>
@@ -14,4 +14,5 @@ export default function Header() {
       </Row>
     </Container>
   );
-}
+};
+export default Header;
