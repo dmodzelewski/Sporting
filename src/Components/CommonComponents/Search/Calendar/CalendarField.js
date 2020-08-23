@@ -75,8 +75,6 @@ export default class CalendarField extends Component {
               <Calendar
                 onChange={this.onChange}
                 defaultValue={this.state.date}
-                selectRange={true}
-                showDoubleView={true}
               />
             </Col>
           </Col>
