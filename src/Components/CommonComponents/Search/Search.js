@@ -6,11 +6,35 @@ import PropTypes from "prop-types";
 import { useQuery } from "@apollo/client";
 import React, { useCallback, useState } from "react";
 import CalendarField from "./Calendar/CalendarField";
-import PeopleCounter from "./Quantity/PeopleCounter";
+import AddIcon from "@material-ui/icons/Add";
+import RemoveIcon from "@material-ui/icons/Remove";
+import { Plugins } from "@capacitor/core";
+
+const { Geolocation } = Plugins;
+let long = 0;
+let lat = 0;
+let currentCityLocation = "";
+async function getCurrentPosition() {
+  const coordinates = await Geolocation.getCurrentPosition(true);
+  long = coordinates.coords.longitude;
+  lat = coordinates.coords.latitude;
+}
+// do zrobienia
+async function getCityFromOSM() {
+  getCurrentPosition();
+  const place =
+    "https://nominatim.openstreetmap.org/reverse?format=jsonv2&lat=" +
+    lat +
+    "&lon=" +
+    long;
+  const response = await fetch(place);
+  const JSONdata = await response.json();
+  currentCityLocation = JSONdata.address.municipality;
+}
 
 const Search = () => {
-  const [city, setCity] = useState("");
-  const [date, setDate] = useState();
+  const [city, setCity] = useState("Gdańsk");
+  const [date, setDate] = useState(Date.now);
   const [quantity, setQuantity] = useState(1);
 
   const history = useHistory();
@@ -60,9 +84,16 @@ const Search = () => {
       </>
     );
   };
-
-  // calendar part
-
+  try {
+    console.log(currentCityLocation);
+  } catch (error) {
+    console.log(error);
+  }
+  const CheckNegative = () => {
+    if (quantity > 1) {
+      setQuantity(quantity - 1);
+    }
+  };
   const SearchHandle = () => {
     history.push({
       pathname: "/reserve",
@@ -76,12 +107,6 @@ const Search = () => {
     },
     [date, setDate]
   );
-  const howmany = useCallback(
-    (count) => {
-      setQuantity(count);
-    },
-    [quantity, setQuantity]
-  );
 
   return (
     <Container fluid className="search-bg">
@@ -92,12 +117,13 @@ const Search = () => {
               <Row>
                 <Col sm={3}>
                   <Row>
-                    <Col className="search-filters-headers">Lokalizacja</Col>
+                    <Col>
+                      <b>Lokalizacja</b>
+                    </Col>
                   </Row>
                   <Row>
                     <Col>
                       <Form.Control
-                        className="search-filter-city-form"
                         plaintext
                         placeholder="Podaj miejscowość"
                         //Podać aktualną lokalizację
@@ -109,7 +135,21 @@ const Search = () => {
                   </Row>
                 </Col>
                 <CalendarField getDate={whenis} />
-                <PeopleCounter getQuantity={howmany} />
+                <Col sm={3}>
+                  <Row>
+                    <Col>
+                      <b> Liczba osób</b>
+                    </Col>
+                  </Row>
+                  <Row>
+                    <Col className="search-filters-quantity">
+                      <RemoveIcon onClick={() => CheckNegative()} />
+                      {quantity}
+                      <AddIcon onClick={() => setQuantity(quantity + 1)} />
+                    </Col>
+                  </Row>
+                </Col>
+
                 <Col>
                   <Button className="search-button" onClick={SearchHandle}>
                     <Row>
@@ -134,4 +174,9 @@ Search.propTypes = {
 };
 Search.propTypes = {
   getCity: PropTypes.func.isRequired,
+};
+Search.defaultProps = {
+  passCity: "Gdańsk",
+  passDate: Date.now,
+  passQuantity: 1,
 };

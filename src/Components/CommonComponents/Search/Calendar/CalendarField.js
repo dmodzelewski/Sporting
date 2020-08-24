@@ -9,7 +9,7 @@ export default class CalendarField extends Component {
     isClicked: false,
     date: new Date(),
   };
-
+  
   FormatDate = (dateToFormat) => {
     const BeginDate = new Intl.DateTimeFormat("pl", {
       day: "numeric",
@@ -54,7 +54,9 @@ export default class CalendarField extends Component {
     return (
       <Col sm={3}>
         <Row>
-          <Col className="search-filters-headers">Kalendarz</Col>
+          <Col>
+            <b>Kalendarz</b>
+          </Col>
         </Row>
         <Row>
           <Col>

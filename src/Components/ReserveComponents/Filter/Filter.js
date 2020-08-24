@@ -1,9 +1,10 @@
 import React from "react";
-import { Row, Col, Form } from "react-bootstrap";
+import { Row, Col } from "react-bootstrap";
 import PriceFilter from "./PriceFilter";
+import ReviewFilter from "./ReviewFilter";
+import FreeFilter from "./FreeFilter";
 
 const Filter = () => {
-
   return (
     <>
       <Row>
@@ -13,31 +14,16 @@ const Filter = () => {
         <Col className="filter-section-header">Bezpłatne</Col>
       </Row>
       <Row className="filters">
-        <Col>
-          <Form>
-            <Form.Group as={Row} controlId="formHorizontalCheck">
-              <Col md={10}>
-                <Form.Check className="checkbox" label="Darmowy Parking" />
-              </Col>
-            </Form.Group>
-            <Form.Group as={Row} controlId="formHorizontalCheck">
-              <Col md={10}>
-                <Form.Check label="Dzieci - Wstęp Wolny" />
-              </Col>
-            </Form.Group>
-            <Form.Group as={Row} controlId="formHorizontalCheck">
-              <Col md={10}>
-                <Form.Check label="Darmowe akcesoria" />
-              </Col>
-            </Form.Group>
-          </Form>
-        </Col>
+        <FreeFilter />
       </Row>
-
       <Row>
         <Col className="filter-section-header">Cena</Col>
       </Row>
       <PriceFilter />
+      <Row>
+        <Col className="filter-section-header">Ocena</Col>
+      </Row>
+      <ReviewFilter />
     </>
   );
 };

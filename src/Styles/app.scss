@@ -218,20 +218,24 @@ h6 {
     display: flex;
     margin-top: 10px;
   }
-  @media screen and (max-width: $phone) {
-    .search-button {
-    }
-  }
 
   .search-filters {
     margin-top: 18px;
-    .search-filters-headers {
-      font-weight: bold;
-    }
   }
 }
-.search-filter-city-form {
-  width: 100%;
+
+.search-filters-quantity {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex: 0.4;
+  margin-top: 7px;
+}
+
+.search-filter-inputs {
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 .search-filter-city {
   position: absolute;
