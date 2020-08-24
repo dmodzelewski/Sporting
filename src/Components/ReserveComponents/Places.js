@@ -1,5 +1,5 @@
 import React from "react";
-import { Row, Col } from "react-bootstrap";
+import { Row, Col, Button } from "react-bootstrap";
 import Place from "./Place";
 
 const Places = () => {
@@ -12,11 +12,13 @@ const Places = () => {
         <Col className="places-counter">12 z 123 obiektów</Col>
       </Row>
 
-      <Place className="place" />
+      <Place  />
       <br />
 
       <Row>
-        <Col className="places-show-more center">Pokaz Więcej Wyników</Col>
+        <Button className="places-show-more center">
+          Pokaz Więcej Wyników
+        </Button>
       </Row>
     </>
   );

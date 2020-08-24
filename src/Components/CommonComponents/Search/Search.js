@@ -20,7 +20,7 @@ async function getCurrentPosition() {
   lat = coordinates.coords.latitude;
 }
 // do zrobienia
-async function getCityFromOSM() {
+async () => {
   getCurrentPosition();
   const place =
     "https://nominatim.openstreetmap.org/reverse?format=jsonv2&lat=" +
@@ -30,10 +30,10 @@ async function getCityFromOSM() {
   const response = await fetch(place);
   const JSONdata = await response.json();
   currentCityLocation = JSONdata.address.municipality;
-}
+};
 
 const Search = () => {
-  const [city, setCity] = useState("Gdańsk");
+  const [city, setCity] = useState("");
   const [date, setDate] = useState(Date.now);
   const [quantity, setQuantity] = useState(1);
 

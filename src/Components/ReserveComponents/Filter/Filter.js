@@ -7,9 +7,7 @@ import FreeFilter from "./FreeFilter";
 const Filter = () => {
   return (
     <>
-      <Row>
-        <Col className="filters-header">Filtry</Col>
-      </Row>
+    
       <Row>
         <Col className="filter-section-header">Bezpłatne</Col>
       </Row>

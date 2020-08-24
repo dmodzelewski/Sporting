@@ -347,11 +347,13 @@ h6 {
     }
   }
 }
-
+.reserve {
+  margin-top: 5vh;
+}
 .filters {
-  border: 1px solid black;
+  border-bottom: 1px solid rgb(221, 210, 210);
   padding: 2em 1em;
-  font-size: 22px;
+  font-size: 14px;
   display: flex;
   align-items: flex-start;
   justify-content: flex-start;

@@ -1,5 +1,5 @@
 import Search from "../Components/CommonComponents/Search/Search";
-import { Row, Col } from "react-bootstrap";
+import { Row, Col, Container } from "react-bootstrap";
 import React, { Component } from "react";
 import Filter from "../Components/ReserveComponents/Filter/Filter";
 import Places from "../Components/ReserveComponents/Places";
@@ -10,14 +10,16 @@ export default class Reserve extends Component {
     return (
       <>
         <Search />
-        <Row>
-          <Col md={3}>
-            <Filter />
-          </Col>
-          <Col md={9}>
-            <Places />
-          </Col>
-        </Row>
+        <Container className="reserve">
+          <Row>
+            <Col md={3}>
+              <Filter />
+            </Col>
+            <Col md={9}>
+              <Places />
+            </Col>
+          </Row>
+        </Container>
       </>
     );
   }
