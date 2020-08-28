@@ -9,16 +9,13 @@ const Places = () => {
         <Col className="places-header">Obiekty Sportowe</Col>
       </Row>
       <Row>
-        <Col className="places-counter">12 z 123 obiektów</Col>
+        <Col>12 z 123 obiektów</Col>
       </Row>
-
-      <Place  />
+      <Place />
       <br />
 
       <Row>
-        <Button className="places-show-more center">
-          Pokaz Więcej Wyników
-        </Button>
+        <Button className="places-show-more">Pokaz Więcej Wyników</Button>
       </Row>
     </>
   );

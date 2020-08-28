@@ -12,7 +12,7 @@ export default class Reserve extends Component {
         <Search />
         <Container className="reserve">
           <Row>
-            <Col md={3}>
+            <Col className="filter" md={3}>
               <Filter />
             </Col>
             <Col md={9}>
@@ -26,9 +26,4 @@ export default class Reserve extends Component {
 }
 Reserve.propTypes = {
   location: PropTypes.object.isRequired,
-};
-Reserve.defaultProps = {
-  passCity: "Gdańsk",
-  passDate: Date.now,
-  passQuantity: 1,
 };

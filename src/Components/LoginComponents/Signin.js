@@ -14,7 +14,7 @@ import PropTypes from "prop-types";
 
 export default class Signin extends Component {
   render() {
-    const { isAuthenticatetd, login } = this.props.auth;
+    const { isAuthenticateted, login } = this.props.auth;
     return (
       <Container fluid className="ContainerSingin">
         <Row>
@@ -37,7 +37,7 @@ export default class Signin extends Component {
               </Card>
               <Form.Group as={Row}>
                 <Col sm={{ span: 8, offset: 4 }}>
-                  {isAuthenticatetd() ? (
+                  {isAuthenticateted() ? (
                     <Link to="/profile">Wyświetl Profil</Link>
                   ) : (
                     <Button onClick={login}>Wejdź do ISportio!</Button>

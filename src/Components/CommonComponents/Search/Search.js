@@ -172,9 +172,7 @@ export default Search;
 Search.propTypes = {
   cities: PropTypes.object.isRequired,
 };
-Search.propTypes = {
-  getCity: PropTypes.func.isRequired,
-};
+
 Search.defaultProps = {
   passCity: "Gdańsk",
   passDate: Date.now,

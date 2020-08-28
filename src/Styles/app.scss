@@ -375,60 +375,59 @@ h6 {
   justify-content: center;
 }
 //placess
-
+.places-centerColumn {
+  margin: 16px 24px 0 16px;
+  height: 100%;
+  width: 350px;
+  display: flex;
+  flex-direction: column;
+}
+.places-name {
+  display: flex;
+  flex: none;
+  margin-bottom: 20px;
+  font-size: 20px;
+  font-weight: 600;
+  line-height: 24px;
+}
+.places-assessment {
+  display: flex;
+  margin-bottom: 4px;
+  width: 100%;
+}
 .places-header {
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 50px;
+  font-size: 4em;
 }
 .places-counter {
   margin: 1em;
 }
 
 .places-object {
-  border-radius: 36px 36px 90px 0px;
+  border-radius: 10px;
   background: #b4d920;
-}
-
-.places-image {
-  border-radius: 36px 36px 90px 0px;
-}
-
-.places-rate {
-  background: #b82525;
-  border-radius: 19px 19px 31px 0px;
-  font-size: large;
-  height: 2.5em;
-  color: black;
-  font-weight: bold;
-}
-.places-name {
-  font-size: 2em;
-  line-height: 26px;
+  height: 208px;
   display: flex;
 }
-.places-text {
-  font-size: small;
+.places-border {
+  border: 1px solid black;
 }
-
-.places-info {
-  color: black;
-  padding-left: 2em;
-  padding-right: 2em;
-}
-.places-section {
-  margin-top: 1em;
-}
-.places-button {
-  background: #b82525;
-  border-radius: 23px;
+.places-photo {
+  height: 208px;
+  width: 100%;
+  border-radius: 10px;
 }
 .places-show-more {
-  background: #c93030;
+  margin-left: 1em;
+  margin-right: 1em;
   border-radius: 15px;
-  margin: 3em 2em;
-  height: 70px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  height: 8vh;
 }
 //PlaceInfo
 
