@@ -381,12 +381,13 @@ h6 {
 }
 //placess
 .places-centerColumn {
-  margin: 16px 24px 0 16px;
   height: 208px;
   width: 350px;
+  margin: 16px 24px 0 16px;
   display: flex;
   flex-direction: column;
   .places-name {
+    flex-grow: 1;
     display: flex;
     margin-bottom: auto;
     font-size: 20px;
@@ -396,7 +397,8 @@ h6 {
 
   .places-assessment {
     font-size: 12px;
-
+    display: flex;
+    margin-bottom: 6px;
     .places-score {
       color: wheat;
       background-color: red;
@@ -411,24 +413,72 @@ h6 {
       margin: 1px 0 0;
     }
   }
+  .places-tags-wrap {
+    max-height: 16px;
+    overflow: hidden;
+    font-size: 12px;
+    padding: 0px;
+    .places-tags {
+      display: flex;
+      flex-direction: row;
+      flex-wrap: wrap;
+      .tag {
+        white-space: nowrap;
+      }
+    }
+  }
+}
+.places-localization {
+  display: flex;
+  border-top: 1px solid #7b94154f;
+  flex-direction: column;
+  padding-top: 8px;
+  width: 100%;
+  font-size: 13px;
+  .places-localization-link {
+    color: #0b7b99;
+    cursor: pointer;
+    font-weight: 600;
+  }
+  .places-localization-place {
+    margin-bottom: 8px;
+  }
 }
 .places-endColumn {
   display: flex;
+  border-left: 1px solid #7b94154f;
   flex-direction: column;
+  padding: 12px;
+}
+.places-price {
+  display: flex;
+  flex-direction: row;
+  align-items: flex-end;
   justify-content: space-between;
+
+  .places-stack {
+    display: flex;
+
+    font-size: 20px;
+    line-height: 42px;
+    font-weight: 600;
+  }
+  .places-button {
+    display: flex;
+
+    border-radius: 4px;
+    width: 102px;
+    padding: 8px 0;
+    text-align: center;
+    font-size: 14px;
+    line-height: 20px;
+    max-width: 102px;
+    background-image: linear-gradient(135deg, #ff690f 0%, #ee4719 100%);
+    color: #fff;
+    border: none;
+  }
 }
-.places-map {
-  justify-content: flex-end;
-  display: flex;
-  flex-grow: 0;
-}
-.places-button {
-  margin: 20px;
-  display: flex;
-  flex-grow: 0;
-  padding: 0px;
-  justify-content: space-around;
-}
+
 .places-header {
   display: flex;
   align-items: center;
@@ -438,7 +488,9 @@ h6 {
 .places-counter {
   margin: 1em;
 }
-
+.places-price {
+  display: flex;
+}
 .places-photo {
   height: 100%;
   width: 100%;

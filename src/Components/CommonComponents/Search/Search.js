@@ -29,8 +29,8 @@ let abc = async () => {
     long;
   const response = await fetch(place);
   const JSONdata = await response.json();
-  console.log(JSONdata);
   currentCityLocation = JSONdata.address.municipality;
+  console.log(currentCityLocation);
 };
 
 const Search = () => {
@@ -49,6 +49,7 @@ const Search = () => {
       }
     }
   `;
+
   const SelectCityHandler = (e) => {
     const formatCity = e.target.innerHTML
       .toString()
@@ -86,7 +87,7 @@ const Search = () => {
     );
   };
   try {
-    console.log(abc());
+    abc();
   } catch (error) {
     console.log(error);
   }
@@ -97,7 +98,7 @@ const Search = () => {
   };
   const SearchHandle = () => {
     history.push({
-      pathname: "/reserve:sdld",
+      pathname: "/reserve",
       state: { passCity: city, passDate: date, passQuantity: quantity },
     });
   };

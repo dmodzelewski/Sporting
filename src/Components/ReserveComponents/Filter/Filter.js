@@ -11,7 +11,7 @@ const Filter = () => {
         <Col className="filter-section-header">Udogodnienia</Col>
       </Row>
       <Row className="filters">
-        <FacilitiesFilter />
+        <FacilitiesFilter aria-expanded="true" />
       </Row>
       <Row>
         <Col className="filter-section-header">Cena</Col>
