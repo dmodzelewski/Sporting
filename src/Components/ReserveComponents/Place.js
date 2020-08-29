@@ -19,16 +19,21 @@ const Place = () => {
           </Col>
           <Col className="places-centerColumn no-padding">
             <Col className="places-name no-padding">Basen Jagiełło</Col>
-            <Row className="places-assessment">
-              <Col>Ocena</Col>
-              <Col>Liczba Opinii</Col>
-            </Row>
-
-            <Col>Cennik</Col>
+            <Col>
+              <Row className="places-assessment">
+                <div className="places-score">9.0</div>
+                <div className="places-opinions">124 opinie</div>
+              </Row>
+            </Col>
+            <Col className="places-price">Cennik</Col>
           </Col>
-          <Col>
-            <NavLink as={NavLink}>zobacz ceny</NavLink>
-            <Button onClick={InfoHandler}>Wyświetl szczegóły</Button>
+          <Col className="places-endColumn">
+            <Col className="places-map">
+              <NavLink as={NavLink}>Pokaż na mapie</NavLink>
+            </Col>
+            <Col className="places-button">
+              <Button onClick={InfoHandler}>Wyświetl szczegóły</Button>
+            </Col>
           </Col>
         </Row>
       </Container>

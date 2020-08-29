@@ -20,7 +20,7 @@ async function getCurrentPosition() {
   lat = coordinates.coords.latitude;
 }
 // do zrobienia
-async () => {
+let abc = async () => {
   getCurrentPosition();
   const place =
     "https://nominatim.openstreetmap.org/reverse?format=jsonv2&lat=" +
@@ -29,6 +29,7 @@ async () => {
     long;
   const response = await fetch(place);
   const JSONdata = await response.json();
+  console.log(JSONdata);
   currentCityLocation = JSONdata.address.municipality;
 };
 
@@ -85,7 +86,7 @@ const Search = () => {
     );
   };
   try {
-    console.log(currentCityLocation);
+    console.log(abc());
   } catch (error) {
     console.log(error);
   }
@@ -96,7 +97,7 @@ const Search = () => {
   };
   const SearchHandle = () => {
     history.push({
-      pathname: "/reserve",
+      pathname: "/reserve:sdld",
       state: { passCity: city, passDate: date, passQuantity: quantity },
     });
   };
