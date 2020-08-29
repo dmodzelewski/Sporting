@@ -564,12 +564,18 @@ h6 {
   margin: 0.2em;
 }
 .place-price-buttons {
+  cursor: pointer;
   border: 2px solid #000000;
   border-radius: 50px;
-  width: 100px;
-  height: 100px;
+  width: 100px !important;
+  height: 100px !important;
   font-size: 54px;
   color: black;
+}
+.place-price-buttons:hover {
+  background-color: "#0069d9";
+  border-color: #0062cc;
+  color: #0062cc;
 }
 .price-text-hours {
   font-size: 45px;

@@ -4,6 +4,7 @@ import Photos from "../Components/PlaceComponents/Photos";
 import { Row, Col } from "react-bootstrap";
 import Informations from "../Components/PlaceComponents/Informations";
 import Pricing from "../Components/PlaceComponents/Pricing";
+import Comments from "../Components/PlaceComponents/Comments";
 
 const PlaceInfo = () => {
   return (
@@ -18,6 +19,7 @@ const PlaceInfo = () => {
           <Pricing />
         </Col>
       </Row>
+      <Comments />
     </>
   );
 };

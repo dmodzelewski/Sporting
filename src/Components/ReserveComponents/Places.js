@@ -17,7 +17,7 @@ const Places = () => {
       <br />
 
       <Row>
-        <Button className="places-show-more" onClick={(x) => showMore()}>
+        <Button className="places-show-more" onClick={() => showMore()}>
           Pokaz Więcej Wyników
         </Button>
       </Row>

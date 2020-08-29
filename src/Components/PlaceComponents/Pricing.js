@@ -1,11 +1,21 @@
-import React from "react";
+import React, { useState } from "react";
 import { Container, Row, Col, Button } from "react-bootstrap";
+import AddIcon from "@material-ui/icons/Add";
+import RemoveIcon from "@material-ui/icons/Remove";
 
 const Pricing = () => {
+  const [price, setprice] = useState(10);
+  const [hour, sethour] = useState(0);
+
+  const subHour = () => {
+    if (hour > 0) {
+      sethour(hour - 1);
+    }
+  };
   return (
     <Container className="center">
       <Row>
-        <Col className="place-price-value">Od 30 zł/h</Col>
+        <Col className="place-price-value">Cena 30 zł/h</Col>
       </Row>
       <Row>
         <Col>
@@ -23,22 +33,23 @@ const Pricing = () => {
             <Col className="place-price-header center">ilość godzin</Col>
           </Row>
           <Row>
-            <Col>
-              <Button variant="light" className="place-price-buttons">
-                -
-              </Button>
-            </Col>
-            <Col className="price-text-hours">2</Col>
-            <Button variant="light" className="place-price-buttons">
-              +
-            </Button>
-            <Col></Col>
+            <RemoveIcon
+              className="place-price-buttons"
+              onClick={() => subHour()}
+            />
+
+            <Col className="price-text-hours">{hour}</Col>
+            <AddIcon
+              className="place-price-buttons"
+              onClick={() => sethour(hour + 1)}
+            />
           </Row>
         </Col>
       </Row>
       <Row>
-        <Col>Razem: 60zł</Col>
+        <Col>Razem: {price * hour}zł</Col>
       </Row>
+      <Button>Rezerwuj</Button>
     </Container>
   );
 };
