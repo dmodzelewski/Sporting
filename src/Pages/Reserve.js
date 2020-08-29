@@ -9,7 +9,6 @@ export default class Reserve extends Component {
   render() {
     return (
       <>
-        {console.log(this.props.location.state.passCity)}
         <Search />
         <Container className="reserve">
           <Row>
