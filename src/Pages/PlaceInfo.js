@@ -1,7 +1,7 @@
 import React from "react";
 import Header from "../Components/PlaceComponents/Header";
 import Photos from "../Components/PlaceComponents/Gallery";
-import { Row, Col, Container } from "react-bootstrap";
+import { Col, Container } from "react-bootstrap";
 import Informations from "../Components/PlaceComponents/Informations";
 import Pricing from "../Components/PlaceComponents/Pricing";
 import Comments from "../Components/PlaceComponents/Comments";
@@ -22,16 +22,16 @@ const PlaceInfo = () => {
       <Container>
         <Header {...props} />
         <Photos />
-        <Row>
-          <Col md={7}>
+        <Col className="place-middleColumn">
+          <Col className="place-text">
             <Informations />
           </Col>
-          <Col md={4}>
+          <Col>
             <Pricing />
           </Col>
-        </Row>
+        </Col>
+
         <Col>
-          <Map />
           <Comments />
         </Col>
       </Container>

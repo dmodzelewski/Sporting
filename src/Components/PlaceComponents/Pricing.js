@@ -13,44 +13,32 @@ const Pricing = () => {
     }
   };
   return (
-    <Container className="center">
-      <Row>
+    <>
+      <Col className="place-price">
         <Col className="place-price-value">Cena 30 zł/h</Col>
-      </Row>
-      <Row>
-        <Col>
-          <Row>
-            <Col className="place-price-header center">Data</Col>
-          </Row>
-          <Row>
-            <Col className="place-price-data">30.06.2018</Col>
-          </Row>
-        </Col>
-      </Row>
-      <Row>
-        <Col>
-          <Row>
-            <Col className="place-price-header center">ilość godzin</Col>
-          </Row>
-          <Row>
-            <RemoveIcon
-              className="place-price-buttons"
-              onClick={() => subHour()}
-            />
 
-            <Col className="price-text-hours">{hour}</Col>
-            <AddIcon
-              className="place-price-buttons"
-              onClick={() => sethour(hour + 1)}
-            />
-          </Row>
-        </Col>
-      </Row>
-      <Row>
-        <Col>Razem: {price * hour}zł</Col>
-      </Row>
-      <Button>Rezerwuj</Button>
-    </Container>
+        <Col className="place-price-header center">Data</Col>
+
+        <Col className="place-price-data">30.06.2018</Col>
+
+        <Col className="place-price-header center">ilość godzin</Col>
+        <Row>
+          <RemoveIcon
+            className="place-price-buttons"
+            onClick={() => subHour()}
+          />
+
+          <Col className="price-text-hours">{hour}</Col>
+          <AddIcon
+            className="place-price-buttons"
+            onClick={() => sethour(hour + 1)}
+          />
+        </Row>
+
+        <Col className="place-price-result">Razem: {price * hour}zł</Col>
+      </Col>
+      <Button className="">Rezerwuj</Button>
+    </>
   );
 };
 export default Pricing;

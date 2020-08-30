@@ -11,6 +11,7 @@ const Informations = () => {
         </Col>
 
         <ShowMoreText
+          className="place-text"
           lines={8}
           more="Show more"
           less="Show less"
@@ -46,7 +47,7 @@ const Informations = () => {
           exercitation sint.
         </ShowMoreText>
       </Col>
-      <Row>
+      {/* <Row>
         <Col>
           <Row>
             <Col className="place-text-header">Udogodnienia</Col>
@@ -92,7 +93,7 @@ const Informations = () => {
             </Col>
           </Row>
         </Col>
-      </Row>
+      </Row> */}
     </>
   );
 };

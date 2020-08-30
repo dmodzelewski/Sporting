@@ -609,6 +609,14 @@ h6 {
   margin: 1.3em 0 0.7em;
 }
 .place-text {
+  display: flex;
+  text-align: justify;
+  text-justify: inter-word;
+  overflow-y: visible;
+}
+.place-middleColumn {
+  display: flex;
+  flex-wrap: wrap;
 }
 .place-benefits {
   grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
@@ -617,11 +625,18 @@ h6 {
   width: 70vw;
   margin: 12px;
 }
-
+.place-price {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
 .place-price-value {
-  font-weight: 500;
+  font-weight: 600;
   font-size: 36px;
   margin: 0.2em;
+  display: flex;
+  justify-content: center;
 }
 .place-price-header {
   font-weight: 500;
@@ -629,7 +644,9 @@ h6 {
 }
 .place-price-data {
   font-size: 48px;
-  margin: 0.2em;
+
+  display: flex;
+  justify-content: center;
 }
 .place-price-buttons {
   cursor: pointer;
@@ -640,6 +657,12 @@ h6 {
   font-size: 54px;
   color: black;
 }
+.place-price-result {
+  margin-top: 20px;
+  display: flex;
+  justify-content: flex-end;
+  font-size: 24px;
+}
 .place-price-buttons:hover {
   background-color: "#0069d9";
   border-color: #0062cc;
@@ -648,4 +671,12 @@ h6 {
 .price-text-hours {
   font-size: 45px;
   margin: 0.2em;
+}
+.place-commentbox {
+  display: flex;
+  margin-top: 20px;
+}
+.place-add-comment {
+  display: flex;
+  flex-direction: column;
 }
