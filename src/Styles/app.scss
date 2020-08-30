@@ -67,6 +67,12 @@ h6 {
   margin-bottom: 1.5em;
 }
 //Start navbar
+.Slider {
+  height: 70vh;
+}
+.Slider-main {
+  margin-bottom: 50px;
+}
 .navbar {
   align-items: unset !important;
   height: 90px;
@@ -510,37 +516,99 @@ h6 {
 }
 //PlaceInfo
 
-//Header
 .place-header {
-  border: 1px solid #000000;
+  display: flex;
+  flex-direction: column;
+  min-height: 78px;
+  margin-top: 25px;
+  margin-bottom: 24px;
+  .place-header-name {
+    font-size: 27px;
+    font-weight: 700;
+    margin-bottom: 6px;
+  }
+  .place-header-street-icon {
+    margin-right: 5px;
+    color: green;
+  }
+  .place-header-link-address {
+    display: inline;
+    color: black;
+    font-size: 16px;
+  }
 }
-.place-header-name {
-  font-weight: 500;
-  font-size: 48px;
-  line-height: 60px;
-  margin-top: 1em;
+
+.place-gallery {
+  display: flex;
+  flex-wrap: wrap;
+  text-rendering: optimizeSpeed;
+  z-index: 6;
+  .place-gallery-main {
+    display: flex;
+    justify-content: center;
+    z-index: 6;
+    height: 429px;
+  }
+  .place-gallery-main-arrow {
+    z-index: 6;
+    color: black;
+    top: 0;
+    width: 36px;
+    align-items: center;
+    display: flex;
+  }
+  .place-gallery-main-placeholder {
+    height: 429px;
+    z-index: 6;
+
+    background-size: cover;
+    background-position: center;
+    ul {
+      position: absolute;
+      font-size: 0 !important;
+      height: 100%;
+      left: 0;
+      z-index: 2;
+
+      top: 0;
+      list-style: none;
+      margin: 0;
+      padding: 0;
+      white-space: nowrap;
+      transition: transform 0.4s ease;
+      li {
+        height: 429px;
+        display: inline-block;
+        position: relative;
+        z-index: 1;
+      }
+    }
+  }
+  .place-gallery-main-photo {
+    width: 100%;
+    height: 429px;
+    opacity: 0;
+    display: block;
+    transition: opacity 0.4s ease;
+    cursor: pointer;
+    border-radius: 4px 0 0 4px;
+    opacity: 1;
+    border-radius: 4px 0 0 4px;
+  }
 }
-.place-header-street {
-  margin-top: 0.5em;
-  margin-bottom: 2em;
-}
-.place-image-main {
-  background: red;
+
+.place-text-block {
+  height: 250px;
 }
 .place-text-header {
-  font-weight: bold;
-  text-align: left;
+  font-size: 24px;
+  font-weight: 600;
   margin: 12px;
+  border-top: 2px black solid;
+  line-height: normal;
+  margin: 1.3em 0 0.7em;
 }
 .place-text {
-  margin: 12px;
-  text-align: justify;
-  display: block; /* or inline-block */
-  text-overflow: ellipsis;
-  word-wrap: break-word;
-  overflow: hidden;
-  max-height: 10em;
-  line-height: 1.8em;
 }
 .place-benefits {
   grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
@@ -580,10 +648,4 @@ h6 {
 .price-text-hours {
   font-size: 45px;
   margin: 0.2em;
-}
-//Image
-@media screen and (max-width: $tablet) {
-  .place-image-side {
-    display: none;
-  }
 }
