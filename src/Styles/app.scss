@@ -253,7 +253,7 @@ h6 {
   color: rgba(0, 0, 0, 0.73);
   box-sizing: border-box;
   outline: none;
-  z-index: 10;
+  z-index: 2;
   ul {
     list-style-type: none;
     text-align: left;
@@ -542,11 +542,10 @@ h6 {
   display: flex;
   flex-wrap: wrap;
   text-rendering: optimizeSpeed;
-  z-index: 6;
   .place-gallery-main {
     display: flex;
+
     justify-content: center;
-    z-index: 6;
     height: 429px;
   }
   .place-gallery-main-arrow {
@@ -559,30 +558,9 @@ h6 {
   }
   .place-gallery-main-placeholder {
     height: 429px;
-    z-index: 6;
-
+    position: relative;
     background-size: cover;
     background-position: center;
-    ul {
-      position: absolute;
-      font-size: 0 !important;
-      height: 100%;
-      left: 0;
-      z-index: 2;
-
-      top: 0;
-      list-style: none;
-      margin: 0;
-      padding: 0;
-      white-space: nowrap;
-      transition: transform 0.4s ease;
-      li {
-        height: 429px;
-        display: inline-block;
-        position: relative;
-        z-index: 1;
-      }
-    }
   }
   .place-gallery-main-photo {
     width: 100%;
@@ -600,6 +578,9 @@ h6 {
 .place-text-block {
   height: 250px;
 }
+.place-comment-header {
+  padding-right: 20px;
+}
 .place-text-header {
   font-size: 24px;
   font-weight: 600;
@@ -613,6 +594,7 @@ h6 {
   text-align: justify;
   text-justify: inter-word;
   overflow-y: visible;
+  max-height: 150px;
 }
 .place-middleColumn {
   display: flex;
@@ -672,11 +654,125 @@ h6 {
   font-size: 45px;
   margin: 0.2em;
 }
-.place-commentbox {
+
+.place-commentbox-row {
   display: flex;
-  margin-top: 20px;
+  flex-wrap: wrap;
 }
 .place-add-comment {
   display: flex;
   flex-direction: column;
+}
+.place-add-comment-row {
+  display: flex;
+}
+.place-comment-label {
+  display: flex !important;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  margin: 20px 0px;
+}
+.place-comment-textfield {
+  width: 100%;
+  border: 1px solid black !important;
+}
+.place-comment-input {
+  display: flex !important;
+  justify-content: center;
+  align-items: center !important;
+}
+.place-comment-toast {
+  position: absolute;
+  z-index: 2;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.place-comment-button {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 10px;
+}
+.place-comment {
+  flex-wrap: wrap;
+  text-rendering: optimizespeed;
+}
+.place-comment-review {
+  display: flex;
+  margin-bottom: 0;
+  padding: 0;
+  ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    li {
+      list-style: none;
+      .place-comment-reviewbox {
+        padding-bottom: 28px;
+        padding-top: 28px;
+        border-bottom: 1px solid #e5ebf0;
+        .place-comment-rev-up {
+          display: flex;
+          flex-wrap: wrap;
+          text-rendering: optimizespeed;
+          .place-comment-info {
+            font-weight: 600;
+            font-size: 12px;
+            line-height: 15px;
+            margin-bottom: 7px;
+            letter-spacing: initial;
+            text-transform: none;
+          }
+          .place-comment-date {
+            min-width: 25%;
+            width: auto;
+            padding-left: 54px;
+            font-weight: 600;
+            font-size: 12px;
+            line-height: 15px;
+            color: #647582;
+          }
+        }
+        .place-comment-rev-box-down {
+          display: flex;
+          flex-wrap: wrap;
+          text-rendering: optimizeSpeed;
+          .place-comment-rev-box {
+            display: flex;
+            justify-content: flex-start;
+            margin-top: 10px;
+            font-size: 14px;
+            line-height: 18px;
+            flex: 0.25;
+
+            .place-comment-rev-rating {
+              min-width: 100px;
+              display: flex;
+              align-items: flex-start;
+              justify-content: flex-start;
+            }
+          }
+          .place-comment-rev-textbox {
+            display: flex;
+            flex-direction: column;
+            width: 100%;
+            p {
+              font-size: 1em;
+              overflow: hidden;
+              text-overflow: ellipsis;
+              margin-bottom: 2px;
+              justify-content: flex-start;
+              margin-top: 10px;
+            }
+          }
+        }
+      }
+    }
+  }
+}
+.place-comment-scroll {
+  max-height: 300px;
+  overflow-y: scroll;
 }

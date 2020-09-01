@@ -20,7 +20,9 @@ const Filter = () => {
       <Row>
         <Col className="filter-section-header">Ocena</Col>
       </Row>
-      <ReviewFilter />
+      <Col className="filters">
+        <ReviewFilter isReadOnly={false} />
+      </Col>
     </>
   );
 };

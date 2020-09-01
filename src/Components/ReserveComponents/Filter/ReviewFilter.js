@@ -20,29 +20,25 @@ const ReviewFilter = () => {
   const [value, setValue] = React.useState(3);
   const [hover, setHover] = React.useState(-1);
   return (
-    <Row className="filters">
-      <Col>
-        <Form className="center">
-          <div>
-            <Rating
-              name="hover-feedback"
-              value={value}
-              size="large"
-              precision={0.5}
-              onChange={(event, newValue) => {
-                setValue(newValue);
-              }}
-              onChangeActive={(event, newHover) => {
-                setHover(newHover);
-              }}
-            />
-          </div>
-          {value !== null && (
-            <Box ml={2}>{labels[hover !== -1 ? hover : value]}</Box>
-          )}
-        </Form>
-      </Col>
-    </Row>
+    <Form className="center">
+      <div>
+        <Rating
+          name="hover-feedback"
+          value={value}
+          size="large"
+          precision={0.5}
+          onChange={(event, newValue) => {
+            setValue(newValue);
+          }}
+          onChangeActive={(event, newHover) => {
+            setHover(newHover);
+          }}
+        />
+      </div>
+      {value !== null && (
+        <Box ml={2}>{labels[hover !== -1 ? hover : value]}</Box>
+      )}
+    </Form>
   );
 };
 

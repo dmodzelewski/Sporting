@@ -16,60 +16,12 @@ const Photos = () => {
               <ArrowBackIcon />
             </a>
             <Col className="no-padding place-gallery-main-placeholder">
-              <ul
-                style={{
-                  transform: "translateX(0)",
-                }}
-              >
-                <li>
-                  <Col>
-                    <Image
-                      className="place-gallery-main-photo"
-                      src="https://upload.wikimedia.org/wikipedia/commons/thumb/9/92/Backyardpool.jpg/1200px-Backyardpool.jpg"
-                    />
-                  </Col>
-                </li>{" "}
-                <li>
-                  <Col>
-                    <Image
-                      className="place-gallery-main-photo"
-                      src="https://upload.wikimedia.org/wikipedia/commons/thumb/9/92/Backyardpool.jpg/1200px-Backyardpool.jpg"
-                    />
-                  </Col>
-                </li>{" "}
-                <li>
-                  <Col>
-                    <Image
-                      className="place-gallery-main-photo"
-                      src="https://upload.wikimedia.org/wikipedia/commons/thumb/9/92/Backyardpool.jpg/1200px-Backyardpool.jpg"
-                    />
-                  </Col>
-                </li>{" "}
-                <li>
-                  <Col>
-                    <Image
-                      className="place-gallery-main-photo"
-                      src="https://upload.wikimedia.org/wikipedia/commons/thumb/9/92/Backyardpool.jpg/1200px-Backyardpool.jpg"
-                    />
-                  </Col>
-                </li>{" "}
-                <li>
-                  <Col>
-                    <Image
-                      className="place-gallery-main-photo"
-                      src="https://upload.wikimedia.org/wikipedia/commons/thumb/9/92/Backyardpool.jpg/1200px-Backyardpool.jpg"
-                    />
-                  </Col>
-                </li>{" "}
-                <li>
-                  <Col>
-                    <Image
-                      className="place-gallery-main-photo"
-                      src="https://upload.wikimedia.org/wikipedia/commons/thumb/9/92/Backyardpool.jpg/1200px-Backyardpool.jpg"
-                    />
-                  </Col>
-                </li>
-              </ul>
+              <Col>
+                <Image
+                  className="place-gallery-main-photo"
+                  src="https://upload.wikimedia.org/wikipedia/commons/thumb/9/92/Backyardpool.jpg/1200px-Backyardpool.jpg"
+                />
+              </Col>
             </Col>
 
             <a className="place-gallery-main-arrow">
