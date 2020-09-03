@@ -1,0 +1,46 @@
+import React from "react";
+import Paper from "@material-ui/core/Paper";
+import { ViewState } from "@devexpress/dx-react-scheduler";
+import {
+  Scheduler,
+  DayView,
+  WeekView,
+  DateNavigator,
+  Appointments,
+  TodayButton,
+  Toolbar,
+  ViewSwitcher,
+} from "@devexpress/dx-react-scheduler-material-ui";
+
+const currentDate = "2018-11-01";
+const schedulerData = [
+  {
+    startDate: "2018-11-01T09:45",
+    endDate: "2018-11-01T11:00",
+    title: "Meeting",
+  },
+  {
+    startDate: "2018-11-01T12:00",
+    endDate: "2018-11-01T13:30",
+    title: "Go to a gym",
+  },
+];
+const Schedule = () => {
+  return (
+    <>
+      <Paper>
+        <Scheduler data={schedulerData}>
+          <ViewState currentDate={currentDate} defaultCurrentViewName="Week" />
+          <DayView startDayHour={9} endDayHour={14} />
+          <WeekView startDayHour={10} endDayHour={19} />
+          <Toolbar />
+          <DateNavigator />
+          <TodayButton />
+          <ViewSwitcher />
+          <Appointments />
+        </Scheduler>
+      </Paper>
+    </>
+  );
+};
+export default Schedule;

@@ -1,12 +1,17 @@
 import React, { useState } from "react";
-import { Container, Row, Col, Button } from "react-bootstrap";
+import { Row, Col, Button } from "react-bootstrap";
 import AddIcon from "@material-ui/icons/Add";
 import RemoveIcon from "@material-ui/icons/Remove";
+import { useHistory } from "react-router-dom";
 
 const Pricing = () => {
   const [price, setprice] = useState(10);
   const [hour, sethour] = useState(0);
+  const history = useHistory();
 
+  const handleReservation = () => {
+    history.push("scheduler");
+  };
   const subHour = () => {
     if (hour > 0) {
       sethour(hour - 1);
@@ -37,7 +42,9 @@ const Pricing = () => {
 
         <Col className="place-price-result">Razem: {price * hour}zł</Col>
       </Col>
-      <Button className="">Rezerwuj</Button>
+      <Button className="" onClick={() => handleReservation()}>
+        Rezerwuj
+      </Button>
     </>
   );
 };

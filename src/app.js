@@ -3,6 +3,7 @@ import Home from "./Pages/Home";
 import Reserve from "./Pages/Reserve";
 import About from "./Pages/About";
 import Error from "./Pages/Error";
+import Schedule from "./Pages/Schedule";
 import Signin from "./Components/LoginComponents/Signin";
 import NavigationBar from "./Components/CommonComponents/NavigationBar";
 import Footer from "./Components/CommonComponents/Footer";
@@ -41,6 +42,7 @@ class App extends Component {
             <Route exact path="/reserve" component={Reserve} />
             <Route exact path="/about" component={About} />
             <Route exact path="/placeinfo" component={PlaceInfo} />
+            <Route exact path="/scheduler" component={Schedule} />
             <Route
               exact
               path="/profile"
