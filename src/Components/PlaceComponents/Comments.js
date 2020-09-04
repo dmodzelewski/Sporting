@@ -14,6 +14,7 @@ const Comments = () => {
   const [Opinions, setOpinions] = useState([]);
   const [Name, setName] = useState("");
   const [Text, setText] = useState("");
+  const currentDate = new Date();
   const AddOpinions = (event) => {
     event.preventDefault();
     setOpinions([
@@ -33,39 +34,50 @@ const Comments = () => {
         <Col className="place-comment-review no-padding">
           <Col style={{ position: "relative", padding: "0px" }}>
             <ul className="place-comment-scroll">
-              {Opinions.map((item) => (
-                <li
-                  key={item.id}
-                  className="place-comment-onereview no-padding"
-                >
-                  <Col className="place-comment-reviewbox no-padding">
-                    <Col className="place-comment-rev-up no-padding">
-                      <Col className="place-comment-info no-padding">
-                        Słaby <span>3.0</span>
-                      </Col>
-                      <Col className="place-comment-date">
-                        Dodano cze 2020, autor: {item.name}
-                      </Col>
-                    </Col>
-                    <Col className="place-comment-rev-box-down">
-                      <Col className="place-comment-rev-box">
-                        <Col>
-                          <Rating
-                            readOnly={true}
-                            name="hover-feedback"
-                            value={value}
-                            size="large"
-                            precision={0.5}
-                          />
+              {Opinions.length === 0 ? (
+                <h1>Brak Komentarzy</h1>
+              ) : (
+                Opinions.map((item) => (
+                  <li
+                    key={item.id}
+                    className="place-comment-onereview no-padding"
+                  >
+                    <Col className="place-comment-reviewbox no-padding">
+                      <Col className="place-comment-rev-up no-padding">
+                        <Col className="place-comment-info no-padding">
+                          Słaby <span>3.0</span>
+                        </Col>
+                        <Col className="place-comment-date">
+                          Dodano{" "}
+                          {currentDate.getDay() +
+                            "." +
+                            currentDate.getMonth() +
+                            "." +
+                            currentDate.getFullYear() +
+                            " "}
+                          , autor: {item.name}
                         </Col>
                       </Col>
-                      <Col className="place-comment-rev-textbox">
-                        <p>{item.text}</p>
+                      <Col className="place-comment-rev-box-down">
+                        <Col className="place-comment-rev-box">
+                          <Col>
+                            <Rating
+                              readOnly={true}
+                              name="hover-feedback"
+                              value={value}
+                              size="large"
+                              precision={0.5}
+                            />
+                          </Col>
+                        </Col>
+                        <Col className="place-comment-rev-textbox">
+                          <p>{item.text}</p>
+                        </Col>
                       </Col>
                     </Col>
-                  </Col>
-                </li>
-              ))}
+                  </li>
+                ))
+              )}
             </ul>
           </Col>
         </Col>

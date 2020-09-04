@@ -5,6 +5,7 @@ import {
   Scheduler,
   DayView,
   WeekView,
+  MonthView,
   DateNavigator,
   Appointments,
   TodayButton,
@@ -33,6 +34,7 @@ const Schedule = () => {
           <ViewState currentDate={currentDate} defaultCurrentViewName="Week" />
           <DayView startDayHour={9} endDayHour={14} />
           <WeekView startDayHour={10} endDayHour={19} />
+          <MonthView />
           <Toolbar />
           <DateNavigator />
           <TodayButton />

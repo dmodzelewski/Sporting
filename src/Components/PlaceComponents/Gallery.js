@@ -1,32 +1,28 @@
 import React from "react";
 import { Col, Image } from "react-bootstrap";
-import ArrowBackIcon from "@material-ui/icons/ArrowBack";
-import ArrowForwardIcon from "@material-ui/icons/ArrowForward";
+import ImageGallery from "react-image-gallery";
+
 const Photos = () => {
-  const changeTransition = () => {};
+  const images = [
+    {
+      original: "https://picsum.photos/id/1018/1000/600/",
+      thumbnail: "https://picsum.photos/id/1018/250/150/",
+    },
+    {
+      original: "https://picsum.photos/id/1015/1000/600/",
+      thumbnail: "https://picsum.photos/id/1015/250/150/",
+    },
+    {
+      original: "https://picsum.photos/id/1019/1000/600/",
+      thumbnail: "https://picsum.photos/id/1019/250/150/",
+    },
+  ];
   return (
     <>
       <Col className="place-gallery no-padding">
         <section style={{ width: "100%" }}>
           <Col className="no-padding place-gallery-main">
-            <a
-              onClick={() => changeTransition()}
-              className="place-gallery-main-arrow"
-            >
-              <ArrowBackIcon />
-            </a>
-            <Col className="no-padding place-gallery-main-placeholder">
-              <Col>
-                <Image
-                  className="place-gallery-main-photo"
-                  src="https://upload.wikimedia.org/wikipedia/commons/thumb/9/92/Backyardpool.jpg/1200px-Backyardpool.jpg"
-                />
-              </Col>
-            </Col>
-
-            <a className="place-gallery-main-arrow">
-              <ArrowForwardIcon />
-            </a>
+            <ImageGallery showPlayButton={false} items={images} />;
           </Col>
         </section>
       </Col>
