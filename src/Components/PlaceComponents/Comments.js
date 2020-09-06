@@ -4,14 +4,27 @@ import InputLabel from "@material-ui/core/InputLabel";
 import InputAdornment from "@material-ui/core/InputAdornment";
 import Input from "@material-ui/core/Input";
 import AccountCircle from "@material-ui/icons/AccountCircle";
-import ReviewFilter from "../ReserveComponents/Filter/ReviewFilter";
 import TextField from "@material-ui/core/TextField";
 import Popup from "reactjs-popup";
 import Rating from "@material-ui/lab/Rating";
 
+const labels = {
+  0.5: "Żenada",
+  1: "Beznadziejnie",
+  1.5: "Okropnie",
+  2: "Słabo",
+  2.5: "Ok",
+  3: "Nawet dobrze",
+  3.5: "Dobrze",
+  4: "Bardzo dobrze",
+  4.5: "Wyśmienicie",
+  5: "Niesamowicie",
+};
+
 const Comments = () => {
-  const [value, setValue] = React.useState(3);
+  const [value, setValue] = useState(3);
   const [Opinions, setOpinions] = useState([]);
+
   const [Name, setName] = useState("");
   const [Text, setText] = useState("");
   const currentDate = new Date();
@@ -23,9 +36,9 @@ const Comments = () => {
         id: Opinions.length,
         name: Name,
         text: Text,
+        starValue: value,
       },
     ]);
-    console.log(Opinions);
   };
   return (
     <>
@@ -38,10 +51,7 @@ const Comments = () => {
                 <h1>Brak Komentarzy</h1>
               ) : (
                 Opinions.map((item) => (
-                  <li
-                    key={item.id}
-                    className="place-comment-onereview no-padding"
-                  >
+                  <li key={item.id} className=" no-padding">
                     <Col className="place-comment-reviewbox no-padding">
                       <Col className="place-comment-rev-up no-padding">
                         <Col className="place-comment-info no-padding">
@@ -109,7 +119,15 @@ const Comments = () => {
             >
               Podaj ocenę w skali 1 do 5
             </InputLabel>
-            <ReviewFilter />
+            <Rating
+              name="hover-feedback"
+              value={value}
+              size="large"
+              precision={0.5}
+              onChange={(event, newValue) => {
+                setValue(newValue);
+              }}
+            />
             <InputLabel
               className="place-comment-label"
               htmlFor="input-with-icon-adornment"

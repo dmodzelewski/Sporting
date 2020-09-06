@@ -733,8 +733,8 @@ h6 {
             width: 100%;
             p {
               font-size: 1em;
-              overflow: hidden;
               text-overflow: ellipsis;
+              word-wrap: break-word;
               margin-bottom: 2px;
               justify-content: flex-start;
               margin-top: 10px;

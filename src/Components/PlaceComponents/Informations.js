@@ -1,6 +1,5 @@
 import React from "react";
-import { Row, Col } from "react-bootstrap";
-import { FaCheckSquare } from "react-icons/fa";
+import { Col } from "react-bootstrap";
 import ShowMoreText from "react-show-more-text";
 const Informations = () => {
   return (

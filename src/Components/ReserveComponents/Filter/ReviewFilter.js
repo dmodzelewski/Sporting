@@ -1,4 +1,4 @@
-import { Row, Col, Form } from "react-bootstrap";
+import { Form } from "react-bootstrap";
 import React from "react";
 import Rating from "@material-ui/lab/Rating";
 import Box from "@material-ui/core/Box";

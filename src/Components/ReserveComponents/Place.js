@@ -1,7 +1,16 @@
-import { Col, Row, Image, NavLink, Button, Container } from "react-bootstrap";
+import {
+  Col,
+  Row,
+  Image,
+  Popover,
+  OverlayTrigger,
+  Button,
+  Container,
+} from "react-bootstrap";
 import React from "react";
 import StarRateIcon from "@material-ui/icons/StarRate";
 import { useHistory } from "react-router-dom";
+import Map from "../PlaceComponents/Map";
 const Place = () => {
   const history = useHistory();
   function InfoHandler() {
@@ -39,12 +48,20 @@ const Place = () => {
               </Col>
             </Col>
             <Col className="places-localization no-padding">
-              <NavLink
-                className="places-localization-link no-padding"
-                as={NavLink}
+              <OverlayTrigger
+                trigger="click"
+                key={"bottom"}
+                placement={"bottom"}
+                overlay={
+                  <Popover id="popovermap">
+                    <Popover.Content>
+                      <Map />
+                    </Popover.Content>
+                  </Popover>
+                }
               >
-                Położenie – pokaż na mapie
-              </NavLink>
+                <Button variant="secondary">Położenie – pokaż na mapie</Button>
+              </OverlayTrigger>
               <Col className="no-padding places-localization-place">Gdańsk</Col>
             </Col>
           </Col>
