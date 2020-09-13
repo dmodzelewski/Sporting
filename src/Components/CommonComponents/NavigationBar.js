@@ -4,6 +4,7 @@ import running from "@iconify/icons-mdi/run-fast";
 import { Link, NavLink } from "react-router-dom";
 import { Navbar, Nav } from "react-bootstrap";
 import PropTypes from "prop-types";
+import { AUTH_TOKEN } from "../LoginComponents/constants";
 
 export default class NavigationBar extends Component {
   state = {
@@ -13,8 +14,7 @@ export default class NavigationBar extends Component {
     this.setState({ isOpen: !this.state.isOpen });
   };
   render() {
-    const { isAuthenticateted, logout } = this.props.auth;
-
+    const authToken = localStorage.getItem(AUTH_TOKEN);
     return (
       <Navbar
         collapseOnSelect
@@ -45,21 +45,18 @@ export default class NavigationBar extends Component {
             >
               Pomoc
             </Nav.Link>
-
-            {isAuthenticateted() ? (
-              <Nav.Link as={NavLink} exact to="/profile">
-                Profile
+            {authToken ? (
+              <Nav.Link
+                as={NavLink}
+                to="/"
+                onClick={localStorage.removeItem(AUTH_TOKEN)}
+              >
+                Wyloguj
               </Nav.Link>
-            ) : null}
-
-            {isAuthenticateted() ? (
-              <NavLink as={NavLink} to="/">
-                <div onClick={logout}>Log Out</div>
-              </NavLink>
             ) : (
               <Nav.Link
                 as={NavLink}
-                to="/signin"
+                to="/login"
                 className="nav-button hvr-float-shadow"
               >
                 Zaloguj

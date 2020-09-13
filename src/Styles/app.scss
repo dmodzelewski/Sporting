@@ -195,6 +195,10 @@ h6 {
   background: #f2f2f2;
   padding-left: 20px;
 }
+.footer {
+  bottom: 0;
+  position: absolute;
+}
 //End footbar
 // Start Home Search
 
@@ -748,4 +752,12 @@ h6 {
 .place-comment-scroll {
   max-height: 300px;
   overflow-y: scroll;
+}
+.signIn-box {
+  margin-top: 10vh;
+  display: flex;
+  flex-direction: column;
+  
+  border: 1px solid black;
+  padding: 20px;
 }
