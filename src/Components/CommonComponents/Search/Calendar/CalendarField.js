@@ -9,18 +9,10 @@ const CalendarField = () => {
 
   const FormatDate = (dateToFormat) => {
     const BeginDate = new Intl.DateTimeFormat("pl", {
+      day: "numeric",
       month: "short",
     }).format(dateToFormat[0]);
-    console.log(dateToFormat);
-    console.log(BeginDate);
     return BeginDate;
-  };
-  //Set Type of JS object
-  const toType = (obj) => {
-    return {}.toString
-      .call(obj)
-      .match(/\s([a-zA-Z]+)/)[1]
-      .toLowerCase();
   };
 
   const Calendarhandler = () => {
@@ -32,7 +24,7 @@ const CalendarField = () => {
   };
 
   return (
-    <Col sm={3}>
+    <Col className="search-calendar" sm={4}>
       <Row>
         <Col>
           <b>Kalendarz</b>
@@ -44,13 +36,17 @@ const CalendarField = () => {
             plaintext
             placeholder="Podaj datę"
             onClick={() => Calendarhandler()}
-            value={date}
+            value={FormatDate(date)}
             readOnly
           />
           <Col
             className={Clicked ? "search-calendarShow" : "search-calendarHide"}
           >
-            <Calendar onChange={(x) => onChange(x)} value={date} />
+            <Calendar
+              onChange={(x) => onChange(x)}
+              value={date}
+              selectRange={true}
+            />
           </Col>
         </Col>
       </Row>

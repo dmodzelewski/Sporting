@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import { AUTH_TOKEN } from "./constants";
-import { Container, Col, Row, Button, Form } from "react-bootstrap";
+import { Col, Button } from "react-bootstrap";
 
 class Login extends Component {
   state = {

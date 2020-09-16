@@ -4,11 +4,12 @@ import { useHistory } from "react-router-dom";
 import { gql } from "@apollo/client";
 import PropTypes from "prop-types";
 import { useQuery } from "@apollo/client";
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import CalendarField from "./Calendar/CalendarField";
 import AddIcon from "@material-ui/icons/Add";
 import RemoveIcon from "@material-ui/icons/Remove";
 import { Plugins } from "@capacitor/core";
+import RoomIcon from "@material-ui/icons/Room";
 
 const { Geolocation } = Plugins;
 let long = 0;
@@ -30,13 +31,18 @@ let abc = async () => {
   const response = await fetch(place);
   const JSONdata = await response.json();
   currentCityLocation = JSONdata.address.municipality;
-  console.log(currentCityLocation);
+  return currentCityLocation;
 };
 
 const Search = () => {
   const [city, setCity] = useState("");
   const [quantity, setQuantity] = useState(1);
-
+  const [date, setDate] = useState(
+    new Intl.DateTimeFormat().format(new Date())
+  );
+  useEffect(() => {
+    abc();
+  });
   const history = useHistory();
   // City filter part
   const cities = gql`
@@ -48,7 +54,11 @@ const Search = () => {
       }
     }
   `;
-
+  const SetCityByLocalization = (myCity) => {
+    Promise.resolve(myCity).then(function (val) {
+      setCity(val);
+    });
+  };
   const SelectCityHandler = (e) => {
     const formatCity = e.target.innerHTML
       .toString()
@@ -60,7 +70,6 @@ const Search = () => {
 
   const { loading, error, data } = useQuery(cities, {
     variables: { localization: city },
-    pollInterval: 500,
   });
 
   const RenderData = () => {
@@ -70,8 +79,12 @@ const Search = () => {
 
     return (
       <>
-        <div className="search-filter-city">
+        <div className={"search-filter-city"}>
           <ul role="listbox">
+            <li onClick={() => SetCityByLocalization(abc())}>
+              <RoomIcon />
+              <p>Wybierz własną lokalizację</p>
+            </li>
             {data.cities.map(({ NAZWA, Wojewodztwo, Gmina }) => (
               <li
                 key={NAZWA + Wojewodztwo + Gmina}
@@ -85,11 +98,7 @@ const Search = () => {
       </>
     );
   };
-  try {
-    abc();
-  } catch (error) {
-    console.log(error);
-  }
+
   const CheckNegative = () => {
     if (quantity > 1) {
       setQuantity(quantity - 1);
@@ -98,10 +107,15 @@ const Search = () => {
   const SearchHandle = () => {
     history.push({
       pathname: "/reserve",
-      state: { passCity: city, passQuantity: quantity },
+      state: { passCity: city, passDate: Date, passQuantity: quantity },
     });
   };
-
+  useCallback(
+    (whenis) => {
+      setDate(whenis);
+    },
+    [date, setDate]
+  );
   return (
     <Container fluid className="search-bg">
       <Row>
@@ -153,6 +167,7 @@ const Search = () => {
                       <Col sm={{ span: 4, offset: 1 }}>Szukaj</Col>
                     </Row>
                   </Button>
+                  {date}
                 </Col>
               </Row>
             </Col>
