@@ -4,7 +4,7 @@ import { useHistory } from "react-router-dom";
 import { gql } from "@apollo/client";
 import PropTypes from "prop-types";
 import { useQuery } from "@apollo/client";
-import React, { useCallback, useState } from "react";
+import React, { useState } from "react";
 import CalendarField from "./Calendar/CalendarField";
 import AddIcon from "@material-ui/icons/Add";
 import RemoveIcon from "@material-ui/icons/Remove";
@@ -35,7 +35,6 @@ let abc = async () => {
 
 const Search = () => {
   const [city, setCity] = useState("");
-  const [date, setDate] = useState(Date.now);
   const [quantity, setQuantity] = useState(1);
 
   const history = useHistory();
@@ -99,16 +98,9 @@ const Search = () => {
   const SearchHandle = () => {
     history.push({
       pathname: "/reserve",
-      state: { passCity: city, passDate: date, passQuantity: quantity },
+      state: { passCity: city, passQuantity: quantity },
     });
   };
-
-  const whenis = useCallback(
-    (date) => {
-      setDate(date);
-    },
-    [date, setDate]
-  );
 
   return (
     <Container fluid className="search-bg">
@@ -136,7 +128,7 @@ const Search = () => {
                     </Col>
                   </Row>
                 </Col>
-                <CalendarField getDate={whenis} />
+                <CalendarField />
                 <Col sm={3}>
                   <Row>
                     <Col>

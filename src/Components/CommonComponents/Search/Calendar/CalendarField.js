@@ -1,90 +1,65 @@
-import React, { Component } from "react";
+import React, { useState } from "react";
 import { Col, Row, Form } from "react-bootstrap";
 import Calendar from "react-calendar";
 import "react-calendar/dist/Calendar.css";
 import PropTypes from "prop-types";
+const CalendarField = () => {
+  const [date, setDate] = useState(new Date());
+  const [Clicked, setClicked] = useState(false);
 
-export default class CalendarField extends Component {
-  state = {
-    isClicked: false,
-    date: new Date(),
-  };
-  
-  FormatDate = (dateToFormat) => {
+  const FormatDate = (dateToFormat) => {
     const BeginDate = new Intl.DateTimeFormat("pl", {
-      day: "numeric",
       month: "short",
     }).format(dateToFormat[0]);
-    const EndDate = new Intl.DateTimeFormat("pl", {
-      day: "numeric",
-      month: "short",
-    }).format(dateToFormat[1]);
-    if (BeginDate == EndDate) {
-      this.props.getDate(BeginDate);
-      return BeginDate;
-    } else {
-      const FullDate = BeginDate + " - " + EndDate;
-      this.props.getDate(FullDate);
-      return FullDate;
-    }
+    console.log(dateToFormat);
+    console.log(BeginDate);
+    return BeginDate;
   };
   //Set Type of JS object
-  toType = function (obj) {
+  const toType = (obj) => {
     return {}.toString
       .call(obj)
       .match(/\s([a-zA-Z]+)/)[1]
       .toLowerCase();
   };
 
-  Calendarhandler = () => {
-    this.setState({ isClicked: !this.state.isClicked });
+  const Calendarhandler = () => {
+    setClicked(!Clicked);
   };
 
-  HowMany = (dates) => {
-    if (this.toType(dates)) {
-      return this.FormatDate(dates);
-    } else if (this.toType(dates)) {
-      return this.FormatDate(dates);
-    }
+  const onChange = (date) => {
+    setDate(date);
   };
 
-  onChange = (date) => this.setState({ date });
+  return (
+    <Col sm={3}>
+      <Row>
+        <Col>
+          <b>Kalendarz</b>
+        </Col>
+      </Row>
+      <Row>
+        <Col>
+          <Form.Control
+            plaintext
+            placeholder="Podaj datę"
+            onClick={() => Calendarhandler()}
+            value={date}
+            readOnly
+          />
+          <Col
+            className={Clicked ? "search-calendarShow" : "search-calendarHide"}
+          >
+            <Calendar onChange={(x) => onChange(x)} value={date} />
+          </Col>
+        </Col>
+      </Row>
+    </Col>
+  );
+};
 
-  render() {
-    return (
-      <Col sm={3}>
-        <Row>
-          <Col>
-            <b>Kalendarz</b>
-          </Col>
-        </Row>
-        <Row>
-          <Col>
-            <Form.Control
-              plaintext
-              placeholder="Podaj datę"
-              onClick={this.Calendarhandler}
-              value={this.HowMany(this.state.date)}
-              readOnly
-            />
-            <Col
-              className={
-                this.state.isClicked
-                  ? "search-calendarShow"
-                  : "search-calendarHide"
-              }
-            >
-              <Calendar
-                onChange={this.onChange}
-                defaultValue={this.state.date}
-              />
-            </Col>
-          </Col>
-        </Row>
-      </Col>
-    );
-  }
-}
 CalendarField.propTypes = {
   getDate: PropTypes.func.isRequired,
 };
+
+export default CalendarField;

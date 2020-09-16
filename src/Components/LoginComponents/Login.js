@@ -47,7 +47,9 @@ class Login extends Component {
               <Col onClick={() => this.setState({ login: !login })}>
                 {login ? "Nie masz jeszcze konta?" : "Posiadasz już konto?"}
               </Col>
-              <Button onClick={() => this._confirm()}>
+              <Button
+                onClick={() => this.EncryptAndFind(this.login, this.password)}
+              >
                 {login ? "Zaloguj się" : "Stwórz konto"}
               </Button>
             </Col>
@@ -57,9 +59,7 @@ class Login extends Component {
     );
   }
 
-  _confirm = async () => {
-    // ... you'll implement this 🔜
-  };
+  EncryptAndFind = async (login, password) => {};
 
   _saveUserData = (token) => {
     localStorage.setItem(AUTH_TOKEN, token);
