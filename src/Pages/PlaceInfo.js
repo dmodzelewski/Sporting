@@ -5,7 +5,7 @@ import { Col, Container } from "react-bootstrap";
 import Informations from "../Components/PlaceComponents/Informations";
 import Pricing from "../Components/PlaceComponents/Pricing";
 import Comments from "../Components/PlaceComponents/Comments";
-import Map from "../Components/PlaceComponents/Map";
+import Reservation from "../Components/PlaceComponents/Reservation";
 const PlaceInfo = () => {
   let props = {
     name: "Basen Jagiełło",
@@ -30,7 +30,9 @@ const PlaceInfo = () => {
             <Pricing />
           </Col>
         </Col>
-
+        <Col>
+          <Reservation />
+        </Col>
         <Col>
           <Comments />
         </Col>

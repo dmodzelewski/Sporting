@@ -9,7 +9,7 @@ const Slider = () => {
   };
 
   return (
-    <Col className="Slider-main no-padding" fluid>
+    <Col className="Slider-main no-padding" fluid="true">
       <Carousel activeIndex={index} onSelect={handleSelect}>
         <Carousel.Item>
           <img

@@ -11,7 +11,9 @@ import React from "react";
 import StarRateIcon from "@material-ui/icons/StarRate";
 import { useHistory } from "react-router-dom";
 import Map from "../PlaceComponents/Map";
-const Place = () => {
+import PropTypes from "prop-types";
+
+const Place = (props) => {
   const history = useHistory();
   function InfoHandler() {
     history.push("placeinfo");
@@ -29,21 +31,26 @@ const Place = () => {
             />
           </Col>
           <Col sm={12} md={4} className="places-centerColumn no-padding">
-            <Col className="places-name no-padding">Basen Jagiełło</Col>
+            <Col className="places-name no-padding">{props.name}</Col>
             <Col className="no-padding">
               <Col className="places-assessment no-padding">
                 <div className="places-score">
                   <StarRateIcon />
-                  5.0
+                  {props.opinionValue}
                 </div>
-                <div className="places-opinions">124 opinie</div>
+                <div className="places-opinions">
+                  {props.numberOfOpinions} opinie
+                </div>
               </Col>
               <Col className="places-tags-wrap">
                 <Col className="places-tags no-padding">
-                  <p className="tag">Basen </p>
-                  <p className="tag">, Darmowy parking </p>
-                  <p className="tag">, Prysznice </p>
-                  <p className="tag">, Sprzęt ratowniczy</p>
+                  {props.extraOffers.map((x) => (
+                    <p key={x} className="tag">
+                      {x}
+                      {","}
+                      &nbsp;
+                    </p>
+                  ))}
                 </Col>
               </Col>
             </Col>
@@ -55,19 +62,21 @@ const Place = () => {
                 overlay={
                   <Popover id="popovermap">
                     <Popover.Content>
-                      <Map />
+                      <Map {...props} />
                     </Popover.Content>
                   </Popover>
                 }
               >
                 <Button variant="secondary">Położenie – pokaż na mapie</Button>
               </OverlayTrigger>
-              <Col className="no-padding places-localization-place">Gdańsk</Col>
+              <Col className="no-padding places-localization-place">
+                {props.objectCity}
+              </Col>
             </Col>
           </Col>
           <Col className="places-endColumn">
             <Col className="places-price no-padding">
-              <Col className="places-stack ">25 zł/h</Col>
+              <Col className="places-stack ">{props.priceValue} zł/h</Col>
               <Button className="places-button" onClick={InfoHandler}>
                 Wyświetl szczegóły
               </Button>
@@ -78,4 +87,13 @@ const Place = () => {
     </>
   );
 };
+Place.propTypes = {
+  name: PropTypes.string.isRequired,
+  opinionValue: PropTypes.number.isRequired,
+  numberOfOpinions: PropTypes.number.isRequired,
+  extraOffers: PropTypes.array.isRequired,
+  objectCity: PropTypes.string.isRequired,
+  priceValue: PropTypes.number.isRequired,
+};
+
 export default Place;

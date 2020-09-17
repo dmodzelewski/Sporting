@@ -1,14 +1,16 @@
 import React, { useState } from "react";
 import ReactMapGl from "react-map-gl";
+import PropTypes from "prop-types";
 
-const Map = () => {
+const Map = (props) => {
   const [viewPort, setviewPort] = useState({
-    latitude: 54.2774723,
-    longitudee: 18.6196338,
+    latitude: props.latitude,
+    longitude: props.longitude,
     width: "40vh",
     height: "40vh",
     zoom: 13,
   });
+
   return (
     <ReactMapGl
       {...viewPort}
@@ -19,5 +21,9 @@ const Map = () => {
       }}
     ></ReactMapGl>
   );
+};
+Map.propTypes = {
+  latitude: PropTypes.string.isRequired,
+  longitude: PropTypes.number.isRequired,
 };
 export default Map;

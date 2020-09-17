@@ -2,9 +2,8 @@ import { Container, Col, Row, Button, Form } from "react-bootstrap";
 import { FaSearch } from "react-icons/fa";
 import { useHistory } from "react-router-dom";
 import { gql } from "@apollo/client";
-import PropTypes from "prop-types";
 import { useQuery } from "@apollo/client";
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useCallback } from "react";
 import CalendarField from "./Calendar/CalendarField";
 import AddIcon from "@material-ui/icons/Add";
 import RemoveIcon from "@material-ui/icons/Remove";
@@ -15,13 +14,12 @@ const { Geolocation } = Plugins;
 let long = 0;
 let lat = 0;
 let currentCityLocation = "";
-async function getCurrentPosition() {
+let getCurrentPosition = async () => {
   const coordinates = await Geolocation.getCurrentPosition(true);
   long = coordinates.coords.longitude;
   lat = coordinates.coords.latitude;
-}
-// do zrobienia
-let abc = async () => {
+};
+let ReverseGeocoding = async () => {
   getCurrentPosition();
   const place =
     "https://nominatim.openstreetmap.org/reverse?format=jsonv2&lat=" +
@@ -41,7 +39,7 @@ const Search = () => {
     new Intl.DateTimeFormat().format(new Date())
   );
   useEffect(() => {
-    abc();
+    ReverseGeocoding();
   });
   const history = useHistory();
   // City filter part
@@ -81,7 +79,7 @@ const Search = () => {
       <>
         <div className={"search-filter-city"}>
           <ul role="listbox">
-            <li onClick={() => SetCityByLocalization(abc())}>
+            <li onClick={() => SetCityByLocalization(ReverseGeocoding())}>
               <RoomIcon />
               <p>Wybierz własną lokalizację</p>
             </li>
@@ -107,12 +105,12 @@ const Search = () => {
   const SearchHandle = () => {
     history.push({
       pathname: "/reserve",
-      state: { passCity: city, passDate: Date, passQuantity: quantity },
+      state: { passCity: city, passDate: date, passQuantity: quantity },
     });
   };
-  useCallback(
-    (whenis) => {
-      setDate(whenis);
+  const whenis = useCallback(
+    (date) => {
+      setDate(date);
     },
     [date, setDate]
   );
@@ -142,7 +140,7 @@ const Search = () => {
                     </Col>
                   </Row>
                 </Col>
-                <CalendarField />
+                <CalendarField GetDate={whenis} />
                 <Col sm={3}>
                   <Row>
                     <Col>
@@ -167,7 +165,6 @@ const Search = () => {
                       <Col sm={{ span: 4, offset: 1 }}>Szukaj</Col>
                     </Row>
                   </Button>
-                  {date}
                 </Col>
               </Row>
             </Col>
@@ -178,12 +175,3 @@ const Search = () => {
   );
 };
 export default Search;
-Search.propTypes = {
-  cities: PropTypes.object.isRequired,
-};
-
-Search.defaultProps = {
-  passCity: "Gdańsk",
-  passDate: Date.now,
-  passQuantity: 1,
-};

@@ -1,9 +1,25 @@
 import React, { useState } from "react";
 import { Row, Col, Button } from "react-bootstrap";
 import Place from "./Place";
-
 const Places = () => {
+  let props = {
+    name: "Basen Jagiełło",
+    numberOfOpinions: 23,
+    opinionValue: 5.0,
+    priceValue: 25,
+    extraOffers: [
+      "Basen",
+      "Darmowy parking",
+      "Prysznice",
+      "Sprzęt ratowniczy ",
+    ],
+    longitude: 18.34324,
+    latitude: 54.12312,
+    objectCity: "Gdańsk",
+  };
+
   const [count, setCount] = useState(0);
+
   const showMore = () => {};
   return (
     <>
@@ -13,7 +29,7 @@ const Places = () => {
       <Row>
         <Col className="places-counter no-padding">{count} z 0 obiektów</Col>
       </Row>
-      <Place />
+      <Place {...props} />
       <br />
 
       <Row>

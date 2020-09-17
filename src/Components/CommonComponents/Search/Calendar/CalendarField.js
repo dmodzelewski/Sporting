@@ -3,7 +3,7 @@ import { Col, Row, Form } from "react-bootstrap";
 import Calendar from "react-calendar";
 import "react-calendar/dist/Calendar.css";
 import PropTypes from "prop-types";
-const CalendarField = () => {
+const CalendarField = (GetDate) => {
   const [date, setDate] = useState(new Date());
   const [Clicked, setClicked] = useState(false);
 
@@ -12,6 +12,7 @@ const CalendarField = () => {
       day: "numeric",
       month: "short",
     }).format(dateToFormat[0]);
+    GetDate = BeginDate;
     return BeginDate;
   };
 
@@ -52,10 +53,6 @@ const CalendarField = () => {
       </Row>
     </Col>
   );
-};
-
-CalendarField.propTypes = {
-  getDate: PropTypes.func.isRequired,
 };
 
 export default CalendarField;

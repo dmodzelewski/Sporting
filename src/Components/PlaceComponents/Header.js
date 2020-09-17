@@ -32,6 +32,6 @@ const Header = (props) => {
 export default Header;
 Header.propTypes = {
   name: PropTypes.string.isRequired,
-  address: PropTypes.string.isRequired,
+  address: PropTypes.object.isRequired,
   phoneNumber: PropTypes.string.isRequired,
 };
