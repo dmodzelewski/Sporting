@@ -310,7 +310,8 @@ const appointments = [
 const currentDate = "2018-06-27";
 
 export default () => {
-  const [data, setcurrentDate] = useState(appointments);
+  const [currentDate, setcurrentDate] = useState("2018-06-27");
+  const [data, setDate] = useState(appointments);
   const [currentView, setCurrentView] = useState("day");
   const [addedAppointment, setAddedAppointment] = useState({});
   const [isAppointmentBeingCreated, setIsAppointmentBeingCreated] = useState(
@@ -322,10 +323,10 @@ export default () => {
       if (added) {
         const startingAddedId =
           data.length > 0 ? data[data.length - 1].id + 1 : 0;
-        setcurrentDate([...data, { id: startingAddedId, ...added }]);
+        setDate([...data, { id: startingAddedId, ...added }]);
       }
       if (changed) {
-        setcurrentDate(
+        setDate(
           data.map((appointment) =>
             changed[appointment.id]
               ? { ...appointment, ...changed[appointment.id] }
@@ -334,24 +335,17 @@ export default () => {
         );
       }
       if (deleted !== undefined) {
-        setcurrentDate(
-          data.filter((appointment) => appointment.id !== deleted)
-        );
+        setDate(data.filter((appointment) => appointment.id !== deleted));
       }
       setIsAppointmentBeingCreated(false);
     },
-    [setcurrentDate, setIsAppointmentBeingCreated, data]
+    [setDate, setIsAppointmentBeingCreated, data]
   );
   const onAddedAppointmentChange = useCallback((appointment) => {
     setAddedAppointment(appointment);
     setIsAppointmentBeingCreated(true);
   });
-  const currentDateChange = (date) => {
-    setcurrentDate(date);
-  };
-  const currentViewChange = (name) => {
-    setCurrentView(name);
-  };
+
   return (
     <>
       <Container>
@@ -363,9 +357,9 @@ export default () => {
             <Scheduler data={data} height={600}>
               <ViewState
                 currentDate={currentDate}
-                onCurrentDateChange={(x) => currentDateChange(x.target)}
+                onCurrentDateChange={(x) => setcurrentDate(x)}
                 currentViewName={currentView}
-                onCurrentViewNameChange={(x) => currentViewChange(x.target)}
+                onCurrentViewNameChange={(x) => setCurrentView(x)}
               />
               <EditingState
                 onCommitChanges={onCommitChanges}
