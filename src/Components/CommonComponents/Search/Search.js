@@ -11,28 +11,10 @@ import { Plugins } from "@capacitor/core";
 import RoomIcon from "@material-ui/icons/Room";
 
 const { Geolocation } = Plugins;
-let long = 0;
-let lat = 0;
-let currentCityLocation = "";
-let getCurrentPosition = async () => {
-  const coordinates = await Geolocation.getCurrentPosition(true);
-  long = coordinates.coords.longitude;
-  lat = coordinates.coords.latitude;
-};
-let ReverseGeocoding = async () => {
-  getCurrentPosition();
-  const place =
-    "https://nominatim.openstreetmap.org/reverse?format=jsonv2&lat=" +
-    lat +
-    "&lon=" +
-    long;
-  const response = await fetch(place);
-  const JSONdata = await response.json();
-  currentCityLocation = JSONdata.address.municipality;
-  return currentCityLocation;
-};
 
 const Search = () => {
+  const [long, setLong] = useState(10);
+  const [lat, setLat] = useState(10);
   const [city, setCity] = useState("");
   const [quantity, setQuantity] = useState(1);
   const [date, setDate] = useState(
@@ -52,11 +34,32 @@ const Search = () => {
       }
     }
   `;
+
+  let currentCityLocation = "";
+  let getCurrentPosition = async () => {
+    const coordinates = await Geolocation.getCurrentPosition(true);
+    setLong(coordinates.coords.longitude);
+    setLat(coordinates.coords.latitude);
+  };
+  let ReverseGeocoding = async () => {
+    getCurrentPosition();
+    const place =
+      "https://nominatim.openstreetmap.org/reverse?format=jsonv2&lat=" +
+      lat +
+      "&lon=" +
+      long;
+    const response = await fetch(place);
+    const JSONdata = await response.json();
+    currentCityLocation = JSONdata.address.municipality;
+    return currentCityLocation;
+  };
+
   const SetCityByLocalization = (myCity) => {
     Promise.resolve(myCity).then(function (val) {
       setCity(val);
     });
   };
+
   const SelectCityHandler = (e) => {
     const formatCity = e.target.innerHTML
       .toString()
@@ -105,7 +108,13 @@ const Search = () => {
   const SearchHandle = () => {
     history.push({
       pathname: "/reserve",
-      state: { passCity: city, passDate: date, passQuantity: quantity },
+      state: {
+        passCity: city,
+        passDate: date,
+        passQuantity: quantity,
+        passLongitude: long,
+        passLatitude: lat,
+      },
     });
   };
   const whenis = useCallback(

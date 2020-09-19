@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { Row, Col, Button } from "react-bootstrap";
 import Place from "./Place";
-const Places = () => {
+const Places = (cords) => {
   let props = {
     name: "Basen Jagiełło",
     numberOfOpinions: 23,
@@ -13,9 +13,9 @@ const Places = () => {
       "Prysznice",
       "Sprzęt ratowniczy ",
     ],
-    longitude: 18.34324,
-    latitude: 54.12312,
-    objectCity: "Gdańsk",
+    longitude: cords.location.state.passLongitude,
+    latitude: cords.location.state.passLatitude,
+    objectCity: cords.location.state.passCity,
   };
 
   const [count, setCount] = useState(0);
@@ -23,6 +23,7 @@ const Places = () => {
   const showMore = () => {};
   return (
     <>
+      {console.log(cords.location.state.passLatitude)}
       <Row>
         <Col className="places-header">Obiekty Sportowe</Col>
       </Row>

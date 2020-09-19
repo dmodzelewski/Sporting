@@ -9,9 +9,11 @@ export default class Reserve extends Component {
   render() {
     return (
       <>
-        {console.log(this.props.location.state.passQuantity)}
+        {/* {console.log(this.props.location.state.passQuantity)}
         {console.log(this.props.location.state.passDate)}
         {console.log(this.props.location.state.passCity)}
+        {console.log(this.props.location.state.passLongitude)}
+        {console.log(this.props.location.state.passLatitude)} */}
         <Search />
         <Container className="reserve">
           <Row>
@@ -19,7 +21,7 @@ export default class Reserve extends Component {
               <Filter />
             </Col>
             <Col md={9}>
-              <Places />
+              <Places {...this.props} />
             </Col>
           </Row>
         </Container>
