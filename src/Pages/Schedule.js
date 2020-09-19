@@ -1,4 +1,4 @@
-import * as React from "react";
+import React, { useState, useCallback } from "react";
 import Paper from "@material-ui/core/Paper";
 
 import {
@@ -310,23 +310,22 @@ const appointments = [
 const currentDate = "2018-06-27";
 
 export default () => {
-  const [data, setData] = React.useState(appointments);
-  const [currentView, setCurrentView] = React.useState("day");
-  const [addedAppointment, setAddedAppointment] = React.useState({});
-  const [
-    isAppointmentBeingCreated,
-    setIsAppointmentBeingCreated,
-  ] = React.useState(false);
+  const [data, setcurrentDate] = useState(appointments);
+  const [currentView, setCurrentView] = useState("day");
+  const [addedAppointment, setAddedAppointment] = useState({});
+  const [isAppointmentBeingCreated, setIsAppointmentBeingCreated] = useState(
+    false
+  );
 
-  const onCommitChanges = React.useCallback(
+  const onCommitChanges = useCallback(
     ({ added, changed, deleted }) => {
       if (added) {
         const startingAddedId =
           data.length > 0 ? data[data.length - 1].id + 1 : 0;
-        setData([...data, { id: startingAddedId, ...added }]);
+        setcurrentDate([...data, { id: startingAddedId, ...added }]);
       }
       if (changed) {
-        setData(
+        setcurrentDate(
           data.map((appointment) =>
             changed[appointment.id]
               ? { ...appointment, ...changed[appointment.id] }
@@ -335,13 +334,15 @@ export default () => {
         );
       }
       if (deleted !== undefined) {
-        setData(data.filter((appointment) => appointment.id !== deleted));
+        setcurrentDate(
+          data.filter((appointment) => appointment.id !== deleted)
+        );
       }
       setIsAppointmentBeingCreated(false);
     },
-    [setData, setIsAppointmentBeingCreated, data]
+    [setcurrentDate, setIsAppointmentBeingCreated, data]
   );
-  const onAddedAppointmentChange = React.useCallback((appointment) => {
+  const onAddedAppointmentChange = useCallback((appointment) => {
     setAddedAppointment(appointment);
     setIsAppointmentBeingCreated(true);
   });
