@@ -4,15 +4,17 @@ import Slider from "@material-ui/core/Slider";
 import TextField from "@material-ui/core/TextField";
 import { Row, Col, Form } from "react-bootstrap";
 
-const PriceFilter = () => {
-  const [price, setValue] = React.useState([0, 1000]);
+const PriceFilter = ({ Costs }) => {
+  const [price, setValue] = React.useState([0, 200]);
 
   const handleChange = (event, newValue) => {
     setValue(newValue);
+    Costs(newValue);
   };
   function valuetext(price) {
     return `${price}°C`;
   }
+
   return (
     <Row className="filters">
       <Col>

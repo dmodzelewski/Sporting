@@ -23,7 +23,6 @@ const Places = (cords) => {
   const showMore = () => {};
   return (
     <>
-      {console.log(cords.location.state.passLatitude)}
       <Row>
         <Col className="places-header">Obiekty Sportowe</Col>
       </Row>

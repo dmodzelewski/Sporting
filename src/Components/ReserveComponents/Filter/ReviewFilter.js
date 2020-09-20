@@ -1,5 +1,5 @@
 import { Form } from "react-bootstrap";
-import React from "react";
+import React, { useState } from "react";
 import Rating from "@material-ui/lab/Rating";
 import Box from "@material-ui/core/Box";
 
@@ -17,8 +17,8 @@ const labels = {
 };
 
 const ReviewFilter = () => {
-  const [value, setValue] = React.useState(3);
-  const [hover, setHover] = React.useState(-1);
+  const [value, setValue] = useState(3);
+  const [hover, setHover] = useState(-1);
   return (
     <Form className="center">
       <div>

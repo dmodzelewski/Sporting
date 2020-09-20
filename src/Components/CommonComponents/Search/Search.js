@@ -1,9 +1,9 @@
+import React, { useState, useEffect, useCallback } from "react";
 import { Container, Col, Row, Button, Form } from "react-bootstrap";
 import { FaSearch } from "react-icons/fa";
 import { useHistory } from "react-router-dom";
 import { gql } from "@apollo/client";
 import { useQuery } from "@apollo/client";
-import React, { useState, useEffect, useCallback } from "react";
 import CalendarField from "./Calendar/CalendarField";
 import AddIcon from "@material-ui/icons/Add";
 import RemoveIcon from "@material-ui/icons/Remove";
@@ -41,21 +41,25 @@ const Search = () => {
   };
   let ReverseGeocoding = async () => {
     getCurrentPosition();
+    console.log(lat + "  " + long);
     const place =
       "https://us1.locationiq.com/v1/reverse.php?key=pk.6cea20c72e201ece96127cb84cd81029&lat=" +
-      long +
-      "&lon=" +
       lat +
+      "&lon=" +
+      long +
       "&format=json";
 
     const response = await fetch(place);
     const JSONdata = await response.json();
-    currentCityLocation = JSONdata.address.city;
+    currentCityLocation = JSONdata.address.town;
     return currentCityLocation;
   };
-
+  useEffect(() => {
+    getCurrentPosition();
+  });
   const SetCityByLocalization = (myCity) => {
     Promise.resolve(myCity).then(function (val) {
+      console.log(val);
       setCity(val);
     });
   };
