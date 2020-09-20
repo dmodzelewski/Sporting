@@ -1,9 +1,15 @@
 /* eslint-disable no-undef */
 
 const path = require("path");
+const glob = require("glob");
 const HtmlWebPackPlugin = require("html-webpack-plugin");
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
+const PurgeCSSPlugin = require("purgecss-webpack-plugin");
 const webpackBundleAnalyzer = require("webpack-bundle-analyzer");
+
+const PATHS = {
+  src: path.join(__dirname, "src"),
+};
 
 process.env.NODE_ENV = "production";
 
@@ -22,6 +28,9 @@ module.exports = {
     new MiniCssExtractPlugin({
       filename: "[name].[hash].css",
       chunkFilename: "[id].[hash].css",
+    }),
+    new PurgeCSSPlugin({
+      paths: glob.sync(`${PATHS.src}/**/*`, { nodir: true }),
     }),
     new HtmlWebPackPlugin({
       hash: true,
