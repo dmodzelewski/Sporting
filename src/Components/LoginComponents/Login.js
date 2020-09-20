@@ -80,12 +80,11 @@ const Login = () => {
               {!login && (
                 <MuiPickersUtilsProvider utils={DateFnsUtils}>
                   <KeyboardDatePicker
-                    disableToolbar
                     variant="inline"
                     format="MM/dd/yyyy"
                     margin="normal"
-                    id="date-picker-inline"
-                    label="Date picker inline"
+                    id="date-picker-dialog"
+                    label="Podaj datę urodzenia"
                     value={selectedDate}
                     onChange={handleDateChange}
                     KeyboardButtonProps={{

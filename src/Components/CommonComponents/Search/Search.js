@@ -20,9 +20,7 @@ const Search = () => {
   const [date, setDate] = useState(
     new Intl.DateTimeFormat().format(new Date())
   );
-  useEffect(() => {
-    ReverseGeocoding();
-  });
+
   const history = useHistory();
   // City filter part
   const cities = gql`
@@ -44,13 +42,15 @@ const Search = () => {
   let ReverseGeocoding = async () => {
     getCurrentPosition();
     const place =
-      "https://nominatim.openstreetmap.org/reverse?format=jsonv2&lat=" +
-      lat +
+      "https://us1.locationiq.com/v1/reverse.php?key=pk.6cea20c72e201ece96127cb84cd81029&lat=" +
+      long +
       "&lon=" +
-      long;
+      lat +
+      "&format=json";
+
     const response = await fetch(place);
     const JSONdata = await response.json();
-    currentCityLocation = JSONdata.address.municipality;
+    currentCityLocation = JSONdata.address.city;
     return currentCityLocation;
   };
 

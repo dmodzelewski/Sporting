@@ -1,7 +1,9 @@
 import Search from "../Components/CommonComponents/Search/Search";
 import { Row, Col, Container } from "react-bootstrap";
 import React, { Component } from "react";
-import Filter from "../Components/ReserveComponents/Filter/Filter";
+import FacilitiesFilter from "../Components/ReserveComponents/Filter/FacilitiesFilter";
+import PriceFilter from "../Components/ReserveComponents/Filter/PriceFilter";
+import ReviewFilter from "../Components/ReserveComponents/Filter/ReviewFilter";
 import Places from "../Components/ReserveComponents/Places";
 import PropTypes from "prop-types";
 
@@ -18,7 +20,22 @@ export default class Reserve extends Component {
         <Container className="reserve">
           <Row>
             <Col className="filter" md={3}>
-              <Filter />
+              <Row>
+                <Col className="filter-section-header">Udogodnienia</Col>
+              </Row>
+              <Row className="filters">
+                <FacilitiesFilter aria-expanded="true" />
+              </Row>
+              <Row>
+                <Col className="filter-section-header">Cena</Col>
+              </Row>
+              <PriceFilter />
+              <Row>
+                <Col className="filter-section-header">Ocena</Col>
+              </Row>
+              <Col className="filters">
+                <ReviewFilter isReadOnly={false} />
+              </Col>
             </Col>
             <Col md={9}>
               <Places {...this.props} />

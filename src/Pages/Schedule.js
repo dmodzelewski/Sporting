@@ -307,10 +307,8 @@ const appointments = [
   },
 ];
 
-const currentDate = "2018-06-27";
-
 export default () => {
-  const [currentDate, setcurrentDate] = useState("2018-06-27");
+  const [currentDate, setcurrentDate] = useState(new Date());
   const [data, setDate] = useState(appointments);
   const [currentView, setCurrentView] = useState("day");
   const [addedAppointment, setAddedAppointment] = useState({});
