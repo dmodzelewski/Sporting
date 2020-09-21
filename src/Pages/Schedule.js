@@ -13,7 +13,6 @@ import {
   DateNavigator,
   MonthView,
   ViewSwitcher,
-  ConfirmationDialog,
   DayView,
   TodayButton,
   Appointments,

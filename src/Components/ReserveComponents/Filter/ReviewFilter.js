@@ -2,7 +2,7 @@ import { Form } from "react-bootstrap";
 import React, { useState } from "react";
 import Rating from "@material-ui/lab/Rating";
 import Box from "@material-ui/core/Box";
-
+import PropTypes from "prop-types";
 const labels = {
   0.5: "Żenada",
   1: "Beznadziejnie",
@@ -16,7 +16,7 @@ const labels = {
   5: "Niesamowicie",
 };
 
-const ReviewFilter = () => {
+const ReviewFilter = ({ Review }) => {
   const [value, setValue] = useState(3);
   const [hover, setHover] = useState(-1);
   return (
@@ -29,6 +29,7 @@ const ReviewFilter = () => {
           precision={0.5}
           onChange={(event, newValue) => {
             setValue(newValue);
+            Review(newValue);
           }}
           onChangeActive={(event, newHover) => {
             setHover(newHover);
@@ -41,5 +42,7 @@ const ReviewFilter = () => {
     </Form>
   );
 };
-
+ReviewFilter.propTypes = {
+  Review: PropTypes.func.isRequired,
+};
 export default ReviewFilter;

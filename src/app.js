@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+import React from "react";
 import Home from "./Pages/Home";
 import Reserve from "./Pages/Reserve";
 import About from "./Pages/About";
@@ -15,37 +15,30 @@ import { ApolloClient, InMemoryCache, ApolloProvider } from "@apollo/client";
 import PropTypes from "prop-types";
 
 const clientApollo = new ApolloClient({
-  // Do zmiany
   uri: "http://159.69.41.224:3001/graphql",
   cache: new InMemoryCache(),
 });
 
-class App extends Component {
-  //This can be in state
-  constructor(props) {
-    super(props);
-  }
-  render() {
-    return (
-      <>
-        <ApolloProvider client={clientApollo}>
-          <NavigationBar />
-          <Switch>
-            <Route exact path="/" component={Home} />
-            <Route exact path="/reserve" component={Reserve} />
-            <Route exact path="/about" component={About} />
-            <Route exact path="/placeinfo" component={PlaceInfo} />
-            <Route exact path="/scheduler" component={Schedule} />
-            <Route exact path="/profile" component={Profile} />
-            <Route exact path="/login" component={Login} />
-            <Route component={Error} />
-          </Switch>
-          <Footer />
-        </ApolloProvider>
-      </>
-    );
-  }
-}
+const App = () => {
+  return (
+    <>
+      <ApolloProvider client={clientApollo}>
+        <NavigationBar />
+        <Switch>
+          <Route exact path="/" component={Home} />
+          <Route exact path="/reserve" component={Reserve} />
+          <Route exact path="/about" component={About} />
+          <Route exact path="/placeinfo" component={PlaceInfo} />
+          <Route exact path="/scheduler" component={Schedule} />
+          <Route exact path="/profile" component={Profile} />
+          <Route exact path="/login" component={Login} />
+          <Route component={Error} />
+        </Switch>
+        <Footer />
+      </ApolloProvider>
+    </>
+  );
+};
 App.propTypes = {
   history: PropTypes.object.isRequired,
 };

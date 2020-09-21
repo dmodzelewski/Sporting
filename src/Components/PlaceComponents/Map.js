@@ -23,7 +23,7 @@ const Map = (props) => {
   );
 };
 Map.propTypes = {
-  latitude: PropTypes.string.isRequired,
+  latitude: PropTypes.number.isRequired,
   longitude: PropTypes.number.isRequired,
 };
 export default Map;
