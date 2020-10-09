@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { AUTH_TOKEN } from "./constants";
-import { Col } from "react-bootstrap";
+import { Col, Modal } from "react-bootstrap";
 import { useHistory } from "react-router-dom";
 import Button from "@material-ui/core/Button";
 import { ValidatorForm, TextValidator } from "react-material-ui-form-validator";
@@ -9,10 +8,8 @@ import {
   MuiPickersUtilsProvider,
   KeyboardDatePicker,
 } from "@material-ui/pickers";
-
-const _saveUserData = (token) => {
-  localStorage.setItem(AUTH_TOKEN, token);
-};
+import { gql, useMutation } from "@apollo/client";
+import { ToastContainer } from "react-toastify";
 
 const Login = () => {
   const [login, setlogin] = useState(true);
@@ -23,6 +20,41 @@ const Login = () => {
   const [surname, setSurname] = useState("");
   const [selectedDate, setSelectedDate] = useState(new Date());
   const history = useHistory();
+
+  const AddUser = gql`
+    mutation {
+      addUser(
+        loginEmail: "${email}"
+        password: "${password}"
+        firstName: "${name}"
+        lastName: "${surname}"
+        birthDate: "${selectedDate}"
+      ) {
+        loginEmail
+      }
+    }
+  `;
+
+  const [addUser, { data }] = useMutation(AddUser);
+  const LookForDate = () =>{
+    if(name == "" || surname == "" || email == "" || password == "" || repeatPassword == "" ){
+      return true;
+    }else{
+      return false;
+    }
+  }
+
+
+
+  const CreateUser = () => {
+    addUser();
+    setName("");
+    setSurname("");
+    setPassword("");
+    setrepeatPassword("");
+    setlogin(true)
+//addToast
+  };
   const handleDateChange = (date) => {
     setSelectedDate(date);
   };
@@ -33,15 +65,12 @@ const Login = () => {
       }
       return true;
     });
+
     return () => {
       ValidatorForm.removeValidationRule("isPasswordMatch");
     };
   });
-  const EncryptAndFind = (login, password) => {
-    history.push({
-      pathname: "/reserve",
-    });
-  };
+  
   return (
     <Col className="login">
       <Col>
@@ -135,12 +164,14 @@ const Login = () => {
               <Col onClick={() => setlogin(!login)}>
                 {login ? "Nie masz jeszcze konta?" : "Posiadasz już konto?"}
               </Col>
-              <Button
-                type="submit"
-                onClick={() => EncryptAndFind(email, password)}
-              >
-                {login ? "Zaloguj się" : "Stwórz konto"}
-              </Button>
+              {login ? (
+                <Button type="submit"> Zaloguj się </Button>
+              ) : (
+                <Button disabled ={LookForDate()} type="submit" onClick={CreateUser}>
+                  Stwórz konto
+                </Button>
+              )}
+             
             </Col>
           </ValidatorForm>
         </Col>
