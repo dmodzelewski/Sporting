@@ -14,6 +14,7 @@ import { ToastContainer } from "react-toastify";
 const Login = () => {
   const [login, setlogin] = useState(true);
   const [email, setemail] = useState("");
+  const [isEmail, setIsEmail] = useState(false)
   const [password, setPassword] = useState("");
   const [repeatPassword, setrepeatPassword] = useState("");
   const [name, setName] = useState("");
@@ -21,6 +22,12 @@ const Login = () => {
   const [selectedDate, setSelectedDate] = useState(new Date());
   const history = useHistory();
 
+
+  const isEmailInDB = gql`
+  mutation{
+    isLoginUserExists(loginEmail:"${email}")
+  }
+`
   const AddUser = gql`
     mutation {
       addUser(
@@ -29,6 +36,7 @@ const Login = () => {
         firstName: "${name}"
         lastName: "${surname}"
         birthDate: "${selectedDate}"
+        role:USER
       ) {
         loginEmail
       }
@@ -36,7 +44,10 @@ const Login = () => {
   `;
 
   const [addUser, { data }] = useMutation(AddUser);
-  const LookForDate = () =>{
+
+  const [isEmailValid, { Emaildata }] = useMutation(isEmailInDB);
+
+  const LookForData = () =>{
     if(name == "" || surname == "" || email == "" || password == "" || repeatPassword == "" ){
       return true;
     }else{
@@ -70,7 +81,11 @@ const Login = () => {
       ValidatorForm.removeValidationRule("isPasswordMatch");
     };
   });
+  Promise.resolve(isEmailValid()).then(function (val) {
+    setIsEmail(val.data.isLoginUserExists);
+  })
   
+
   return (
     <Col className="login">
       <Col>
@@ -132,6 +147,7 @@ const Login = () => {
                 errorMessages={[
                   "To pole jest wymagane",
                   "Email jest niepoprawny",
+           
                 ]}
                 onChange={(e) => setemail(e.target.value)}
               />
@@ -167,7 +183,7 @@ const Login = () => {
               {login ? (
                 <Button type="submit"> Zaloguj się </Button>
               ) : (
-                <Button disabled ={LookForDate()} type="submit" onClick={CreateUser}>
+                <Button disabled ={LookForData()} type="submit" onClick={CreateUser}>
                   Stwórz konto
                 </Button>
               )}

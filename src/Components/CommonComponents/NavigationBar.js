@@ -29,6 +29,14 @@ export default class NavigationBar extends Component {
 
         <Navbar.Collapse>
           <Nav className="nav-buttons">
+          <Nav.Link
+              as={NavLink}
+              exact
+              to="/profile"
+              className="nav-button hvr-float-shadow"
+            >
+              Profil
+            </Nav.Link>
             <Nav.Link
               as={NavLink}
               exact

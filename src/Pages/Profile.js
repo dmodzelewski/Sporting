@@ -1,44 +1,31 @@
-import React, { Component } from "react";
-import PropTypes from "prop-types";
+import React from "react";
+import UserReservations from "../Components/UserComponents/UserReservations";
+import Container, { Col } from 'react-bootstrap'
 
-class Profile extends Component {
-  state = {
-    profile: null,
-    error: "",
-  };
+const  Profile =()=> {
 
-  componentDidMount() {
-    this.loadUserProfile();
-  }
+  
 
-  loadUserProfile() {
-    this.props.auth.getProfile((profile, error) =>
-      this.setState({ profile, error })
-    );
-  }
-
-  render() {
-    const { profile } = this.state;
-    if (!profile) return null;
+    
     return (
       <>
         <h1>Twój Profil</h1>
         <div>
-          <h1> Witaj {profile.name}</h1>
+          <h1> Witaj Użytkowniku</h1>
         </div>
         <br />
         <img
           style={{ maxWidth: 50, maxHeight: 50 }}
-          src={profile.picture}
+          src="http://www.ewa.bicom.pl/ptaki/images/fot_kaczka.jpg"
           alt="profile pic"
         />
-        <p>Tu masz co jest wyciągane z Profilu i można zamieścić</p>
-        <pre>{JSON.stringify(profile, null, 2)}</pre>
+        <p>Rezerwacje</p>
+       <Col>
+        <UserReservations/>
+       </Col>
+       
       </>
     );
   }
-}
-Profile.propTypes = {
-  auth: PropTypes.object.isRequired,
-};
+
 export default Profile;

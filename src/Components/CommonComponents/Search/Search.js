@@ -48,10 +48,11 @@ const Search = () => {
       "&lon=" +
       long +
       "&format=json";
-
+    
     const response = await fetch(place);
     const JSONdata = await response.json();
-    currentCityLocation = JSONdata.address.town;
+    
+    currentCityLocation = JSONdata.address.city;
     return currentCityLocation;
   };
   useEffect(() => {
@@ -59,7 +60,6 @@ const Search = () => {
   });
   const SetCityByLocalization = (myCity) => {
     Promise.resolve(myCity).then(function (val) {
-      console.log(val);
       setCity(val);
     });
   };
