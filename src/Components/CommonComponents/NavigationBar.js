@@ -14,7 +14,8 @@ export default class NavigationBar extends Component {
     this.setState({ isOpen: !this.state.isOpen });
   };
   render() {
-    const authToken = localStorage.getItem(AUTH_TOKEN);
+    const authToken = localStorage.getItem("token");
+    
     return (
       <Navbar
         collapseOnSelect
@@ -29,18 +30,22 @@ export default class NavigationBar extends Component {
 
         <Navbar.Collapse>
           <Nav className="nav-buttons">
-          <Nav.Link
-              as={NavLink}
-              exact
-              to="/profile"
-              className="nav-button hvr-float-shadow"
-            >
+         
+         {authToken?
+
+           (<Nav.Link
+           as={NavLink}
+           exact
+           to="/profile"
+           className="nav-button hvr-float-shadow"
+           >
               Profil
-            </Nav.Link>
+            </Nav.Link>):(null)
+          }
             <Nav.Link
-              as={NavLink}
-              exact
-              to="/reserve"
+            as={NavLink}
+            exact
+            to="/reserve"
               className="nav-button hvr-float-shadow"
             >
               Wynajmij Obiekt
@@ -56,8 +61,9 @@ export default class NavigationBar extends Component {
             {authToken ? (
               <Nav.Link
                 as={NavLink}
-                to="/"
-                onClick={localStorage.removeItem(AUTH_TOKEN)}
+                className="nav-button hvr-float-shadow"
+                to="/login"
+                onClick ={localStorage.removeItem("token")}           
               >
                 Wyloguj
               </Nav.Link>

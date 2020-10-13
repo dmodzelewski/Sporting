@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { Col, Modal } from "react-bootstrap";
+import { Col } from "react-bootstrap";
 import { useHistory } from "react-router-dom";
 import Button from "@material-ui/core/Button";
 import { ValidatorForm, TextValidator } from "react-material-ui-form-validator";
@@ -9,11 +9,11 @@ import {
   KeyboardDatePicker,
 } from "@material-ui/pickers";
 import { gql, useMutation } from "@apollo/client";
-import { ToastContainer } from "react-toastify";
 import PasswordStrengthBar from 'react-password-strength-bar';
 
 const Login = () => {
-  const storedJwt = localStorage.getItem('token');
+  const authToken = localStorage.getItem("token");
+  
   const [login, setlogin] = useState(true);
   const [email, setemail] = useState("");
   const [isEmail, setIsEmail] = useState(true)
@@ -22,7 +22,7 @@ const Login = () => {
   const [name, setName] = useState("");
   const [surname, setSurname] = useState("");
   const [selectedDate, setSelectedDate] = useState(new Date());
-  const [jwt, setjwt] =  useState(null)
+  const [jwt, setjwt] =  useState(authToken||null)
   const history = useHistory();
 
 
@@ -51,30 +51,42 @@ mutation{
       }
     }
   `;
-const verifyUser = gql `
-mutation{
-  verifyUser(token:"${jwt||null}")
-	{
-    loginEmail
-    role
-    exp
-    iat
-  }
-}`
+// const verifyUser = gql `
+// mutation{
+//   verifyUser(token:"${jwt||null}")
+// 	{
+//     loginEmail
+//     role
+//     exp
+//     iat
+//   }
+// }`
   const [addUser] = useMutation(AddUser);
 
   const [isEmailValid] = useMutation(isEmailInDB);
 
   const [Getjwt] = useMutation(GetJwt);
 
-  const [VerifyUser, {VerifyUserData}] = useMutation(verifyUser);
+  // const [VerifyUser, {VerifyUserData}] = useMutation(verifyUser);
 
-  const LookForData = () =>{
-    if(name == "" || surname == "" || email == "" || password == "" || repeatPassword == "" ){
-      return true;
-    }else{
+  const LookForData = (type) =>{
+    if (type == "Signin") {
+      if(name == "" || surname == "" || email == "" || password == "" || repeatPassword == "" ){
+        return true;
+      }else{
+        return false;
+      }  
+    } else if(type == "Login") {
+      if( email == "" || password == "" ){
+        return true;
+      }else{
+        return false;
+      }
+    }
+    else{
       return false;
     }
+    
   }
 
 
@@ -91,25 +103,29 @@ mutation{
 
   const LoginUser = () =>{
     
-    Promise.resolve(Getjwt()).then(function (val) {
-      localStorage.setItem('token', val.data.loginUser);
-      setjwt(val.data.loginUser);
-    })    
-    IsEmailExists(email)
-    console.log(isEmail)
-    console.log(jwt)
-    
-  if(jwt == null || !isEmail){
-    console.log("Błędne Hasło")
-  }
-  else{
-    console.log("Poprawne Hasło")
-  }
+    isEmailValid().then(function (val) {
+      setIsEmail(val.data.isLoginUserExists);
+    }).catch(() =>{
+      console.log("Email nie jest prawidłowy")
+    })
+    if(isEmail == true){
+      Getjwt().then(function (val) {
+        localStorage.setItem('token', val.data.loginUser);
+        setjwt(val.data.loginUser);
+        console.log(val.data.loginUser)
+        if(val.data.loginUser){
+          history.push("/profile")
+        }else{
+          console.log("hasło jest Nie Poprawne")
+        }
+      }).catch(() => {console.log("Adres Email nie istnieje")})
+      }else{
+        console.log("Adres Email nie istnieje")
+      }
     }
+    
 
-  const UserVerification = () =>{
-    VerifyUser()
-  }
+  
 
   const handleDateChange = (date) => {
     setSelectedDate(date);
@@ -127,12 +143,7 @@ mutation{
     };
   });
 
-const  IsEmailExists = () =>{
-  Promise.resolve(isEmailValid()).then(function (val) {
-    setIsEmail(val.data.isLoginUserExists);
-  })
-
-} 
+ 
   
 
   return (
@@ -233,9 +244,9 @@ const  IsEmailExists = () =>{
                 {login ? "Nie masz jeszcze konta?" : "Posiadasz już konto?"}
               </Col>
               {login ? (
-                <Button type="submit" onClick={LoginUser}> Zaloguj się </Button>
+                <Button disabled ={LookForData("Login")} type="submit" onClick={LoginUser}> Zaloguj się </Button>
               ) : (
-                <Button disabled ={LookForData()} type="submit" onClick={CreateUser}>
+                <Button disabled ={LookForData("Signin")} type="submit" onClick={CreateUser}>
                   Stwórz konto
                 </Button>
               )}
