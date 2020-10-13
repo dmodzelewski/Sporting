@@ -10,8 +10,10 @@ import {
 } from "@material-ui/pickers";
 import { gql, useMutation } from "@apollo/client";
 import { ToastContainer } from "react-toastify";
+import PasswordStrengthBar from 'react-password-strength-bar';
 
 const Login = () => {
+  const storedJwt = localStorage.getItem('token');
   const [login, setlogin] = useState(true);
   const [email, setemail] = useState("");
   const [isEmail, setIsEmail] = useState(false)
@@ -20,6 +22,7 @@ const Login = () => {
   const [name, setName] = useState("");
   const [surname, setSurname] = useState("");
   const [selectedDate, setSelectedDate] = useState(new Date());
+  const [jwt, setjwt] =  useState(storedJwt||null)
   const history = useHistory();
 
 
@@ -28,6 +31,12 @@ const Login = () => {
     isLoginUserExists(loginEmail:"${email}")
   }
 `
+const GetJwt = gql`
+mutation{
+  loginUser(loginEmail:"${email}",password:"${password}")
+  }
+  `
+
   const AddUser = gql`
     mutation {
       addUser(
@@ -42,10 +51,23 @@ const Login = () => {
       }
     }
   `;
-
+const verifyUser = gql `
+mutation{
+  verifyUser(token:"${jwt||null}")
+	{
+    loginEmail
+    role
+    exp
+    iat
+  }
+}`
   const [addUser, { data }] = useMutation(AddUser);
 
   const [isEmailValid, { Emaildata }] = useMutation(isEmailInDB);
+
+  const [Getjwt , {UserLoginData}] = useMutation(GetJwt);
+
+  const [VerifyUser, {VerifyUserData}] = useMutation(verifyUser);
 
   const LookForData = () =>{
     if(name == "" || surname == "" || email == "" || password == "" || repeatPassword == "" ){
@@ -66,6 +88,25 @@ const Login = () => {
     setlogin(true)
 //addToast
   };
+
+  const CreateToken = () =>{
+    Promise.resolve(Getjwt()).then(function (val) {
+      console.log(val)
+      localStorage.setItem('token', val.data.loginUser);
+      setjwt(val.data.loginUser);
+    })    
+  
+    }
+const LoginUser=()=>{
+  CreateToken();
+  console.log(jwt);
+
+
+}
+  const UserVerification = () =>{
+    VerifyUser()
+  }
+
   const handleDateChange = (date) => {
     setSelectedDate(date);
   };
@@ -81,9 +122,13 @@ const Login = () => {
       ValidatorForm.removeValidationRule("isPasswordMatch");
     };
   });
+
+const  IsEmailExists = () =>{
   Promise.resolve(isEmailValid()).then(function (val) {
     setIsEmail(val.data.isLoginUserExists);
   })
+
+} 
   
 
   return (
@@ -162,7 +207,10 @@ const Login = () => {
                 errorMessages={["To pole jest wymagane!"]}
                 onChange={(e) => setPassword(e.target.value)}
               />{" "}
-              {!login && (
+             {!login && (
+              <PasswordStrengthBar shortScoreWord={"Za krótkie"} scoreWords={["Słabe","Słabe","Dobre","Bardzo dobre","Wyśmienite"]} minLength={8} password={password}/>
+             )}
+              {!login && (              
                 <TextValidator
                   required
                   id="standard-required"
@@ -181,7 +229,7 @@ const Login = () => {
                 {login ? "Nie masz jeszcze konta?" : "Posiadasz już konto?"}
               </Col>
               {login ? (
-                <Button type="submit"> Zaloguj się </Button>
+                <Button type="submit" onClick={LoginUser}> Zaloguj się </Button>
               ) : (
                 <Button disabled ={LookForData()} type="submit" onClick={CreateUser}>
                   Stwórz konto

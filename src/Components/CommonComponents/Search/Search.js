@@ -41,7 +41,6 @@ const Search = () => {
   };
   let ReverseGeocoding = async () => {
     getCurrentPosition();
-    console.log(lat + "  " + long);
     const place =
       "https://us1.locationiq.com/v1/reverse.php?key=pk.6cea20c72e201ece96127cb84cd81029&lat=" +
       lat +
@@ -51,8 +50,18 @@ const Search = () => {
     
     const response = await fetch(place);
     const JSONdata = await response.json();
-    
-    currentCityLocation = JSONdata.address.city;
+    try {
+      currentCityLocation = JSONdata.address.city;
+      
+    } catch (error) {
+      console.log("Lokalizacja to miasto")      
+    }
+    try {
+      currentCityLocation = JSONdata.address.village;
+      
+    } catch (error) {
+      console.log("Lokalizacja to wieś")      
+    }
     return currentCityLocation;
   };
   useEffect(() => {
