@@ -1,8 +1,13 @@
 {
-  "appId": "com.isportio.android",
+  "appId": "com.example.app",
   "appName": "isportio",
   "bundledWebRuntime": false,
   "npmClient": "npm",
-  "webDir": "dist",
+  "webDir": "src",
+  "plugins": {
+    "SplashScreen": {
+      "launchShowDuration": 0
+    }
+  },
   "cordova": {}
 }

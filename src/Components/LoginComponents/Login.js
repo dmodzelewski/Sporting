@@ -16,13 +16,13 @@ const Login = () => {
   const storedJwt = localStorage.getItem('token');
   const [login, setlogin] = useState(true);
   const [email, setemail] = useState("");
-  const [isEmail, setIsEmail] = useState(false)
+  const [isEmail, setIsEmail] = useState(true)
   const [password, setPassword] = useState("");
   const [repeatPassword, setrepeatPassword] = useState("");
   const [name, setName] = useState("");
   const [surname, setSurname] = useState("");
   const [selectedDate, setSelectedDate] = useState(new Date());
-  const [jwt, setjwt] =  useState(storedJwt||null)
+  const [jwt, setjwt] =  useState(null)
   const history = useHistory();
 
 
@@ -61,11 +61,11 @@ mutation{
     iat
   }
 }`
-  const [addUser, { data }] = useMutation(AddUser);
+  const [addUser] = useMutation(AddUser);
 
-  const [isEmailValid, { Emaildata }] = useMutation(isEmailInDB);
+  const [isEmailValid] = useMutation(isEmailInDB);
 
-  const [Getjwt , {UserLoginData}] = useMutation(GetJwt);
+  const [Getjwt] = useMutation(GetJwt);
 
   const [VerifyUser, {VerifyUserData}] = useMutation(verifyUser);
 
@@ -86,23 +86,27 @@ mutation{
     setPassword("");
     setrepeatPassword("");
     setlogin(true)
-//addToast
+    //addToast
   };
 
-  const CreateToken = () =>{
+  const LoginUser = () =>{
+    
     Promise.resolve(Getjwt()).then(function (val) {
-      console.log(val)
       localStorage.setItem('token', val.data.loginUser);
       setjwt(val.data.loginUser);
     })    
-  
+    IsEmailExists(email)
+    console.log(isEmail)
+    console.log(jwt)
+    
+  if(jwt == null || !isEmail){
+    console.log("Błędne Hasło")
+  }
+  else{
+    console.log("Poprawne Hasło")
+  }
     }
-const LoginUser=()=>{
-  CreateToken();
-  console.log(jwt);
 
-
-}
   const UserVerification = () =>{
     VerifyUser()
   }
