@@ -4,7 +4,6 @@ import running from "@iconify/icons-mdi/run-fast";
 import { Link, NavLink } from "react-router-dom";
 import { Navbar, Nav } from "react-bootstrap";
 import PropTypes from "prop-types";
-import { AUTH_TOKEN } from "../LoginComponents/constants";
 
 export default class NavigationBar extends Component {
   state = {
@@ -58,12 +57,12 @@ export default class NavigationBar extends Component {
             >
               Pomoc
             </Nav.Link>
-            {authToken ? (
+            {authToken ? ( 
               <Nav.Link
                 as={NavLink}
                 className="nav-button hvr-float-shadow"
                 to="/login"
-                onClick ={localStorage.removeItem("token")}           
+                onClick ={() => localStorage.removeItem("token")}           
               >
                 Wyloguj
               </Nav.Link>

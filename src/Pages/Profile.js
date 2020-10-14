@@ -1,11 +1,8 @@
 import React from "react";
 import UserReservations from "../Components/UserComponents/UserReservations";
-import Container, { Col } from 'react-bootstrap'
+import { Col } from 'react-bootstrap'
 
 const  Profile =()=> {
-
-  
-
     
     return (
       <>
