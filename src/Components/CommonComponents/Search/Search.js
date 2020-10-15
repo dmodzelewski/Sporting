@@ -50,18 +50,22 @@ const Search = () => {
     
     const response = await fetch(place);
     const JSONdata = await response.json();
+    
     try {
-      currentCityLocation = JSONdata.address.city;
-      
+      currentCityLocation = JSONdata.address.city;      
     } catch (error) {
       console.log("Lokalizacja to miasto")      
     }
+    if (currentCityLocation == null) {
+    
     try {
       currentCityLocation = JSONdata.address.village;
       
     } catch (error) {
       console.log("Lokalizacja to wieś")      
-    }
+    }}
+    console.log(currentCityLocation)
+
     return currentCityLocation;
   };
   useEffect(() => {

@@ -114,7 +114,12 @@ mutation{
         setjwt(val.data.loginUser);
         console.log(val.data.loginUser)
         if(val.data.loginUser){
-          history.push("/profile")
+          history.push({
+            pathname: "/profile",
+            state: {
+              passEmail:email
+            },
+          });
         }else{
           console.log("hasło jest Nie Poprawne")
         }

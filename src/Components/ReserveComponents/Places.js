@@ -45,4 +45,5 @@ const Places = (props) => {
 Places.propTypes = {
   location: PropTypes.object.isRequired,
 };
+
 export default Places;
