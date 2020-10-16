@@ -5,9 +5,10 @@ import { gql, useQuery } from "@apollo/client";
 import PropTypes from "prop-types";
 
 const  Profile =(props)=> {
+  
   const userInfo = gql`
   query{
-    userByEmail(loginEmail:"${props.location.state.passEmail}"){
+    userByEmail(loginEmail:"${localStorage.getItem("email")||props.location.state.passEmail}"){
       firstName
       lastName
       birthDate

@@ -120,6 +120,7 @@ mutation{
               passEmail:email
             },
           });
+  localStorage.setItem('email',email)
         }else{
           console.log("hasło jest Nie Poprawne")
         }

@@ -41,14 +41,7 @@ export default class NavigationBar extends Component {
               Profil
             </Nav.Link>):(null)
           }
-            <Nav.Link
-            as={NavLink}
-            exact
-            to="/reserve"
-              className="nav-button hvr-float-shadow"
-            >
-              Wynajmij Obiekt
-            </Nav.Link>
+           
             <Nav.Link
               as={NavLink}
               exact
