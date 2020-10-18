@@ -13,7 +13,6 @@ import PasswordStrengthBar from 'react-password-strength-bar';
 
 const Login = () => {
   const authToken = localStorage.getItem("token");
-  
   const [login, setlogin] = useState(true);
   const [email, setemail] = useState("");
   const [isEmail, setIsEmail] = useState(true)
