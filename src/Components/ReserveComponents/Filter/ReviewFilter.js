@@ -3,6 +3,7 @@ import React, { useState } from "react";
 import Rating from "@material-ui/lab/Rating";
 import Box from "@material-ui/core/Box";
 import PropTypes from "prop-types";
+
 const labels = {
   0.5: "Żenada",
   1: "Beznadziejnie",

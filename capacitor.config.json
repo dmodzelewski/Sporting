@@ -3,7 +3,7 @@
   "appName": "isportio",
   "bundledWebRuntime": false,
   "npmClient": "npm",
-  "webDir": "src",
+  "webDir": "distDev",
   "plugins": {
     "SplashScreen": {
       "launchShowDuration": 0

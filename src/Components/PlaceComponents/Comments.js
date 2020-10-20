@@ -7,8 +7,11 @@ import AccountCircle from "@material-ui/icons/AccountCircle";
 import TextField from "@material-ui/core/TextField";
 import Popup from "reactjs-popup";
 import Rating from "@material-ui/lab/Rating";
+import { gql } from "@apollo/client";
+import { useQuery } from "@apollo/client";
 
 const labels = {
+ 
   0.5: "Żenada",
   1: "Beznadziejnie",
   1.5: "Okropnie",
@@ -22,7 +25,10 @@ const labels = {
 };
 
 const Comments = () => {
+
+
   const [value, setValue] = useState(3);
+  const [hover, setHover] = useState(-1);
   const [Opinions, setOpinions] = useState([]);
 
   const [Name, setName] = useState("");
@@ -34,8 +40,11 @@ const Comments = () => {
       ...Opinions,
       {
         id: Opinions.length,
+        opinionName : labels[hover !== -1 ? hover : value],
+        opinionValue : value,
         name: Name,
         text: Text,
+
         starValue: value,
       },
     ]);
@@ -55,7 +64,7 @@ const Comments = () => {
                     <Col className="place-comment-reviewbox no-padding">
                       <Col className="place-comment-rev-up no-padding">
                         <Col className="place-comment-info no-padding">
-                          Słaby <span>3.0</span>
+                          {item.opinionName} <span>{item.opinionValue}</span>
                         </Col>
                         <Col className="place-comment-date">
                           Dodano{" "}
@@ -74,7 +83,7 @@ const Comments = () => {
                             <Rating
                               readOnly={true}
                               name="hover-feedback"
-                              value={value}
+                              value={item.starValue}
                               size="large"
                               precision={0.5}
                             />
@@ -127,6 +136,9 @@ const Comments = () => {
               onChange={(event, newValue) => {
                 setValue(newValue);
               }}
+              onChangeActive={(event, newHover) => {
+                setHover(newHover);
+              }}
             />
             <InputLabel
               className="place-comment-label"
@@ -137,12 +149,16 @@ const Comments = () => {
             <TextField
               value={Text}
               onChange={(x) => setText(x.target.value)}
+              onChangeActive={(event, newHover) => {
+                setHover(newHover);
+              }}
               className="place-comment-textfield"
               placeholder="Twoja ocena..."
               multiline
               rows={2}
               rowsMax={4}
             />
+           
             <Col className="place-comment-button">
               <Button onClick={(e) => AddOpinions(e)}>oceń</Button>
             </Col>

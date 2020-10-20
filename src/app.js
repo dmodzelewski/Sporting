@@ -13,6 +13,7 @@ import Profile from "./Pages/Profile";
 import PlaceInfo from "./Pages/PlaceInfo";
 import { ApolloClient, InMemoryCache, ApolloProvider } from "@apollo/client";
 import PropTypes from "prop-types";
+import AdminPanel from "./Pages/AdminPanel";
 
 const clientApollo = new ApolloClient({
   uri: "http://159.69.41.224:3001/graphql",
@@ -32,6 +33,7 @@ const App = () => {
           <Route exact path="/scheduler" component={Schedule} />
           <Route exact path="/profile" component={Profile} />
           <Route exact path="/login" component={Login} />
+          <Route exact path="/adminpanel" component={AdminPanel} />
           <Route component={Error} />
         </Switch>
         <Footer />

@@ -9,32 +9,34 @@ import {
   KeyboardDatePicker,
 } from "@material-ui/pickers";
 import { gql, useMutation } from "@apollo/client";
-import PasswordStrengthBar from 'react-password-strength-bar';
+import PasswordStrengthBar from "react-password-strength-bar";
+
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 const Login = () => {
   const authToken = localStorage.getItem("token");
   const [login, setlogin] = useState(true);
   const [email, setemail] = useState("");
-  const [isEmail, setIsEmail] = useState(true)
+  const [isEmail, setIsEmail] = useState(true);
   const [password, setPassword] = useState("");
   const [repeatPassword, setrepeatPassword] = useState("");
   const [name, setName] = useState("");
   const [surname, setSurname] = useState("");
   const [selectedDate, setSelectedDate] = useState(new Date());
-  const [jwt, setjwt] =  useState(authToken||null)
+  const [jwt, setjwt] = useState(authToken || null);
   const history = useHistory();
-
 
   const isEmailInDB = gql`
   mutation{
     isLoginUserExists(loginEmail:"${email}")
   }
-`
-const GetJwt = gql`
+`;
+  const GetJwt = gql`
 mutation{
   loginUser(loginEmail:"${email}",password:"${password}")
   }
-  `
+  `;
 
   const AddUser = gql`
     mutation {
@@ -50,16 +52,16 @@ mutation{
       }
     }
   `;
-// const verifyUser = gql `
-// mutation{
-//   verifyUser(token:"${jwt||null}")
-// 	{
-//     loginEmail
-//     role
-//     exp
-//     iat
-//   }
-// }`
+  // const verifyUser = gql `
+  // mutation{
+  //   verifyUser(token:"${jwt||null}")
+  // 	{
+  //     loginEmail
+  //     role
+  //     exp
+  //     iat
+  //   }
+  // }`
   const [addUser] = useMutation(AddUser);
 
   const [isEmailValid] = useMutation(isEmailInDB);
@@ -68,27 +70,31 @@ mutation{
 
   // const [VerifyUser, {VerifyUserData}] = useMutation(verifyUser);
 
-  const LookForData = (type) =>{
+  const LookForData = (type) => {
     if (type == "Signin") {
-      if(name == "" || surname == "" || email == "" || password == "" || repeatPassword == "" ){
+      if (
+        name == "" ||
+        surname == "" ||
+        email == "" ||
+        password == "" ||
+        repeatPassword == ""
+      ) {
         return true;
-      }else{
-        return false;
-      }  
-    } else if(type == "Login") {
-      if( email == "" || password == "" ){
-        return true;
-      }else{
+      } else {
         return false;
       }
-    }
-    else{
+    } else if (type == "Login") {
+      if (email == "" || password == "") {
+        return true;
+      } else {
+        return false;
+      }
+    } else {
       return false;
     }
-    
-  }
+  };
 
-
+  const notify = () => toast("Konto zostało utworzone!");
 
   const CreateUser = () => {
     addUser();
@@ -96,41 +102,43 @@ mutation{
     setSurname("");
     setPassword("");
     setrepeatPassword("");
-    setlogin(true)
-    //addToast
+    setlogin(true);
+    notify();
   };
 
-  const LoginUser = () =>{
-    
-    isEmailValid().then(function (val) {
-      setIsEmail(val.data.isLoginUserExists);
-    }).catch(() =>{
-      console.log("Email nie jest prawidłowy")
-    })
-    if(isEmail == true){
-      Getjwt().then(function (val) {
-        localStorage.setItem('token', val.data.loginUser);
-        setjwt(val.data.loginUser);
-        console.log(val.data.loginUser)
-        if(val.data.loginUser){
-          history.push({
-            pathname: "/profile",
-            state: {
-              passEmail:email
-            },
-          });
-  localStorage.setItem('email',email)
-        }else{
-          console.log("hasło jest Nie Poprawne")
-        }
-      }).catch(() => {console.log("Adres Email nie istnieje")})
-      }else{
-        console.log("Adres Email nie istnieje")
-      }
+  const LoginUser = () => {
+    isEmailValid()
+      .then(function (val) {
+        setIsEmail(val.data.isLoginUserExists);
+      })
+      .catch(() => {
+        console.log("Email nie jest prawidłowy");
+      });
+    if (isEmail == true) {
+      Getjwt()
+        .then(function (val) {
+          localStorage.setItem("token", val.data.loginUser);
+          setjwt(val.data.loginUser);
+          console.log(val.data.loginUser);
+          if (val.data.loginUser) {
+            history.push({
+              pathname: "/profile",
+              state: {
+                passEmail: email,
+              },
+            });
+            localStorage.setItem("email", email);
+          } else {
+            console.log("hasło jest Nie Poprawne");
+          }
+        })
+        .catch(() => {
+          console.log("Adres Email nie istnieje");
+        });
+    } else {
+      console.log("Adres Email nie istnieje");
     }
-    
-
-  
+  };
 
   const handleDateChange = (date) => {
     setSelectedDate(date);
@@ -147,9 +155,6 @@ mutation{
       ValidatorForm.removeValidationRule("isPasswordMatch");
     };
   });
-
- 
-  
 
   return (
     <Col className="login">
@@ -212,7 +217,6 @@ mutation{
                 errorMessages={[
                   "To pole jest wymagane",
                   "Email jest niepoprawny",
-           
                 ]}
                 onChange={(e) => setemail(e.target.value)}
               />
@@ -227,10 +231,21 @@ mutation{
                 errorMessages={["To pole jest wymagane!"]}
                 onChange={(e) => setPassword(e.target.value)}
               />{" "}
-             {!login && (
-              <PasswordStrengthBar shortScoreWord={"Za krótkie"} scoreWords={["Słabe","Słabe","Dobre","Bardzo dobre","Wyśmienite"]} minLength={8} password={password}/>
-             )}
-              {!login && (              
+              {!login && (
+                <PasswordStrengthBar
+                  shortScoreWord={"Za krótkie"}
+                  scoreWords={[
+                    "Słabe",
+                    "Słabe",
+                    "Dobre",
+                    "Bardzo dobre",
+                    "Wyśmienite",
+                  ]}
+                  minLength={8}
+                  password={password}
+                />
+              )}
+              {!login && (
                 <TextValidator
                   required
                   id="standard-required"
@@ -249,13 +264,24 @@ mutation{
                 {login ? "Nie masz jeszcze konta?" : "Posiadasz już konto?"}
               </Col>
               {login ? (
-                <Button disabled ={LookForData("Login")} type="submit" onClick={LoginUser}> Zaloguj się </Button>
+                <Button
+                  disabled={LookForData("Login")}
+                  type="submit"
+                  onClick={LoginUser}
+                >
+                  {" "}
+                  Zaloguj się{" "}
+                </Button>
               ) : (
-                <Button disabled ={LookForData("Signin")} type="submit" onClick={CreateUser}>
+                <Button
+                  disabled={LookForData("Signin")}
+                  type="submit"
+                  onClick={CreateUser}
+                >
                   Stwórz konto
                 </Button>
               )}
-             
+              <ToastContainer />
             </Col>
           </ValidatorForm>
         </Col>
