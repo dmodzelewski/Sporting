@@ -33,6 +33,7 @@ const App = () => {
           <Route exact path="/scheduler" component={Schedule} />
           <Route exact path="/profile" component={Profile} />
           <Route exact path="/login" component={Login} />
+          <Route exact path="/placeinfo:id" component={PlaceInfo} />
           <Route exact path="/adminpanel" component={AdminPanel} />
           <Route component={Error} />
         </Switch>

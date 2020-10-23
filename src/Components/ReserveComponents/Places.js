@@ -69,6 +69,7 @@ const Places = (props) => {
   return (
     <>
       <Row>
+      
         <Col className="places-header"></Col>
       </Row>
       <Row>
@@ -76,12 +77,10 @@ const Places = (props) => {
           {HowManyGyms} z {HowManyGyms} obiektów
         </Col>
       </Row>
-      {
-      data.places.map
-      }
-      <Place {...propsPlaces} />
+      {data.sportObjects.map((item) => (
+        <Place key={item} {...item} />
+      ))}
 
-      <br />
       <Row>
         <Button className="places-show-more" onClick={() => showMore()}>
           Pokaz Więcej Wyników

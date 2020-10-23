@@ -11,7 +11,6 @@ import { gql } from "@apollo/client";
 import { useQuery } from "@apollo/client";
 
 const labels = {
- 
   0.5: "Żenada",
   1: "Beznadziejnie",
   1.5: "Okropnie",
@@ -25,12 +24,9 @@ const labels = {
 };
 
 const Comments = () => {
-
-
   const [value, setValue] = useState(3);
   const [hover, setHover] = useState(-1);
   const [Opinions, setOpinions] = useState([]);
-
   const [Name, setName] = useState("");
   const [Text, setText] = useState("");
   const currentDate = new Date();
@@ -40,8 +36,8 @@ const Comments = () => {
       ...Opinions,
       {
         id: Opinions.length,
-        opinionName : labels[hover !== -1 ? hover : value],
-        opinionValue : value,
+        opinionName: labels[hover !== -1 ? hover : value],
+        opinionValue: value,
         name: Name,
         text: Text,
 
@@ -158,7 +154,7 @@ const Comments = () => {
               rows={2}
               rowsMax={4}
             />
-           
+
             <Col className="place-comment-button">
               <Button onClick={(e) => AddOpinions(e)}>oceń</Button>
             </Col>

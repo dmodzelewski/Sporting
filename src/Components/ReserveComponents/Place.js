@@ -7,17 +7,14 @@ import {
   Button,
   Container,
 } from "react-bootstrap";
-import React from "react";
+import React, { useState } from "react";
 import StarRateIcon from "@material-ui/icons/StarRate";
-import { useHistory } from "react-router-dom";
+import { Link } from "react-router-dom";
 import Map from "../PlaceComponents/Map";
 import PropTypes from "prop-types";
 
 const Place = (props) => {
-  const history = useHistory();
-  function InfoHandler() {
-    history.push("placeinfo");
-  }
+  const [city] = useState(props.address.city);
 
   return (
     <>
@@ -44,13 +41,8 @@ const Place = (props) => {
               </Col>
               <Col className="places-tags-wrap">
                 <Col className="places-tags no-padding">
-                  {props.extraOffers.map((x) => (
-                    <p key={x} className="tag">
-                      {x}
-                      {","}
-                      &nbsp;
-                    </p>
-                  ))}
+                  {props.gyms.equipments}
+                  {/* #TODO */}
                 </Col>
               </Col>
             </Col>
@@ -69,17 +61,15 @@ const Place = (props) => {
               >
                 <Button variant="secondary">Położenie – pokaż na mapie</Button>
               </OverlayTrigger>
-              <Col className="no-padding places-localization-place">
-                {props.objectCity}
-              </Col>
+              <Col className="no-padding places-localization-place">{city}</Col>
             </Col>
           </Col>
           <Col className="places-endColumn">
             <Col className="places-price no-padding">
               <Col className="places-stack ">{props.priceValue} zł/h</Col>
-              <Button className="places-button" onClick={InfoHandler}>
-                Wyświetl szczegóły
-              </Button>
+              <Link to="/placeinfo/${place}">
+                <li>Wyświetl szczegóły</li>
+              </Link>
             </Col>
           </Col>
         </Row>
@@ -94,6 +84,7 @@ Place.propTypes = {
   extraOffers: PropTypes.array.isRequired,
   objectCity: PropTypes.string.isRequired,
   priceValue: PropTypes.number.isRequired,
+  city: PropTypes.string.isRequired,
 };
 
 export default Place;
