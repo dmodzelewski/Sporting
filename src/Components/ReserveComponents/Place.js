@@ -13,13 +13,14 @@ import { Link } from "react-router-dom";
 import Map from "../PlaceComponents/Map";
 import PropTypes from "prop-types";
 
-const Place = (item) => {
+const Place = (item, building) => {
   // const [city] = useState(buildingInfo.address.city);
 
   return (
     <>
       <Container className="places-object-main">
         <Row className="places-object ">
+          {console.log(building)}
           <Col sm={12} md={4} className="no-padding">
             <Image
               className="places-photo "

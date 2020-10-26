@@ -6,7 +6,7 @@ import Informations from "../Components/PlaceComponents/Informations";
 import Pricing from "../Components/PlaceComponents/Pricing";
 import Comments from "../Components/PlaceComponents/Comments";
 import Reservation from "../Components/PlaceComponents/Reservation";
-const PlaceInfo = (items) => {
+const PlaceInfo = ({ match }) => {
   let props = {
     name: "Basen Jagiełło",
     address: {
@@ -17,11 +17,11 @@ const PlaceInfo = (items) => {
     },
     phoneNumber: "+48 234 454 556",
   };
-  let { id } = items.location.state.items.address.city;
   return (
     <>
-      {console.log(items)}
+      s{" "}
       <Container>
+        {console.log(match)}
         <Header {...props} />
         <Photos />
         <Col className="place-middleColumn">
