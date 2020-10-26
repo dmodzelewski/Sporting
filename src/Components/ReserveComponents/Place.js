@@ -13,8 +13,8 @@ import { Link } from "react-router-dom";
 import Map from "../PlaceComponents/Map";
 import PropTypes from "prop-types";
 
-const Place = (props) => {
-  const [city] = useState(props.address.city);
+const Place = (item) => {
+  // const [city] = useState(buildingInfo.address.city);
 
   return (
     <>
@@ -28,20 +28,22 @@ const Place = (props) => {
             />
           </Col>
           <Col sm={12} md={4} className="places-centerColumn no-padding">
-            <Col className="places-name no-padding">{props.name}</Col>
+            <Col className="places-name no-padding">
+              {/* {buildingInfo.name} */}
+            </Col>
             <Col className="no-padding">
               <Col className="places-assessment no-padding">
                 <div className="places-score">
                   <StarRateIcon />
-                  {props.opinionValue}
+                  {/* {buildingInfo.opinionValue} */}
                 </div>
                 <div className="places-opinions">
-                  {props.numberOfOpinions} opinie
+                  {/* {buildingInfo.numberOfOpinions} opinie */}
                 </div>
               </Col>
               <Col className="places-tags-wrap">
                 <Col className="places-tags no-padding">
-                  {props.gyms.equipments}
+                  {/* {buildingInfo.gyms.equipments} */}
                   {/* #TODO */}
                 </Col>
               </Col>
@@ -54,21 +56,25 @@ const Place = (props) => {
                 overlay={
                   <Popover id="popovermap">
                     <Popover.Content>
-                      <Map {...props} />
+                      {/* <Map {...buildingInfo} /> */}
                     </Popover.Content>
                   </Popover>
                 }
               >
                 <Button variant="secondary">Położenie – pokaż na mapie</Button>
               </OverlayTrigger>
-              <Col className="no-padding places-localization-place">{city}</Col>
+              <Col className="no-padding places-localization-place">
+                {/* {city} */}
+              </Col>
             </Col>
           </Col>
           <Col className="places-endColumn">
             <Col className="places-price no-padding">
-              <Col className="places-stack ">{props.priceValue} zł/h</Col>
-              <Link to="/placeinfo/${place}">
-                <li>Wyświetl szczegóły</li>
+              <Col className="places-stack ">
+                {/* {buildingInfo.priceValue} zł/h */}
+              </Col>
+              <Link className=".places-button" to={`/placeinfo/${item._id}`}>
+                Wyśwetl Obiekt
               </Link>
             </Col>
           </Col>

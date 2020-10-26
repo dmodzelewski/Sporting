@@ -22,8 +22,6 @@ const Places = (props) => {
     objectCity: props.location.state.passCity,
   };
 
-  const [count, setCount] = useState(0);
-
   const places = gql`
     {
       sportObjects {
@@ -41,6 +39,7 @@ const Places = (props) => {
           geoPoint
         }
         gyms {
+          _id
           gymType {
             name
             namePL
@@ -64,22 +63,28 @@ const Places = (props) => {
   const { loading, error, data } = useQuery(places);
   if (loading) return <p className="search-filter-city">Loading...</p>;
   if (error) return `Error! ${error.message} `;
-  const HowManyGyms = data.sportObjects.length;
+  const HowManyGyms = () => {
+    let length = 0;
+    data.sportObjects.map((item) => {
+      length += item.gyms.length;
+    });
+    return length;
+  };
   const showMore = () => {};
   return (
     <>
       <Row>
-      
         <Col className="places-header"></Col>
       </Row>
       <Row>
         <Col className="places-counter no-padding">
-          {HowManyGyms} z {HowManyGyms} obiektów
+          {HowManyGyms()} z {HowManyGyms()} obiektów
         </Col>
       </Row>
-      {data.sportObjects.map((item) => (
-        <Place key={item} {...item} />
-      ))}
+
+      {data.sportObjects.map((building) =>
+        building.gyms.map((item) => <Place key={building.name} {...item} />)
+      )}
 
       <Row>
         <Button className="places-show-more" onClick={() => showMore()}>
