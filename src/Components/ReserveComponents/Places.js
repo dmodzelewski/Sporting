@@ -1,6 +1,5 @@
-import React, { useState } from "react";
+import React from "react";
 import { Row, Col, Button } from "react-bootstrap";
-import Place from "./Place";
 import PropTypes from "prop-types";
 import { gql } from "@apollo/client";
 import { useQuery } from "@apollo/client";
@@ -9,23 +8,7 @@ import { Link } from "react-router-dom";
 import Map from "../PlaceComponents/Map";
 import { Image, Popover, OverlayTrigger, Container } from "react-bootstrap";
 
-const Places = (props) => {
-  let propsPlaces = {
-    name: "Basen Jagiełło",
-    numberOfOpinions: 23,
-    opinionValue: 5.0,
-    priceValue: 25,
-    extraOffers: [
-      "Basen",
-      "Darmowy parking",
-      "Prysznice",
-      "Sprzęt ratowniczy ",
-    ],
-    longitude: props.location.state.passLongitude,
-    latitude: props.location.state.passLatitude,
-    objectCity: props.location.state.passCity,
-  };
-
+const Places = () => {
   const places = gql`
     {
       sportObjects {
@@ -88,8 +71,17 @@ const Places = (props) => {
       return `${opinions} Opinie`;
     }
   };
-  const CalculateOpionions = (opinions) => {
-    console.log(opinions);
+  const CalculateOpionions = (opinions) => {};
+  const getEqupment = (listOfEquipments) => {
+    let equipments = [];
+    if (listOfEquipments.length == 0) {
+      return "Brak wyposażenia";
+    } else {
+      listOfEquipments.map((x) => {
+        equipments.push(x.namePL);
+      });
+      return equipments;
+    }
   };
   const showMore = () => {};
   return (
@@ -103,93 +95,88 @@ const Places = (props) => {
         </Col>
       </Row>
 
-      <ul>
-        {data.sportObjects.map((building) =>
-          building.gyms.map((item) => (
-            <>
-              <li key={item._id}>
-                <Container className="places-object-main">
-                  <Row className="places-object ">
-                    {console.log(building)}
-                    {console.log(item)}
-                    <Col sm={12} md={4} className="no-padding">
-                      <Image
-                        className="places-photo"
-                        src={item.mainPhoto}
-                        alt="Zdjęcie"
-                      />
+      {data.sportObjects.map((building) =>
+        building.gyms.map((item) => (
+          <>
+            <li key={item._id}>
+              <Container className="places-object-main">
+                <Row className="places-object ">
+                  <Col sm={12} md={4} className="no-padding">
+                    <Image
+                      className="places-photo"
+                      src={item.mainPhoto}
+                      alt="Zdjęcie"
+                    />
+                  </Col>
+                  <Col
+                    sm={12}
+                    md={4}
+                    className="places-centerColumn no-padding"
+                  >
+                    <Col className="places-name no-padding">
+                      {building.name}
+                      <br />
+                      {item.name}
                     </Col>
-                    <Col
-                      sm={12}
-                      md={4}
-                      className="places-centerColumn no-padding"
-                    >
-                      <Col className="places-name no-padding">
-                        {building.name}
-                        <br />
-                        {item.name}
+                    <Col className="no-padding">
+                      <Col className="places-assessment no-padding">
+                        <div className="places-score">
+                          <StarRateIcon />
+                          {/* Nie działa */}
+                          {CalculateOpionions(item.reviews)}
+                        </div>
+                        <div className="places-opinions">
+                          {HowManyOpininons(item.reviews.length)}
+                        </div>
                       </Col>
-                      <Col className="no-padding">
-                        <Col className="places-assessment no-padding">
-                          <div className="places-score">
-                            <StarRateIcon />
-                              {/* Nie działa */}
-                            {CalculateOpionions(item.reviews)}
-                          </div>
-                          <div className="places-opinions">
-                            {HowManyOpininons(item.reviews.length)}
-                          </div>
-                        </Col>
-                        <Col className="places-tags-wrap">
-                          <Col className="places-tags no-padding">
-                            {/* {buildingInfo.gyms.equipments} */}
-                            
-                          </Col>
-                        </Col>
-                      </Col>
-                      <Col className="places-localization no-padding">
-                        <OverlayTrigger
-                          trigger="click"
-                          key={"bottom"}
-                          placement={"bottom"}
-                          overlay={
-                            <Popover id="popovermap">
-                              <Popover.Content>
-                                {/* <Map {...buildingInfo} /> */}
-                              </Popover.Content>
-                            </Popover>
-                          }
-                        >
-                          <Button variant="secondary">
-                            Położenie – pokaż na mapie
-                          </Button>
-                        </OverlayTrigger>
-                        <Col className="no-padding places-localization-place">
-                          {/* {city} */}
+                      <Col className="places-tags-wrap">
+                        <Col className="places-tags no-padding">
+                          {getEqupment(item.equipments)}
                         </Col>
                       </Col>
                     </Col>
-                    <Col className="places-endColumn">
-                      <Col className="places-price no-padding">
-                        <Col className="places-stack ">
-                          {/* {buildingInfo.priceValue} zł/h */}
-                        </Col>
-                        <Link
-                          className=".places-button"
-                          to={`/placeinfo/${item._id}`}
-                        >
-                          Wyśwetl Obiekt
-                        </Link>
+                    <Col className="places-localization no-padding">
+                      <OverlayTrigger
+                        trigger="click"
+                        key={"bottom"}
+                        placement={"bottom"}
+                        overlay={
+                          <Popover id="popovermap">
+                            <Popover.Content>
+                              <Map {...building} />
+                            </Popover.Content>
+                          </Popover>
+                        }
+                      >
+                        <Button variant="secondary">
+                          Położenie – pokaż na mapie
+                        </Button>
+                      </OverlayTrigger>
+                      <Col className="no-padding places-localization-place">
+                        {building.address.city}
                       </Col>
                     </Col>
-                  </Row>
-                </Container>
-              </li>
-              <br />
-            </>
-          ))
-        )}
-      </ul>
+                  </Col>
+                  <Col className="places-endColumn">
+                    <Col className="places-price no-padding">
+                      <Col className="places-stack ">
+                        {/* {buildingInfo.priceValue} zł/h */}
+                      </Col>
+                      <Link
+                        className="places-button"
+                        to={`/placeinfo/${item._id}`}
+                      >
+                        Wyśwetl Obiekt
+                      </Link>
+                    </Col>
+                  </Col>
+                </Row>
+              </Container>
+            </li>
+            <br />
+          </>
+        ))
+      )}
 
       <Row>
         <Button className="places-show-more" onClick={() => showMore()}>
