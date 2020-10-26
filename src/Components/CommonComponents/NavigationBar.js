@@ -29,14 +29,16 @@ export default class NavigationBar extends Component {
 
         <Navbar.Collapse>
           <Nav className="nav-buttons">
-            <Nav.Link
-              as={NavLink}
-              exact
-              to="/adminpanel"
-              className="nav-button hvr-float-shadow"
-            >
-              Panel Administracyjny
-            </Nav.Link>
+            {authToken ? (
+              <Nav.Link
+                as={NavLink}
+                exact
+                to="/adminpanel"
+                className="nav-button hvr-float-shadow"
+              >
+                Panel Administracyjny
+              </Nav.Link>
+            ) : null}
             {authToken ? (
               <Nav.Link
                 as={NavLink}

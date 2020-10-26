@@ -7,6 +7,8 @@ import StarRateIcon from "@material-ui/icons/StarRate";
 import { Link } from "react-router-dom";
 import Map from "../PlaceComponents/Map";
 import { Image, Popover, OverlayTrigger, Container } from "react-bootstrap";
+import CircularProgress from "@material-ui/core/CircularProgress";
+import Skeleton from "@material-ui/lab/Skeleton";
 
 const Places = () => {
   const places = gql`
@@ -53,7 +55,7 @@ const Places = () => {
     }
   `;
   const { loading, error, data } = useQuery(places);
-  if (loading) return <p className="search-filter-city">Loading...</p>;
+  if (loading) return <Skeleton />;
   if (error) return `Error! ${error.message} `;
   const HowManyGyms = () => {
     let length = 0;
@@ -98,7 +100,7 @@ const Places = () => {
       {data.sportObjects.map((building) =>
         building.gyms.map((item) => (
           <>
-            <li key={item._id}>
+            <li key={item._id} style={{ "list-style-type": "none" }}>
               <Container className="places-object-main">
                 <Row className="places-object ">
                   <Col sm={12} md={4} className="no-padding">
