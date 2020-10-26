@@ -2,11 +2,11 @@ import React from "react";
 import { Col } from "react-bootstrap";
 import ImageGallery from "react-image-gallery";
 
-const Photos = () => {
+const Photos = (props) => {
   const images = [
     {
-      original: "https://picsum.photos/1000/600/",
-      thumbnail: "https://picsum.photos/250/150/",
+      original: `${props.gymById.mainPhoto}`,
+      thumbnail: `${props.gymById.mainPhoto}`,
     },
     {
       original: "https://picsum.photos/1000/600/",

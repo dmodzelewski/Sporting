@@ -8,38 +8,20 @@ import Comments from "../Components/PlaceComponents/Comments";
 import Reservation from "../Components/PlaceComponents/Reservation";
 import { gql } from "@apollo/client";
 import { useQuery } from "@apollo/client";
+import Skeleton from "@material-ui/lab/Skeleton";
 const PlaceInfo = ({ match }) => {
-  const gyms = gql`
-  gyms {
-    _id
-    gymType {
-      name
-      namePL
+  const gym = gql`
+    {
+      gymById(gymId: "${match.params.id}") {
+        name
+        mainPhoto
+      }
     }
-    name
-    mainPhoto
-    description
-    availability
-    maxAvailability
-    gymTags {
-      name
-      namePL
-    }
-    equipments {
-      name
-      namePL
-    }
-    reviews {
-      starRate
-      description
-    }
-  }
-}
-}
   `;
-  const { loading, error, data } = useQuery(gyms);
-  if (loading) return <p className="search-filter-city">Loading...</p>;
+  const { loading, error, data } = useQuery(gym);
+  if (loading) return <Skeleton variant="rect" width={800} height={118} />;
   if (error) return `Error! ${error.message} `;
+
   let props = {
     name: "Basen Jagiełło",
     address: {
@@ -52,11 +34,9 @@ const PlaceInfo = ({ match }) => {
   };
   return (
     <>
-      s{" "}
       <Container>
-        {console.log(match)}
         <Header {...props} />
-        <Photos />
+        <Photos {...data} />
         <Col className="place-middleColumn">
           <Col className="place-text">
             <Informations />

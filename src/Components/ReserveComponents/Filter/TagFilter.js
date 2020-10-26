@@ -59,7 +59,7 @@ const StyledRadio = (props) => {
     <Radio
       className={classes.root}
       disableRipple
-      color="default"
+      color="green"
       checkedIcon={<span className={clsx(classes.icon, classes.checkedIcon)} />}
       icon={<span className={classes.icon} />}
       {...props}
@@ -70,10 +70,9 @@ const StyledRadio = (props) => {
 const TagFilter = () => {
   return (
     <FormControl component="fieldset">
-      <FormLabel component="legend">Gender</FormLabel>
       <RadioGroup
         defaultValue="female"
-        aria-label="gender"
+        aria-label="Wybór Tagu"
         name="customized-radios"
       >
         <FormControlLabel
@@ -86,12 +85,6 @@ const TagFilter = () => {
           value="other"
           control={<StyledRadio />}
           label="Other"
-        />
-        <FormControlLabel
-          value="disabled"
-          disabled
-          control={<StyledRadio />}
-          label="(Disabled option)"
         />
       </RadioGroup>
     </FormControl>

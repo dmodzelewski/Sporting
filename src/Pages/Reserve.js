@@ -11,6 +11,7 @@ import Checkbox from "@material-ui/core/Checkbox";
 import Typography from "@material-ui/core/Typography";
 import Slider from "@material-ui/core/Slider";
 import TextField from "@material-ui/core/TextField";
+import TagFilter from "../Components/ReserveComponents/Filter/TagFilter";
 const Reserve = (props) => {
   const [opinion, setOpinion] = useState(0);
   const [price, setValue] = useState([0, 200]);
@@ -134,6 +135,12 @@ const Reserve = (props) => {
             </Row>
             <Col className="filters">
               <ReviewFilter Review={FilterReview} isReadOnly={false} />
+            </Col>
+            <Row>
+              <Col className="filter-section-header">Tagi</Col>
+            </Row>
+            <Col className="filters">
+              <TagFilter />
             </Col>
           </Col>
           <Col md={9}>
