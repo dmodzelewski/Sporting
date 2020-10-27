@@ -13,6 +13,7 @@ const Places = () => {
   const places = gql`
     {
       sportObjects {
+        _id
         name
         address {
           streetName
@@ -33,6 +34,7 @@ const Places = () => {
             namePL
           }
           name
+          price
           mainPhoto
           description
           availability
@@ -72,6 +74,13 @@ const Places = () => {
       return `${opinions} Opinie`;
     }
   };
+  const GetPrice = (price) => {
+    if (price == null) {
+      return "NaN";
+    } else {
+      return `${price} zł/h`;
+    }
+  };
   const CalculateOpionions = (opinions) => {};
   const getEqupment = (listOfEquipments) => {
     let equipments = [];
@@ -79,7 +88,7 @@ const Places = () => {
       return "Brak wyposażenia";
     } else {
       listOfEquipments.map((x) => {
-        equipments.push(x.namePL);
+        equipments.push(`${x.namePL}, `);
       });
       return equipments;
     }
@@ -163,12 +172,12 @@ const Places = () => {
                     </Col>
                     <Col className="places-endColumn">
                       <Col className="places-price no-padding">
-                        <Col className="places-stack ">
-                          {/* {buildingInfo.priceValue} zł/h */}
+                        <Col className="places-stack">
+                          {GetPrice(item.price)}
                         </Col>
                         <Link
                           className="places-button"
-                          to={`/placeinfo/${item._id}`}
+                          to={`/placeinfo/${building._id}/${item._id}`}
                         >
                           Wyśwetl Obiekt
                         </Link>

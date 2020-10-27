@@ -6,7 +6,9 @@ import RadioGroup from "@material-ui/core/RadioGroup";
 import FormControlLabel from "@material-ui/core/FormControlLabel";
 import FormControl from "@material-ui/core/FormControl";
 import FormLabel from "@material-ui/core/FormLabel";
-
+import { gql } from "@apollo/client";
+import { useQuery } from "@apollo/client";
+import Skeleton from "@material-ui/lab/Skeleton";
 const useStyles = makeStyles({
   root: {
     "&:hover": {
@@ -50,6 +52,14 @@ const useStyles = makeStyles({
     },
   },
 });
+const gymType = gql`
+  {
+    gymTypes {
+      name
+      namePL
+    }
+  }
+`;
 
 // Inspired by blueprintjs
 const StyledRadio = (props) => {
@@ -68,24 +78,24 @@ const StyledRadio = (props) => {
 };
 
 const TagFilter = () => {
+  const { loading, error, data } = useQuery(gymType);
+  if (loading) return <Skeleton />;
+  if (error) return `Error! ${error.message} `;
   return (
     <FormControl component="fieldset">
       <RadioGroup
-        defaultValue="female"
+        defaultValue="Pływanie"
         aria-label="Wybór Tagu"
         name="customized-radios"
       >
-        <FormControlLabel
-          value="female"
-          control={<StyledRadio />}
-          label="Female"
-        />
-        <FormControlLabel value="male" control={<StyledRadio />} label="Male" />
-        <FormControlLabel
-          value="other"
-          control={<StyledRadio />}
-          label="Other"
-        />
+        {data.gymTypes.map((x) => (
+          <FormControlLabel
+            key={x.namePL}
+            value={x.namePL}
+            control={<StyledRadio />}
+            label={x.namePL}
+          />
+        ))}
       </RadioGroup>
     </FormControl>
   );
