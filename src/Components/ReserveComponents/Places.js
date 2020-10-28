@@ -14,6 +14,7 @@ const Places = () => {
     {
       sportObjects {
         name
+        _id
         address {
           streetName
           buildingNumber
@@ -168,7 +169,7 @@ const Places = () => {
                         </Col>
                         <Link
                           className="places-button"
-                          to={`/placeinfo/${item._id}`}
+                          to={`/placeinfo/${building._id}/${item._id}`}
                         >
                           Wyśwetl Obiekt
                         </Link>

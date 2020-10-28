@@ -578,7 +578,6 @@ h6 {
   text-align: justify;
   text-justify: inter-word;
   overflow-y: visible;
-  max-height: 150px;
 }
 .place-middleColumn {
   display: flex;
@@ -781,4 +780,27 @@ h6 {
 .place-comment-login {
   display: flex;
   flex-direction: row;
+}
+.place-text-subheader {
+  display: flex;
+  font-weight: bold;
+}
+.place-text-handleRows {
+  display: flex;
+  flex-direction: row;
+}
+
+.button-loggin-place {
+  display: flex;
+  justify-content: flex-end;
+  align-content: flex-end;
+}
+.text-loggin-place {
+  display: flex;
+  justify-content: flex-start;
+  align-content: space-around;
+}
+.loggin-place {
+  display: flex;
+  align-items: baseline;
 }

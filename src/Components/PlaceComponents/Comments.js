@@ -9,6 +9,7 @@ import Popup from "reactjs-popup";
 import Rating from "@material-ui/lab/Rating";
 import { gql } from "@apollo/client";
 import { useQuery } from "@apollo/client";
+import Login from "../LoginComponents/Login";
 
 const labels = {
   0.5: "Żenada",
@@ -23,13 +24,21 @@ const labels = {
   5: "Niesamowicie",
 };
 
-const Comments = () => {
+const Comments = (props) => {
   const [value, setValue] = useState(3);
   const [hover, setHover] = useState(-1);
   const [Opinions, setOpinions] = useState([]);
   const [Name, setName] = useState("");
   const [Text, setText] = useState("");
   const currentDate = new Date();
+
+  const isLogged = () => {
+    if (localStorage.getItem("token")) {
+      return false;
+    } else {
+      return true;
+    }
+  };
   const AddOpinions = (event) => {
     event.preventDefault();
     setOpinions([
@@ -97,7 +106,12 @@ const Comments = () => {
           </Col>
         </Col>
         <Popup
-          trigger={<Button className="button"> Dodaj opinię </Button>}
+          trigger={
+            <Button disabled={isLogged()} className="button">
+              {" "}
+              Dodaj opinię{" "}
+            </Button>
+          }
           modal
         >
           <Col className="no-padding">
@@ -160,6 +174,32 @@ const Comments = () => {
             </Col>
           </Col>
         </Popup>
+        <Col className="loggin-place">
+          <Col className="text-loggin-place">
+            <p>
+              Aby zarezerwować się do obiektu, lub by dodawać komentarze musisz
+              być zalogowany!
+            </p>
+          </Col>
+          <Col className="button-loggin-place">
+            <Popup
+              trigger={
+                <Button
+                  style={
+                    isLogged()
+                      ? { visibility: "visible" }
+                      : { visibility: "hidden" }
+                  }
+                >
+                  Zaloguj Się
+                </Button>
+              }
+              modal
+            >
+              <Login url={props.match.url} />
+            </Popup>
+          </Col>
+        </Col>
       </Col>
     </>
   );

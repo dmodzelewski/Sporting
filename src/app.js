@@ -14,7 +14,8 @@ import PlaceInfo from "./Pages/PlaceInfo";
 import { ApolloClient, InMemoryCache, ApolloProvider } from "@apollo/client";
 import PropTypes from "prop-types";
 import AdminPanel from "./Pages/AdminPanel";
-
+import LogRocket from "logrocket";
+LogRocket.init("stddaw/isportio");
 const clientApollo = new ApolloClient({
   uri: "http://159.69.41.224:3001/graphql",
   cache: new InMemoryCache(),
