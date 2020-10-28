@@ -32,6 +32,19 @@ const Comments = (props) => {
   const [Text, setText] = useState("");
   const currentDate = new Date();
 
+  const comments = gql`
+  {
+    gymById(gymId: "${props.match.params.gymid}") {
+      reviews{
+        starRate
+        description
+        user{
+          lastName
+          firstName 
+          }
+        }
+      }      
+`;
   const isLogged = () => {
     if (localStorage.getItem("token")) {
       return false;
@@ -107,10 +120,8 @@ const Comments = (props) => {
         </Col>
         <Popup
           trigger={
-            <Button disabled={isLogged()} className="button">
-              {" "}
-              Dodaj opinię{" "}
-            </Button>
+            //disabled={isLogged()}
+            <Button className="button"> Dodaj opinię </Button>
           }
           modal
         >
@@ -125,6 +136,7 @@ const Comments = (props) => {
               className="place-comment-input"
               id="input-with-icon-adornment"
               value={Name}
+              readOnly={true}
               onChange={(x) => setName(x.target.value)}
               startAdornment={
                 <InputAdornment position="start">
