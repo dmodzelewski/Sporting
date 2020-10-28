@@ -8,19 +8,22 @@ import { useQuery } from "@apollo/client";
 const Photos = (props) => {
   const gym = gql`
     {
-      gymById(gymId: "redfv") {
+      gymById(gymId: "${props.match.params.gymid}") {
         name
         mainPhoto
+        sidePhoto
       }
     }
   `;
   const { loading, error, data } = useQuery(gym);
   if (loading) return <Skeleton variant="rect" width={800} height={118} />;
   if (error) return `Error! ${error.message} `;
+  console.log();
+
   const images = [
     {
-      original: `${props.gymById.mainPhoto}`,
-      thumbnail: `${props.gymById.mainPhoto}`,
+      original: `${data.gymById.mainPhoto}`,
+      thumbnail: `${data.gymById.mainPhoto}`,
     },
     {
       original: "https://picsum.photos/1000/600/",
@@ -31,6 +34,7 @@ const Photos = (props) => {
       thumbnail: "https://picsum.photos/250/150/",
     },
   ];
+
   return (
     <>
       <Col className="place-gallery no-padding">
