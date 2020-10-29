@@ -18,7 +18,7 @@ const PlaceInfo = ({ match }) => {
           </Col>
         </Col>
         <Col>
-          <Reservation />
+          <Reservation match={match} />
         </Col>
         <Col>
           <Comments match={match} />

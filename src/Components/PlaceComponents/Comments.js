@@ -33,7 +33,7 @@ const Comments = (props) => {
   const addOpinion = gql`
     mutation {
       addReview(user: "${localStorage.getItem(
-        "email"
+        "userid"
       )}", description: "${Text}", starRate: ${value}, gym: "${
     props.match.params.gymid
   }") {
@@ -71,6 +71,7 @@ const Comments = (props) => {
   const secondRes = useQuery(user);
   if (res.loading) return <Skeleton />;
   if (res.error) return `Error! ${res.error.message} `;
+  
   const isLogged = () => {
     if (localStorage.getItem("token")) {
       return false;

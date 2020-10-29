@@ -30,7 +30,11 @@ const App = () => {
           <Route exact path="/" component={Home} />
           <Route exact path="/reserve" component={Reserve} />
           <Route exact path="/about" component={About} />
-          <Route exact path="/scheduler/:scheduleid" component={Schedule} />
+          <Route
+            exact
+            path="/scheduler/:buildingid/:gymid/:userid"
+            component={Schedule}
+          />
           <Route exact path="/profile" component={Profile} />
           <Route exact path="/login" component={Login} />
           <Route

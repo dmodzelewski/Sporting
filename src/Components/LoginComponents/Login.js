@@ -8,12 +8,13 @@ import {
   MuiPickersUtilsProvider,
   KeyboardDatePicker,
 } from "@material-ui/pickers";
-import { gql, useMutation } from "@apollo/client";
+import { gql, useMutation, useQuery } from "@apollo/client";
 import PasswordStrengthBar from "react-password-strength-bar";
 import PropTypes from "prop-types";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { useLocation } from "react-router-dom";
+import Skeleton from "@material-ui/lab/Skeleton";
 
 const Login = (props) => {
   const authToken = localStorage.getItem("token");
@@ -28,11 +29,13 @@ const Login = (props) => {
   const [jwt, setjwt] = useState(authToken || null);
   const history = useHistory();
   const location = useLocation();
+
   const isEmailInDB = gql`
   mutation{
     isLoginUserExists(loginEmail:"${email}")
   }
 `;
+
   const GetJwt = gql`
 mutation{
   loginUser(loginEmail:"${email}",password:"${password}")
@@ -53,23 +56,26 @@ mutation{
       }
     }
   `;
-  // const verifyUser = gql `
-  // mutation{
-  //   verifyUser(token:"${jwt||null}")
-  // 	{
-  //     loginEmail
-  //     role
-  //     exp
-  //     iat
-  //   }
-  // }`
+
+  const verifyUser = gql`
+  mutation{
+    verifyUser(token:"${jwt}")
+  	{
+        _id
+      loginEmail
+      role
+      exp
+      iat
+    }
+  }`;
+
   const [addUser] = useMutation(AddUser);
 
   const [isEmailValid] = useMutation(isEmailInDB);
 
   const [Getjwt] = useMutation(GetJwt);
 
-  // const [VerifyUser, {VerifyUserData}] = useMutation(verifyUser);
+  const [VerifyUser] = useMutation(verifyUser);
 
   const LookForData = (type) => {
     if (type == "Signin") {
@@ -95,16 +101,26 @@ mutation{
     }
   };
 
-  const notify = () => toast("Konto zostało utworzone!");
+  const CreateAccountNotify = () => toast("Konto zostało utworzone!");
+  const BadPasswordNotify = () => toast("Złe hasło!");
+  const NoEmailNotify = () => toast("Błędny adres email!");
+  const EmailNotify = () => toast("Adres email jest juz do kogoś przypisany!");
+  const LoginNotify = () => toast("Pomyślnie się zalogowano!");
 
   const CreateUser = () => {
     addUser();
-    setName("");
-    setSurname("");
-    setPassword("");
-    setrepeatPassword("");
-    setlogin(true);
-    notify();
+
+    if (!isEmail) {
+      setName("");
+      setSurname("");
+      setPassword("");
+      setrepeatPassword("");
+      setlogin(true);
+
+      CreateAccountNotify();
+    } else {
+      EmailNotify();
+    }
   };
 
   const LoginUser = () => {
@@ -113,14 +129,22 @@ mutation{
         setIsEmail(val.data.isLoginUserExists);
       })
       .catch(() => {
-        console.log("Email nie jest prawidłowy");
+        NoEmailNotify();
       });
     if (isEmail == true) {
       Getjwt()
         .then(function (val) {
           localStorage.setItem("token", val.data.loginUser);
           setjwt(val.data.loginUser);
-          console.log(val.data.loginUser);
+
+          VerifyUser()
+            .then(function (val1) {
+              localStorage.setItem("userid", val1.data.verifyUser._id);
+            })
+            .catch(() => {
+              console.log("Weryfikacja nie powiodła się");
+            });
+
           if (val.data.loginUser) {
             if (location.pathname == "/login") {
               history.push({
@@ -129,6 +153,7 @@ mutation{
                   passEmail: email,
                 },
               });
+              LoginNotify();
             } else {
               history.push({
                 pathname: `${props.url}`,
@@ -136,18 +161,18 @@ mutation{
                   passEmail: email,
                 },
               });
+              LoginNotify();
             }
-
             localStorage.setItem("email", email);
           } else {
-            console.log("hasło jest Nie Poprawne");
+            BadPasswordNotify();
           }
         })
         .catch(() => {
-          console.log("Adres Email nie istnieje");
+          EmailNotify();
         });
     } else {
-      console.log("Adres Email nie istnieje");
+      NoEmailNotify();
     }
   };
 
