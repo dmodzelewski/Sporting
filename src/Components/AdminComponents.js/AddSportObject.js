@@ -24,15 +24,7 @@ const AddSportObject = () => {
         lastName: "Kowalski",
       }}
     >
-      {({
-        handleSubmit,
-        handleChange,
-        handleBlur,
-        values,
-        touched,
-        isValid,
-        errors,
-      }) => (
+      {({ handleSubmit, handleChange, values, touched, errors }) => (
         <Form noValidate onSubmit={handleSubmit}>
           <Form.Row>
             <Form.Group as={Col} md="4" controlId="validationFormik01">

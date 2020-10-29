@@ -4,6 +4,7 @@ import ShowMoreText from "react-show-more-text";
 import { gql } from "@apollo/client";
 import { useQuery } from "@apollo/client";
 import Skeleton from "@material-ui/lab/Skeleton";
+import PropTypes from "prop-types";
 
 const Descryption = (props) => {
   const descryption = gql`
@@ -43,5 +44,8 @@ const Descryption = (props) => {
       </Col>
     </Col>
   );
+};
+Descryption.propTypes = {
+  match: PropTypes.object,
 };
 export default Descryption;

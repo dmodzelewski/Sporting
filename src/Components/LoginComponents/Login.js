@@ -10,7 +10,7 @@ import {
 } from "@material-ui/pickers";
 import { gql, useMutation } from "@apollo/client";
 import PasswordStrengthBar from "react-password-strength-bar";
-
+import PropTypes from "prop-types";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { useLocation } from "react-router-dom";
@@ -301,5 +301,7 @@ mutation{
     </Col>
   );
 };
-
+Login.propTypes = {
+  url: PropTypes.string.isRequired,
+};
 export default Login;

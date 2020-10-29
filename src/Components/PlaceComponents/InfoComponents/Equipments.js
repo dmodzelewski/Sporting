@@ -3,6 +3,7 @@ import { gql } from "@apollo/client";
 import { useQuery } from "@apollo/client";
 import Skeleton from "@material-ui/lab/Skeleton";
 import { Col } from "react-bootstrap";
+import PropTypes from "prop-types";
 
 const Equipments = (props) => {
   const GetEqupment = (items) => {
@@ -49,5 +50,8 @@ const Equipments = (props) => {
       </Col>
     </Col>
   );
+};
+Equipments.propTypes = {
+  match: PropTypes.object,
 };
 export default Equipments;

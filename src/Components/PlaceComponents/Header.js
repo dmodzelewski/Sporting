@@ -25,38 +25,55 @@ const Header = (props) => {
         }
       }
 `;
-  const { loading, error, data } = useQuery(address);
-  if (loading) return <Skeleton variant="rect" width={800} height={118} />;
-  if (error) return `Error! ${error.message} `;
+  const phone = gql`
+  {
+    gymById(gymId: "${props.match.params.gymid}") {
+      phoneNumber
+    }
+  }
+  `;
+  const getPhoneNumber = (phone) => {
+    if (phone == null) {
+      return "Brak numeru telefonu";
+    } else {
+      return phone;
+    }
+  };
+  const res = useQuery(address);
+  const secondRes = useQuery(phone);
+  if (res.loading) return <Skeleton variant="rect" width={800} height={118} />;
+  if (res.error) return `Error! ${res.error.message} `;
+  if (secondRes.loading)
+    return <Skeleton variant="rect" width={800} height={118} />;
+  if (secondRes.error) return `Error! ${res.error.message} `;
   return (
     <>
       <Col className="place-header no-padding">
         <h1 className="place-header-name no-padding">
-          {data.sportObjectById.name}
+          {res.data.sportObjectById.name}
         </h1>
-        {console.log(data)}
         <Col className="no-padding">
           <a href="#map">
             <ExploreIcon className="place-header-street-icon " />
             <address className="place-header-link-address">
               <span itemProp="street">
-                {data.sportObjectById.address.streetName}{" "}
-                {data.sportObjectById.address.buildingNumber},{" "}
+                {res.data.sportObjectById.address.streetName}{" "}
+                {res.data.sportObjectById.address.buildingNumber},{" "}
               </span>
               <span itemProp="postalCode">
-                {data.sportObjectById.address.zipCode},{" "}
+                {res.data.sportObjectById.address.zipCode},{" "}
               </span>
               <span itemProp="cityLocalization">
-                {data.sportObjectById.address.city},{" "}
+                {res.data.sportObjectById.address.city},{" "}
               </span>
               <span itemProp="country">
-                {data.sportObjectById.address.country.longname}
+                {res.data.sportObjectById.address.country.longname}
               </span>
             </address>
             {" | "}
           </a>
           <a className="place-header-link-address" href="tel:${phoneNumber}">
-            {/* {props.phoneNumber} */}
+            {getPhoneNumber(secondRes.data.gymById.phoneNumber)}
           </a>
         </Col>
       </Col>
@@ -66,6 +83,4 @@ const Header = (props) => {
 export default Header;
 Header.propTypes = {
   name: PropTypes.string.isRequired,
-  address: PropTypes.object.isRequired,
-  phoneNumber: PropTypes.string.isRequired,
 };

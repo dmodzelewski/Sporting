@@ -7,9 +7,10 @@ import AccountCircle from "@material-ui/icons/AccountCircle";
 import TextField from "@material-ui/core/TextField";
 import Popup from "reactjs-popup";
 import Rating from "@material-ui/lab/Rating";
-import { gql } from "@apollo/client";
+import { gql, useMutation } from "@apollo/client";
 import { useQuery } from "@apollo/client";
 import Login from "../LoginComponents/Login";
+import Skeleton from "@material-ui/lab/Skeleton";
 
 const labels = {
   0.5: "Żenada",
@@ -27,24 +28,49 @@ const labels = {
 const Comments = (props) => {
   const [value, setValue] = useState(3);
   const [hover, setHover] = useState(-1);
-  const [Opinions, setOpinions] = useState([]);
   const [Name, setName] = useState("");
   const [Text, setText] = useState("");
-  const currentDate = new Date();
-
+  const addOpinion = gql`
+    mutation {
+      addReview(user: "${localStorage.getItem(
+        "email"
+      )}", description: "${Text}", starRate: ${value}, gym: "${
+    props.match.params.gymid
+  }") {
+        _id
+      }
+    }
+  `;
+  const [addNewOpinion] = useMutation(addOpinion);
   const comments = gql`
   {
     gymById(gymId: "${props.match.params.gymid}") {
       reviews{
+        _id
         starRate
+        createdAt
         description
         user{
+          _id
           lastName
           firstName 
           }
         }
-      }      
+      }     
+     }
 `;
+  const user = gql`
+  {
+    userByEmail(loginEmail:"${localStorage.getItem("email")}"){
+      lastName
+      firstName
+    }
+    }
+  `;
+  const res = useQuery(comments);
+  const secondRes = useQuery(user);
+  if (res.loading) return <Skeleton />;
+  if (res.error) return `Error! ${res.error.message} `;
   const isLogged = () => {
     if (localStorage.getItem("token")) {
       return false;
@@ -52,21 +78,22 @@ const Comments = (props) => {
       return true;
     }
   };
-  const AddOpinions = (event) => {
-    event.preventDefault();
-    setOpinions([
-      ...Opinions,
-      {
-        id: Opinions.length,
-        opinionName: labels[hover !== -1 ? hover : value],
-        opinionValue: value,
-        name: Name,
-        text: Text,
-
-        starValue: value,
-      },
-    ]);
+  const GetOpinionName = (name) => {
+    return labels[name !== -1 ? name : value];
   };
+  const GetDateAndTime = (date) => {
+    const currentDate = date.split("T")[0];
+    const currentTime =
+      date.split("T")[1].split(":")[0] + ":" + date.split("T")[1].split(":")[1];
+    const formatTime = currentDate + " " + currentTime;
+    return formatTime;
+  };
+  const AddOpinions = () => {
+    addNewOpinion().then(function (val) {
+      console.log(val);
+    });
+  };
+
   return (
     <>
       <Col className="place-comment no-padding">
@@ -74,25 +101,21 @@ const Comments = (props) => {
         <Col className="place-comment-review no-padding">
           <Col style={{ position: "relative", padding: "0px" }}>
             <ul className="place-comment-scroll">
-              {Opinions.length === 0 ? (
+              {res.data.gymById.reviews.length === 0 ? (
                 <h1>Brak Komentarzy</h1>
               ) : (
-                Opinions.map((item) => (
-                  <li key={item.id} className=" no-padding">
+                res.data.gymById.reviews.map((item) => (
+                  <li key={item._id} className=" no-padding">
                     <Col className="place-comment-reviewbox no-padding">
                       <Col className="place-comment-rev-up no-padding">
                         <Col className="place-comment-info no-padding">
-                          {item.opinionName} <span>{item.opinionValue}</span>
+                          {GetOpinionName(item.starRate)}{" "}
+                          <span>{item.starRate}</span>
                         </Col>
                         <Col className="place-comment-date">
-                          Dodano{" "}
-                          {currentDate.getDay() +
-                            "." +
-                            currentDate.getMonth() +
-                            "." +
-                            currentDate.getFullYear() +
-                            " "}
-                          , autor: {item.name}
+                          {/* Czekam na dodanie w graphQl */}
+                          Dodano {GetDateAndTime(item.createdAt)}, autor:{" "}
+                          {item.user.firstName + " " + item.user.lastName}
                         </Col>
                       </Col>
                       <Col className="place-comment-rev-box-down">
@@ -101,14 +124,14 @@ const Comments = (props) => {
                             <Rating
                               readOnly={true}
                               name="hover-feedback"
-                              value={item.starValue}
+                              value={item.starRate}
                               size="large"
                               precision={0.5}
                             />
                           </Col>
                         </Col>
                         <Col className="place-comment-rev-textbox">
-                          <p>{item.text}</p>
+                          <p>{item.description}</p>
                         </Col>
                       </Col>
                     </Col>
@@ -130,12 +153,16 @@ const Comments = (props) => {
               className="place-comment-label"
               htmlFor="input-with-icon-adornment"
             >
-              Podaj swoje imię
+              Twoje imię
             </InputLabel>
             <Input
               className="place-comment-input"
               id="input-with-icon-adornment"
-              value={Name}
+              value={
+                secondRes.data.userByEmail.firstName +
+                " " +
+                secondRes.data.userByEmail.firstName
+              }
               readOnly={true}
               onChange={(x) => setName(x.target.value)}
               startAdornment={
@@ -182,7 +209,7 @@ const Comments = (props) => {
             />
 
             <Col className="place-comment-button">
-              <Button onClick={(e) => AddOpinions(e)}>oceń</Button>
+              <Button onClick={AddOpinions}>oceń</Button>
             </Col>
           </Col>
         </Popup>

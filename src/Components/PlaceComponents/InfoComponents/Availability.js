@@ -3,6 +3,7 @@ import { gql } from "@apollo/client";
 import { useQuery } from "@apollo/client";
 import Skeleton from "@material-ui/lab/Skeleton";
 import { Col } from "react-bootstrap";
+import PropTypes from "prop-types";
 
 const Availability = (props) => {
   const GetMaxPlaces = (maxAvailability) => {
@@ -51,5 +52,8 @@ const Availability = (props) => {
       </Col>
     </Col>
   );
+};
+Availability.propTypes = {
+  match: PropTypes.object,
 };
 export default Availability;
