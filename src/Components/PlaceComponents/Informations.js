@@ -1,8 +1,5 @@
 import React from "react";
 import { Col, Row } from "react-bootstrap";
-import { gql } from "@apollo/client";
-import { useQuery } from "@apollo/client";
-import Skeleton from "@material-ui/lab/Skeleton";
 import Descryption from "./InfoComponents/Descryption";
 import Price from "./InfoComponents/Price";
 import Availability from "./InfoComponents/Availability";

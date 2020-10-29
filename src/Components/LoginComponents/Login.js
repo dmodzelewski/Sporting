@@ -8,13 +8,12 @@ import {
   MuiPickersUtilsProvider,
   KeyboardDatePicker,
 } from "@material-ui/pickers";
-import { gql, useMutation, useQuery } from "@apollo/client";
+import { gql, useMutation } from "@apollo/client";
 import PasswordStrengthBar from "react-password-strength-bar";
 import PropTypes from "prop-types";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { useLocation } from "react-router-dom";
-import Skeleton from "@material-ui/lab/Skeleton";
 
 const Login = (props) => {
   const authToken = localStorage.getItem("token");

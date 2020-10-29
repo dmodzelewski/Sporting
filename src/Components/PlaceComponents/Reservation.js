@@ -1,6 +1,7 @@
 import React from "react";
 import { Col } from "react-bootstrap";
 import { Link } from "react-router-dom";
+import PropTypes from "prop-types";
 
 const Reservation = (props) => {
   const isLogged = () => {
@@ -31,4 +32,8 @@ const Reservation = (props) => {
     </>
   );
 };
+Reservation.propTypes = {
+  match: PropTypes.object.isRequired,
+};
+
 export default Reservation;

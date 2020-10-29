@@ -24,8 +24,8 @@ import { Col, Container } from "react-bootstrap";
 
 const appointments = [
   {
-    startDate: new Date(2020, 28, 10, 10, 35),
-    endDate: new Date(2020, 28, 10, 13, 30),
+    startDate: new Date(2020, 9, 29, 10, 35),
+    endDate: new Date(2020, 9, 29, 13, 30),
   },
   {
     startDate: new Date(2018, 5, 25, 12, 11),

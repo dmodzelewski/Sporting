@@ -73,7 +73,18 @@ const Places = () => {
       return `${opinions} Opinie`;
     }
   };
-  const CalculateOpionions = (opinions) => {};
+  const CalculateOpionions = (opinions) => {
+    let suma = 0;
+    if (opinions == undefined || opinions.length == 0) {
+      return 0;
+    } else {
+      opinions.map((x) => {
+        suma += x.starRate;
+      });
+      let wynik = suma / opinions.length;
+      return wynik.toFixed(2);
+    }
+  };
   const getEqupment = (listOfEquipments) => {
     let equipments = [];
     if (listOfEquipments.length == 0) {

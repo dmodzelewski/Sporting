@@ -5,6 +5,7 @@ import { Col, Container } from "react-bootstrap";
 import Informations from "../Components/PlaceComponents/Informations";
 import Comments from "../Components/PlaceComponents/Comments";
 import Reservation from "../Components/PlaceComponents/Reservation";
+import PropTypes from "prop-types";
 
 const PlaceInfo = ({ match }) => {
   return (
@@ -23,9 +24,11 @@ const PlaceInfo = ({ match }) => {
         <Col>
           <Comments match={match} />
         </Col>
-       
       </Container>
     </>
   );
+};
+PlaceInfo.propTypes = {
+  match: PropTypes.object.isRequired,
 };
 export default PlaceInfo;

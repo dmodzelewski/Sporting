@@ -54,6 +54,6 @@ const Availability = (props) => {
   );
 };
 Availability.propTypes = {
-  match: PropTypes.object,
+  match: PropTypes.object.isRequired,
 };
 export default Availability;

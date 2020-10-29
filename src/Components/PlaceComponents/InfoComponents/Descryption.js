@@ -46,6 +46,6 @@ const Descryption = (props) => {
   );
 };
 Descryption.propTypes = {
-  match: PropTypes.object,
+  match: PropTypes.object.isRequired,
 };
 export default Descryption;

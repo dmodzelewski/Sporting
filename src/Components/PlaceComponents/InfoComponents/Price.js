@@ -3,6 +3,7 @@ import { Col } from "react-bootstrap";
 import { gql } from "@apollo/client";
 import { useQuery } from "@apollo/client";
 import Skeleton from "@material-ui/lab/Skeleton";
+import PropTypes from "prop-types";
 
 const Price = (props) => {
   const GetPrice = (price) => {
@@ -38,5 +39,8 @@ const Price = (props) => {
       </Col>
     </Col>
   );
+};
+Price.propTypes = {
+  match: PropTypes.object.isRequired,
 };
 export default Price;

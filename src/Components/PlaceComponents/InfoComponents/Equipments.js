@@ -52,6 +52,6 @@ const Equipments = (props) => {
   );
 };
 Equipments.propTypes = {
-  match: PropTypes.object,
+  match: PropTypes.object.isRequired,
 };
 export default Equipments;

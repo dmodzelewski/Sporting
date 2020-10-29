@@ -4,6 +4,7 @@ import { Col } from "react-bootstrap";
 import ImageGallery from "react-image-gallery";
 import { gql } from "@apollo/client";
 import { useQuery } from "@apollo/client";
+import PropTypes from "prop-types";
 
 const Photos = (props) => {
   const gym = gql`
@@ -40,5 +41,8 @@ const Photos = (props) => {
       </Col>
     </>
   );
+};
+Photos.propTypes = {
+  match: PropTypes.object.isRequired,
 };
 export default Photos;

@@ -5,6 +5,7 @@ import ExploreIcon from "@material-ui/icons/Explore";
 import { gql } from "@apollo/client";
 import { useQuery } from "@apollo/client";
 import Skeleton from "@material-ui/lab/Skeleton";
+
 const Header = (props) => {
   const address = gql`
   {
@@ -82,5 +83,5 @@ const Header = (props) => {
 };
 export default Header;
 Header.propTypes = {
-  name: PropTypes.string.isRequired,
+  match: PropTypes.object.isRequired,
 };

@@ -11,6 +11,7 @@ import { gql, useMutation } from "@apollo/client";
 import { useQuery } from "@apollo/client";
 import Login from "../LoginComponents/Login";
 import Skeleton from "@material-ui/lab/Skeleton";
+import PropTypes from "prop-types";
 
 const labels = {
   0.5: "Żenada",
@@ -71,7 +72,7 @@ const Comments = (props) => {
   const secondRes = useQuery(user);
   if (res.loading) return <Skeleton />;
   if (res.error) return `Error! ${res.error.message} `;
-  
+
   const isLogged = () => {
     if (localStorage.getItem("token")) {
       return false;
@@ -243,5 +244,8 @@ const Comments = (props) => {
       </Col>
     </>
   );
+};
+Comments.propTypes = {
+  match: PropTypes.object.isRequired,
 };
 export default Comments;
