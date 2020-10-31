@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { Col } from "react-bootstrap";
+import { Col, Form } from "react-bootstrap";
 import { useHistory } from "react-router-dom";
 import Button from "@material-ui/core/Button";
 import { ValidatorForm, TextValidator } from "react-material-ui-form-validator";
@@ -14,6 +14,7 @@ import PropTypes from "prop-types";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { useLocation } from "react-router-dom";
+import { event } from "jquery";
 
 const Login = (props) => {
   const authToken = localStorage.getItem("token");
@@ -24,6 +25,7 @@ const Login = (props) => {
   const [repeatPassword, setrepeatPassword] = useState("");
   const [name, setName] = useState("");
   const [surname, setSurname] = useState("");
+  const [role, setRole] = useState("USER");
   const [selectedDate, setSelectedDate] = useState(new Date());
   const [jwt, setjwt] = useState(authToken || null);
   const history = useHistory();
@@ -49,7 +51,7 @@ mutation{
         firstName: "${name}"
         lastName: "${surname}"
         birthDate: "${selectedDate}"
-        role:USER
+        role:${role}
       ) {
         loginEmail
       }
@@ -76,6 +78,9 @@ mutation{
 
   const [VerifyUser] = useMutation(verifyUser);
 
+  const ChooseUser = () => {
+    console.log(event.target.value);
+  };
   const LookForData = (type) => {
     if (type == "Signin") {
       if (
@@ -295,6 +300,22 @@ mutation{
                 />
               )}
             </Col>
+            {login ? null : (
+              <Col>
+                <Form.Group>
+                  <Form.Label>Podaj Rodzaj konta</Form.Label>
+                  <Form.Control
+                    as="select"
+                    value={role}
+                    onChange={(e) => setRole(e.target.value)}
+                  >
+                    <option value="USER">Zwykły uzytkownik</option>
+                    <option value="ADMIN">Właściciel Obiektu</option>
+                  </Form.Control>
+                </Form.Group>
+              </Col>
+            )}
+            {role == "ADMIN" ? null : <h1>Nazwa</h1>}
             <Col>
               <Col onClick={() => setlogin(!login)}>
                 {login ? "Nie masz jeszcze konta?" : "Posiadasz już konto?"}
