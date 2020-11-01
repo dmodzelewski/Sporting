@@ -207,7 +207,6 @@ mutation{
                 : "Zarejestruj sie do ISportio"}
             </h4>
             <Col className="login-column">
-              {console.log(location.pathname)}
               {!login && (
                 <TextValidator
                   required

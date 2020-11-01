@@ -24,8 +24,9 @@ import { gql, useMutation } from "@apollo/client";
 import { useQuery } from "@apollo/client";
 import Skeleton from "@material-ui/lab/Skeleton";
 import moment from "moment";
+import PropTypes from "prop-types";
 
-export default ({ match }) => {
+const Sched = ({ match }) => {
   const [currentDate, setcurrentDate] = useState(new Date());
   const [data, setDate] = useState(appointmentData);
   const [currentView, setCurrentView] = useState("month");
@@ -141,16 +142,17 @@ export default ({ match }) => {
   const onCommitChanges = useCallback(
     ({ added, changed, deleted }) => {
       if (added) {
-        console.log(added);
         setTitle(added.title);
         setStartDate(added.startDate);
         setendDate(added.endDate);
       }
       if (changed) {
-        // changed[appointment.id]
-        //   ? { ...appointment, ...changed[appointment.id] }
-        //   : appointment
-        console.log(appointmentData);
+        setUpdated(Object.keys(changed));
+        Object.values(changed).map((x) => {
+          setupdatedTitle(x.title);
+          setupdatedStartDate(x.startDate);
+          setupdatedEndDate(x.endDate);
+        });
       }
       if (deleted !== undefined) {
         setDeleted(deleted);
@@ -219,3 +221,7 @@ export default ({ match }) => {
     </>
   );
 };
+Sched.propTypes = {
+  match: PropTypes.object.isRequired,
+};
+export default Sched;
