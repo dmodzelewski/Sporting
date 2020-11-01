@@ -25,7 +25,7 @@ import { useQuery } from "@apollo/client";
 import Skeleton from "@material-ui/lab/Skeleton";
 import moment from "moment";
 
-export default () => {
+export default ({ match }) => {
   const [currentDate, setcurrentDate] = useState(new Date());
   const [data, setDate] = useState(appointmentData);
   const [currentView, setCurrentView] = useState("month");
@@ -36,9 +36,14 @@ export default () => {
   const [title, setTitle] = useState();
   const [startDate, setStartDate] = useState(new Date());
   const [endDate, setendDate] = useState(new Date());
+  const [deleted, setDeleted] = useState("");
+  const [updated, setUpdated] = useState("");
+  const [updatedTitle, setupdatedTitle] = useState("");
+  const [updatedStartDate, setupdatedStartDate] = useState("");
+  const [updatedEndDate, setupdatedEndDate] = useState("");
   const appointments = gql`
     {
-      reservations {
+      userReservations(user:"${localStorage.getItem("userid")}") {
         _id
         startDateTime
         endDateTime
@@ -52,24 +57,76 @@ export default () => {
         title: "${title}"
         startDateTime: "${startDate}"
         endDateTime: "${endDate}"
-        user: "5f857c8fd34e7f001feee2ca"
-        gym: "5f8d821d8a04db24d58c88d3"
+        user: "${localStorage.getItem("userid")}"
+        gym: "${match.params.gymid}"
       ) {
         createdAt
         title
       }
     }
   `;
+  const updateAppointment = gql`
+    mutation {
+      updateReservationById(
+        reservation: "${updated}"
+        title: "${updatedTitle}"
+        startDateTime: "${updatedStartDate}"
+        endDateTime: "${updatedEndDate}"
+        gym: "${match.params.gymid}"
+      ) {
+        title
+        startDateTime
+        endDateTime
+        createdAt
+      }
+    }
+  `;
+  const deleteAppointment = gql`
+    mutation {
+      delReservationById(reservation: "${deleted}") {
+        title
+        startDateTime
+        endDateTime
+        createdAt
+      }
+    }
+  `;
+
   const [CreateAppointment] = useMutation(createAppointment);
+  const [UpdatedAppointment] = useMutation(updateAppointment);
+  const [DeleteAppointment] = useMutation(deleteAppointment);
+
   useEffect(() => {
-    CreateAppointment()
+    if (title !== undefined) {
+      CreateAppointment()
+        .then(function (val) {
+          console.log(val);
+        })
+        .catch(() => {
+          console.log("Coś poszło nie tak");
+        });
+    } else {
+      console.log("Nie dodano");
+    }
+  }, [startDate]);
+  useEffect(() => {
+    UpdatedAppointment()
       .then(function (val) {
         console.log(val);
       })
       .catch(() => {
-        console.log("Coś poszło nie tak");
+        console.log("Nie udało się zaktualizować");
       });
-  }, [title]);
+  }, [updated]);
+  useEffect(() => {
+    DeleteAppointment()
+      .then(function (val) {
+        console.log(val);
+      })
+      .catch(() => {
+        console.log("Nie udało się usunąć");
+      });
+  }, [deleted]);
   const getTime = (date) => {
     const year = date.get("year");
     const month = date.get("month");
@@ -90,16 +147,13 @@ export default () => {
         setendDate(added.endDate);
       }
       if (changed) {
-        setDate(
-          data.map((appointment) =>
-            changed[appointment.id]
-              ? { ...appointment, ...changed[appointment.id] }
-              : appointment
-          )
-        );
+        // changed[appointment.id]
+        //   ? { ...appointment, ...changed[appointment.id] }
+        //   : appointment
+        console.log(appointmentData);
       }
       if (deleted !== undefined) {
-        setDate(data.filter((appointment) => appointment.id !== deleted));
+        setDeleted(deleted);
       }
       setIsAppointmentBeingCreated(false);
     },
@@ -113,7 +167,7 @@ export default () => {
   const appointmentData = [];
   if (res.loading) return <Skeleton />;
   if (res.error) return `Error! ${res.error.message} `;
-  res.data.reservations.map((x) => {
+  res.data.userReservations.map((x) => {
     const Startdate = moment(x.startDateTime);
     const Enddate = moment(x.endDateTime);
     appointmentData.push({
