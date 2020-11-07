@@ -115,7 +115,6 @@ const Comments = (props) => {
                           <span>{item.starRate}</span>
                         </Col>
                         <Col className="place-comment-date">
-                          {/* Czekam na dodanie w graphQl */}
                           Dodano {GetDateAndTime(item.createdAt)}, autor:{" "}
                           {item.user.firstName + " " + item.user.lastName}
                         </Col>
@@ -145,8 +144,10 @@ const Comments = (props) => {
         </Col>
         <Popup
           trigger={
-            //disabled={isLogged()}
-            <Button className="button"> Dodaj opinię </Button>
+            <Button disabled={isLogged()} className="button">
+              {" "}
+              Dodaj opinię{" "}
+            </Button>
           }
           modal
         >
@@ -161,9 +162,11 @@ const Comments = (props) => {
               className="place-comment-input"
               id="input-with-icon-adornment"
               value={
-                secondRes.data.userByEmail.firstName +
-                " " +
-                secondRes.data.userByEmail.firstName
+                isLogged()
+                  ? null
+                  : secondRes.data.userByEmail.firstName +
+                    " " +
+                    secondRes.data.userByEmail.lastName
               }
               readOnly={true}
               onChange={(x) => setName(x.target.value)}

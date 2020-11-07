@@ -9,50 +9,61 @@ import Map from "../PlaceComponents/Map";
 import { Image, Popover, OverlayTrigger, Container } from "react-bootstrap";
 import Skeleton from "@material-ui/lab/Skeleton";
 
-const Places = () => {
-  const places = gql`
-    {
-      sportObjects {
-        name
-        _id
-        address {
-          streetName
-          buildingNumber
-          flatNumber
-          city
-          zipCode
-          country {
-            longName
-            code
-          }
-          geoPoint
-        }
-        gyms {
-          _id
-          gymType {
-            name
-            namePL
-          }
-          name
-          mainPhoto
-          description
-          availability
-          maxAvailability
-          gymTags {
-            name
-            namePL
-          }
-          equipments {
-            name
-            namePL
-          }
-          reviews {
-            starRate
-            description
-          }
-        }
-      }
+const Places = (price, opinion) => {
+  const SetOpinion = (opinion) => {
+    if (opinion == 0) {
+      return 3;
+    } else {
+      return opinion;
     }
+  };
+  const places = gql`
+  {
+    sportObjects{
+       
+            name
+            _id
+            address {
+              streetName
+              buildingNumber
+              flatNumber
+              city
+              zipCode
+              country {
+                longName
+                code
+              }
+              geoPoint
+            }
+      gymsFilter(gymType:"5f8d6dffac92050c9948611d",gymTags:"5f8d715427ca0312196cbbef",minPrice:${
+        price.price[0]
+      },maxPrice:${price.price[1]},starRate:${SetOpinion(price.opinion)}){
+        _id
+              gymType {
+                name
+                namePL
+              }
+              name
+              mainPhoto
+              description
+              availability
+              maxAvailability
+              gymTags {
+                name
+                namePL
+              }
+              equipments {
+                name
+                namePL
+              }
+              reviews {
+                starRate
+                description
+              }
+            }
+          }
+        }
+    
   `;
   const { loading, error, data } = useQuery(places);
   if (loading) return <Skeleton variant="rect" width={800} height={118} />;
@@ -60,7 +71,7 @@ const Places = () => {
   const HowManyGyms = () => {
     let length = 0;
     data.sportObjects.map((item) => {
-      length += item.gyms.length;
+      length += item.gymsFilter.length;
     });
     return length;
   };
@@ -109,9 +120,9 @@ const Places = () => {
       </Row>
 
       {data.sportObjects.map((building) =>
-        building.gyms.map((item) => (
+        building.gymsFilter.map((item) => (
           <>
-            <li key={item._id} style={{ "list-style-type": "none" }}>
+            <li key={item._id} style={{ listStyleType: "none" }}>
               {loading ? (
                 <Skeleton variant="rect" width={800} height={118} />
               ) : (

@@ -41,25 +41,13 @@ const appointments = gql`
 const rows = [].sort((a, b) => (a.calories < b.calories ? -1 : 1));
 
 export default function DenseTable() {
-  const [deleted, setDeleted] = useState("");
-  const deleteAppointment = gql`
-  mutation {
-    delReservationById(reservation: "${deleted}") {
-      title
-      startDateTime
-      endDateTime
-      createdAt
-    }
-  }
-`;
-  // const [DeleteAppointment] = useMutation(deleteAppointment);
-
   const classes = useStyles();
   const res = useQuery(appointments);
   if (res.loading) return <Skeleton />;
   if (res.error) return `Error! ${res.error.message} `;
 
   res.data.userReservations.map((x) => {
+    console.log(x._id);
     rows.push({
       ids: x._id,
       name: x.title,
@@ -70,11 +58,6 @@ export default function DenseTable() {
     });
   });
 
-  // const DelAppointment = (appointmemt) => {
-  //   console.log(appointmemt);
-  //   // setDeleted(appointmemt);
-  //   // DeleteAppointment();
-  // };
   return (
     <TableContainer component={Paper}>
       <Table className={classes.table} size="small" aria-label="a dense table">
@@ -88,7 +71,7 @@ export default function DenseTable() {
         </TableHead>
         <TableBody>
           {rows.map((row) => (
-            <TableRow key={row.ids}>
+            <TableRow key={row.name}>
               <TableCell component="th" scope="row">
                 {row.name}
               </TableCell>
@@ -100,7 +83,7 @@ export default function DenseTable() {
               </TableCell>
               <TableCell align="right">
                 {" "}
-                {/* <Button onClick={() => DelAppointment(row.ids)}> Usuń </Button> */}
+                <Button onClick={() => DelAppointment(row.ids)}> Usuń </Button>
               </TableCell>
             </TableRow>
           ))}

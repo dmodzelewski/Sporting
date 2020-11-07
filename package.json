@@ -84,6 +84,7 @@
     "react-toastify": "^6.0.9",
     "react-validation": "^3.0.7",
     "reactjs-popup": "^1.5.0",
+    "searchkit": "^2.4.1-alpha.5",
     "validator": "^13.1.1",
     "yup": "^0.29.3"
   },

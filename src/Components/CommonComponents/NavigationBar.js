@@ -6,7 +6,7 @@ import { Navbar, Nav } from "react-bootstrap";
 import PropTypes from "prop-types";
 
 const NavigationBar = () => {
-  const [isOpen, setisOpen] = useState(true);
+  const [isOpen, setisOpen] = useState(false);
   const handleToggle = () => {
     setisOpen(!isOpen);
   };

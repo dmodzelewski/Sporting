@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import clsx from "clsx";
 import { makeStyles } from "@material-ui/core/styles";
 import Radio from "@material-ui/core/Radio";
@@ -54,6 +54,7 @@ const useStyles = makeStyles({
 const gymType = gql`
   {
     gymTypes {
+      _id
       name
       namePL
     }
@@ -63,7 +64,7 @@ const gymType = gql`
 // Inspired by blueprintjs
 const StyledRadio = (props) => {
   const classes = useStyles();
-
+  const [checked, setChecked] = useState([]);
   return (
     <Radio
       className={classes.root}
@@ -89,10 +90,11 @@ const TagFilter = () => {
       >
         {data.gymTypes.map((x) => (
           <FormControlLabel
-            key={x.namePL}
+            key={x._id}
             value={x.namePL}
             control={<StyledRadio />}
             label={x.namePL}
+            
           />
         ))}
       </RadioGroup>

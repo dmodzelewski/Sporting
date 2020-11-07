@@ -314,7 +314,7 @@ mutation{
                 </Form.Group>
               </Col>
             )}
-            {role == "ADMIN" ? null : <h1>Nazwa</h1>}
+            {role == "ADMIN" ? <h1>Nazwa</h1> : null}
             <Col>
               <Col onClick={() => setlogin(!login)}>
                 {login ? "Nie masz jeszcze konta?" : "Posiadasz już konto?"}

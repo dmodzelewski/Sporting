@@ -12,6 +12,10 @@ import Typography from "@material-ui/core/Typography";
 import Slider from "@material-ui/core/Slider";
 import TextField from "@material-ui/core/TextField";
 import TagFilter from "../Components/ReserveComponents/Filter/TagFilter";
+import { gql } from "@apollo/client";
+import { useQuery } from "@apollo/client";
+import Skeleton from "@material-ui/lab/Skeleton";
+
 const Reserve = (props) => {
   const [opinion, setOpinion] = useState(0);
   const [price, setValue] = useState([0, 200]);
@@ -20,6 +24,17 @@ const Reserve = (props) => {
     checkedFreeEntry: false,
     checkedFreeAccessories: false,
   });
+  const types = gql`
+    {
+      gymTags {
+        _id
+        namePL
+      }
+    }
+  `;
+  const res = useQuery(types);
+  if (res.loading) return <Skeleton />;
+  if (res.error) return `Error! ${res.error.message} `;
   const GreenCheckbox = withStyles({
     root: {
       color: green[400],
@@ -53,6 +68,9 @@ const Reserve = (props) => {
               <Col className="filter-section-header">Udogodnienia</Col>
             </Row>
             <Row className="filters">
+              {res.data.gymTags.map((x) => {
+                console.log(x);
+              })}
               <FormControlLabel
                 control={
                   <GreenCheckbox
@@ -62,27 +80,6 @@ const Reserve = (props) => {
                   />
                 }
                 label="Darmowy Parking"
-              />
-              <FormControlLabel
-                control={
-                  <GreenCheckbox
-                    checked={state.checkedFreeEntry}
-                    onChange={handleChange}
-                    name="checkedFreeEntry"
-                  />
-                }
-                label="Dzieci - Wstęp Wolny"
-              />
-
-              <FormControlLabel
-                control={
-                  <GreenCheckbox
-                    checked={state.checkedFreeAccessories}
-                    onChange={handleChange}
-                    name="checkedFreeAccessories"
-                  />
-                }
-                label="Darmowe akcesoria"
               />
             </Row>
             <Row>
@@ -143,8 +140,9 @@ const Reserve = (props) => {
               <TagFilter />
             </Col>
           </Col>
+          {console.log(state)}
           <Col md={9}>
-            <Places {...props} />
+            <Places price={price} opinion={opinion} />
           </Col>
         </Row>
       </Container>
