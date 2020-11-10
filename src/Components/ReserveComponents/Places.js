@@ -10,6 +10,13 @@ import { Image, Popover, OverlayTrigger, Container } from "react-bootstrap";
 import Skeleton from "@material-ui/lab/Skeleton";
 
 const Places = (price, opinion) => {
+  const SetType = (type) => {
+    if (type === "") {
+      return "5f8d6dffac92050c9948611d";
+    } else {
+      return type;
+    }
+  };
   const SetOpinion = (opinion) => {
     if (opinion == 0) {
       return 3;
@@ -35,9 +42,11 @@ const Places = (price, opinion) => {
               }
               geoPoint
             }
-      gymsFilter(gymType:"5f8d6dffac92050c9948611d",gymTags:"5f8d715427ca0312196cbbef",minPrice:${
-        price.price[0]
-      },maxPrice:${price.price[1]},starRate:${SetOpinion(price.opinion)}){
+      gymsFilter(gymType:"${SetType(
+        price.type
+      )}",gymTags:"5f8d715427ca0312196cbbef",minPrice:${
+    price.price[0]
+  },maxPrice:${price.price[1]},starRate:${SetOpinion(price.opinion)}){
         _id
               gymType {
                 name

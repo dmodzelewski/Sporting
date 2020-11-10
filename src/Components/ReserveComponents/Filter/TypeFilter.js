@@ -61,44 +61,50 @@ const gymType = gql`
   }
 `;
 
-// Inspired by blueprintjs
-const StyledRadio = (props) => {
-  const classes = useStyles();
-  const [checked, setChecked] = useState([]);
-  return (
-    <Radio
-      className={classes.root}
-      disableRipple
-      color="green"
-      checkedIcon={<span className={clsx(classes.icon, classes.checkedIcon)} />}
-      icon={<span className={classes.icon} />}
-      {...props}
-    />
-  );
-};
-
-const TagFilter = () => {
+const TypeFilter = ({ Type }) => {
+  const [changeType, setchangeType] = useState("");
   const { loading, error, data } = useQuery(gymType);
   if (loading) return <Skeleton />;
   if (error) return `Error! ${error.message} `;
+
+  const handleChange = (event) => {
+    setchangeType(event.target.value);
+    Type(event.target.value);
+  };
+  // Inspired by blueprintjs
+  const StyledRadio = (props) => {
+    const classes = useStyles();
+    return (
+      <Radio
+        className={classes.root}
+        disableRipple
+        color="green"
+        checkedIcon={
+          <span className={clsx(classes.icon, classes.checkedIcon)} />
+        }
+        icon={<span className={classes.icon} />}
+        {...props}
+      />
+    );
+  };
   return (
     <FormControl component="fieldset">
       <RadioGroup
-        defaultValue="Pływanie"
+        defaultValue="Basen"
         aria-label="Wybór Tagu"
         name="customized-radios"
       >
         {data.gymTypes.map((x) => (
           <FormControlLabel
             key={x._id}
-            value={x.namePL}
+            value={x._id}
             control={<StyledRadio />}
             label={x.namePL}
-            
+            onChange={(x) => handleChange(x)}
           />
         ))}
       </RadioGroup>
     </FormControl>
   );
 };
-export default TagFilter;
+export default TypeFilter;

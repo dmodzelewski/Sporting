@@ -6,24 +6,17 @@ import Places from "../Components/ReserveComponents/Places";
 import PropTypes from "prop-types";
 import { withStyles } from "@material-ui/core/styles";
 import { green } from "@material-ui/core/colors";
-import FormControlLabel from "@material-ui/core/FormControlLabel";
 import Checkbox from "@material-ui/core/Checkbox";
 import Typography from "@material-ui/core/Typography";
 import Slider from "@material-ui/core/Slider";
 import TextField from "@material-ui/core/TextField";
-import TagFilter from "../Components/ReserveComponents/Filter/TagFilter";
+import TypeFilter from "../Components/ReserveComponents/Filter/TypeFilter";
 import { gql } from "@apollo/client";
 import { useQuery } from "@apollo/client";
 import Skeleton from "@material-ui/lab/Skeleton";
+import { FormControlLabel } from "@material-ui/core";
 
-const Reserve = (props) => {
-  const [opinion, setOpinion] = useState(0);
-  const [price, setValue] = useState([0, 200]);
-  const [state, setState] = useState({
-    checkedParking: false,
-    checkedFreeEntry: false,
-    checkedFreeAccessories: false,
-  });
+const Reserve = () => {
   const types = gql`
     {
       gymTags {
@@ -32,9 +25,11 @@ const Reserve = (props) => {
       }
     }
   `;
-  const res = useQuery(types);
-  if (res.loading) return <Skeleton />;
-  if (res.error) return `Error! ${res.error.message} `;
+  const [opinion, setOpinion] = useState(0);
+  const [price, setValue] = useState([0, 200]);
+  const [type, settype] = useState("");
+  const [check, setcheck] = useState(useQuery(types));
+
   const GreenCheckbox = withStyles({
     root: {
       color: green[400],
@@ -46,7 +41,7 @@ const Reserve = (props) => {
   })((props) => <Checkbox color="default" {...props} />);
 
   const handleChange = (event) => {
-    setState({ ...state, [event.target.name]: event.target.checked });
+    setcheck({ ...check, [event.target.name]: event.target.checked });
   };
   const handlePriceChange = (event, newValue) => {
     setValue(newValue);
@@ -54,9 +49,21 @@ const Reserve = (props) => {
   const FilterReview = (opinion) => {
     setOpinion(opinion);
   };
+  const FilterType = (type) => {
+    settype(type);
+  };
   function valuetext(price) {
     return `${price}°C`;
   }
+  const checkboxData = [];
+
+  // res.data.gymTags.map((x) => {
+  //   checkboxData.push({
+  //     isChecked: false,
+  //     id: x._id,
+  //     name: x.namePL,
+  //   });
+  // });
   return (
     <>
       {/* {console.log(props.location.state.passTag)} */}
@@ -68,19 +75,19 @@ const Reserve = (props) => {
               <Col className="filter-section-header">Udogodnienia</Col>
             </Row>
             <Row className="filters">
-              {res.data.gymTags.map((x) => {
-                console.log(x);
-              })}
-              <FormControlLabel
-                control={
-                  <GreenCheckbox
-                    checked={state.checkedParking}
-                    onChange={handleChange}
-                    name="checkedParking"
-                  />
-                }
-                label="Darmowy Parking"
-              />
+              {checkboxData.map((x) => (
+                <FormControlLabel
+                  key={x.id}
+                  control={
+                    <GreenCheckbox
+                      checked={x.isChecked}
+                      onChange={handleChange}
+                      name={x.id}
+                    />
+                  }
+                  label={x.name}
+                />
+              ))}
             </Row>
             <Row>
               <Col className="filter-section-header">Cena</Col>
@@ -134,15 +141,14 @@ const Reserve = (props) => {
               <ReviewFilter Review={FilterReview} isReadOnly={false} />
             </Col>
             <Row>
-              <Col className="filter-section-header">Tagi</Col>
+              <Col className="filter-section-header">Typy</Col>
             </Row>
             <Col className="filters">
-              <TagFilter />
+              <TypeFilter Type={FilterType} />
             </Col>
           </Col>
-          {console.log(state)}
           <Col md={9}>
-            <Places price={price} opinion={opinion} />
+            <Places price={price} opinion={opinion} type={type} />
           </Col>
         </Row>
       </Container>

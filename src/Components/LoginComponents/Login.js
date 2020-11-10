@@ -325,7 +325,6 @@ mutation{
                   type="submit"
                   onClick={LoginUser}
                 >
-                  {" "}
                   Zaloguj się{" "}
                 </Button>
               ) : (

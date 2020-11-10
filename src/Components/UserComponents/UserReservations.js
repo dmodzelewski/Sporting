@@ -12,6 +12,7 @@ import { useQuery } from "@apollo/client";
 import Skeleton from "@material-ui/lab/Skeleton";
 import { Link } from "react-router-dom";
 import { Button } from "react-bootstrap";
+import DeleteUserApp from "./DeleteUserApp";
 const useStyles = makeStyles({
   table: {
     minWidth: 650,
@@ -47,7 +48,6 @@ export default function DenseTable() {
   if (res.error) return `Error! ${res.error.message} `;
 
   res.data.userReservations.map((x) => {
-    console.log(x._id);
     rows.push({
       ids: x._id,
       name: x.title,
@@ -83,7 +83,7 @@ export default function DenseTable() {
               </TableCell>
               <TableCell align="right">
                 {" "}
-                <Button onClick={() => DelAppointment(row.ids)}> Usuń </Button>
+                <DeleteUserApp id={row.ids} res={res.refetch} />
               </TableCell>
             </TableRow>
           ))}
