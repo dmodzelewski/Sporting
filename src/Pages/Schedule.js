@@ -52,6 +52,7 @@ const Sched = ({ match }) => {
       }
     }
   `;
+
   const createAppointment = gql`
     mutation {
       addReservation(
@@ -139,6 +140,7 @@ const Sched = ({ match }) => {
     const dateArr = new Date(year, month, day, hour, minute, second);
     return dateArr;
   };
+
   const onCommitChanges = useCallback(
     ({ added, changed, deleted }) => {
       if (added) {
@@ -149,6 +151,8 @@ const Sched = ({ match }) => {
       if (changed) {
         setUpdated(Object.keys(changed));
         Object.values(changed).map((x) => {
+          console.log(added);
+
           setupdatedTitle(x.title);
           setupdatedStartDate(x.startDate);
           setupdatedEndDate(x.endDate);
@@ -165,20 +169,26 @@ const Sched = ({ match }) => {
     setAddedAppointment(appointment);
     setIsAppointmentBeingCreated(true);
   });
-  const res = useQuery(appointments);
   const appointmentData = [];
+  const res = useQuery(appointments);
   if (res.loading) return <Skeleton />;
   if (res.error) return `Error! ${res.error.message} `;
-  res.data.userReservations.map((x) => {
-    const Startdate = moment(x.startDateTime);
-    const Enddate = moment(x.endDateTime);
-    appointmentData.push({
-      startDate: getTime(Startdate),
-      endDate: getTime(Enddate),
-      title: x.title,
-      id: x._id,
+  const GetData = () => {
+    res.refetch();
+
+    const appointmentData = [];
+    res.data.userReservations.map((x) => {
+      const Startdate = moment(x.startDateTime);
+      const Enddate = moment(x.endDateTime);
+      appointmentData.push({
+        startDate: getTime(Startdate),
+        endDate: getTime(Enddate),
+        title: x.title,
+        id: x._id,
+      });
     });
-  });
+    return appointmentData;
+  };
 
   return (
     <>
@@ -188,7 +198,7 @@ const Sched = ({ match }) => {
             <h1>Wybierz dogodny dla Ciebie Termin</h1>
           </Col>{" "}
           <Paper>
-            <Scheduler data={appointmentData} height={600}>
+            <Scheduler data={GetData()} height={600}>
               <ViewState
                 currentDate={currentDate}
                 onCurrentDateChange={(x) => setcurrentDate(x)}
