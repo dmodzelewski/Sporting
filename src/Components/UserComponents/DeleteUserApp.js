@@ -19,7 +19,7 @@ const DeleteUserApp = (props) => {
     DeleteAppointment()
       .then(function (val) {
         console.log(val);
-        
+        props.res();
       })
       .catch(() => {
         console.log("Nie udało się usunąć");

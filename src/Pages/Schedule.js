@@ -34,7 +34,7 @@ const Sched = ({ match }) => {
   const [isAppointmentBeingCreated, setIsAppointmentBeingCreated] = useState(
     false
   );
-  const [title, setTitle] = useState();
+  const [title, setTitle] = useState("Brak Tytułu");
   const [startDate, setStartDate] = useState(new Date());
   const [endDate, setendDate] = useState(new Date());
   const [deleted, setDeleted] = useState("");

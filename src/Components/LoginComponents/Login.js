@@ -114,27 +114,25 @@ mutation{
   const CreateUser = () => {
     addUser();
 
-    if (!isEmail) {
-      setName("");
-      setSurname("");
-      setPassword("");
-      setrepeatPassword("");
-      setlogin(true);
-
-      CreateAccountNotify();
-    } else {
-      EmailNotify();
-    }
-  };
-
-  const LoginUser = () => {
     isEmailValid()
       .then(function (val) {
-        setIsEmail(val.data.isLoginUserExists);
+        if (val.data.isLoginUserExists) {
+          EmailNotify();
+        } else {
+          setName("");
+          setSurname("");
+          setPassword("");
+          setrepeatPassword("");
+          setlogin(true);
+          setIsEmail(val.data.isLoginUserExists);
+        }
       })
       .catch(() => {
         NoEmailNotify();
       });
+  };
+
+  const LoginUser = () => {
     if (isEmail == true) {
       Getjwt()
         .then(function (val) {

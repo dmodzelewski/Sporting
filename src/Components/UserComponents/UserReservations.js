@@ -70,20 +70,31 @@ export default function DenseTable() {
           </TableRow>
         </TableHead>
         <TableBody>
-          {rows.map((row) => (
-            <TableRow key={row.name}>
+          {res.data.userReservations.map((row) => (
+            <TableRow key={row._id}>
               <TableCell component="th" scope="row">
-                {row.name}
+                {row.title}
               </TableCell>
-              <TableCell align="right">{row.dateAndHour}</TableCell>
-              <TableCell align="right">{row.place}</TableCell>
+              <TableCell align="right">{row.startDateTime}</TableCell>
+              <TableCell align="right">{row.gym.name}</TableCell>
               <TableCell align="right">
                 {" "}
-                <Link to={`/scheduler/${row.linkToSchedule}`}> Elo </Link>
+                <Link
+                  to={`/scheduler/${
+                    row.gym.sportObject._id +
+                    "/" +
+                    row.gym._id +
+                    "/" +
+                    row.user._id
+                  }`}
+                >
+                  {" "}
+                  Elo{" "}
+                </Link>
               </TableCell>
               <TableCell align="right">
                 {" "}
-                <DeleteUserApp id={row.ids} res={res.refetch} />
+                <DeleteUserApp id={row._id} res={res.refetch} />
               </TableCell>
             </TableRow>
           ))}

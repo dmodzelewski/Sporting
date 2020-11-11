@@ -16,7 +16,7 @@ import { useQuery } from "@apollo/client";
 import Skeleton from "@material-ui/lab/Skeleton";
 import { FormControlLabel } from "@material-ui/core";
 
-const Reserve = () => {
+const Reserve = (props) => {
   const types = gql`
     {
       gymTags {
@@ -66,7 +66,7 @@ const Reserve = () => {
   // });
   return (
     <>
-      {/* {console.log(props.location.state.passTag)} */}
+      {console.log(props.location.state.passTag)}
       <Search />
       <Container className="reserve">
         <Row>
@@ -148,7 +148,12 @@ const Reserve = () => {
             </Col>
           </Col>
           <Col md={9}>
-            <Places price={price} opinion={opinion} type={type} />
+            <Places
+              price={price}
+              opinion={opinion}
+              type={type}
+              choosenType={props.location.state.passTag}
+            />
           </Col>
         </Row>
       </Container>
