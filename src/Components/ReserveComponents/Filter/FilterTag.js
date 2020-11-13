@@ -4,16 +4,22 @@ import { withStyles } from "@material-ui/core/styles";
 import { green } from "@material-ui/core/colors";
 import Checkbox from "@material-ui/core/Checkbox";
 
-export const FilterTag = (props) => {
-  const [check, setCheck] = useState(props.array);
-
+export const FilterTag = (Tag) => {
+  const [check, setCheck] = useState(Tag.array);
   const handleChange = (event) => {
     let items = [...check];
-    let item = { ...items[0] };
+    let index = event.target.name;
+    let item = { ...items[index] };
     item.isChecked = !item.isChecked;
-    items[0] = item;
+    items[index] = item;
     setCheck(items);
-    console.log(check);
+    const who = [];
+    check.filter((c) => {
+      if (c.isChecked === true) {
+        who.push(c.id);
+      }
+    });
+    Tag.tags(who);
   };
 
   const GreenCheckbox = withStyles({
@@ -35,7 +41,7 @@ export const FilterTag = (props) => {
             <GreenCheckbox
               checked={x.isChecked}
               onChange={handleChange}
-              name={x.id}
+              name={x.index}
             />
           }
           label={x.name}

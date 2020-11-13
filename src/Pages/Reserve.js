@@ -27,7 +27,7 @@ const Reserve = (props) => {
   const [opinion, setOpinion] = useState(0);
   const [price, setValue] = useState([0, 200]);
   const [type, settype] = useState("");
-
+  const [tag, setTag] = useState([]);
   const handlePriceChange = (event, newValue) => {
     setValue(newValue);
   };
@@ -48,8 +48,14 @@ const Reserve = (props) => {
       isChecked: false,
       id: x._id,
       name: x.namePL,
+      index: checkboxData.length,
     });
   });
+
+  const getTags = (Tag) => {
+    console.log(Tag);
+    return Tag;
+  };
 
   return (
     <>
@@ -62,7 +68,7 @@ const Reserve = (props) => {
               <Col className="filter-section-header">Udogodnienia</Col>
             </Row>
             <Row className="filters">
-              <FilterTag array={checkboxData} />
+              <FilterTag array={checkboxData} tags={getTags} />
             </Row>
             <Row>
               <Col className="filter-section-header">Cena</Col>
@@ -128,6 +134,7 @@ const Reserve = (props) => {
               opinion={opinion}
               type={type}
               choosenType={props.location.state.passTag}
+              tag={getTags()}
             />
           </Col>
         </Row>

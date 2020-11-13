@@ -9,7 +9,7 @@ import Map from "../PlaceComponents/Map";
 import { Image, Popover, OverlayTrigger, Container } from "react-bootstrap";
 import Skeleton from "@material-ui/lab/Skeleton";
 
-const Places = (price, opinion) => {
+const Places = (price) => {
   const SetType = (type) => {
     if (type === "") {
       return "5f8d6dffac92050c9948611d";
