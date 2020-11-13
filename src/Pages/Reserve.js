@@ -4,9 +4,6 @@ import { Row, Col, Container, Form } from "react-bootstrap";
 import ReviewFilter from "../Components/ReserveComponents/Filter/ReviewFilter";
 import Places from "../Components/ReserveComponents/Places";
 import PropTypes from "prop-types";
-import { withStyles } from "@material-ui/core/styles";
-import { green } from "@material-ui/core/colors";
-import Checkbox from "@material-ui/core/Checkbox";
 import Typography from "@material-ui/core/Typography";
 import Slider from "@material-ui/core/Slider";
 import TextField from "@material-ui/core/TextField";
@@ -14,9 +11,11 @@ import TypeFilter from "../Components/ReserveComponents/Filter/TypeFilter";
 import { gql } from "@apollo/client";
 import { useQuery } from "@apollo/client";
 import Skeleton from "@material-ui/lab/Skeleton";
-import { FormControlLabel } from "@material-ui/core";
+import { FilterTag } from "../Components/ReserveComponents/Filter/FilterTag";
 
 const Reserve = (props) => {
+  const checkboxData = [];
+
   const types = gql`
     {
       gymTags {
@@ -28,21 +27,7 @@ const Reserve = (props) => {
   const [opinion, setOpinion] = useState(0);
   const [price, setValue] = useState([0, 200]);
   const [type, settype] = useState("");
-  const [check, setcheck] = useState(useQuery(types));
 
-  const GreenCheckbox = withStyles({
-    root: {
-      color: green[400],
-      "&$checked": {
-        color: green[600],
-      },
-    },
-    checked: {},
-  })((props) => <Checkbox color="default" {...props} />);
-
-  const handleChange = (event) => {
-    setcheck({ ...check, [event.target.name]: event.target.checked });
-  };
   const handlePriceChange = (event, newValue) => {
     setValue(newValue);
   };
@@ -55,15 +40,17 @@ const Reserve = (props) => {
   function valuetext(price) {
     return `${price}°C`;
   }
-  const checkboxData = [];
+  const res = useQuery(types);
+  if (res.loading) return <Skeleton variant="rect" width={800} height={118} />;
+  if (res.error) return `Error! ${res.error.message} `;
+  res.data.gymTags.map((x) => {
+    checkboxData.push({
+      isChecked: false,
+      id: x._id,
+      name: x.namePL,
+    });
+  });
 
-  // res.data.gymTags.map((x) => {
-  //   checkboxData.push({
-  //     isChecked: false,
-  //     id: x._id,
-  //     name: x.namePL,
-  //   });
-  // });
   return (
     <>
       {console.log(props.location.state.passTag)}
@@ -75,19 +62,7 @@ const Reserve = (props) => {
               <Col className="filter-section-header">Udogodnienia</Col>
             </Row>
             <Row className="filters">
-              {checkboxData.map((x) => (
-                <FormControlLabel
-                  key={x.id}
-                  control={
-                    <GreenCheckbox
-                      checked={x.isChecked}
-                      onChange={handleChange}
-                      name={x.id}
-                    />
-                  }
-                  label={x.name}
-                />
-              ))}
+              <FilterTag array={checkboxData} />
             </Row>
             <Row>
               <Col className="filter-section-header">Cena</Col>
