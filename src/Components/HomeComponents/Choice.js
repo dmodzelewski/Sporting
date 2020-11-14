@@ -28,7 +28,7 @@ const Choice = () => {
           </Row>
           <Row className="choice-sports">
             <Col
-              onClick={() => handleTag("swimming")}
+              onClick={() => handleTag("5f8d6dffac92050c9948611d")}
               className="choice-sports-objects"
               style={{ background: "#819ABE" }}
             >
@@ -42,7 +42,7 @@ const Choice = () => {
               </Row>
             </Col>
             <Col
-              onClick={() => handleTag("basketball")}
+              onClick={() => handleTag("5f98045d3c81155f98a70279")}
               className="choice-sports-objects"
               style={{ background: "#CBA967" }}
             >

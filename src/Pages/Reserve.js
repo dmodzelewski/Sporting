@@ -59,7 +59,7 @@ const Reserve = (props) => {
 
   return (
     <>
-      {console.log(props.location.state.passTag)}
+      {console.log(props.location.state)}
       <Search />
       <Container className="reserve">
         <Row>
@@ -135,6 +135,7 @@ const Reserve = (props) => {
               type={type}
               choosenType={props.location.state.passTag}
               tag={getTags()}
+              other={props.location.state}
             />
           </Col>
         </Row>

@@ -12,7 +12,8 @@ import Skeleton from "@material-ui/lab/Skeleton";
 const Places = (price) => {
   const SetType = (type) => {
     if (type === "") {
-      return "5f8d6dffac92050c9948611d";
+      console.log(price.choosenType);
+      return price.choosenType;
     } else {
       return type;
     }
