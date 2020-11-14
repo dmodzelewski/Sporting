@@ -12,7 +12,6 @@ import Skeleton from "@material-ui/lab/Skeleton";
 const Places = (price) => {
   const SetType = (type) => {
     if (type === "") {
-      console.log(price.choosenType);
       return price.choosenType;
     } else {
       return type;
@@ -180,7 +179,7 @@ const Places = (price) => {
                           overlay={
                             <Popover id="popovermap">
                               <Popover.Content>
-                                <Map {...building} />
+                                <Map {...building} {...price.other} />
                               </Popover.Content>
                             </Popover>
                           }
