@@ -22,7 +22,6 @@ export default class DrawLine extends PureComponent {
             return data.routes[0].geometry.coordinates;
           });
       }
-      await console.log(points);
       ctx.clearRect(0, 0, width, height);
       ctx.globalCompositeOperation = "lighter";
 

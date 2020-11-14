@@ -5,8 +5,8 @@ import DrawLine from "./drawLine";
 
 const Map = (props) => {
   const [viewPort, setviewPort] = useState({
-    latitude: props.address.geoPoint[1],
-    longitude: props.address.geoPoint[0],
+    latitude: props.passLatitude,
+    longitude: props.passLongitude,
     width: "40vh",
     height: "40vh",
     zoom: 13,
