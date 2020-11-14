@@ -35,6 +35,7 @@ const appointments = gql`
     _id
     title
     startDateTime
+    endDateTime
   }
 }
 `;
@@ -57,14 +58,21 @@ export default function DenseTable() {
         x.gym.sportObject._id + "/" + x.gym._id + "/" + x.user._id,
     });
   });
-
+  const GetDateAndTime = (date) => {
+    const currentDate = date.split("T")[0];
+    const currentTime =
+      date.split("T")[1].split(":")[0] + ":" + date.split("T")[1].split(":")[1];
+    const formatTime = currentDate + " " + currentTime;
+    return formatTime;
+  };
   return (
     <TableContainer component={Paper}>
       <Table className={classes.table} size="small" aria-label="a dense table">
         <TableHead>
           <TableRow>
             <TableCell>Nazwa spotkania</TableCell>
-            <TableCell align="right">Data i godzina</TableCell>
+            <TableCell align="right">Trening zaczyna się</TableCell>
+            <TableCell align="right">Trening kończy się</TableCell>
             <TableCell align="right">Miejsce</TableCell>
             <TableCell align="right">Link do kalendarza</TableCell>
           </TableRow>
@@ -75,10 +83,14 @@ export default function DenseTable() {
               <TableCell component="th" scope="row">
                 {row.title}
               </TableCell>
-              <TableCell align="right">{row.startDateTime}</TableCell>
+              <TableCell align="right">
+                {GetDateAndTime(row.startDateTime)}
+              </TableCell>
+              <TableCell align="right">
+                {GetDateAndTime(row.endDateTime)}
+              </TableCell>
               <TableCell align="right">{row.gym.name}</TableCell>
               <TableCell align="right">
-                {" "}
                 <Link
                   to={`/scheduler/${
                     row.gym.sportObject._id +
@@ -88,12 +100,10 @@ export default function DenseTable() {
                     row.user._id
                   }`}
                 >
-                  {" "}
-                  Elo{" "}
+                  Przejdź
                 </Link>
               </TableCell>
               <TableCell align="right">
-                {" "}
                 <DeleteUserApp id={row._id} res={res.refetch} />
               </TableCell>
             </TableRow>

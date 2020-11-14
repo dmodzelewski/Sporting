@@ -99,7 +99,7 @@ const Sched = ({ match }) => {
   const [DeleteAppointment] = useMutation(deleteAppointment);
 
   useEffect(() => {
-    if (title !== undefined) {
+    if (title !== "Brak Tytułu") {
       CreateAppointment()
         .then(function (val) {
           console.log(val);
@@ -110,7 +110,7 @@ const Sched = ({ match }) => {
     } else {
       console.log("Nie dodano");
     }
-  }, [startDate]);
+  }, [title]);
   useEffect(() => {
     UpdatedAppointment()
       .then(function (val) {
