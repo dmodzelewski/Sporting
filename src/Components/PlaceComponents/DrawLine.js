@@ -6,7 +6,7 @@ export default class DrawLine extends PureComponent {
     const {
       color = "red",
       lineWidth = 2,
-      renderWhileDragging = true,
+      renderWhileDragging = false,
       from,
       to,
     } = this.props;
@@ -15,7 +15,7 @@ export default class DrawLine extends PureComponent {
       if (isDragging) points = null;
       else {
         points = await fetch(
-          `https://api.mapbox.com/directions/v5/mapbox/driving/${from[0]},${from[1]};${to[0]},${to[1]}?geometries=geojson&access_token=pk.eyJ1IjoibW9kejNsMSIsImEiOiJja2Vwd3ZuZXYybHE0MzBwY3FnMmJoOWl3In0.gXqZXY5scsggIr2Vl05QOA`
+          `https://api.mapbox.com/directions/v5/mapbox/driving/${from[0]},${from[1]};${to[1]},${to[0]}?geometries=geojson&access_token=pk.eyJ1IjoibW9kejNsMSIsImEiOiJja2Vwd3ZuZXYybHE0MzBwY3FnMmJoOWl3In0.gXqZXY5scsggIr2Vl05QOA`
         )
           .then((response) => response.json())
           .then((data) => {

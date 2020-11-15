@@ -5,8 +5,7 @@
 $phone: 320px;
 $tablet: 768px;
 $primaryColor: #af9a7d;
-$mainGreen: #29b347;
-$NavbarColor: #b4d920;
+$MainGreen: #b4d920;
 $NavbarColorHover: #4444b3;
 $mainFont: rgb(48, 48, 48);
 $mainFontFamily: "Quicksand";
@@ -14,7 +13,7 @@ $mainTransition: all 0.3s linear;
 $mainSpacing: 3px;
 $lightShadow: 2px 5px 3px 0px rgba(0, 0, 0, 0.5);
 $darkShadow: 4px 10px 5px 0px rgba(0, 0, 0, 0.5);
-
+$mainBorder: 10px;
 //global settings
 body {
   width: 100%;
@@ -76,7 +75,7 @@ h6 {
 .navbar {
   align-items: unset !important;
   height: 90px;
-  background: #b4d920;
+  background: $MainGreen;
   box-sizing: border-box;
   box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
 }
@@ -401,7 +400,7 @@ h6 {
 }
 .places-object {
   border-radius: 10px;
-  background: #b4d920;
+  background: $MainGreen;
   display: flex;
 }
 //placess
@@ -816,4 +815,48 @@ h6 {
   border-radius: 50%;
   background: #3887be;
   pointer-events: none;
+}
+.admin-objects {
+  display: flex;
+  justify-content: space-evenly;
+}
+.admin-objects-button {
+  display: flex;
+  margin-top: 10px;
+  justify-content: center;
+  width: 100%;
+}
+.admin-panel-button {
+  display: flex;
+  margin: 10px 5px;
+  justify-content: flex-end;
+}
+.gyms-objects {
+  display: flex;
+  justify-content: space-evenly;
+  font-size: large;
+  font-weight: bold;
+  margin: 10px;
+}
+.gyms-objects-text {
+  display: flex;
+  justify-content: space-evenly;
+  background-color: $MainGreen;
+  border-radius: 10px;
+}
+.gyms-admin-photo {
+  height: 150px;
+  width: 100%;
+}
+.gyms-objects-avg {
+  background-color: red;
+  border-radius: 10px;
+}
+.gyms-objects-price {
+  background-color: red;
+
+  border-radius: 10px;
+}
+.gyms-admin {
+  margin: 10px;
 }

@@ -9,7 +9,8 @@ const Equipments = (props) => {
   const GetEqupment = (items) => {
     const equipments = [];
     if (items.length == 0) {
-      return "Brak wyposażenia";
+      equipments.push("Brak");
+      return equipments;
     } else {
       items.map((x) => {
         equipments.push(x.namePL);

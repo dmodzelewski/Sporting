@@ -53,13 +53,11 @@ const Reserve = (props) => {
   });
 
   const getTags = (Tag) => {
-    console.log(Tag);
     return Tag;
   };
 
   return (
     <>
-      {console.log(props.location.state)}
       <Search />
       <Container className="reserve">
         <Row>

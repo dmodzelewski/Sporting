@@ -14,9 +14,10 @@ const NavigationBar = () => {
     localStorage.removeItem("token");
     localStorage.removeItem("userid");
     localStorage.removeItem("email");
+    localStorage.removeItem("role");
   };
-
   const authToken = localStorage.getItem("token");
+  const role = localStorage.getItem("role");
 
   return (
     <Navbar
@@ -32,7 +33,7 @@ const NavigationBar = () => {
 
       <Navbar.Collapse>
         <Nav className="nav-buttons">
-          {authToken ? (
+          {role === "ADMIN" ? (
             <Nav.Link
               as={NavLink}
               exact

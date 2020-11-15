@@ -11,44 +11,45 @@ import Skeleton from "@material-ui/lab/Skeleton";
 
 const Places = (price) => {
   const SetType = (type) => {
-    if (type === "") {
+    if (type) {
+      return`${type}`;
+    } else if (price.choosenType) {
       return price.choosenType;
     } else {
-      return type;
+      return null;
     }
   };
   const SetOpinion = (opinion) => {
     if (opinion == 0) {
-      return 3;
+      return null;
     } else {
       return opinion;
     }
   };
+  console.log(price.choosenType);
   const places = gql`
   {
     sportObjects{
        
             name
             _id
-            address {
+            address{
               streetName
               buildingNumber
               flatNumber
               city
               zipCode
-              country {
+              country{
                 longName
                 code
               }
               geoPoint
             }
-      gymsFilter(gymType:"${SetType(
-        price.type
-      )}",gymTags:"5f8d715427ca0312196cbbef",minPrice:${
+      gymsFilter(gymType:${price.type ? SetType(price.type) : null},minPrice:${
     price.price[0]
   },maxPrice:${price.price[1]},starRate:${SetOpinion(price.opinion)}){
-        _id
-              gymType {
+              _id
+              gymType{
                 name
                 namePL
               }
@@ -57,15 +58,15 @@ const Places = (price) => {
               description
               availability
               maxAvailability
-              gymTags {
+              gymTags{
                 name
                 namePL
               }
-              equipments {
+              equipments{
                 name
                 namePL
               }
-              reviews {
+              reviews{
                 starRate
                 description
               }
@@ -158,7 +159,7 @@ const Places = (price) => {
                         <Col className="places-assessment no-padding">
                           <div className="places-score">
                             <StarRateIcon />
-                            {/* Nie działa */}
+
                             {CalculateOpionions(item.reviews)}
                           </div>
                           <div className="places-opinions">

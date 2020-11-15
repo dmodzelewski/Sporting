@@ -125,6 +125,7 @@ mutation{
           setrepeatPassword("");
           setlogin(true);
           setIsEmail(val.data.isLoginUserExists);
+          CreateAccountNotify();
         }
       })
       .catch(() => {
@@ -142,6 +143,8 @@ mutation{
           VerifyUser()
             .then(function (val1) {
               localStorage.setItem("userid", val1.data.verifyUser._id);
+              localStorage.setItem("role", val1.data.verifyUser.role);
+              localStorage.setItem("email", val1.data.verifyUser.loginEmail);
             })
             .catch(() => {
               console.log("Weryfikacja nie powiodła się");
@@ -157,6 +160,7 @@ mutation{
               });
               LoginNotify();
             } else {
+              console.log(props.url);
               history.push({
                 pathname: `${props.url}`,
                 state: {
@@ -165,7 +169,6 @@ mutation{
               });
               LoginNotify();
             }
-            localStorage.setItem("email", email);
           } else {
             BadPasswordNotify();
           }

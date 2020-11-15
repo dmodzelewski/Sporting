@@ -9,7 +9,6 @@ import Popup from "reactjs-popup";
 import Rating from "@material-ui/lab/Rating";
 import { gql, useMutation } from "@apollo/client";
 import { useQuery } from "@apollo/client";
-import Login from "../LoginComponents/Login";
 import Skeleton from "@material-ui/lab/Skeleton";
 import PropTypes from "prop-types";
 
@@ -25,12 +24,17 @@ const labels = {
   4.5: "Wyśmienicie",
   5: "Niesamowicie",
 };
-
 const Comments = (props) => {
   const [value, setValue] = useState(3);
   const [hover, setHover] = useState(-1);
   const [Name, setName] = useState("");
   const [Text, setText] = useState("");
+  const GetUser = (email) => {
+    if (email) {
+      return email;
+    }
+    return null;
+  };
   const addOpinion = gql`
     mutation {
       addReview(user: "${localStorage.getItem(
@@ -62,7 +66,7 @@ const Comments = (props) => {
 `;
   const user = gql`
   {
-    userByEmail(loginEmail:"${localStorage.getItem("email")}"){
+    userByEmail(loginEmail:"${GetUser(localStorage.getItem("email"))}"){
       lastName
       firstName
     }
@@ -72,7 +76,7 @@ const Comments = (props) => {
   const secondRes = useQuery(user);
   if (res.loading) return <Skeleton />;
   if (res.error) return `Error! ${res.error.message} `;
-
+  res.startPolling(5000);
   const isLogged = () => {
     if (localStorage.getItem("token")) {
       return false;
@@ -145,8 +149,7 @@ const Comments = (props) => {
         <Popup
           trigger={
             <Button disabled={isLogged()} className="button">
-              {" "}
-              Dodaj opinię{" "}
+              Dodaj opinię
             </Button>
           }
           modal
@@ -218,32 +221,6 @@ const Comments = (props) => {
             </Col>
           </Col>
         </Popup>
-        <Col className="loggin-place">
-          <Col className="text-loggin-place">
-            <p>
-              Aby zarezerwować się do obiektu, lub by dodawać komentarze musisz
-              być zalogowany!
-            </p>
-          </Col>
-          <Col className="button-loggin-place">
-            <Popup
-              trigger={
-                <Button
-                  style={
-                    isLogged()
-                      ? { visibility: "visible" }
-                      : { visibility: "hidden" }
-                  }
-                >
-                  Zaloguj Się
-                </Button>
-              }
-              modal
-            >
-              <Login url={props.match.url} />
-            </Popup>
-          </Col>
-        </Col>
       </Col>
     </>
   );
