@@ -1,17 +1,18 @@
 import React, { useState } from "react";
-import ReactMapGl from "react-map-gl";
+import ReactMapGl, { Marker, Popup } from "react-map-gl";
 import PropTypes from "prop-types";
-import DrawLine from "./drawLine";
+import { Col, Row } from "react-bootstrap";
+import RoomIcon from "@material-ui/icons/Room";
 const Map = (props) => {
+  const [show, setshow] = useState();
   const [viewPort, setviewPort] = useState({
-    longitude: props.passLongitude,
-    latitude: props.passLatitude,
+    longitude: props.address.geoPoint[1],
+    latitude: props.address.geoPoint[0],
     width: "40vh",
     height: "40vh",
     zoom: 13,
   });
-  
-
+  console.log(props);
   const fromCords = [props.address.geoPoint[1], props.address.geoPoint[0]];
   const destinationCords = [props.passLatitude, props.passLongitude];
   return (
@@ -26,7 +27,43 @@ const Map = (props) => {
           setviewPort(x);
         }}
       >
-        <DrawLine from={fromCords} to={destinationCords} />
+        {
+          <Marker
+            key={destinationCords[0]}
+            latitude={fromCords[1]}
+            longitude={fromCords[0]}
+          >
+            <RoomIcon
+              onClick={(e) => {
+                e.preventDefault();
+                setshow(props.address);
+                console.log(show);
+              }}
+            />
+          </Marker>
+        }
+        {show ? (
+          <Popup
+            latitude={show.geoPoint[0]}
+            longitude={show.geoPoint[1]}
+            onClose={() => {
+              setshow(null);
+            }}
+          >
+            <Row>
+              <Col>
+                <Row>
+                  <Col>{show.city}</Col>
+                </Row>
+                <Row>
+                  <Col>
+                    ul. {show.streetName} {show.buildingNumber}
+                  </Col>
+                </Row>
+              </Col>
+            </Row>
+          </Popup>
+        ) : null}
       </ReactMapGl>
     </>
   );

@@ -26,7 +26,7 @@ const Reserve = (props) => {
   `;
   const [opinion, setOpinion] = useState(0);
   const [price, setValue] = useState([0, 200]);
-  const [type, settype] = useState("");
+  const [type, settype] = useState();
   const [tag, setTag] = useState([]);
   const handlePriceChange = (event, newValue) => {
     setValue(newValue);

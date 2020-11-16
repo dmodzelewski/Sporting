@@ -1,6 +1,6 @@
 import React from "react";
 import UserReservations from "../Components/UserComponents/UserReservations";
-import { Col } from "react-bootstrap";
+import { Col, Container, Row } from "react-bootstrap";
 import { gql, useQuery } from "@apollo/client";
 import PropTypes from "prop-types";
 import Skeleton from "@material-ui/lab/Skeleton";
@@ -38,25 +38,36 @@ const Profile = (props) => {
 
   return (
     <>
-      <h1>Twój Profil</h1>
-      <div>
-        <h1>
-          {" "}
-          Witaj {data.userByEmail.firstName +
-            " " +
-            data.userByEmail.lastName}{" "}
-        </h1>
-      </div>
-      <br />
-      <img
-        style={{ maxWidth: 50, maxHeight: 50 }}
-        src="http://www.ewa.bicom.pl/ptaki/images/fot_kaczka.jpg"
-        alt="profile pic"
-      />
-      <p>Rezerwacje</p>
-      <Col>
-        <UserReservations />
-      </Col>
+      <Container>
+        <Row>
+          <Col>
+            <Row>
+              <Col className="center">
+                <h1>Twój Profil</h1>
+              </Col>
+            </Row>
+            <Row>
+              <Col className="center">
+                <h1>
+                  {" "}
+                  Witaj{" "}
+                  {data.userByEmail.firstName +
+                    " " +
+                    data.userByEmail.lastName}{" "}
+                </h1>
+              </Col>
+            </Row>
+            <Col>
+              <Col>
+                <h2>Twoje Rezerwacje</h2>
+              </Col>
+              <Col>
+                <UserReservations />
+              </Col>
+            </Col>
+          </Col>
+        </Row>
+      </Container>
     </>
   );
 };

@@ -25,33 +25,30 @@ const CalendarField = ({ GetDate }) => {
   };
 
   return (
-    <Col className="search-calendar" sm={4}>
-      <Row>
-        <Col>
-          <b>Kalendarz</b>
-        </Col>
-      </Row>
-      <Row>
-        <Col>
-          <Form.Control
-            plaintext
-            placeholder="Podaj datę"
-            onClick={() => Calendarhandler()}
-            value={FormatDate(date)}
-            readOnly
+    <>
+      <Col>
+        <b>Kalendarz</b>
+      </Col>
+
+      <Col>
+        <Form.Control
+          plaintext
+          placeholder="Podaj datę"
+          onClick={() => Calendarhandler()}
+          value={FormatDate(date)}
+          readOnly
+        />
+        <Col
+          className={Clicked ? "search-calendarShow" : "search-calendarHide"}
+        >
+          <Calendar
+            onChange={(x) => onChange(x)}
+            value={date}
+            selectRange={true}
           />
-          <Col
-            className={Clicked ? "search-calendarShow" : "search-calendarHide"}
-          >
-            <Calendar
-              onChange={(x) => onChange(x)}
-              value={date}
-              selectRange={true}
-            />
-          </Col>
         </Col>
-      </Row>
-    </Col>
+      </Col>
+    </>
   );
 };
 CalendarField.propTypes = {

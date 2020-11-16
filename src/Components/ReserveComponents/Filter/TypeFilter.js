@@ -69,6 +69,7 @@ const TypeFilter = ({ Type }) => {
 
   const handleChange = (event) => {
     setchangeType(event.target.value);
+    console.log(typeof event.target.value);
     Type(event.target.value);
   };
   // Inspired by blueprintjs

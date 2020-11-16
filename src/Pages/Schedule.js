@@ -194,11 +194,11 @@ const Sched = ({ match }) => {
     <>
       <Container>
         <Col>
-          <Col>
-            <h1>Wybierz dogodny dla Ciebie Termin</h1>
-          </Col>{" "}
+          <Col className="scheduler-greetings">
+            <h2>Wybierz dogodny dla Ciebie Termin</h2>
+          </Col>
           <Paper>
-            <Scheduler data={GetData()} height={600}>
+            <Scheduler data={GetData()} height={700}>
               <ViewState
                 currentDate={currentDate}
                 onCurrentDateChange={(x) => setcurrentDate(x)}

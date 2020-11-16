@@ -1,19 +1,30 @@
 import React, { useState } from "react";
-import {
-  Col,
-  Row,
-  Image,
-  Button,
-  OverlayTrigger,
-  Popover,
-} from "react-bootstrap";
+import { Col, Row, Image } from "react-bootstrap";
 import ReverseGeocoding from "../CommonComponents/Search/GetCurrentPosition";
 import Map from "../PlaceComponents/Map";
-
+import { makeStyles } from "@material-ui/core/styles";
+import Popover from "@material-ui/core/Popover";
+import Typography from "@material-ui/core/Typography";
+import Button from "@material-ui/core/Button";
+const useStyles = makeStyles((theme) => ({
+  typography: {
+    padding: theme.spacing(2),
+  },
+}));
 const SportObjectsAdmin = (props) => {
+  const classes = useStyles();
+  const [anchorEl, setAnchorEl] = useState(null);
   const [location, setlocation] = useState();
+  const handleClick = (event) => {
+    setAnchorEl(event.currentTarget);
+  };
 
-  console.log(props.SportObjects);
+  const handleClose = () => {
+    setAnchorEl(null);
+  };
+
+  const open = Boolean(anchorEl);
+  const id = open ? "simple-popover" : undefined;
   return (
     <>
       <Col>
@@ -35,26 +46,33 @@ const SportObjectsAdmin = (props) => {
               </Row>
               <Row>
                 <Col>
-                  <OverlayTrigger
-                    trigger="click"
-                    key={"bottom"}
-                    placement={"bottom"}
-                    overlay={
-                      <Popover id="popovermap">
-                        <Popover.Content>
-                          <Map {...object} />
-                        </Popover.Content>
-                      </Popover>
-                    }
+                  <Button
+                    className="admin-objects-button"
+                    aria-describedby={id}
+                    variant="contained"
+                    color="primary"
+                    onClick={(e) => {
+                      handleClick(e);
+                    }}
                   >
-                    <Button
-                      className="admin-objects-button"
-                      variant="secondary"
-                      onClick={() => setLocation()}
-                    >
-                      Pokaż Lokalizacje
-                    </Button>
-                  </OverlayTrigger>
+                    Pokaż Lokalizacje
+                  </Button>
+                  <Popover
+                    id={id}
+                    open={open}
+                    anchorEl={anchorEl}
+                    onClose={handleClose}
+                    anchorOrigin={{
+                      vertical: "bottom",
+                      horizontal: "center",
+                    }}
+                    transformOrigin={{
+                      vertical: "top",
+                      horizontal: "center",
+                    }}
+                  >
+                    <Map {...object} />
+                  </Popover>
                 </Col>
               </Row>
             </Col>

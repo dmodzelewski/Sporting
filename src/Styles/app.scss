@@ -406,8 +406,7 @@ h6 {
 //placess
 .places-centerColumn {
   height: 208px;
-  width: 350px;
-  margin: 16px 24px 0 16px;
+  padding-left: 10px;
   display: flex;
   flex-direction: column;
   .places-name {
@@ -520,6 +519,7 @@ h6 {
   border-radius: 10px;
 }
 .places-show-more {
+  background-color: $NavbarColorHover;
   margin-left: 1em;
   margin-right: 1em;
   border-radius: 15px;
@@ -859,4 +859,17 @@ h6 {
 }
 .gyms-admin {
   margin: 10px;
+}
+.scheduler-greetings {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  margin-top: 10vh;
+  margin-bottom: 1vh;
+}
+.error-gif {
+  display: flex;
+  align-content: flex-end;
+  justify-content: flex-end;
 }

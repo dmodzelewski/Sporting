@@ -5,13 +5,29 @@ import InputAdornment from "@material-ui/core/InputAdornment";
 import Input from "@material-ui/core/Input";
 import AccountCircle from "@material-ui/icons/AccountCircle";
 import TextField from "@material-ui/core/TextField";
-import Popup from "reactjs-popup";
 import Rating from "@material-ui/lab/Rating";
 import { gql, useMutation } from "@apollo/client";
 import { useQuery } from "@apollo/client";
 import Skeleton from "@material-ui/lab/Skeleton";
 import PropTypes from "prop-types";
+import { makeStyles } from "@material-ui/core/styles";
+import Modal from "@material-ui/core/Modal";
+import Backdrop from "@material-ui/core/Backdrop";
+import Fade from "@material-ui/core/Fade";
 
+const useStyles = makeStyles((theme) => ({
+  modal: {
+    display: "flex",
+    alignItems: "center",
+    justifyContent: "center",
+  },
+  paper: {
+    backgroundColor: theme.palette.background.paper,
+    border: "2px solid #000",
+    boxShadow: theme.shadows[5],
+    padding: theme.spacing(2, 4, 3),
+  },
+}));
 const labels = {
   0.5: "Żenada",
   1: "Beznadziejnie",
@@ -25,10 +41,21 @@ const labels = {
   5: "Niesamowicie",
 };
 const Comments = (props) => {
+  const classes = useStyles();
   const [value, setValue] = useState(3);
   const [hover, setHover] = useState(-1);
   const [Name, setName] = useState("");
   const [Text, setText] = useState("");
+  const [open, setOpen] = React.useState(false);
+
+  const handleOpen = () => {
+    setOpen(true);
+  };
+
+  const handleClose = () => {
+    setOpen(false);
+  };
+
   const GetUser = (email) => {
     if (email) {
       return email;
@@ -146,81 +173,100 @@ const Comments = (props) => {
             </ul>
           </Col>
         </Col>
-        <Popup
-          trigger={
-            <Button disabled={isLogged()} className="button">
-              Dodaj opinię
-            </Button>
-          }
-          modal
+        <Button disabled={isLogged()} onClick={handleOpen} className="button">
+          Dodaj opinię
+        </Button>
+        <Modal
+          aria-labelledby="transition-modal-title"
+          aria-describedby="transition-modal-description"
+          className={classes.modal}
+          open={open}
+          onClose={handleClose}
+          closeAfterTransition
+          BackdropComponent={Backdrop}
+          BackdropProps={{
+            timeout: 500,
+          }}
         >
-          <Col className="no-padding">
-            <InputLabel
-              className="place-comment-label"
-              htmlFor="input-with-icon-adornment"
-            >
-              Twoje imię
-            </InputLabel>
-            <Input
-              className="place-comment-input"
-              id="input-with-icon-adornment"
-              value={
-                isLogged()
-                  ? null
-                  : secondRes.data.userByEmail.firstName +
-                    " " +
-                    secondRes.data.userByEmail.lastName
-              }
-              readOnly={true}
-              onChange={(x) => setName(x.target.value)}
-              startAdornment={
-                <InputAdornment position="start">
-                  <AccountCircle />
-                </InputAdornment>
-              }
-            />
-            <InputLabel
-              className="place-comment-label"
-              htmlFor="input-with-icon-adornment"
-            >
-              Podaj ocenę w skali 1 do 5
-            </InputLabel>
-            <Rating
-              name="hover-feedback"
-              value={value}
-              size="large"
-              precision={0.5}
-              onChange={(event, newValue) => {
-                setValue(newValue);
-              }}
-              onChangeActive={(event, newHover) => {
-                setHover(newHover);
-              }}
-            />
-            <InputLabel
-              className="place-comment-label"
-              htmlFor="input-with-icon-adornment"
-            >
-              Napisz co uważasz
-            </InputLabel>
-            <TextField
-              value={Text}
-              onChange={(x) => setText(x.target.value)}
-              onChangeActive={(event, newHover) => {
-                setHover(newHover);
-              }}
-              className="place-comment-textfield"
-              placeholder="Twoja ocena..."
-              multiline
-              rows={2}
-              rowsMax={4}
-            />
+          <Fade in={open}>
+            <Col className={classes.paper}>
+              <Col className="no-padding">
+                <InputLabel
+                  className="place-comment-label"
+                  htmlFor="input-with-icon-adornment"
+                >
+                  Twoje imię
+                </InputLabel>
+                <Input
+                  className="place-comment-input"
+                  id="input-with-icon-adornment"
+                  value={
+                    isLogged()
+                      ? null
+                      : secondRes.data.userByEmail.firstName +
+                        " " +
+                        secondRes.data.userByEmail.lastName
+                  }
+                  readOnly={true}
+                  onChange={(x) => setName(x.target.value)}
+                  startAdornment={
+                    <InputAdornment position="start">
+                      <AccountCircle />
+                    </InputAdornment>
+                  }
+                />
+                <InputLabel
+                  className="place-comment-label"
+                  htmlFor="input-with-icon-adornment"
+                >
+                  Podaj ocenę w skali 1 do 5
+                </InputLabel>
+                <Rating
+                  name="hover-feedback"
+                  value={value}
+                  size="large"
+                  precision={0.5}
+                  onChange={(event, newValue) => {
+                    setValue(newValue);
+                  }}
+                  onChangeActive={(event, newHover) => {
+                    setHover(newHover);
+                  }}
+                />
+                <InputLabel
+                  className="place-comment-label"
+                  htmlFor="input-with-icon-adornment"
+                >
+                  Napisz co uważasz
+                </InputLabel>
+                <TextField
+                  value={Text}
+                  onChange={(x) => setText(x.target.value)}
+                  onChangeActive={(event, newHover) => {
+                    setHover(newHover);
+                  }}
+                  className="place-comment-textfield"
+                  placeholder="Twoja ocena..."
+                  multiline
+                  rows={2}
+                  rowsMax={4}
+                />
 
-            <Col className="place-comment-button">
-              <Button onClick={AddOpinions}>oceń</Button>
+                <Col className="place-comment-button">
+                  <Button
+                    onClick={(e) => {
+                      e.preventDefault();
+                      AddOpinions();
+                      handleClose();
+                    }}
+                  >
+                    oceń
+                  </Button>
+                </Col>
+              </Col>
             </Col>
-          </Col>
-        </Popup>
+          </Fade>
+        </Modal>
       </Col>
     </>
   );

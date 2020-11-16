@@ -144,9 +144,9 @@ const Search = () => {
       <Row>
         <Col className="search-object">
           <Row>
-            <Col sm={12} className="search-filters">
+            <Col className="search-filters">
               <Row>
-                <Col sm={3}>
+                <Col sm={12} md={3}>
                   <Row>
                     <Col>
                       <b>Lokalizacja</b>
@@ -165,8 +165,10 @@ const Search = () => {
                     </Col>
                   </Row>
                 </Col>
-                <CalendarField GetDate={whenis} />
-                <Col sm={3}>
+                <Col sm={12} md={3} className="no-padding">
+                  <CalendarField GetDate={whenis} />
+                </Col>
+                <Col sm={12} md={3}>
                   <Row>
                     <Col>
                       <b> Liczba osób</b>
@@ -181,7 +183,7 @@ const Search = () => {
                   </Row>
                 </Col>
 
-                <Col>
+                <Col sm={12} md={3}>
                   <Button className="search-button" onClick={SearchHandle}>
                     <Row>
                       <Col sm={3}>

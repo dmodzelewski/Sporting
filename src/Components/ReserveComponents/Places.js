@@ -1,18 +1,42 @@
-import React from "react";
-import { Row, Col, Button } from "react-bootstrap";
+import React, { useState } from "react";
+import { Row, Col } from "react-bootstrap";
 import PropTypes from "prop-types";
 import { gql } from "@apollo/client";
 import { useQuery } from "@apollo/client";
 import StarRateIcon from "@material-ui/icons/StarRate";
 import { Link } from "react-router-dom";
 import Map from "../PlaceComponents/Map";
-import { Image, Popover, OverlayTrigger, Container } from "react-bootstrap";
+import { Image, Container } from "react-bootstrap";
 import Skeleton from "@material-ui/lab/Skeleton";
+import { makeStyles } from "@material-ui/core/styles";
+import Popover from "@material-ui/core/Popover";
+import Typography from "@material-ui/core/Typography";
+import Button from "@material-ui/core/Button";
+
+const useStyles = makeStyles((theme) => ({
+  typography: {
+    padding: theme.spacing(2),
+  },
+}));
 
 const Places = (price) => {
+  const classes = useStyles();
+  const [anchorEl, setAnchorEl] = useState(null);
+
+  const handleClick = (event) => {
+    setAnchorEl(event.currentTarget);
+  };
+
+  const handleClose = () => {
+    setAnchorEl(null);
+  };
+
+  const open = Boolean(anchorEl);
+  const id = open ? "simple-popover" : undefined;
+
   const SetType = (type) => {
     if (type) {
-      return`${type}`;
+      return type;
     } else if (price.choosenType) {
       return price.choosenType;
     } else {
@@ -26,7 +50,6 @@ const Places = (price) => {
       return opinion;
     }
   };
-  console.log(price.choosenType);
   const places = gql`
   {
     sportObjects{
@@ -45,7 +68,7 @@ const Places = (price) => {
               }
               geoPoint
             }
-      gymsFilter(gymType:${price.type ? SetType(price.type) : null},minPrice:${
+      gymsFilter(gymType:${SetType(price.type)},minPrice:${
     price.price[0]
   },maxPrice:${price.price[1]},starRate:${SetOpinion(price.opinion)}){
               _id
@@ -55,6 +78,7 @@ const Places = (price) => {
               }
               name
               mainPhoto
+              price
               description
               availability
               maxAvailability
@@ -117,7 +141,9 @@ const Places = (price) => {
       return equipments;
     }
   };
+
   const showMore = () => {};
+
   return (
     <>
       <Row>
@@ -130,9 +156,9 @@ const Places = (price) => {
       </Row>
 
       {data.sportObjects.map((building) =>
-        building.gymsFilter.map((item) => (
+        building.gymsFilter.map((gym) => (
           <>
-            <li key={item._id} style={{ listStyleType: "none" }}>
+            <li key={gym._id} style={{ listStyleType: "none" }}>
               {loading ? (
                 <Skeleton variant="rect" width={800} height={118} />
               ) : (
@@ -141,7 +167,7 @@ const Places = (price) => {
                     <Col sm={12} md={4} className="no-padding">
                       <Image
                         className="places-photo"
-                        src={item.mainPhoto}
+                        src={gym.mainPhoto}
                         alt="Zdjęcie"
                       />
                     </Col>
@@ -153,55 +179,61 @@ const Places = (price) => {
                       <Col className="places-name no-padding">
                         {building.name}
                         <br />
-                        {item.name}
+                        {gym.name}
                       </Col>
                       <Col className="no-padding">
                         <Col className="places-assessment no-padding">
                           <div className="places-score">
                             <StarRateIcon />
 
-                            {CalculateOpionions(item.reviews)}
+                            {CalculateOpionions(gym.reviews)}
                           </div>
                           <div className="places-opinions">
-                            {HowManyOpininons(item.reviews.length)}
+                            {HowManyOpininons(gym.reviews.length)}
                           </div>
                         </Col>
                         <Col className="places-tags-wrap">
                           <Col className="places-tags no-padding">
-                            {getEqupment(item.equipments)}
+                            {getEqupment(gym.equipments)}
                           </Col>
                         </Col>
                       </Col>
                       <Col className="places-localization no-padding">
-                        <OverlayTrigger
-                          trigger="click"
-                          key={"bottom"}
-                          placement={"bottom"}
-                          overlay={
-                            <Popover id="popovermap">
-                              <Popover.Content>
-                                <Map {...building} {...price.other} />
-                              </Popover.Content>
-                            </Popover>
-                          }
+                        <Button
+                          aria-describedby={id}
+                          variant="contained"
+                          color="primary"
+                          onClick={handleClick}
                         >
-                          <Button variant="secondary">
-                            Położenie – pokaż na mapie
-                          </Button>
-                        </OverlayTrigger>
+                          Położenie – pokaż na mapie
+                        </Button>
+                        <Popover
+                          id={id}
+                          open={open}
+                          anchorEl={anchorEl}
+                          onClose={handleClose}
+                          anchorOrigin={{
+                            vertical: "bottom",
+                            horizontal: "center",
+                          }}
+                          transformOrigin={{
+                            vertical: "top",
+                            horizontal: "center",
+                          }}
+                        >
+                          <Map {...building} {...price.other} />
+                        </Popover>
                         <Col className="no-padding places-localization-place">
                           {building.address.city}
                         </Col>
                       </Col>
                     </Col>
-                    <Col className="places-endColumn">
+                    <Col sm={12} md={4} className="places-endColumn">
                       <Col className="places-price no-padding">
-                        <Col className="places-stack ">
-                          {/* {buildingInfo.priceValue} zł/h */}
-                        </Col>
+                        <Col className="places-stack ">{gym.price} zł/h</Col>
                         <Link
                           className="places-button"
-                          to={`/placeinfo/${building._id}/${item._id}`}
+                          to={`/placeinfo/${building._id}/${gym._id}`}
                         >
                           Wyśwetl Obiekt
                         </Link>
