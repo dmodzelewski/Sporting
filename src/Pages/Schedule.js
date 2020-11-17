@@ -25,6 +25,7 @@ import { useQuery } from "@apollo/client";
 import Skeleton from "@material-ui/lab/Skeleton";
 import moment from "moment";
 import PropTypes from "prop-types";
+import { ToastContainer, toast } from "react-toastify";
 
 const Sched = ({ match }) => {
   const [currentDate, setcurrentDate] = useState(new Date());
@@ -42,6 +43,7 @@ const Sched = ({ match }) => {
   const [updatedTitle, setupdatedTitle] = useState("");
   const [updatedStartDate, setupdatedStartDate] = useState("");
   const [updatedEndDate, setupdatedEndDate] = useState("");
+  const [open, setOpen] = useState(false);
   const appointments = gql`
     {
       userReservations(user:"${localStorage.getItem("userid")}") {
@@ -140,13 +142,18 @@ const Sched = ({ match }) => {
     const dateArr = new Date(year, month, day, hour, minute, second);
     return dateArr;
   };
+  const OutDated = () => toast("Nie można dodać spotkania");
 
   const onCommitChanges = useCallback(
     ({ added, changed, deleted }) => {
       if (added) {
-        setTitle(added.title);
-        setStartDate(added.startDate);
-        setendDate(added.endDate);
+        if (added.startDate <= currentDate) {
+          OutDated();
+        } else {
+          setTitle(added.title);
+          setStartDate(added.startDate);
+          setendDate(added.endDate);
+        }
       }
       if (changed) {
         setUpdated(Object.keys(changed));
@@ -225,6 +232,7 @@ const Sched = ({ match }) => {
               <AppointmentForm />
               <DragDropProvider />
             </Scheduler>
+            <ToastContainer />
           </Paper>
         </Col>
       </Container>

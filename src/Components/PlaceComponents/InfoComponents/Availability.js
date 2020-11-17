@@ -35,19 +35,21 @@ const Availability = (props) => {
                   }
                 }
             `;
-  const { loading, error, data } = useQuery(availability);
-  if (loading) return <Skeleton />;
-  if (error) return `Error! ${error.message} `;
+  const res = useQuery(availability);
+  if (res.loading) return <Skeleton />;
+  if (res.error) return `Error! ${res.error.message} `;
 
   return (
     <Col>
       <Col className="place-text-subheader no-padding">Dostępne Miejsca</Col>
       <Col className="no-padding">
-        <Col>Ilość miejsc: {GetMaxPlaces(data.gymById.maxAvailability)}</Col>
+        <Col>
+          Ilość miejsc: {GetMaxPlaces(res.data.gymById.maxAvailability)}
+        </Col>
 
         <Col>
           Ilość dostepnych miejsc:
-          {" " + GetAvailablePlaces(data.gymById.availability)}
+          {" " + GetAvailablePlaces(res.data.gymById.availability)}
         </Col>
       </Col>
     </Col>

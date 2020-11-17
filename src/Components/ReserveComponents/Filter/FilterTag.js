@@ -6,6 +6,7 @@ import Checkbox from "@material-ui/core/Checkbox";
 
 export const FilterTag = (Tag) => {
   const [check, setCheck] = useState(Tag.array);
+
   const handleChange = (event) => {
     let items = [...check];
     let index = event.target.name;
@@ -19,7 +20,7 @@ export const FilterTag = (Tag) => {
         who.push(c.id);
       }
     });
-    Tag.tags(who);
+    Tag.tags(check);
   };
 
   const GreenCheckbox = withStyles({

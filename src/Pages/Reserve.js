@@ -52,9 +52,7 @@ const Reserve = (props) => {
     });
   });
 
-  const getTags = (Tag) => {
-    return Tag;
-  };
+  const getTags = (Tag) => {};
 
   return (
     <>
@@ -66,7 +64,7 @@ const Reserve = (props) => {
               <Col className="filter-section-header">Udogodnienia</Col>
             </Row>
             <Row className="filters">
-              <FilterTag array={checkboxData} tags={getTags} />
+              <FilterTag array={checkboxData} tags={() => getTags} />
             </Row>
             <Row>
               <Col className="filter-section-header">Cena</Col>

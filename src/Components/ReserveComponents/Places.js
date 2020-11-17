@@ -249,7 +249,11 @@ const Places = (price) => {
       )}
 
       <Row>
-        <Button className="places-show-more" onClick={() => showMore()}>
+        <Button
+          className="places-show-more"
+          variant="contained"
+          onClick={() => showMore()}
+        >
           Pokaz Więcej Wyników
         </Button>
       </Row>
