@@ -43,7 +43,9 @@ const rows = [].sort((a, b) => (a.calories < b.calories ? -1 : 1));
 
 export default function DenseTable() {
   const classes = useStyles();
-  const res = useQuery(appointments);
+  const res = useQuery(appointments, {
+    pollInterval: 500,
+  });
   if (res.loading) return <Skeleton />;
   if (res.error) return `Error! ${res.error.message} `;
 
@@ -64,7 +66,7 @@ export default function DenseTable() {
     const formatTime = currentDate + " " + currentTime;
     return formatTime;
   };
-  res.refetch();
+
   return (
     <TableContainer component={Paper}>
       <Table className={classes.table} size="small" aria-label="a dense table">
