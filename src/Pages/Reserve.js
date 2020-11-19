@@ -11,11 +11,9 @@ import TypeFilter from "../Components/ReserveComponents/Filter/TypeFilter";
 import { gql } from "@apollo/client";
 import { useQuery } from "@apollo/client";
 import Skeleton from "@material-ui/lab/Skeleton";
-import { FilterTag } from "../Components/ReserveComponents/Filter/FilterTag";
+import FilterTag from "../Components/ReserveComponents/Filter/FilterTag";
 
 const Reserve = (props) => {
-  const checkboxData = [];
-
   const types = gql`
     {
       gymTags {
@@ -27,7 +25,6 @@ const Reserve = (props) => {
   const [opinion, setOpinion] = useState(0);
   const [price, setValue] = useState([0, 200]);
   const [type, settype] = useState();
-  const [tag, setTag] = useState([]);
   const handlePriceChange = (event, newValue) => {
     setValue(newValue);
   };
@@ -43,16 +40,6 @@ const Reserve = (props) => {
   const res = useQuery(types);
   if (res.loading) return <Skeleton variant="rect" width={800} height={118} />;
   if (res.error) return `Error! ${res.error.message} `;
-  res.data.gymTags.map((x) => {
-    checkboxData.push({
-      isChecked: false,
-      id: x._id,
-      name: x.namePL,
-      index: checkboxData.length,
-    });
-  });
-
-  const getTags = (Tag) => {};
 
   return (
     <>
@@ -64,7 +51,7 @@ const Reserve = (props) => {
               <Col className="filter-section-header">Udogodnienia</Col>
             </Row>
             <Row className="filters">
-              <FilterTag array={checkboxData} tags={() => getTags} />
+              <FilterTag />
             </Row>
             <Row>
               <Col className="filter-section-header">Cena</Col>
@@ -130,7 +117,6 @@ const Reserve = (props) => {
               opinion={opinion}
               type={type}
               choosenType={props.location.state.passTag}
-              tag={getTags()}
               other={props.location.state}
             />
           </Col>

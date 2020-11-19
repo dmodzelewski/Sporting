@@ -46,7 +46,7 @@ const Comments = (props) => {
   const [hover, setHover] = useState(-1);
   const [Name, setName] = useState("");
   const [Text, setText] = useState("");
-  const [open, setOpen] = React.useState(false);
+  const [open, setOpen] = useState(false);
 
   const handleOpen = () => {
     setOpen(true);

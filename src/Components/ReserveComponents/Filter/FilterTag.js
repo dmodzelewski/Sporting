@@ -1,53 +1,51 @@
 import React, { useState } from "react";
-import { FormControlLabel } from "@material-ui/core";
-import { withStyles } from "@material-ui/core/styles";
-import { green } from "@material-ui/core/colors";
-import Checkbox from "@material-ui/core/Checkbox";
 
-export const FilterTag = (Tag) => {
-  const [check, setCheck] = useState(Tag.array);
-
-  const handleChange = (event) => {
-    let items = [...check];
-    let index = event.target.name;
-    let item = { ...items[index] };
-    item.isChecked = !item.isChecked;
-    items[index] = item;
-    setCheck(items);
-    const who = [];
-    check.filter((c) => {
-      if (c.isChecked === true) {
-        who.push(c.id);
-      }
-    });
-    Tag.tags(check);
-  };
-
-  const GreenCheckbox = withStyles({
-    root: {
-      color: green[400],
-      "&$checked": {
-        color: green[600],
-      },
-    },
-    checked: {},
-  })((props) => <Checkbox color="default" {...props} />);
+const Checkbox = ({ type = "checkbox", name, checked = false, onChange }) => {
+  console.log("Checkbox: ", name, checked);
 
   return (
-    <>
-      {check.map((x) => (
-        <FormControlLabel
-          key={x.id}
-          control={
-            <GreenCheckbox
-              checked={x.isChecked}
-              onChange={handleChange}
-              name={x.index}
-            />
-          }
-          label={x.name}
-        />
-      ))}
-    </>
+    <input type={type} name={name} checked={checked} onChange={onChange} />
   );
 };
+
+const FilterTag = () => {
+  const [checkedItems, setCheckedItems] = useState({});
+
+  const handleChange = (event) => {
+    setCheckedItems({
+      ...checkedItems,
+      [event.target.name]: event.target.checked,
+    });
+    console.log("checkedItems: ", checkedItems);
+  };
+
+  const checkboxes = [
+    {
+      name: "check-box-1",
+      key: "checkBox1",
+      label: "Check Box 1",
+    },
+    {
+      name: "check-box-2",
+      key: "checkBox2",
+      label: "Check Box 2",
+    },
+  ];
+
+  return (
+    <div>
+      <lable>Checked item name : {checkedItems["check-box-1"]} </lable> <br />
+      {checkboxes.map((item) => (
+        <label key={item.key}>
+          {item.name}
+          <Checkbox
+            name={item.name}
+            checked={checkedItems[item.name]}
+            onChange={handleChange}
+          />
+        </label>
+      ))}
+    </div>
+  );
+};
+export default FilterTag;

@@ -49,7 +49,7 @@ const AdminPanel = () => {
             <Row>
               <Col>
                 <Row>
-                  <GymsAdmin />
+                  <SportObjectsAdmin SportObjects={res.data.sportObjects} />
                 </Row>
               </Col>
             </Row>
@@ -65,7 +65,7 @@ const AdminPanel = () => {
             <Row>
               <Col>
                 <Row>
-                  <SportObjectsAdmin SportObjects={res.data.sportObjects} />
+                  <GymsAdmin />
                 </Row>
               </Col>
             </Row>
