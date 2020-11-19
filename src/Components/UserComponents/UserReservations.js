@@ -72,7 +72,7 @@ export default function DenseTable() {
       <Table className={classes.table} size="small" aria-label="a dense table">
         <TableHead>
           <TableRow>
-            <TableCell>Nazwa spotkania</TableCell>
+            <TableCell>UI mnie działa</TableCell>
             <TableCell align="right">Trening zaczyna się</TableCell>
             <TableCell align="right">Trening kończy się</TableCell>
             <TableCell align="right">Miejsce</TableCell>
