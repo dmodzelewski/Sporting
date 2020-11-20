@@ -10,7 +10,6 @@ import { Image, Container } from "react-bootstrap";
 import Skeleton from "@material-ui/lab/Skeleton";
 import { makeStyles } from "@material-ui/core/styles";
 import Popover from "@material-ui/core/Popover";
-import Typography from "@material-ui/core/Typography";
 import Button from "@material-ui/core/Button";
 
 const useStyles = makeStyles((theme) => ({
@@ -19,10 +18,9 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const Places = (price) => {
+const Places = (props) => {
   const classes = useStyles();
   const [anchorEl, setAnchorEl] = useState(null);
-
   const handleClick = (event) => {
     setAnchorEl(event.currentTarget);
   };
@@ -37,8 +35,8 @@ const Places = (price) => {
   const SetType = (type) => {
     if (type) {
       return type;
-    } else if (price.choosenType) {
-      return price.choosenType;
+    } else if (props.choosenType) {
+      return props.choosenType;
     } else {
       return null;
     }
@@ -50,56 +48,91 @@ const Places = (price) => {
       return opinion;
     }
   };
+  const SetTag = (tag) => {
+    const arr = [];
+    if (Object.entries(tag).length === 0) {
+      return null;
+    } else {
+      Object.entries(tag).map((x) => {
+        if (x[1] == true) {
+          arr.push(x[0].toString());
+          console.log(arr);
+          return arr;
+        }
+      });
+    }
+  };
   const places = gql`
-  {
-    sportObjects{
-       
+    query GymFilter(
+      $maxPrice: Float
+      $minPrice: Float
+      $starRate: Float
+      $gymType: ID
+      $gymTags: [ID]
+    ) {
+      sportObjects {
+        name
+        _id
+        address {
+          streetName
+          buildingNumber
+          flatNumber
+          city
+          zipCode
+          country {
+            longName
+            code
+          }
+          geoPoint
+        }
+        gymsFilter(
+          minPrice: $minPrice
+          maxPrice: $maxPrice
+          starRate: $starRate
+          gymType: $gymType
+          gymTags: $gymTags
+        ) {
+          _id
+          gymType {
             name
+            namePL
+          }
+          gymTags {
             _id
-            address{
-              streetName
-              buildingNumber
-              flatNumber
-              city
-              zipCode
-              country{
-                longName
-                code
-              }
-              geoPoint
-            }
-      gymsFilter(gymType:${SetType(price.type)},minPrice:${
-    price.price[0]
-  },maxPrice:${price.price[1]},starRate:${SetOpinion(price.opinion)}){
-              _id
-              gymType{
-                name
-                namePL
-              }
-              name
-              mainPhoto
-              price
-              description
-              availability
-              maxAvailability
-              gymTags{
-                name
-                namePL
-              }
-              equipments{
-                name
-                namePL
-              }
-              reviews{
-                starRate
-                description
-              }
-            }
+            name
+            namePL
+          }
+          name
+          mainPhoto
+          price
+          description
+          availability
+          maxAvailability
+          gymTags {
+            name
+            namePL
+          }
+          equipments {
+            name
+            namePL
+          }
+          reviews {
+            starRate
+            description
           }
         }
-    
+      }
+    }
   `;
-  const { loading, error, data } = useQuery(places);
+  const { loading, error, data } = useQuery(places, {
+    variables: {
+      minPrice: props.price[0],
+      maxPrice: props.price[1],
+      starRate: SetOpinion(props.opinion),
+      gymType: SetType(props.type),
+      gymTags: SetTag(props.tag),
+    },
+  });
   if (loading) return <Skeleton variant="rect" width={800} height={118} />;
   if (error) return `Error! ${error.message} `;
   const HowManyGyms = () => {
@@ -221,7 +254,7 @@ const Places = (price) => {
                             horizontal: "center",
                           }}
                         >
-                          <Map {...building} {...price.other} />
+                          <Map {...building} {...props.other} />
                         </Popover>
                         <Col className="no-padding places-localization-place">
                           {building.address.city}

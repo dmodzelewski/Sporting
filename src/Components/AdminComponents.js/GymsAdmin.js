@@ -80,34 +80,33 @@ export const GymsAdmin = () => {
                   <Col className="gyms-objects">{object.name}</Col>
                 </Row>
               </Col>
-              <Row>
-                {object.gyms.map((gym) => (
-                  <Card className={classes.root} key={gym._id}>
-                    <CardActionArea>
-                      <CardMedia
-                        component="img"
-                        height="140"
-                        className="gyms-admin-photo"
-                        src={gym.mainPhoto}
-                        alt={"https://bit.ly/3ns4BtS"}
-                      />
-                      <CardContent>
-                        <Typography gutterBottom variant="h5" component="h2">
-                          {gym.name}
-                        </Typography>
-                      </CardContent>
-                    </CardActionArea>
-                    <CardActions>
-                      <Button size="small" color="primary">
-                        Średnia Ocena {gym.avgRate.toFixed(2)}
-                      </Button>
-                      <Button size="small" color="primary">
-                        Cena {gym.price} zł/h
-                      </Button>
-                    </CardActions>
-                  </Card>
-                ))}
-              </Row>
+
+              {object.gyms.map((gym) => (
+                <Card className={classes.root} key={gym._id}>
+                  <CardActionArea>
+                    <CardMedia
+                      component="img"
+                      height="140"
+                      className="gyms-admin-photo"
+                      src={gym.mainPhoto}
+                      alt={"https://bit.ly/3ns4BtS"}
+                    />
+                    <CardContent>
+                      <Typography gutterBottom variant="h5" component="h2">
+                        {gym.name}
+                      </Typography>
+                    </CardContent>
+                  </CardActionArea>
+                  <CardActions>
+                    <Button size="small" color="primary">
+                      Średnia Ocena {gym.avgRate.toFixed(2)}
+                    </Button>
+                    <Button size="small" color="primary">
+                      Cena {gym.price} zł/h
+                    </Button>
+                  </CardActions>
+                </Card>
+              ))}
             </Row>
           </Col>
         ))}

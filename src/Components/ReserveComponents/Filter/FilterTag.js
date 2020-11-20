@@ -1,32 +1,32 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 
 const Checkbox = ({ type = "checkbox", name, checked = false, onChange }) => {
-  console.log("Checkbox: ", name, checked);
-
   return (
     <input type={type} name={name} checked={checked} onChange={onChange} />
   );
 };
 
-const FilterTag = () => {
-  const [checkedItems, setCheckedItems] = useState({});
+const FilterTag = (props) => {
+  const [tag, settag] = useState({});
 
   const handleChange = (event) => {
-    setCheckedItems({
-      ...checkedItems,
+    settag({
+      ...tag,
       [event.target.name]: event.target.checked,
     });
-    console.log("checkedItems: ", checkedItems);
+    props.items(tag);
   };
 
   const checkboxes = [
     {
-      name: "check-box-1",
+      id: "5f8d715427ca0312196cbbef",
+      name: "Darmowy parking",
       key: "checkBox1",
       label: "Check Box 1",
     },
     {
-      name: "check-box-2",
+      id: "5fa6acd28d95f64e423c23c9",
+      name: "Zniżki dla seniorów",
       key: "checkBox2",
       label: "Check Box 2",
     },
@@ -34,14 +34,14 @@ const FilterTag = () => {
 
   return (
     <div>
-      <lable>Checked item name : {checkedItems["check-box-1"]} </lable> <br />
+      <lable>Checked item name : {tag["check-box-1"]} </lable> <br />
       {checkboxes.map((item) => (
         <label key={item.key}>
           {item.name}
           <Checkbox
-            name={item.name}
-            checked={checkedItems[item.name]}
-            onChange={handleChange}
+            name={item.id}
+            checked={tag[item.id]}
+            onChange={handleCheckboxChange}
           />
         </label>
       ))}

@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useCallback } from "react";
 import Search from "../Components/CommonComponents/Search/Search";
 import { Row, Col, Container, Form } from "react-bootstrap";
 import ReviewFilter from "../Components/ReserveComponents/Filter/ReviewFilter";
@@ -11,8 +11,12 @@ import TypeFilter from "../Components/ReserveComponents/Filter/TypeFilter";
 import { gql } from "@apollo/client";
 import { useQuery } from "@apollo/client";
 import Skeleton from "@material-ui/lab/Skeleton";
-import FilterTag from "../Components/ReserveComponents/Filter/FilterTag";
 
+const Checkbox = ({ type = "checkbox", name, checked = false, onChange }) => {
+  return (
+    <input type={type} name={name} checked={checked} onChange={onChange} />
+  );
+};
 const Reserve = (props) => {
   const types = gql`
     {
@@ -25,6 +29,8 @@ const Reserve = (props) => {
   const [opinion, setOpinion] = useState(0);
   const [price, setValue] = useState([0, 200]);
   const [type, settype] = useState();
+  const [tag, settag] = useState({});
+
   const handlePriceChange = (event, newValue) => {
     setValue(newValue);
   };
@@ -34,9 +40,30 @@ const Reserve = (props) => {
   const FilterType = (type) => {
     settype(type);
   };
+
   function valuetext(price) {
     return `${price}°C`;
   }
+  const handleCheckboxChange = (event) => {
+    settag({
+      ...tag,
+      [event.target.name]: event.target.checked,
+    });
+  };
+  const checkboxes = [
+    {
+      id: "5f8d715427ca0312196cbbef",
+      name: "Darmowy parking",
+      key: "checkBox1",
+      label: "Check Box 1",
+    },
+    {
+      id: "5fa6acd28d95f64e423c23c9",
+      name: "Zniżki dla seniorów",
+      key: "checkBox2",
+      label: "Check Box 2",
+    },
+  ];
   const res = useQuery(types);
   if (res.loading) return <Skeleton variant="rect" width={800} height={118} />;
   if (res.error) return `Error! ${res.error.message} `;
@@ -51,7 +78,19 @@ const Reserve = (props) => {
               <Col className="filter-section-header">Udogodnienia</Col>
             </Row>
             <Row className="filters">
-              <FilterTag />
+              <div>
+                <lable>Checked item name : {tag["check-box-1"]} </lable> <br />
+                {checkboxes.map((item) => (
+                  <label key={item.key}>
+                    {item.name}
+                    <Checkbox
+                      name={item.id}
+                      checked={tag[item.id]}
+                      onChange={handleCheckboxChange}
+                    />
+                  </label>
+                ))}
+              </div>
             </Row>
             <Row>
               <Col className="filter-section-header">Cena</Col>
@@ -118,6 +157,7 @@ const Reserve = (props) => {
               type={type}
               choosenType={props.location.state.passTag}
               other={props.location.state}
+              tag={tag}
             />
           </Col>
         </Row>

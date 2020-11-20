@@ -136,6 +136,7 @@ const Search = () => {
   const whenis = useCallback(
     (date) => {
       setDate(date);
+      console.log(date);
     },
     [date, setDate]
   );
@@ -146,7 +147,7 @@ const Search = () => {
           <Row>
             <Col className="search-filters">
               <Row>
-                <Col sm={12} md={3}>
+                <Col sm={12} md={3} className="center-items">
                   <Row>
                     <Col>
                       <b>Lokalizacja</b>

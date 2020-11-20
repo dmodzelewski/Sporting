@@ -56,12 +56,6 @@ const Comments = (props) => {
     setOpen(false);
   };
 
-  const GetUser = (email) => {
-    if (email) {
-      return email;
-    }
-    return null;
-  };
   const addOpinion = gql`
     mutation {
       addReview(user: "${localStorage.getItem(
@@ -75,32 +69,40 @@ const Comments = (props) => {
   `;
   const [addNewOpinion] = useMutation(addOpinion);
   const comments = gql`
-  {
-    gymById(gymId: "${props.match.params.gymid}") {
-      reviews{
-        _id
-        starRate
-        createdAt
-        description
-        user{
+    query gymById($gymId: ID) {
+      gymById(gymId: $gymId) {
+        reviews {
           _id
-          lastName
-          firstName 
+          starRate
+          createdAt
+          description
+          user {
+            _id
+            lastName
+            firstName
           }
         }
-      }     
-     }
-`;
-  const user = gql`
-  {
-    userByEmail(loginEmail:"${GetUser(localStorage.getItem("email"))}"){
-      lastName
-      firstName
-    }
+      }
     }
   `;
-  const res = useQuery(comments);
-  const secondRes = useQuery(user);
+  const user = gql`
+    query userByEmail($loginEmail: String!) {
+      userByEmail(loginEmail: $loginEmail) {
+        lastName
+        firstName
+      }
+    }
+  `;
+  const res = useQuery(comments, {
+    variables: {
+      gymId: props.match.params.gymid,
+    },
+  });
+  const secondRes = useQuery(user, {
+    variables: {
+      loginEmail: localStorage.getItem("email"),
+    },
+  });
   if (res.loading) return <Skeleton />;
   if (res.error) return `Error! ${res.error.message} `;
   res.startPolling(5000);

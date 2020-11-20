@@ -1,52 +1,48 @@
 import React, { useState } from "react";
-import { Col, Row, Form } from "react-bootstrap";
-import Calendar from "react-calendar";
+import { Col, Form } from "react-bootstrap";
 import "react-calendar/dist/Calendar.css";
 import PropTypes from "prop-types";
+import DateFnsUtils from "@date-io/date-fns";
+import {
+  MuiPickersUtilsProvider,
+  KeyboardDatePicker,
+} from "@material-ui/pickers";
 const CalendarField = ({ GetDate }) => {
   const [date, setDate] = useState(new Date());
-  const [Clicked, setClicked] = useState(false);
 
   const FormatDate = (dateToFormat) => {
     const BeginDate = new Intl.DateTimeFormat("pl", {
       day: "numeric",
       month: "short",
     }).format(dateToFormat[0]);
-    GetDate(BeginDate);
     return BeginDate;
-  };
-
-  const Calendarhandler = () => {
-    setClicked(!Clicked);
   };
 
   const onChange = (date) => {
     setDate(date);
+
+    GetDate(FormatDate(date));
   };
 
   return (
     <>
       <Col>
-        <b>Kalendarz</b>
+        <b>Wybierz date</b>
       </Col>
 
       <Col>
-        <Form.Control
-          plaintext
-          placeholder="Podaj datę"
-          onClick={() => Calendarhandler()}
-          value={FormatDate(date)}
-          readOnly
-        />
-        <Col
-          className={Clicked ? "search-calendarShow" : "search-calendarHide"}
-        >
-          <Calendar
-            onChange={(x) => onChange(x)}
+        <MuiPickersUtilsProvider utils={DateFnsUtils}>
+          <KeyboardDatePicker
+            margin="normal"
+            id="date-picker-dialog"
+            format="dd/MM/yyyy"
             value={date}
-            selectRange={true}
+            onChange={(x) => onChange(x)}
+            KeyboardButtonProps={{
+              "aria-label": "change date",
+            }}
           />
-        </Col>
+        </MuiPickersUtilsProvider>
       </Col>
     </>
   );
