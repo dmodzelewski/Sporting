@@ -20,20 +20,22 @@ const Equipments = (props) => {
   };
 
   const equip = gql`
-            {
-              gymById(gymId: "${props.match.match.params.gymid}") {
-                    description
-                    price
-                    availability
-                    maxAvailability
-                    equipments{
-                      name
-                      namePL
-                    }
-                  }
-                }
-            `;
-  const { loading, error, data } = useQuery(equip);
+    query gymById($gymId: ID) {
+      gymById(gymId: $gymId) {
+        description
+        price
+        availability
+        maxAvailability
+        equipments {
+          name
+          namePL
+        }
+      }
+    }
+  `;
+  const { loading, error, data } = useQuery(equip, {
+    variables: { gymId: props.match.match.params.gymid },
+  });
   if (loading) return <Skeleton />;
   if (error) return `Error! ${error.message} `;
 

@@ -22,20 +22,17 @@ const Availability = (props) => {
     }
   };
   const availability = gql`
-            {
-              gymById(gymId: "${props.match.match.params.gymid}") {
-                    description
-                    price
-                    availability
-                    maxAvailability
-                    equipments{
-                      name
-                      namePL
-                    }
-                  }
-                }
-            `;
-  const res = useQuery(availability);
+    query gymById($gymId: ID) {
+      gymById(gymId: $gymId) {
+        maxAvailability
+        availability
+      }
+    }
+  `;
+  const res = useQuery(availability, {
+    variables: { gymId: props.match.match.params.gymid },
+    pollInterval: 500,
+  });
   if (res.loading) return <Skeleton />;
   if (res.error) return `Error! ${res.error.message} `;
 

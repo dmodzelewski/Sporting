@@ -8,20 +8,22 @@ import PropTypes from "prop-types";
 
 const Descryption = (props) => {
   const descryption = gql`
-    {
-      gymById(gymId: "${props.match.match.params.gymid}") {
-            description
-            price
-            availability
-            maxAvailability
-            equipments{
-              name
-              namePL
-            }
-          }
+    query gymById($gymId: ID) {
+      gymById(gymId: $gymId) {
+        description
+        price
+        availability
+        maxAvailability
+        equipments {
+          name
+          namePL
         }
-    `;
-  const { loading, error, data } = useQuery(descryption);
+      }
+    }
+  `;
+  const { loading, error, data } = useQuery(descryption, {
+    variables: { gymId: props.match.match.params.gymid },
+  });
   if (loading) return <Skeleton />;
   if (error) return `Error! ${error.message} `;
 

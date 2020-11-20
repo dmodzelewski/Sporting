@@ -8,27 +8,31 @@ import PropTypes from "prop-types";
 
 const Photos = (props) => {
   const gym = gql`
-    {
-      gymById(gymId: "${props.match.params.gymid}") {
+    query gymById($gymId: ID) {
+      gymById(gymId: $gymId) {
         name
         mainPhoto
         sidePhotos
       }
     }
   `;
-  const { loading, error, data } = useQuery(gym);
-  if (loading) return <Skeleton variant="rect" width={800} height={118} />;
-  if (error) return `Error! ${error.message} `;
+  const res = useQuery(gym, {
+    variables: {
+      gymId: props.match.params.gymid,
+    },
+  });
+  if (res.loading) return <Skeleton variant="rect" width={800} height={118} />;
+  if (res.error) return `Error! ${res.error.message} `;
 
   const images = [
-    data.gymById.sidePhotos.map((x) => ({
+    res.data.gymById.sidePhotos.map((x) => ({
       original: x,
       thumbnail: x,
     })),
   ];
   images[0].unshift({
-    original: `${data.gymById.mainPhoto}`,
-    thumbnail: `${data.gymById.mainPhoto}`,
+    original: `${res.data.gymById.mainPhoto}`,
+    thumbnail: `${res.data.gymById.mainPhoto}`,
   });
   return (
     <>

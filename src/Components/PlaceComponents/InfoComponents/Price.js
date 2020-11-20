@@ -13,29 +13,31 @@ const Price = (props) => {
       return `${price} zł/h`;
     }
   };
-  const descryption = gql`
-    {
-      gymById(gymId: "${props.match.match.params.gymid}") {
-            description
-            price
-            availability
-            maxAvailability
-            equipments{
-              name
-              namePL
-            }
-          }
+  const price = gql`
+    query gymById($gymId: ID) {
+      gymById(gymId: $gymId) {
+        description
+        price
+        availability
+        maxAvailability
+        equipments {
+          name
+          namePL
         }
-    `;
-  const { loading, error, data } = useQuery(descryption);
-  if (loading) return <Skeleton />;
-  if (error) return `Error! ${error.message} `;
+      }
+    }
+  `;
+  const res = useQuery(price, {
+    variables: { gymId: props.match.match.params.gymid },
+  });
+  if (res.loading) return <Skeleton />;
+  if (res.error) return `Error! ${res.error.message} `;
 
   return (
     <Col>
       <Col className="place-text-subheader no-padding">Cena</Col>
       <Col className="no-padding">
-        <Col>{GetPrice(data.gymById.price)} za godzinę wynajęcia</Col>
+        <Col>{GetPrice(res.data.gymById.price)} za godzinę wynajęcia</Col>
       </Col>
     </Col>
   );

@@ -8,7 +8,7 @@ import Skeleton from "@material-ui/lab/Skeleton";
 
 const Header = (props) => {
   const address = gql`
-  {
+ query gymById($gymId: ID) {
     sportObjectById(sportObjectId:"${props.match.params.buildingid}") {
           name
           address{
@@ -27,11 +27,11 @@ const Header = (props) => {
       }
 `;
   const phone = gql`
-  {
-    gymById(gymId: "${props.match.params.gymid}") {
-      phoneNumber
+    query gymById($gymId: ID) {
+      gymById(gymId: $gymId) {
+        phoneNumber
+      }
     }
-  }
   `;
   const getPhoneNumber = (phone) => {
     if (phone == null) {
@@ -41,7 +41,9 @@ const Header = (props) => {
     }
   };
   const res = useQuery(address);
-  const secondRes = useQuery(phone);
+  const secondRes = useQuery(phone, {
+    variables: { gymId: props.match.params.gymid },
+  });
   if (res.loading) return <Skeleton variant="rect" width={800} height={118} />;
   if (res.error) return `Error! ${res.error.message} `;
   if (secondRes.loading)

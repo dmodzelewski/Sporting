@@ -78,19 +78,19 @@ const Reserve = (props) => {
               <Col className="filter-section-header">Udogodnienia</Col>
             </Row>
             <Row className="filters">
-              <div>
-                <lable>Checked item name : {tag["check-box-1"]} </lable> <br />
+              <Col>
+                <Col>Checked item name : {tag["check-box-1"]} </Col> <br />
                 {checkboxes.map((item) => (
-                  <label key={item.key}>
+                  <Col key={item.key}>
                     {item.name}
                     <Checkbox
                       name={item.id}
                       checked={tag[item.id]}
                       onChange={handleCheckboxChange}
                     />
-                  </label>
+                  </Col>
                 ))}
-              </div>
+              </Col>
             </Row>
             <Row>
               <Col className="filter-section-header">Cena</Col>

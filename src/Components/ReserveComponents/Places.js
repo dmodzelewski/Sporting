@@ -56,7 +56,6 @@ const Places = (props) => {
       Object.entries(tag).map((x) => {
         if (x[1] == true) {
           arr.push(x[0].toString());
-          console.log(arr);
           return arr;
         }
       });

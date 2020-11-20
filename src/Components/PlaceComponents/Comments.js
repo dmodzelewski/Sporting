@@ -57,12 +57,18 @@ const Comments = (props) => {
   };
 
   const addOpinion = gql`
-    mutation {
-      addReview(user: "${localStorage.getItem(
-        "userid"
-      )}", description: "${Text}", starRate: ${value}, gym: "${
-    props.match.params.gymid
-  }") {
+    mutation addReview(
+      $user: ID
+      $description: String
+      $starRate: Float
+      $gym: ID
+    ) {
+      addReview(
+        user: $user
+        description: $description
+        starRate: $starRate
+        gym: $gym
+      ) {
         _id
       }
     }
@@ -122,11 +128,6 @@ const Comments = (props) => {
       date.split("T")[1].split(":")[0] + ":" + date.split("T")[1].split(":")[1];
     const formatTime = currentDate + " " + currentTime;
     return formatTime;
-  };
-  const AddOpinions = () => {
-    addNewOpinion().then(function (val) {
-      console.log(val);
-    });
   };
 
   return (
@@ -258,7 +259,14 @@ const Comments = (props) => {
                   <Button
                     onClick={(e) => {
                       e.preventDefault();
-                      AddOpinions();
+                      addNewOpinion({
+                        variables: {
+                          user: localStorage.getItem("userid"),
+                          description: Text,
+                          starRate: value,
+                          gym: props.match.params.gymid,
+                        },
+                      });
                       handleClose();
                     }}
                   >

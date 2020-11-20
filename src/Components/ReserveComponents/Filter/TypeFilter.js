@@ -79,7 +79,7 @@ const TypeFilter = ({ Type }) => {
       <Radio
         className={classes.root}
         disableRipple
-        color="green"
+        color="default"
         checkedIcon={
           <span className={clsx(classes.icon, classes.checkedIcon)} />
         }
