@@ -1,29 +1,29 @@
-import React, { useState } from "react";
-import { Icon } from "@iconify/react";
-import running from "@iconify/icons-mdi/run-fast";
-import { Link, NavLink } from "react-router-dom";
-import { Navbar, Nav } from "react-bootstrap";
-import PropTypes from "prop-types";
+/* eslint-disable no-undef */
+import React, { useState } from 'react'
+import { Icon } from '@iconify/react'
+import running from '@iconify/icons-mdi/run-fast'
+import { Link, NavLink } from 'react-router-dom'
+import { Navbar, Nav } from 'react-bootstrap'
 
 const NavigationBar = () => {
-  const [isOpen, setisOpen] = useState(false);
+  const [isOpen, setisOpen] = useState(false)
   const handleToggle = () => {
-    setisOpen(!isOpen);
-  };
+    setisOpen(!isOpen)
+  }
   const removeFromLocal = () => {
-    localStorage.removeItem("token");
-    localStorage.removeItem("userid");
-    localStorage.removeItem("email");
-    localStorage.removeItem("role");
-  };
-  const authToken = localStorage.getItem("token");
-  const role = localStorage.getItem("role");
+    localStorage.removeItem('token')
+    localStorage.removeItem('userid')
+    localStorage.removeItem('email')
+    localStorage.removeItem('role')
+  }
+  const authToken = localStorage.getItem('token')
+  const role = localStorage.getItem('role')
 
   return (
     <Navbar
       collapseOnSelect
       expand="lg"
-      className={isOpen ? "nabar-toogle" : "navbar"}
+      className={isOpen ? 'nabar-toogle' : 'navbar'}
     >
       <Navbar.Brand as={Link} to="/">
         <Icon icon={running} className="nav-icon" />
@@ -33,7 +33,7 @@ const NavigationBar = () => {
 
       <Navbar.Collapse>
         <Nav className="nav-buttons">
-          {role === "ADMIN" ? (
+          {role === 'ADMIN' ? (
             <Nav.Link
               as={NavLink}
               exact
@@ -83,10 +83,7 @@ const NavigationBar = () => {
         </Nav>
       </Navbar.Collapse>
     </Navbar>
-  );
-};
+  )
+}
 
-NavigationBar.propTypes = {
-  auth: PropTypes.object,
-};
-export default NavigationBar;
+export default NavigationBar

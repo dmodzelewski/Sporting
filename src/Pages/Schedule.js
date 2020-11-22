@@ -1,10 +1,11 @@
-import React, { useState, useCallback, useEffect } from "react";
-import Paper from "@material-ui/core/Paper";
+/* eslint-disable no-undef */
+import React, { useState, useCallback, useEffect } from 'react'
+import Paper from '@material-ui/core/Paper'
 import {
   ViewState,
   EditingState,
   IntegratedEditing,
-} from "@devexpress/dx-react-scheduler";
+} from '@devexpress/dx-react-scheduler'
 import {
   Scheduler,
   WeekView,
@@ -18,42 +19,40 @@ import {
   AppointmentForm,
   AppointmentTooltip,
   DragDropProvider,
-} from "@devexpress/dx-react-scheduler-material-ui";
-import { Col, Container } from "react-bootstrap";
-import { gql, useMutation } from "@apollo/client";
-import { useQuery } from "@apollo/client";
-import Skeleton from "@material-ui/lab/Skeleton";
-import moment from "moment";
-import PropTypes from "prop-types";
-import { ToastContainer, toast } from "react-toastify";
+} from '@devexpress/dx-react-scheduler-material-ui'
+import { Col, Container } from 'react-bootstrap'
+import { gql, useMutation, useQuery } from '@apollo/client'
+import Skeleton from '@material-ui/lab/Skeleton'
+import moment from 'moment'
+import PropTypes from 'prop-types'
+import { ToastContainer, toast } from 'react-toastify'
 
 const Sched = ({ match }) => {
-  const [currentDate, setcurrentDate] = useState(new Date());
-  const [data, setDate] = useState(appointmentData);
-  const [currentView, setCurrentView] = useState("month");
-  const [addedAppointment, setAddedAppointment] = useState({});
-  const [isAppointmentBeingCreated, setIsAppointmentBeingCreated] = useState(
-    false
-  );
-  const [title, setTitle] = useState("Brak Tytułu");
-  const [startDate, setStartDate] = useState(new Date());
-  const [endDate, setendDate] = useState(new Date());
-  const [deleted, setDeleted] = useState("");
-  const [updated, setUpdated] = useState("");
-  const [updatedTitle, setupdatedTitle] = useState("");
-  const [updatedStartDate, setupdatedStartDate] = useState("");
-  const [updatedEndDate, setupdatedEndDate] = useState("");
-  const [open, setOpen] = useState(false);
+  const appointmentData = []
+
+  const [currentDate, setcurrentDate] = useState(new Date())
+  const [data, setDate] = useState(appointmentData)
+  const [currentView, setCurrentView] = useState('month')
+  const [addedAppointment, setAddedAppointment] = useState({})
+  const [, setIsAppointmentBeingCreated] = useState(false)
+  const [title, setTitle] = useState('Brak Tytułu')
+  const [startDate, setStartDate] = useState(new Date())
+  const [endDate, setendDate] = useState(new Date())
+  const [deleted, setDeleted] = useState('')
+  const [updated, setUpdated] = useState('')
+  const [updatedTitle, setupdatedTitle] = useState('')
+  const [updatedStartDate, setupdatedStartDate] = useState('')
+  const [updatedEndDate, setupdatedEndDate] = useState('')
   const appointments = gql`
     {
-      userReservations(user:"${localStorage.getItem("userid")}") {
+      userReservations(user:"${localStorage.getItem('userid')}") {
         _id
         startDateTime
         endDateTime
         title
       }
     }
-  `;
+  `
 
   const createAppointment = gql`
     mutation {
@@ -61,14 +60,14 @@ const Sched = ({ match }) => {
         title: "${title}"
         startDateTime: "${startDate}"
         endDateTime: "${endDate}"
-        user: "${localStorage.getItem("userid")}"
+        user: "${localStorage.getItem('userid')}"
         gym: "${match.params.gymid}"
       ) {
         createdAt
         title
       }
     }
-  `;
+  `
   const updateAppointment = gql`
     mutation {
       updateReservationById(
@@ -84,7 +83,7 @@ const Sched = ({ match }) => {
         createdAt
       }
     }
-  `;
+  `
   const deleteAppointment = gql`
     mutation {
       delReservationById(reservation: "${deleted}") {
@@ -94,108 +93,106 @@ const Sched = ({ match }) => {
         createdAt
       }
     }
-  `;
+  `
 
-  const [CreateAppointment] = useMutation(createAppointment);
-  const [UpdatedAppointment] = useMutation(updateAppointment);
-  const [DeleteAppointment] = useMutation(deleteAppointment);
+  const [CreateAppointment] = useMutation(createAppointment)
+  const [UpdatedAppointment] = useMutation(updateAppointment)
+  const [DeleteAppointment] = useMutation(deleteAppointment)
 
   useEffect(() => {
-    if (title !== "Brak Tytułu") {
+    if (title !== 'Brak Tytułu') {
       CreateAppointment()
         .then(function (val) {
-          console.log(val);
+          console.log(val)
         })
         .catch(() => {
-          console.log("Coś poszło nie tak");
-        });
+          console.log('Coś poszło nie tak')
+        })
     } else {
-      console.log("Nie dodano");
+      console.log('Nie dodano')
     }
-  }, [title]);
+  }, [title])
   useEffect(() => {
     UpdatedAppointment()
       .then(function (val) {
-        console.log(val);
+        console.log(val)
       })
       .catch(() => {
-        console.log("Nie udało się zaktualizować");
-      });
-  }, [updated]);
+        console.log('Nie udało się zaktualizować')
+      })
+  }, [updated])
   useEffect(() => {
     DeleteAppointment()
       .then(function (val) {
-        console.log(val);
+        console.log(val)
       })
       .catch(() => {
-        console.log("Nie udało się usunąć");
-      });
-  }, [deleted]);
+        console.log('Nie udało się usunąć')
+      })
+  }, [deleted])
   const getTime = (date) => {
-    const year = date.get("year");
-    const month = date.get("month");
-    const day = date.get("date");
+    const year = date.get('year')
+    const month = date.get('month')
+    const day = date.get('date')
 
-    const hour = date.get("hour");
-    const minute = date.get("minute");
-    const second = date.get("second");
-    const dateArr = new Date(year, month, day, hour, minute, second);
-    return dateArr;
-  };
-  const OutDated = () => toast("Nie można dodać spotkania");
+    const hour = date.get('hour')
+    const minute = date.get('minute')
+    const second = date.get('second')
+    const dateArr = new Date(year, month, day, hour, minute, second)
+    return dateArr
+  }
+  const OutDated = () => toast('Nie można dodać spotkania')
 
   const onCommitChanges = useCallback(
     ({ added, changed, deleted }) => {
       if (added) {
         if (added.startDate <= currentDate) {
-          OutDated();
+          OutDated()
         } else {
-          setTitle(added.title);
-          setStartDate(added.startDate);
-          setendDate(added.endDate);
+          setTitle(added.title)
+          setStartDate(added.startDate)
+          setendDate(added.endDate)
         }
       }
       if (changed) {
-        setUpdated(Object.keys(changed));
+        setUpdated(Object.keys(changed))
         Object.values(changed).map((x) => {
-          console.log(added);
+          console.log(added)
 
-          setupdatedTitle(x.title);
-          setupdatedStartDate(x.startDate);
-          setupdatedEndDate(x.endDate);
-        });
+          setupdatedTitle(x.title)
+          setupdatedStartDate(x.startDate)
+          setupdatedEndDate(x.endDate)
+        })
       }
       if (deleted !== undefined) {
-        setDeleted(deleted);
+        setDeleted(deleted)
       }
-      setIsAppointmentBeingCreated(false);
+      setIsAppointmentBeingCreated(false)
     },
-    [setDate, setIsAppointmentBeingCreated, data]
-  );
+    [setDate, setIsAppointmentBeingCreated, data],
+  )
   const onAddedAppointmentChange = useCallback((appointment) => {
-    setAddedAppointment(appointment);
-    setIsAppointmentBeingCreated(true);
-  });
-  const appointmentData = [];
-  const res = useQuery(appointments);
-  if (res.loading) return <Skeleton />;
-  if (res.error) return `Error! ${res.error.message} `;
+    setAddedAppointment(appointment)
+    setIsAppointmentBeingCreated(true)
+  })
+  const res = useQuery(appointments)
+  if (res.loading) return <Skeleton />
+  if (res.error) return `Error! ${res.error.message} `
   const GetData = () => {
-    res.refetch();
+    res.refetch()
 
-    const appointmentData = [];
     res.data.userReservations.map((x) => {
-      const Startdate = moment(x.startDateTime);
-      const Enddate = moment(x.endDateTime);
+      const Startdate = moment(x.startDateTime)
+      const Enddate = moment(x.endDateTime)
       appointmentData.push({
         startDate: getTime(Startdate),
         endDate: getTime(Enddate),
         title: x.title,
         id: x._id,
-      });
-    });
-    return appointmentData;
-  };
+      })
+    })
+    return appointmentData
+  }
 
   return (
     <>
@@ -237,9 +234,9 @@ const Sched = ({ match }) => {
         </Col>
       </Container>
     </>
-  );
-};
+  )
+}
 Sched.propTypes = {
   match: PropTypes.object.isRequired,
-};
-export default Sched;
+}
+export default Sched

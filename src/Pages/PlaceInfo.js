@@ -1,48 +1,49 @@
-import React, { useState } from "react";
-import Header from "../Components/PlaceComponents/Header";
-import Photos from "../Components/PlaceComponents/Gallery";
-import { Col, Container, Button } from "react-bootstrap";
-import Informations from "../Components/PlaceComponents/Informations";
-import Comments from "../Components/PlaceComponents/Comments";
-import Reservation from "../Components/PlaceComponents/Reservation";
-import PropTypes from "prop-types";
-import Login from "../Components/LoginComponents/Login";
-import { makeStyles } from "@material-ui/core/styles";
-import Modal from "@material-ui/core/Modal";
-import Backdrop from "@material-ui/core/Backdrop";
-import Fade from "@material-ui/core/Fade";
+/* eslint-disable no-undef */
+import React, { useState } from 'react'
+import { makeStyles } from '@material-ui/core/styles'
+import { Col, Container, Button } from 'react-bootstrap'
+import PropTypes from 'prop-types'
+import Modal from '@material-ui/core/Modal'
+import Fade from '@material-ui/core/Fade'
+import Backdrop from '@material-ui/core/Backdrop'
+import Header from '../Components/PlaceComponents/Header'
+import Photos from '../Components/PlaceComponents/Gallery'
+import Informations from '../Components/PlaceComponents/Informations'
+import Comments from '../Components/PlaceComponents/Comments'
+import Reservation from '../Components/PlaceComponents/Reservation'
+import Login from '../Components/LoginComponents/Login'
+
 const useStyles = makeStyles((theme) => ({
   modal: {
-    display: "flex",
-    alignItems: "center",
-    justifyContent: "center",
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
   },
   paper: {
     backgroundColor: theme.palette.background.paper,
-    border: "2px solid #000",
+    border: '2px solid #000',
     boxShadow: theme.shadows[5],
     padding: theme.spacing(2, 4, 3),
-    margin: "10px 50px",
+    margin: '10px 50px',
   },
-}));
+}))
 const PlaceInfo = ({ match }) => {
-  const classes = useStyles();
-  const [open, setOpen] = useState(false);
+  const classes = useStyles()
+  const [open, setOpen] = useState(false)
 
   const handleOpen = () => {
-    setOpen(true);
-  };
+    setOpen(true)
+  }
 
   const handleClose = () => {
-    setOpen(false);
-  };
+    setOpen(false)
+  }
   const isLogged = () => {
-    if (localStorage.getItem("token")) {
-      return false;
-    } else {
-      return true;
+    if (localStorage.getItem('token')) {
+      return false
     }
-  };
+    return true
+  }
   return (
     <>
       <Container>
@@ -71,8 +72,8 @@ const PlaceInfo = ({ match }) => {
               onClick={handleOpen}
               style={
                 isLogged()
-                  ? { visibility: "visible" }
-                  : { visibility: "hidden" }
+                  ? { visibility: 'visible' }
+                  : { visibility: 'hidden' }
               }
             >
               Zaloguj Się
@@ -99,9 +100,9 @@ const PlaceInfo = ({ match }) => {
         </Col>
       </Container>
     </>
-  );
-};
+  )
+}
 PlaceInfo.propTypes = {
   match: PropTypes.object.isRequired,
-};
-export default PlaceInfo;
+}
+export default PlaceInfo

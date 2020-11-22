@@ -1,15 +1,16 @@
-import React from "react";
-import UserReservations from "../Components/UserComponents/UserReservations";
-import { Col, Container, Row } from "react-bootstrap";
-import { gql, useQuery } from "@apollo/client";
-import PropTypes from "prop-types";
-import Skeleton from "@material-ui/lab/Skeleton";
+/* eslint-disable no-undef */
+import React from 'react'
+import { Col, Container, Row } from 'react-bootstrap'
+import { gql, useQuery } from '@apollo/client'
+import PropTypes from 'prop-types'
+import Skeleton from '@material-ui/lab/Skeleton'
+import UserReservations from '../Components/UserComponents/UserReservations'
 
-const Profile = (props) => {
+const Profile = ({ location }) => {
   const userInfo = gql`
   query{
     userByEmail(loginEmail:"${
-      localStorage.getItem("email") || props.location.state.passEmail
+      localStorage.getItem('email') || location.state.passEmail
     }"){
       firstName
       lastName
@@ -18,23 +19,15 @@ const Profile = (props) => {
       registeredDate
     }
   }
-`;
+`
 
-  const { loading, error, data } = useQuery(userInfo);
-  if (loading) return <Skeleton />;
-  if (error) return `Error! ${error.message} `;
+  const { loading, error, data } = useQuery(userInfo)
+  if (loading) return <Skeleton />
+  if (error) return `Error! ${error.message} `
 
   console.log(
-    data.userByEmail.firstName +
-      " " +
-      data.userByEmail.lastName +
-      " " +
-      data.userByEmail.birthDate +
-      " " +
-      data.userByEmail.role +
-      " " +
-      data.userByEmail.registeredDate
-  );
+    `${data.userByEmail.firstName} ${data.userByEmail.lastName} ${data.userByEmail.birthDate} ${data.userByEmail.role} ${data.userByEmail.registeredDate}`,
+  )
 
   return (
     <>
@@ -49,11 +42,9 @@ const Profile = (props) => {
             <Row>
               <Col className="center">
                 <h1>
-                  {" "}
-                  Witaj{" "}
-                  {data.userByEmail.firstName +
-                    " " +
-                    data.userByEmail.lastName}{" "}
+                  {' '}
+                  Witaj{' '}
+                  {`${data.userByEmail.firstName} ${data.userByEmail.lastName}`}{' '}
                 </h1>
               </Col>
             </Row>
@@ -69,10 +60,10 @@ const Profile = (props) => {
         </Row>
       </Container>
     </>
-  );
-};
+  )
+}
 Profile.propTypes = {
   location: PropTypes.object.isRequired,
-};
+}
 
-export default Profile;
+export default Profile

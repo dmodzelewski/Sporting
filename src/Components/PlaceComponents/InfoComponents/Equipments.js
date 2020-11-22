@@ -1,23 +1,21 @@
-import React from "react";
-import { gql } from "@apollo/client";
-import { useQuery } from "@apollo/client";
-import Skeleton from "@material-ui/lab/Skeleton";
-import { Col } from "react-bootstrap";
-import PropTypes from "prop-types";
+import React from 'react'
+import { useQuery, gql } from '@apollo/client'
+import Skeleton from '@material-ui/lab/Skeleton'
+import { Col } from 'react-bootstrap'
+import PropTypes from 'prop-types'
 
-const Equipments = (props) => {
+const Equipments = ({ match }) => {
   const GetEqupment = (items) => {
-    const equipments = [];
-    if (items.length == 0) {
-      equipments.push("Brak");
-      return equipments;
-    } else {
-      items.map((x) => {
-        equipments.push(x.namePL);
-      });
-      return equipments;
+    const equipments = []
+    if (items.length === 0) {
+      equipments.push('Brak')
+      return equipments
     }
-  };
+    items.map((x) => {
+      return equipments.push(x.namePL)
+    })
+    return equipments
+  }
 
   const equip = gql`
     query gymById($gymId: ID) {
@@ -32,12 +30,12 @@ const Equipments = (props) => {
         }
       }
     }
-  `;
+  `
   const { loading, error, data } = useQuery(equip, {
-    variables: { gymId: props.match.match.params.gymid },
-  });
-  if (loading) return <Skeleton />;
-  if (error) return `Error! ${error.message} `;
+    variables: { gymId: match.match.params.gymid },
+  })
+  if (loading) return <Skeleton />
+  if (error) return `Error! ${error.message} `
 
   return (
     <Col>
@@ -52,9 +50,9 @@ const Equipments = (props) => {
         </Col>
       </Col>
     </Col>
-  );
-};
+  )
+}
 Equipments.propTypes = {
   match: PropTypes.object.isRequired,
-};
-export default Equipments;
+}
+export default Equipments

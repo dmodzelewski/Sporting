@@ -1,6 +1,6 @@
-import React from "react";
-import { Button, Form } from "react-bootstrap";
-import ReverseGeocoding from "../CommonComponents/Search/GetCurrentPosition";
+import React from 'react'
+import { Button, Form } from 'react-bootstrap'
+
 const AddGymObjectToGym = () => {
   return (
     <Form>
@@ -25,10 +25,10 @@ const AddGymObjectToGym = () => {
         <Form.Control type="text" placeholder="Wprowadź Nr.Lokalu" />
         <Form.Text>Wprowadź jeżeli istnieje</Form.Text>
       </Form.Group>
-      <Button variant="primary" type="submit" onClick={ReverseGeocoding()}>
+      <Button variant="primary" type="submit">
         Submit
       </Button>
     </Form>
-  );
-};
-export default AddGymObjectToGym;
+  )
+}
+export default AddGymObjectToGym

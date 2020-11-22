@@ -1,17 +1,16 @@
-import React from "react";
-import { Col } from "react-bootstrap";
-import { Link } from "react-router-dom";
-import PropTypes from "prop-types";
+/* eslint-disable no-undef */
+import React from 'react'
+import { Col } from 'react-bootstrap'
+import { Link } from 'react-router-dom'
+import PropTypes from 'prop-types'
 
-const Reservation = (props) => {
+const Reservation = ({ match }) => {
   const isLogged = () => {
-    if (localStorage.getItem("token")) {
-      return false;
-    } else {
-      return true;
+    if (localStorage.getItem('token')) {
+      return false
     }
-  };
-  console.log(props.match.params);
+    return true
+  }
   return (
     <>
       <Col className="place-comment no-padding">
@@ -19,10 +18,10 @@ const Reservation = (props) => {
         <Col className="place-comment-login no-padding">
           <Col>
             <Link
-              className={isLogged() ? "disabled-link" : null}
-              to={`/scheduler/${props.match.params.buildingid}/${
-                props.match.params.gymid
-              }/${localStorage.getItem("userid")}`}
+              className={isLogged() ? 'disabled-link' : null}
+              to={`/scheduler/${match.params.buildingid}/${
+                match.params.gymid
+              }/${localStorage.getItem('userid')}`}
             >
               Wyśwetl Obiekt
             </Link>
@@ -30,10 +29,10 @@ const Reservation = (props) => {
         </Col>
       </Col>
     </>
-  );
-};
+  )
+}
 Reservation.propTypes = {
   match: PropTypes.object.isRequired,
-};
+}
 
-export default Reservation;
+export default Reservation

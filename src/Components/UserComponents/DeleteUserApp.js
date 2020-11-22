@@ -1,9 +1,9 @@
-import { gql, useMutation } from "@apollo/client";
-import React, { useState, useEffect } from "react";
-import { Button } from "react-bootstrap";
+import { gql, useMutation } from '@apollo/client'
+import React, { useState, useEffect } from 'react'
+import { Button } from 'react-bootstrap'
 
 const DeleteUserApp = (props) => {
-  const [deleted, setdeleted] = useState("");
+  const [deleted, setdeleted] = useState('')
   const deleteAppointment = gql`
     mutation {
       delReservationById(reservation: "${deleted}") {
@@ -13,18 +13,15 @@ const DeleteUserApp = (props) => {
         createdAt
       }
     }
-  `;
-  const [DeleteAppointment] = useMutation(deleteAppointment);
+  `
+  const [DeleteAppointment] = useMutation(deleteAppointment)
   useEffect(() => {
     DeleteAppointment()
       .then(function (val) {
-        console.log(val);
-        props.res();
+        props.res()
       })
-      .catch(() => {
-        console.log("Nie udało się usunąć");
-      });
-  }, [deleted]);
-  return <Button onClick={() => setdeleted(props.id)}> Usuń </Button>;
-};
-export default DeleteUserApp;
+      .catch(() => {})
+  }, [deleted])
+  return <Button onClick={() => setdeleted(props.id)}> Usuń </Button>
+}
+export default DeleteUserApp

@@ -1,12 +1,10 @@
-import React from "react";
-import { Button, Col, Container, Form, Row, Tab, Tabs } from "react-bootstrap";
-import AddSportObject from "../Components/AdminComponents.js/AddSportObject";
-import SportObjectsAdmin from "../Components/AdminComponents.js/SportObjectsAdmin";
-import { gql, useQuery } from "@apollo/client";
-import PropTypes from "prop-types";
-import Skeleton from "@material-ui/lab/Skeleton";
-import ReverseGeocoding from "../Components/CommonComponents/Search/GetCurrentPosition";
-import { GymsAdmin } from "../Components/AdminComponents.js/GymsAdmin";
+import React from 'react'
+import { Button, Col, Container, Form, Row, Tab, Tabs } from 'react-bootstrap'
+import { gql, useQuery } from '@apollo/client'
+import Skeleton from '@material-ui/lab/Skeleton'
+import SportObjectsAdmin from '../Components/AdminComponents/SportObjectsAdmin'
+
+import GymsAdmin from '../Components/AdminComponents/GymsAdmin'
 
 const SportObject = gql`
   {
@@ -31,11 +29,11 @@ const SportObject = gql`
       }
     }
   }
-`;
+`
 const AdminPanel = () => {
-  const res = useQuery(SportObject);
-  if (res.loading) return <Skeleton />;
-  if (res.error) return `Error! ${res.error.message} `;
+  const res = useQuery(SportObject)
+  if (res.loading) return <Skeleton />
+  if (res.error) return `Error! ${res.error.message} `
 
   return (
     <>
@@ -48,9 +46,7 @@ const AdminPanel = () => {
           <Container>
             <Row>
               <Col>
-                <Row>
-                  <SportObjectsAdmin SportObjects={res.data.sportObjects} />
-                </Row>
+                <GymsAdmin />
               </Col>
             </Row>
             <Row>
@@ -64,9 +60,7 @@ const AdminPanel = () => {
           <Container>
             <Row>
               <Col>
-                <Row>
-                  <GymsAdmin />
-                </Row>
+                <SportObjectsAdmin SportObjects={res.data.sportObjects} />
               </Col>
             </Row>
             <Row>
@@ -76,9 +70,9 @@ const AdminPanel = () => {
             </Row>
           </Container>
         </Tab>
-        <Tab eventKey="contact" title="Więcj w przyszłości.." disabled></Tab>
+        <Tab eventKey="contact" title="Więcj w przyszłości.." disabled />
       </Tabs>
     </>
-  );
-};
-export default AdminPanel;
+  )
+}
+export default AdminPanel

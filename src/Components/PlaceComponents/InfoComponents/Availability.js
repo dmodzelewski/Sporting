@@ -1,26 +1,22 @@
-import React from "react";
-import { gql } from "@apollo/client";
-import { useQuery } from "@apollo/client";
-import Skeleton from "@material-ui/lab/Skeleton";
-import { Col } from "react-bootstrap";
-import PropTypes from "prop-types";
+import React from 'react'
+import { gql, useQuery } from '@apollo/client'
+import Skeleton from '@material-ui/lab/Skeleton'
+import { Col } from 'react-bootstrap'
+import PropTypes from 'prop-types'
 
-const Availability = (props) => {
+const Availability = ({ match }) => {
   const GetMaxPlaces = (maxAvailability) => {
     if (maxAvailability == null) {
-      return "Brak informacji";
-    } else {
-      return `${maxAvailability}`;
+      return 'Brak informacji'
     }
-  };
+    return `${maxAvailability}`
+  }
   const GetAvailablePlaces = (availability) => {
     if (availability == null) {
-      return "Brak dostępnych miejsc";
-      //na obecną godzinę
-    } else {
-      return `${availability}`;
+      return 'Brak dostępnych miejsc'
     }
-  };
+    return `${availability}`
+  }
   const availability = gql`
     query gymById($gymId: ID) {
       gymById(gymId: $gymId) {
@@ -28,13 +24,13 @@ const Availability = (props) => {
         availability
       }
     }
-  `;
+  `
   const res = useQuery(availability, {
-    variables: { gymId: props.match.match.params.gymid },
+    variables: { gymId: match.match.params.gymid },
     pollInterval: 500,
-  });
-  if (res.loading) return <Skeleton />;
-  if (res.error) return `Error! ${res.error.message} `;
+  })
+  if (res.loading) return <Skeleton />
+  if (res.error) return `Error! ${res.error.message} `
 
   return (
     <Col>
@@ -46,13 +42,13 @@ const Availability = (props) => {
 
         <Col>
           Ilość dostepnych miejsc:
-          {" " + GetAvailablePlaces(res.data.gymById.availability)}
+          {` ${GetAvailablePlaces(res.data.gymById.availability)}`}
         </Col>
       </Col>
     </Col>
-  );
-};
+  )
+}
 Availability.propTypes = {
   match: PropTypes.object.isRequired,
-};
-export default Availability;
+}
+export default Availability

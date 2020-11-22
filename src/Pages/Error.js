@@ -1,6 +1,7 @@
-import React from "react";
-import { Col, Container, Image, Row } from "react-bootstrap";
-import image from "../Image/tenor.gif";
+import React from 'react'
+import { Col, Container, Image, Row } from 'react-bootstrap'
+import image from '../Image/tenor.gif'
+
 const Error = () => {
   return (
     <Container>
@@ -19,6 +20,6 @@ const Error = () => {
         </Col>
       </Row>
     </Container>
-  );
-};
-export default Error;
+  )
+}
+export default Error

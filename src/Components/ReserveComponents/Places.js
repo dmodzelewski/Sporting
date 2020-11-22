@@ -1,66 +1,66 @@
-import React, { useState } from "react";
-import { Row, Col } from "react-bootstrap";
-import PropTypes from "prop-types";
-import { gql } from "@apollo/client";
-import { useQuery } from "@apollo/client";
-import StarRateIcon from "@material-ui/icons/StarRate";
-import { Link } from "react-router-dom";
-import Map from "../PlaceComponents/Map";
-import { Image, Container } from "react-bootstrap";
-import Skeleton from "@material-ui/lab/Skeleton";
-import { makeStyles } from "@material-ui/core/styles";
-import Popover from "@material-ui/core/Popover";
-import Button from "@material-ui/core/Button";
+import React, { useState } from 'react'
+import { Row, Col } from 'react-bootstrap'
+import PropTypes from 'prop-types'
+import { gql } from '@apollo/client'
+import { useQuery } from '@apollo/client'
+import StarRateIcon from '@material-ui/icons/StarRate'
+import { Link } from 'react-router-dom'
+import Map from '../PlaceComponents/Map'
+import { Image, Container } from 'react-bootstrap'
+import Skeleton from '@material-ui/lab/Skeleton'
+import { makeStyles } from '@material-ui/core/styles'
+import Popover from '@material-ui/core/Popover'
+import Button from '@material-ui/core/Button'
 
 const useStyles = makeStyles((theme) => ({
   typography: {
     padding: theme.spacing(2),
   },
-}));
+}))
 
 const Places = (props) => {
-  const classes = useStyles();
-  const [anchorEl, setAnchorEl] = useState(null);
+  const classes = useStyles()
+  const [anchorEl, setAnchorEl] = useState(null)
   const handleClick = (event) => {
-    setAnchorEl(event.currentTarget);
-  };
+    setAnchorEl(event.currentTarget)
+  }
 
   const handleClose = () => {
-    setAnchorEl(null);
-  };
+    setAnchorEl(null)
+  }
 
-  const open = Boolean(anchorEl);
-  const id = open ? "simple-popover" : undefined;
+  const open = Boolean(anchorEl)
+  const id = open ? 'simple-popover' : undefined
 
   const SetType = (type) => {
     if (type) {
-      return type;
+      return type
     } else if (props.choosenType) {
-      return props.choosenType;
+      return props.choosenType
     } else {
-      return null;
+      return null
     }
-  };
+  }
   const SetOpinion = (opinion) => {
     if (opinion == 0) {
-      return null;
+      return null
     } else {
-      return opinion;
+      return opinion
     }
-  };
+  }
   const SetTag = (tag) => {
-    const arr = [];
+    const arr = []
     if (Object.entries(tag).length === 0) {
-      return null;
+      return null
     } else {
       Object.entries(tag).map((x) => {
         if (x[1] == true) {
-          arr.push(x[0].toString());
-          return arr;
+          arr.push(x[0].toString())
+          return arr
         }
-      });
+      })
     }
-  };
+  }
   const places = gql`
     query GymFilter(
       $maxPrice: Float
@@ -122,7 +122,7 @@ const Places = (props) => {
         }
       }
     }
-  `;
+  `
   const { loading, error, data } = useQuery(places, {
     variables: {
       minPrice: props.price[0],
@@ -131,50 +131,51 @@ const Places = (props) => {
       gymType: SetType(props.type),
       gymTags: SetTag(props.tag),
     },
-  });
-  if (loading) return <Skeleton variant="rect" width={800} height={118} />;
-  if (error) return `Error! ${error.message} `;
+  })
+  if (loading) return <Skeleton variant="rect" width={800} height={118} />
+  if (error) return `Error! ${error.message} `
+  console.log(data)
   const HowManyGyms = () => {
-    let length = 0;
+    let length = 0
     data.sportObjects.map((item) => {
-      length += item.gymsFilter.length;
-    });
-    return length;
-  };
+      length += item.gymsFilter.length
+    })
+    return length
+  }
   const HowManyOpininons = (opinions) => {
     if (opinions == 0) {
-      return "Brak Opinii";
+      return 'Brak Opinii'
     } else if (opinions == 1) {
-      return "1 Opinia";
+      return '1 Opinia'
     } else {
-      return `${opinions} Opinie`;
+      return `${opinions} Opinie`
     }
-  };
+  }
   const CalculateOpionions = (opinions) => {
-    let suma = 0;
+    let suma = 0
     if (opinions == undefined || opinions.length == 0) {
-      return 0;
+      return 0
     } else {
       opinions.map((x) => {
-        suma += x.starRate;
-      });
-      let wynik = suma / opinions.length;
-      return wynik.toFixed(2);
+        suma += x.starRate
+      })
+      let wynik = suma / opinions.length
+      return wynik.toFixed(2)
     }
-  };
+  }
   const getEqupment = (listOfEquipments) => {
-    let equipments = [];
+    let equipments = []
     if (listOfEquipments.length == 0) {
-      return "Brak wyposażenia";
+      return 'Brak wyposażenia'
     } else {
       listOfEquipments.map((x) => {
-        equipments.push(x.namePL);
-      });
-      return equipments;
+        equipments.push(x.namePL)
+      })
+      return equipments
     }
-  };
+  }
 
-  const showMore = () => {};
+  const showMore = () => {}
 
   return (
     <>
@@ -190,7 +191,7 @@ const Places = (props) => {
       {data.sportObjects.map((building) =>
         building.gymsFilter.map((gym) => (
           <>
-            <li key={gym._id} style={{ listStyleType: "none" }}>
+            <li key={gym._id} style={{ listStyleType: 'none' }}>
               {loading ? (
                 <Skeleton variant="rect" width={800} height={118} />
               ) : (
@@ -245,12 +246,12 @@ const Places = (props) => {
                           anchorEl={anchorEl}
                           onClose={handleClose}
                           anchorOrigin={{
-                            vertical: "bottom",
-                            horizontal: "center",
+                            vertical: 'bottom',
+                            horizontal: 'center',
                           }}
                           transformOrigin={{
-                            vertical: "top",
-                            horizontal: "center",
+                            vertical: 'top',
+                            horizontal: 'center',
                           }}
                         >
                           <Map {...building} {...props.other} />
@@ -277,7 +278,7 @@ const Places = (props) => {
             </li>
             <br />
           </>
-        ))
+        )),
       )}
 
       <Row>
@@ -290,10 +291,10 @@ const Places = (props) => {
         </Button>
       </Row>
     </>
-  );
-};
+  )
+}
 Places.propTypes = {
   location: PropTypes.object.isRequired,
-};
+}
 
-export default Places;
+export default Places

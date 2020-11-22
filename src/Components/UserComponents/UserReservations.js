@@ -1,26 +1,27 @@
-import React, { useState, useMutation } from "react";
-import { makeStyles } from "@material-ui/core/styles";
-import Table from "@material-ui/core/Table";
-import TableBody from "@material-ui/core/TableBody";
-import TableCell from "@material-ui/core/TableCell";
-import TableContainer from "@material-ui/core/TableContainer";
-import TableHead from "@material-ui/core/TableHead";
-import TableRow from "@material-ui/core/TableRow";
-import Paper from "@material-ui/core/Paper";
-import { gql } from "@apollo/client";
-import { useQuery } from "@apollo/client";
-import Skeleton from "@material-ui/lab/Skeleton";
-import { Link } from "react-router-dom";
-import DeleteUserApp from "./DeleteUserApp";
+/* eslint-disable no-undef */
+import React from 'react'
+import { makeStyles } from '@material-ui/core/styles'
+import Table from '@material-ui/core/Table'
+import TableBody from '@material-ui/core/TableBody'
+import TableCell from '@material-ui/core/TableCell'
+import TableContainer from '@material-ui/core/TableContainer'
+import TableHead from '@material-ui/core/TableHead'
+import TableRow from '@material-ui/core/TableRow'
+import Paper from '@material-ui/core/Paper'
+import { gql, useQuery } from '@apollo/client'
+import Skeleton from '@material-ui/lab/Skeleton'
+import { Link } from 'react-router-dom'
+import DeleteUserApp from './DeleteUserApp'
+
 const useStyles = makeStyles({
   table: {
     minWidth: 650,
   },
-});
+})
 
 const appointments = gql`
 {
-  userReservations(user:"${localStorage.getItem("userid")}") {
+  userReservations(user:"${localStorage.getItem('userid')}") {
     gym{
       _id
       name   
@@ -37,17 +38,17 @@ const appointments = gql`
     endDateTime
   }
 }
-`;
+`
 
-const rows = [].sort((a, b) => (a.calories < b.calories ? -1 : 1));
+const rows = [].sort((a, b) => (a.calories < b.calories ? -1 : 1))
 
 export default function DenseTable() {
-  const classes = useStyles();
+  const classes = useStyles()
   const res = useQuery(appointments, {
     pollInterval: 500,
-  });
-  if (res.loading) return <Skeleton />;
-  if (res.error) return `Error! ${res.error.message} `;
+  })
+  if (res.loading) return <Skeleton />
+  if (res.error) return `Error! ${res.error.message} `
 
   res.data.userReservations.map((x) => {
     rows.push({
@@ -55,17 +56,17 @@ export default function DenseTable() {
       name: x.title,
       dateAndHour: x.startDateTime,
       place: x.gym.name,
-      linkToSchedule:
-        x.gym.sportObject._id + "/" + x.gym._id + "/" + x.user._id,
-    });
-  });
+      linkToSchedule: `${x.gym.sportObject._id}/${x.gym._id}/${x.user._id}`,
+    })
+  })
   const GetDateAndTime = (date) => {
-    const currentDate = date.split("T")[0];
-    const currentTime =
-      date.split("T")[1].split(":")[0] + ":" + date.split("T")[1].split(":")[1];
-    const formatTime = currentDate + " " + currentTime;
-    return formatTime;
-  };
+    const currentDate = date.split('T')[0]
+    const currentTime = `${date.split('T')[1].split(':')[0]}:${
+      date.split('T')[1].split(':')[1]
+    }`
+    const formatTime = `${currentDate} ${currentTime}`
+    return formatTime
+  }
 
   return (
     <TableContainer component={Paper}>
@@ -94,13 +95,7 @@ export default function DenseTable() {
               <TableCell align="right">{row.gym.name}</TableCell>
               <TableCell align="right">
                 <Link
-                  to={`/scheduler/${
-                    row.gym.sportObject._id +
-                    "/" +
-                    row.gym._id +
-                    "/" +
-                    row.user._id
-                  }`}
+                  to={`/scheduler/${`${row.gym.sportObject._id}/${row.gym._id}/${row.user._id}`}`}
                 >
                   Przejdź
                 </Link>
@@ -113,5 +108,5 @@ export default function DenseTable() {
         </TableBody>
       </Table>
     </TableContainer>
-  );
+  )
 }

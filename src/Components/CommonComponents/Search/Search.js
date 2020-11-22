@@ -1,27 +1,24 @@
-import React, { useState, useEffect, useCallback } from "react";
-import { Container, Col, Row, Button, Form } from "react-bootstrap";
-import { FaSearch } from "react-icons/fa";
-import { useHistory } from "react-router-dom";
-import { gql } from "@apollo/client";
-import { useQuery } from "@apollo/client";
-import CalendarField from "./Calendar/CalendarField";
-import AddIcon from "@material-ui/icons/Add";
-import RemoveIcon from "@material-ui/icons/Remove";
-import { Plugins } from "@capacitor/core";
-import RoomIcon from "@material-ui/icons/Room";
+import React, { useState, useEffect, useCallback } from 'react'
+import { Container, Col, Row, Button, Form } from 'react-bootstrap'
+import { FaSearch } from 'react-icons/fa'
+import { useHistory } from 'react-router-dom'
+import { gql, useQuery } from '@apollo/client'
+import AddIcon from '@material-ui/icons/Add'
+import RemoveIcon from '@material-ui/icons/Remove'
+import { Plugins } from '@capacitor/core'
+import RoomIcon from '@material-ui/icons/Room'
+import CalendarField from './Calendar/CalendarField'
 
-const { Geolocation } = Plugins;
+const { Geolocation } = Plugins
 
 const Search = () => {
-  const [long, setLong] = useState(10);
-  const [lat, setLat] = useState(10);
-  const [city, setCity] = useState("");
-  const [quantity, setQuantity] = useState(1);
-  const [date, setDate] = useState(
-    new Intl.DateTimeFormat().format(new Date())
-  );
+  const [long, setLong] = useState(10)
+  const [lat, setLat] = useState(10)
+  const [city, setCity] = useState('')
+  const [quantity, setQuantity] = useState(1)
+  const [date, setDate] = useState(new Intl.DateTimeFormat().format(new Date()))
 
-  const history = useHistory();
+  const history = useHistory()
   // City filter part
   const cities = gql`
     query City($localization: String!) {
@@ -31,72 +28,64 @@ const Search = () => {
         Gmina
       }
     }
-  `;
+  `
 
-  let currentCityLocation = "";
-  let getCurrentPosition = async () => {
-    const coordinates = await Geolocation.getCurrentPosition(true);
-    setLong(coordinates.coords.longitude);
-    setLat(coordinates.coords.latitude);
-  };
-  let ReverseGeocoding = async () => {
-    getCurrentPosition();
-    const place =
-      "https://us1.locationiq.com/v1/reverse.php?key=pk.6cea20c72e201ece96127cb84cd81029&lat=" +
-      lat +
-      "&lon=" +
-      long +
-      "&format=json";
+  let currentCityLocation = ''
+  const getCurrentPosition = async () => {
+    const coordinates = await Geolocation.getCurrentPosition(true)
+    setLong(coordinates.coords.longitude)
+    setLat(coordinates.coords.latitude)
+  }
+  const ReverseGeocoding = async () => {
+    getCurrentPosition()
+    const place = `https://us1.locationiq.com/v1/reverse.php?key=pk.6cea20c72e201ece96127cb84cd81029&lat=${lat}&lon=${long}&format=json`
 
-    const response = await fetch(place);
-    const JSONdata = await response.json();
+    // eslint-disable-next-line no-undef
+    const response = await fetch(place)
+    const JSONdata = await response.json()
 
     try {
-      currentCityLocation = JSONdata.address.city;
+      currentCityLocation = JSONdata.address.city
     } catch (error) {
-      console.log("Lokalizacja to miasto");
+      return error
     }
     if (currentCityLocation == null) {
       try {
-        currentCityLocation = JSONdata.address.village;
+        currentCityLocation = JSONdata.address.village
       } catch (error) {
-        console.log("Lokalizacja to wieś");
+        return error
       }
     }
-    console.log(currentCityLocation);
 
-    return currentCityLocation;
-  };
+    return currentCityLocation
+  }
   useEffect(() => {
-    getCurrentPosition();
-  });
+    getCurrentPosition()
+  })
   const SetCityByLocalization = (myCity) => {
     Promise.resolve(myCity).then(function (val) {
-      setCity(val);
-    });
-  };
+      setCity(val)
+    })
+  }
 
   const SelectCityHandler = (e) => {
-    const formatCity = e.target.innerHTML
-      .toString()
-      .split(",")[0]
-      .split(":")[1];
+    const formatCity = e.target.innerHTML.toString().split(',')[0].split(':')[1]
 
-    setCity(formatCity);
-  };
+    setCity(formatCity)
+  }
 
   const { loading, error, data } = useQuery(cities, {
     variables: { localization: city },
-  });
+  })
 
   const RenderData = () => {
-    if (loading) return <p className="search-filter-city">Loading...</p>;
-    if (error) return `Error! ${error.message} `;
-    if (city === "") return "";
+    if (loading) return <p className="search-filter-city">Loading...</p>
+    if (error) return `Error! ${error.message} `
+    if (city === '') return ''
 
     return (
       <>
-        <div className={"search-filter-city"}>
+        <div className="search-filter-city">
           <ul role="listbox">
             <li onClick={() => SetCityByLocalization(ReverseGeocoding())}>
               <RoomIcon />
@@ -113,17 +102,17 @@ const Search = () => {
           </ul>
         </div>
       </>
-    );
-  };
+    )
+  }
 
   const CheckNegative = () => {
     if (quantity > 1) {
-      setQuantity(quantity - 1);
+      setQuantity(quantity - 1)
     }
-  };
+  }
   const SearchHandle = () => {
     history.push({
-      pathname: "/reserve",
+      pathname: '/reserve',
       state: {
         passCity: city,
         passDate: date,
@@ -131,15 +120,14 @@ const Search = () => {
         passLongitude: long,
         passLatitude: lat,
       },
-    });
-  };
+    })
+  }
   const whenis = useCallback(
-    (date) => {
-      setDate(date);
-      console.log(date);
+    (calendarDate) => {
+      setDate(calendarDate)
     },
-    [date, setDate]
-  );
+    [date, setDate],
+  )
   return (
     <Container fluid className="search-bg">
       <Row>
@@ -158,7 +146,6 @@ const Search = () => {
                       <Form.Control
                         plaintext
                         placeholder="Podaj miejscowość"
-                        //Podać aktualną lokalizację
                         onChange={(e) => setCity(e.target.value)}
                         value={city}
                       />
@@ -200,6 +187,6 @@ const Search = () => {
         </Col>
       </Row>
     </Container>
-  );
-};
-export default Search;
+  )
+}
+export default Search

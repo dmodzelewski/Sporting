@@ -1,24 +1,24 @@
-import React from "react";
-import { Container, Col, Row } from "react-bootstrap";
+import React from 'react'
+import { Container, Col, Row } from 'react-bootstrap'
 import {
   FaSwimmingPool,
   FaBasketballBall,
   FaFutbol,
   FaDumbbell,
   FaQuidditch,
-} from "react-icons/fa";
-import SportsKabaddiIcon from "@material-ui/icons/SportsKabaddi";
-import { useHistory } from "react-router-dom";
-import { IoMdTennisball } from "react-icons/io";
+} from 'react-icons/fa'
+import SportsKabaddiIcon from '@material-ui/icons/SportsKabaddi'
+import { useHistory } from 'react-router-dom'
+import { IoMdTennisball } from 'react-icons/io'
 
 const Choice = () => {
-  const history = useHistory();
+  const history = useHistory()
   const handleTag = (tag) => {
     history.push({
-      pathname: "/reserve",
+      pathname: '/reserve',
       state: { passTag: tag },
-    });
-  };
+    })
+  }
   return (
     <Container fluid className="choice">
       <Row>
@@ -28,9 +28,9 @@ const Choice = () => {
           </Row>
           <Row className="choice-sports">
             <Col
-              onClick={() => handleTag("5f8d6dffac92050c9948611d")}
+              onClick={() => handleTag('5f8d6dffac92050c9948611d')}
               className="choice-sports-objects"
-              style={{ background: "#819ABE" }}
+              style={{ background: '#819ABE' }}
             >
               <Row>
                 <Col className="choice-sports-body swimming">
@@ -42,9 +42,9 @@ const Choice = () => {
               </Row>
             </Col>
             <Col
-              onClick={() => handleTag("5f98045d3c81155f98a70279")}
+              onClick={() => handleTag('5f98045d3c81155f98a70279')}
               className="choice-sports-objects"
-              style={{ background: "#CBA967" }}
+              style={{ background: '#CBA967' }}
             >
               <Row>
                 <Col className="choice-sports-body basketball">
@@ -56,9 +56,9 @@ const Choice = () => {
               </Row>
             </Col>
             <Col
-              onClick={() => handleTag("football")}
+              onClick={() => handleTag('football')}
               className="choice-sports-objects"
-              style={{ background: "#CECECE" }}
+              style={{ background: '#CECECE' }}
             >
               <Row>
                 <Col className="choice-sports-body football">
@@ -70,9 +70,9 @@ const Choice = () => {
               </Row>
             </Col>
             <Col
-              onClick={() => handleTag("tennis")}
+              onClick={() => handleTag('tennis')}
               className="choice-sports-objects"
-              style={{ background: "#B4C084" }}
+              style={{ background: '#B4C084' }}
             >
               <Row>
                 <Col className="choice-sports-body tennis">
@@ -84,9 +84,9 @@ const Choice = () => {
               </Row>
             </Col>
             <Col
-              onClick={() => handleTag("yoga")}
+              onClick={() => handleTag('yoga')}
               className="choice-sports-objects"
-              style={{ background: "#CDB8D4" }}
+              style={{ background: '#CDB8D4' }}
             >
               <Row>
                 <Col className="choice-sports-body yoga">
@@ -98,9 +98,9 @@ const Choice = () => {
               </Row>
             </Col>
             <Col
-              onClick={() => handleTag("gym")}
+              onClick={() => handleTag('gym')}
               className="choice-sports-objects"
-              style={{ background: "#CA6D6D" }}
+              style={{ background: '#CA6D6D' }}
             >
               <Row>
                 <Col className="choice-sports-body gym">
@@ -113,7 +113,7 @@ const Choice = () => {
             </Col>
             <Col
               className="choice-sports-objects"
-              style={{ background: "#AB9382" }}
+              style={{ background: '#AB9382' }}
             >
               <Row>
                 <Col className="choice-sports-body quidditch">
@@ -125,9 +125,9 @@ const Choice = () => {
               </Row>
             </Col>
             <Col
-              onClick={() => handleTag("fight")}
+              onClick={() => handleTag('fight')}
               className="choice-sports-objects"
-              style={{ background: "#DABB6C" }}
+              style={{ background: '#DABB6C' }}
             >
               <Row>
                 <Col className="choice-sports-body fight">
@@ -142,6 +142,6 @@ const Choice = () => {
         </Col>
       </Row>
     </Container>
-  );
-};
-export default Choice;
+  )
+}
+export default Choice

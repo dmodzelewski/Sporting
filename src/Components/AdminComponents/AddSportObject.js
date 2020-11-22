@@ -1,6 +1,7 @@
-import React from "react";
-import { Button, Form } from "react-bootstrap";
-import ReverseGeocoding from "../CommonComponents/Search/GetCurrentPosition";
+import React from 'react'
+import { Button, Form } from 'react-bootstrap'
+import ReverseGeocoding from '../CommonComponents/Search/GetCurrentPosition'
+
 const AddSportObject = () => {
   return (
     <Form>
@@ -29,6 +30,6 @@ const AddSportObject = () => {
         Submit
       </Button>
     </Form>
-  );
-};
-export default AddSportObject;
+  )
+}
+export default AddSportObject

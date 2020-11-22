@@ -1,9 +1,9 @@
-import React from "react";
-import { Col, Row } from "react-bootstrap";
-import Descryption from "./InfoComponents/Descryption";
-import Price from "./InfoComponents/Price";
-import Availability from "./InfoComponents/Availability";
-import Equipments from "./InfoComponents/Equipments";
+import React from 'react'
+import { Col, Row } from 'react-bootstrap'
+import Descryption from './InfoComponents/Descryption'
+import Price from './InfoComponents/Price'
+import Availability from './InfoComponents/Availability'
+import Equipments from './InfoComponents/Equipments'
 const Informations = (props) => {
   return (
     <>
@@ -31,6 +31,6 @@ const Informations = (props) => {
         </Row>
       </Col>
     </>
-  );
-};
-export default Informations;
+  )
+}
+export default Informations

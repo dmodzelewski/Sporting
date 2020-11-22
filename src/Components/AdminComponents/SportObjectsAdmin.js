@@ -1,42 +1,33 @@
-import React, { useState } from "react";
-import { Col, Row, Image } from "react-bootstrap";
-import ReverseGeocoding from "../CommonComponents/Search/GetCurrentPosition";
-import Map from "../PlaceComponents/Map";
-import { makeStyles } from "@material-ui/core/styles";
-import Popover from "@material-ui/core/Popover";
-import Typography from "@material-ui/core/Typography";
-import Button from "@material-ui/core/Button";
-const useStyles = makeStyles((theme) => ({
-  typography: {
-    padding: theme.spacing(2),
-  },
-}));
-const SportObjectsAdmin = (props) => {
-  const classes = useStyles();
-  const [anchorEl, setAnchorEl] = useState(null);
-  const [location, setlocation] = useState();
+import React, { useState } from 'react'
+import { Col, Row, Image } from 'react-bootstrap'
+import Button from '@material-ui/core/Button'
+import Popover from '@material-ui/core/Popover'
+import PropTypes from 'prop-types'
+import Map from '../PlaceComponents/Map'
+
+const SportObjectsAdmin = ({ SportObjects }) => {
+  const [anchorEl, setAnchorEl] = useState(null)
   const handleClick = (event) => {
-    setAnchorEl(event.currentTarget);
-  };
+    setAnchorEl(event.currentTarget)
+  }
 
   const handleClose = () => {
-    setAnchorEl(null);
-  };
-
-  const open = Boolean(anchorEl);
-  const id = open ? "simple-popover" : undefined;
+    setAnchorEl(null)
+  }
+  const open = Boolean(anchorEl)
+  const id = open ? 'simple-popover' : undefined
   return (
     <>
       <Col>
         <Row>
-          {props.SportObjects.map((object) => (
+          {SportObjects.map((object) => (
             <Col md={3} key={object._id}>
               <Row>
                 <Col>
-                  {" "}
+                  {' '}
                   <Image
                     className="places-photo"
-                    src={"https://bit.ly/3ns4BtS"}
+                    src="https://bit.ly/3ns4BtS"
                     alt="Zdjęcie"
                   />
                 </Col>
@@ -52,7 +43,7 @@ const SportObjectsAdmin = (props) => {
                     variant="contained"
                     color="primary"
                     onClick={(e) => {
-                      handleClick(e);
+                      handleClick(e)
                     }}
                   >
                     Pokaż Lokalizacje
@@ -63,15 +54,15 @@ const SportObjectsAdmin = (props) => {
                     anchorEl={anchorEl}
                     onClose={handleClose}
                     anchorOrigin={{
-                      vertical: "bottom",
-                      horizontal: "center",
+                      vertical: 'bottom',
+                      horizontal: 'center',
                     }}
                     transformOrigin={{
-                      vertical: "top",
-                      horizontal: "center",
+                      vertical: 'top',
+                      horizontal: 'center',
                     }}
                   >
-                    <Map {...object} />
+                    <Map object={object} />
                   </Popover>
                 </Col>
               </Row>
@@ -80,6 +71,16 @@ const SportObjectsAdmin = (props) => {
         </Row>
       </Col>
     </>
-  );
-};
-export default SportObjectsAdmin;
+  )
+}
+SportObjectsAdmin.propTypes = {
+  SportObjects: PropTypes.shape({
+    name: PropTypes.string,
+  }),
+}
+SportObjectsAdmin.defaultProps = {
+  SportObjects: {
+    name: 'Domyślna nazwa',
+  },
+}
+export default SportObjectsAdmin

@@ -1,12 +1,12 @@
-import React, { useState } from "react";
-import { Carousel, Col } from "react-bootstrap";
+import React, { useState } from 'react'
+import { Carousel, Col } from 'react-bootstrap'
 
 const Slider = () => {
-  const [index, setIndex] = useState(0);
+  const [index, setIndex] = useState(0)
 
   const handleSelect = (selectedIndex) => {
-    setIndex(selectedIndex);
-  };
+    setIndex(selectedIndex)
+  }
 
   return (
     <Col className="Slider-main no-padding" fluid="true">
@@ -34,7 +34,6 @@ const Slider = () => {
         </Carousel.Item>
       </Carousel>
     </Col>
-  );
-};
-export default Slider;
-
+  )
+}
+export default Slider

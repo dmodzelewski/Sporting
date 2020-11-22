@@ -1,23 +1,24 @@
-import React from "react";
-import Home from "./Pages/Home";
-import Reserve from "./Pages/Reserve";
-import About from "./Pages/About";
-import Error from "./Pages/Error";
-import Schedule from "./Pages/Schedule";
-import Login from "./Components/LoginComponents/Login";
-import NavigationBar from "./Components/CommonComponents/NavigationBar";
-import Footer from "./Components/CommonComponents/Footer";
-import "./Styles/app.scss";
-import { Route, Switch } from "react-router-dom";
-import Profile from "./Pages/Profile";
-import PlaceInfo from "./Pages/PlaceInfo";
-import { ApolloClient, InMemoryCache, ApolloProvider } from "@apollo/client";
-import PropTypes from "prop-types";
-import AdminPanel from "./Pages/AdminPanel";
+import { Route, Switch } from 'react-router-dom'
+import { ApolloClient, InMemoryCache, ApolloProvider } from '@apollo/client'
+import React from 'react'
+import PropTypes from 'prop-types'
+import Home from './Pages/Home'
+import Reserve from './Pages/Reserve'
+import About from './Pages/About'
+import Error from './Pages/Error'
+import Schedule from './Pages/Schedule'
+import Login from './Components/LoginComponents/Login'
+import NavigationBar from './Components/CommonComponents/NavigationBar'
+import Footer from './Components/CommonComponents/Footer'
+import './Styles/app.scss'
+import Profile from './Pages/Profile'
+import PlaceInfo from './Pages/PlaceInfo'
+import AdminPanel from './Pages/AdminPanel'
+
 const clientApollo = new ApolloClient({
-  uri: "http://159.69.41.224:3001/graphql",
+  uri: 'http://159.69.41.224:3001/graphql',
   cache: new InMemoryCache(),
-});
+})
 
 const App = () => {
   return (
@@ -46,9 +47,9 @@ const App = () => {
         <Footer />
       </ApolloProvider>
     </>
-  );
-};
+  )
+}
 App.propTypes = {
   history: PropTypes.object.isRequired,
-};
-export default App;
+}
+export default App

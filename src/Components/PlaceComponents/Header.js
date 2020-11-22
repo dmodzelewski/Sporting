@@ -1,15 +1,15 @@
-import React from "react";
-import { Col } from "react-bootstrap";
-import PropTypes from "prop-types";
-import ExploreIcon from "@material-ui/icons/Explore";
-import { gql } from "@apollo/client";
-import { useQuery } from "@apollo/client";
-import Skeleton from "@material-ui/lab/Skeleton";
+/* eslint-disable jsx-a11y/anchor-is-valid */
+import React from 'react'
+import { Col } from 'react-bootstrap'
+import PropTypes from 'prop-types'
+import ExploreIcon from '@material-ui/icons/Explore'
+import { gql, useQuery } from '@apollo/client'
+import Skeleton from '@material-ui/lab/Skeleton'
 
-const Header = (props) => {
+const Header = ({ match }) => {
   const address = gql`
  query gymById($gymId: ID) {
-    sportObjectById(sportObjectId:"${props.match.params.buildingid}") {
+    sportObjectById(sportObjectId:"${match.params.buildingid}") {
           name
           address{
             streetName
@@ -25,30 +25,29 @@ const Header = (props) => {
           }
         }
       }
-`;
+`
   const phone = gql`
     query gymById($gymId: ID) {
       gymById(gymId: $gymId) {
         phoneNumber
       }
     }
-  `;
-  const getPhoneNumber = (phone) => {
-    if (phone == null) {
-      return "Brak numeru telefonu";
-    } else {
-      return phone;
+  `
+  const getPhoneNumber = (phoneNumber) => {
+    if (phoneNumber == null) {
+      return 'Brak numeru telefonu'
     }
-  };
-  const res = useQuery(address);
+    return phoneNumber
+  }
+  const res = useQuery(address)
   const secondRes = useQuery(phone, {
-    variables: { gymId: props.match.params.gymid },
-  });
-  if (res.loading) return <Skeleton variant="rect" width={800} height={118} />;
-  if (res.error) return `Error! ${res.error.message} `;
+    variables: { gymId: match.params.gymid },
+  })
+  if (res.loading) return <Skeleton variant="rect" width={800} height={118} />
+  if (res.error) return `Error! ${res.error.message} `
   if (secondRes.loading)
-    return <Skeleton variant="rect" width={800} height={118} />;
-  if (secondRes.error) return `Error! ${res.error.message} `;
+    return <Skeleton variant="rect" width={800} height={118} />
+  if (secondRes.error) return `Error! ${res.error.message} `
   return (
     <>
       <Col className="place-header no-padding">
@@ -60,30 +59,30 @@ const Header = (props) => {
             <ExploreIcon className="place-header-street-icon " />
             <address className="place-header-link-address">
               <span itemProp="street">
-                {res.data.sportObjectById.address.streetName}{" "}
-                {res.data.sportObjectById.address.buildingNumber},{" "}
+                {res.data.sportObjectById.address.streetName}{' '}
+                {res.data.sportObjectById.address.buildingNumber},{' '}
               </span>
               <span itemProp="postalCode">
-                {res.data.sportObjectById.address.zipCode},{" "}
+                {res.data.sportObjectById.address.zipCode},{' '}
               </span>
               <span itemProp="cityLocalization">
-                {res.data.sportObjectById.address.city},{" "}
+                {res.data.sportObjectById.address.city},{' '}
               </span>
               <span itemProp="country">
                 {res.data.sportObjectById.address.country.longname}
               </span>
             </address>
-            {" | "}
+            {' | '}
           </a>
-          <a className="place-header-link-address" href="tel:${phoneNumber}">
+          <a className="place-header-link-address">
             {getPhoneNumber(secondRes.data.gymById.phoneNumber)}
           </a>
         </Col>
       </Col>
     </>
-  );
-};
-export default Header;
+  )
+}
+export default Header
 Header.propTypes = {
   match: PropTypes.object.isRequired,
-};
+}
