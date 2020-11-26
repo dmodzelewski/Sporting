@@ -2,13 +2,11 @@
 
 const path = require('path')
 const HtmlWebPackPlugin = require('html-webpack-plugin')
-const dotenv = require('dotenv')
 
 process.env.NODE_ENV = 'development'
 
 module.exports = {
   mode: 'development',
-  devtool: 'cheap-source-map',
   entry: ['@babel/polyfill', './src/index.js'],
   output: {
     path: path.join(__dirname, '/distDev'),

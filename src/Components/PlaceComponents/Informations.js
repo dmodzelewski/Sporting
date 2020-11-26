@@ -4,6 +4,7 @@ import Descryption from './InfoComponents/Descryption'
 import Price from './InfoComponents/Price'
 import Availability from './InfoComponents/Availability'
 import Equipments from './InfoComponents/Equipments'
+
 const Informations = (props) => {
   return (
     <>

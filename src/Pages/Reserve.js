@@ -1,15 +1,14 @@
-import React, { useState, useCallback } from 'react'
+import React, { useState, useCallback, useEffect } from 'react'
 import Skeleton from '@material-ui/lab/Skeleton'
-import { Row, Col, Container, Form } from 'react-bootstrap'
-import ReviewFilter from '../Components/ReserveComponents/Filter/ReviewFilter'
-import Places from '../Components/ReserveComponents/Places'
+import { Row, Col, Container, Form, Button } from 'react-bootstrap'
 import PropTypes from 'prop-types'
 import Typography from '@material-ui/core/Typography'
 import Slider from '@material-ui/core/Slider'
-import TypeFilter from '../Components/ReserveComponents/Filter/TypeFilter'
 import TextField from '@material-ui/core/TextField'
-import { gql } from '@apollo/client'
-import { useQuery } from '@apollo/client'
+import { gql, useQuery } from '@apollo/client'
+import ReviewFilter from '../Components/ReserveComponents/Filter/ReviewFilter'
+import Places from '../Components/ReserveComponents/Places'
+import TypeFilter from '../Components/ReserveComponents/Filter/TypeFilter'
 import Search from '../Components/CommonComponents/Search/Search'
 
 const Checkbox = ({ type = 'checkbox', name, checked = false, onChange }) => {
@@ -27,27 +26,43 @@ const Reserve = (props) => {
   const [opinion, setOpinion] = useState(0)
   const [price, setValue] = useState([0, 200])
   const [type, settype] = useState()
-  const [tag, settag] = useState({})
-
+  const [checked, setchecked] = useState({})
+  const [tag, setTag] = useState([])
   const handlePriceChange = (event, newValue) => {
     setValue(newValue)
   }
-  const FilterReview = (opinion) => {
-    setOpinion(opinion)
+  const FilterReview = (opinionFilter) => {
+    setOpinion(opinionFilter)
   }
-  const FilterType = (type) => {
-    settype(type)
+  const FilterType = (typeFilter) => {
+    settype(typeFilter)
   }
 
-  function valuetext(price) {
-    return `${price}°C`
+  const valuetext = (priceFilter) => {
+    return `${priceFilter}°C`
   }
+  const clearFilters = () => {
+    setchecked({})
+    settype(null)
+    setValue([0, 200])
+    setOpinion(0)
+  }
+  useEffect(() => {
+    const allTags = Object.entries(checked).map((x) => {
+      if (x[1] === true) {
+        return x[0]
+      }
+    })
+    setTag(allTags)
+  }, [checked])
+
   const handleCheckboxChange = useCallback((event) => {
-    settag({
-      ...tag,
+    setchecked({
+      ...checked,
       [event.target.name]: event.target.checked,
     })
   })
+
   const checkboxes = [
     {
       id: '5f8d715427ca0312196cbbef',
@@ -77,13 +92,13 @@ const Reserve = (props) => {
             </Row>
             <Row className="filters">
               <Col>
-                <Col>Checked item name : {tag['check-box-1']} </Col> <br />
+                <Col>Checked item name : {checked['check-box-1']} </Col> <br />
                 {checkboxes.map((item) => (
                   <Col key={item.key}>
                     {item.name}
                     <Checkbox
                       name={item.id}
-                      checked={tag[item.id]}
+                      checked={checked[item.id]}
                       onChange={handleCheckboxChange}
                     />
                   </Col>
@@ -147,7 +162,9 @@ const Reserve = (props) => {
             <Col className="filters">
               <TypeFilter Type={FilterType} />
             </Col>
+            <Button onClick={() => clearFilters()}>Wyczyść</Button>
           </Col>
+
           <Col md={9}>
             <Places
               price={price}

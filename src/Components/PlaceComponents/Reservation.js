@@ -4,7 +4,7 @@ import { Col } from 'react-bootstrap'
 import { Link } from 'react-router-dom'
 import PropTypes from 'prop-types'
 
-const Reservation = ({ match }) => {
+const Reservation = ({ match, remainingReservation }) => {
   const isLogged = () => {
     if (localStorage.getItem('token')) {
       return false
@@ -19,9 +19,14 @@ const Reservation = ({ match }) => {
           <Col>
             <Link
               className={isLogged() ? 'disabled-link' : null}
-              to={`/scheduler/${match.params.buildingid}/${
-                match.params.gymid
-              }/${localStorage.getItem('userid')}`}
+              to={{
+                pathname: `/scheduler/${match.params.buildingid}/${
+                  match.params.gymid
+                }/${localStorage.getItem('userid')}`,
+                state: {
+                  availability: remainingReservation,
+                },
+              }}
             >
               Wyśwetl Obiekt
             </Link>

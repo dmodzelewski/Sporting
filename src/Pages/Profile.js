@@ -8,27 +8,29 @@ import UserReservations from '../Components/UserComponents/UserReservations'
 
 const Profile = ({ location }) => {
   const userInfo = gql`
-  query{
-    userByEmail(loginEmail:"${
-      localStorage.getItem('email') || location.state.passEmail
-    }"){
-      firstName
-      lastName
-      birthDate
-      role
-      registeredDate
+    query userByEmail($loginEmail: String!) {
+      userByEmail(loginEmail: $loginEmail) {
+        firstName
+        lastName
+        birthDate
+        role
+        registeredDate
+      }
     }
-  }
-`
+  `
 
-  const { loading, error, data } = useQuery(userInfo)
+  const { loading, error, data } = useQuery(userInfo, {
+    errorPolicy: 'all',
+    variables: {
+      loginEmail: localStorage.getItem('email'),
+    },
+  })
   if (loading) return <Skeleton />
-  if (error) return `Error! ${error.message} `
 
   console.log(
     `${data.userByEmail.firstName} ${data.userByEmail.lastName} ${data.userByEmail.birthDate} ${data.userByEmail.role} ${data.userByEmail.registeredDate}`,
   )
-
+    
   return (
     <>
       <Container>

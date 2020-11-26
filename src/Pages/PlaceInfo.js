@@ -5,6 +5,8 @@ import { Col, Container, Button } from 'react-bootstrap'
 import PropTypes from 'prop-types'
 import Modal from '@material-ui/core/Modal'
 import Fade from '@material-ui/core/Fade'
+import Skeleton from '@material-ui/lab/Skeleton'
+import { gql, useQuery } from '@apollo/client'
 import Backdrop from '@material-ui/core/Backdrop'
 import Header from '../Components/PlaceComponents/Header'
 import Photos from '../Components/PlaceComponents/Gallery'
@@ -12,6 +14,15 @@ import Informations from '../Components/PlaceComponents/Informations'
 import Comments from '../Components/PlaceComponents/Comments'
 import Reservation from '../Components/PlaceComponents/Reservation'
 import Login from '../Components/LoginComponents/Login'
+
+const availability = gql`
+  query gymById($gymId: ID) {
+    gymById(gymId: $gymId) {
+      maxAvailability
+      availability
+    }
+  }
+`
 
 const useStyles = makeStyles((theme) => ({
   modal: {
@@ -44,6 +55,12 @@ const PlaceInfo = ({ match }) => {
     }
     return true
   }
+  const res = useQuery(availability, {
+    variables: { gymId: match.params.gymid },
+    pollInterval: 500,
+  })
+  if (res.loading) return <Skeleton />
+  if (res.error) return `Error! ${res2.error.message} `
   return (
     <>
       <Container>
@@ -55,7 +72,10 @@ const PlaceInfo = ({ match }) => {
           </Col>
         </Col>
         <Col>
-          <Reservation match={match} />
+          <Reservation
+            match={match}
+            remainingReservation={res.data.gymById.availability}
+          />
         </Col>
         <Col>
           <Comments match={match} />

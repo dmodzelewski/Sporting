@@ -8,8 +8,8 @@ import Skeleton from '@material-ui/lab/Skeleton'
 
 const Header = ({ match }) => {
   const address = gql`
- query gymById($gymId: ID) {
-    sportObjectById(sportObjectId:"${match.params.buildingid}") {
+  {
+  sportObjectById(sportObjectId:"${match.params.buildingid}") {
           name
           address{
             streetName
@@ -23,7 +23,7 @@ const Header = ({ match }) => {
             }
             geoPoint
           }
-        }
+        }      
       }
 `
   const phone = gql`
@@ -45,9 +45,11 @@ const Header = ({ match }) => {
   })
   if (res.loading) return <Skeleton variant="rect" width={800} height={118} />
   if (res.error) return `Error! ${res.error.message} `
+
   if (secondRes.loading)
     return <Skeleton variant="rect" width={800} height={118} />
   if (secondRes.error) return `Error! ${res.error.message} `
+
   return (
     <>
       <Col className="place-header no-padding">

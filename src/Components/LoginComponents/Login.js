@@ -15,6 +15,13 @@ import PropTypes from 'prop-types'
 import { ToastContainer, toast } from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css'
 import { event } from 'jquery'
+import { Plugins, HapticsImpactStyle } from '@capacitor/core'
+
+const { Haptics } = Plugins
+
+const hapticsImpactLight = (style) => {
+  this.hapticsImpact(HapticsImpactStyle.Light)
+}
 
 const Login = (props) => {
   const authToken = localStorage.getItem('token')
@@ -27,60 +34,61 @@ const Login = (props) => {
   const [surname, setSurname] = useState('')
   const [role, setRole] = useState('USER')
   const [selectedDate, setSelectedDate] = useState(new Date())
-  const [jwt, setjwt] = useState(authToken || null)
   const history = useHistory()
   const location = useLocation()
 
   const isEmailInDB = gql`
-  mutation{
-    isLoginUserExists(loginEmail:"${email}")
-  }
-`
+    mutation isLoginUserExists($loginEmail: String) {
+      isLoginUserExists(loginEmail: $loginEmail)
+    }
+  `
 
   const GetJwt = gql`
-mutation{
-  loginUser(loginEmail:"${email}",password:"${password}")
-  }
+    mutation loginUser($loginEmail: String, $password: String) {
+      loginUser(loginEmail: $loginEmail, password: $password)
+    }
   `
 
   const AddUser = gql`
-    mutation {
+    mutation addUser(
+      $loginEmail: String!
+      $password: String!
+      $firstName: String!
+      $lastName: String!
+      $birthDate: Date!
+      $role: Role
+    ) {
       addUser(
-        loginEmail: "${email}"
-        password: "${password}"
-        firstName: "${name}"
-        lastName: "${surname}"
-        birthDate: "${selectedDate}"
-        role:${role}
+        loginEmail: $loginEmail
+        password: $password
+        firstName: $firstName
+        lastName: $lastName
+        birthDate: $birthDate
+        role: $role
       ) {
         loginEmail
       }
     }
   `
 
-  const verifyUser = gql`
-  mutation{
-    verifyUser(token:"${jwt}")
-  	{
+  const getUserData = gql`
+    mutation verifyUser($token: String) {
+      verifyUser(token: $token) {
         _id
-      loginEmail
-      role
-      exp
-      iat
+        loginEmail
+        role
+      }
     }
-  }`
+  `
 
-  const [addUser] = useMutation(AddUser)
+  const [addUser, { data }] = useMutation(AddUser)
 
   const [isEmailValid] = useMutation(isEmailInDB)
 
   const [Getjwt] = useMutation(GetJwt)
 
-  const [VerifyUser] = useMutation(verifyUser)
+  const [GetUserData] = useMutation(getUserData)
 
-  const ChooseUser = () => {
-    console.log(event.target.value)
-  }
   const LookForData = (type) => {
     if (type === 'Signin') {
       if (
@@ -105,51 +113,56 @@ mutation{
 
   const CreateAccountNotify = () => toast('Konto zostało utworzone!')
   const BadPasswordNotify = () => toast('Złe hasło!')
-  const NoEmailNotify = () => toast('Błędny adres email!')
   const EmailNotify = () => toast('Adres email jest juz do kogoś przypisany!')
+  const EmailNotExist = () => toast('Podany adres email nie istnieje!')
   const LoginNotify = () => toast('Pomyślnie się zalogowano!')
   const Verify = () => toast('Błąd weryfikacji!')
 
   const CreateUser = () => {
-    addUser()
-
-    isEmailValid()
-      .then(function (val) {
-        if (val.data.isLoginUserExists) {
-          EmailNotify()
-        } else {
-          setName('')
-          setSurname('')
-          setPassword('')
-          setrepeatPassword('')
-          setlogin(true)
-          setIsEmail(val.data.isLoginUserExists)
-          CreateAccountNotify()
-        }
-      })
-      .catch(() => {
-        NoEmailNotify()
-      })
+    isEmailValid({
+      variables: { loginEmail: email },
+    }).then((isEmailExist) => {
+      const exists = isEmailExist.data.isLoginUserExists
+      if (exists) {
+        EmailNotify()
+      } else {
+        addUser({
+          variables: {
+            loginEmail: email,
+            password,
+            firstName: name,
+            lastName: surname,
+            birthDate: selectedDate,
+            role,
+          },
+        })
+        setName('')
+        setSurname('')
+        setPassword('')
+        setrepeatPassword('')
+        setlogin(true)
+        setIsEmail(val.data.isLoginUserExists)
+        CreateAccountNotify()
+      }
+    })
   }
 
   const LoginUser = () => {
-    if (isEmail === true) {
-      Getjwt()
-        .then(function (val) {
-          localStorage.setItem('token', val.data.loginUser)
-          setjwt(val.data.loginUser)
+    isEmailValid({ variables: { loginEmail: email } }).then((isEmailExist) => {
+      const exists = isEmailExist.data.isLoginUserExists
 
-          VerifyUser()
-            .then(function (val1) {
-              localStorage.setItem('userid', val1.data.verifyUser._id)
-              localStorage.setItem('role', val1.data.verifyUser.role)
-              localStorage.setItem('email', val1.data.verifyUser.loginEmail)
-            })
-            .catch(() => {
-              Verify()
-            })
+      if (exists) {
+        Getjwt({ variables: { password, loginEmail: email } }).then((token) => {
+          if (token.data.loginUser) {
+            localStorage.setItem('token', token.data.loginUser)
 
-          if (val.data.loginUser) {
+            GetUserData({
+              variables: { token: token.data.loginUser },
+            }).then((userData) => {
+              localStorage.setItem('userid', userData.data.verifyUser._id)
+              localStorage.setItem('role', userData.data.verifyUser.role)
+              localStorage.setItem('email', userData.data.verifyUser.loginEmail)
+            })
             if (location.pathname === '/login') {
               history.push({
                 pathname: '/profile',
@@ -169,14 +182,13 @@ mutation{
             }
           } else {
             BadPasswordNotify()
+            hapticsImpactLight()
           }
         })
-        .catch(() => {
-          EmailNotify()
-        })
-    } else {
-      NoEmailNotify()
-    }
+      } else {
+        EmailNotExist()
+      }
+    })
   }
 
   const handleDateChange = (date) => {
@@ -272,6 +284,7 @@ mutation{
               />{' '}
               {!login && (
                 <PasswordStrengthBar
+                  className="password-bar"
                   shortScoreWord="Za krótkie"
                   scoreWords={[
                     'Słabe',
@@ -313,7 +326,6 @@ mutation{
                 </Form.Group>
               </Col>
             )}
-            {role === 'ADMIN' ? <h1>Nazwa</h1> : null}
             <Col>
               <Col onClick={() => setlogin(!login)}>
                 {login ? 'Nie masz jeszcze konta?' : 'Posiadasz już konto?'}

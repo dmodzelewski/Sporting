@@ -1,16 +1,14 @@
 import React, { useState } from 'react'
-import { Row, Col } from 'react-bootstrap'
+import { Row, Col, Image, Container } from 'react-bootstrap'
 import PropTypes from 'prop-types'
-import { gql } from '@apollo/client'
-import { useQuery } from '@apollo/client'
+import { gql, useQuery } from '@apollo/client'
 import StarRateIcon from '@material-ui/icons/StarRate'
 import { Link } from 'react-router-dom'
-import Map from '../PlaceComponents/Map'
-import { Image, Container } from 'react-bootstrap'
 import Skeleton from '@material-ui/lab/Skeleton'
 import { makeStyles } from '@material-ui/core/styles'
 import Popover from '@material-ui/core/Popover'
 import Button from '@material-ui/core/Button'
+import Map from '../PlaceComponents/Map'
 
 const useStyles = makeStyles((theme) => ({
   typography: {
@@ -18,7 +16,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }))
 
-const Places = (props) => {
+const Places = ({ price, opinion, type, choosenType, other, tag }) => {
   const classes = useStyles()
   const [anchorEl, setAnchorEl] = useState(null)
   const handleClick = (event) => {
@@ -35,31 +33,23 @@ const Places = (props) => {
   const SetType = (type) => {
     if (type) {
       return type
-    } else if (props.choosenType) {
-      return props.choosenType
-    } else {
-      return null
     }
+    if (choosenType) {
+      return choosenType
+    }
+    return null
   }
   const SetOpinion = (opinion) => {
-    if (opinion == 0) {
+    if (opinion === 0) {
       return null
-    } else {
-      return opinion
     }
+    return opinion
   }
   const SetTag = (tag) => {
-    const arr = []
-    if (Object.entries(tag).length === 0) {
+    if (tag.length === 0) {
       return null
-    } else {
-      Object.entries(tag).map((x) => {
-        if (x[1] == true) {
-          arr.push(x[0].toString())
-          return arr
-        }
-      })
     }
+    return tag
   }
   const places = gql`
     query GymFilter(
@@ -125,16 +115,15 @@ const Places = (props) => {
   `
   const { loading, error, data } = useQuery(places, {
     variables: {
-      minPrice: props.price[0],
-      maxPrice: props.price[1],
-      starRate: SetOpinion(props.opinion),
-      gymType: SetType(props.type),
-      gymTags: SetTag(props.tag),
+      minPrice: price[0],
+      maxPrice: price[1],
+      starRate: SetOpinion(opinion),
+      gymType: SetType(type),
+      gymTags: SetTag(tag),
     },
   })
   if (loading) return <Skeleton variant="rect" width={800} height={118} />
   if (error) return `Error! ${error.message} `
-  console.log(data)
   const HowManyGyms = () => {
     let length = 0
     data.sportObjects.map((item) => {
@@ -143,36 +132,34 @@ const Places = (props) => {
     return length
   }
   const HowManyOpininons = (opinions) => {
-    if (opinions == 0) {
+    if (opinions === 0) {
       return 'Brak Opinii'
-    } else if (opinions == 1) {
-      return '1 Opinia'
-    } else {
-      return `${opinions} Opinie`
     }
+    if (opinions === 1) {
+      return '1 Opinia'
+    }
+    return `${opinions} Opinie`
   }
   const CalculateOpionions = (opinions) => {
     let suma = 0
-    if (opinions == undefined || opinions.length == 0) {
+    if (opinions === undefined || opinions.length === 0) {
       return 0
-    } else {
-      opinions.map((x) => {
-        suma += x.starRate
-      })
-      let wynik = suma / opinions.length
-      return wynik.toFixed(2)
     }
+    opinions.map((x) => {
+      suma += x.starRate
+    })
+    const wynik = suma / opinions.length
+    return wynik.toFixed(2)
   }
   const getEqupment = (listOfEquipments) => {
-    let equipments = []
-    if (listOfEquipments.length == 0) {
+    const equipments = []
+    if (listOfEquipments.length === 0) {
       return 'Brak wyposażenia'
-    } else {
-      listOfEquipments.map((x) => {
-        equipments.push(x.namePL)
-      })
-      return equipments
     }
+    listOfEquipments.map((x) => {
+      equipments.push(x.namePL)
+    })
+    return equipments
   }
 
   const showMore = () => {}
@@ -180,7 +167,7 @@ const Places = (props) => {
   return (
     <>
       <Row>
-        <Col className="places-header"></Col>
+        <Col className="places-header" />
       </Row>
       <Row>
         <Col className="places-counter no-padding">
@@ -254,7 +241,7 @@ const Places = (props) => {
                             horizontal: 'center',
                           }}
                         >
-                          <Map {...building} {...props.other} />
+                          <Map {...building} {...other} />
                         </Popover>
                         <Col className="no-padding places-localization-place">
                           {building.address.city}

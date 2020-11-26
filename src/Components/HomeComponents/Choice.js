@@ -56,7 +56,7 @@ const Choice = () => {
               </Row>
             </Col>
             <Col
-              onClick={() => handleTag('football')}
+              onClick={() => handleTag('5fbfcd669fecb21cd4418ff6')}
               className="choice-sports-objects"
               style={{ background: '#CECECE' }}
             >
@@ -70,7 +70,7 @@ const Choice = () => {
               </Row>
             </Col>
             <Col
-              onClick={() => handleTag('tennis')}
+              onClick={() => handleTag('5fbfcd909fecb21cd4418ff8')}
               className="choice-sports-objects"
               style={{ background: '#B4C084' }}
             >
@@ -84,7 +84,7 @@ const Choice = () => {
               </Row>
             </Col>
             <Col
-              onClick={() => handleTag('yoga')}
+              onClick={() => handleTag('5fbfcda39fecb21cd4418ff9')}
               className="choice-sports-objects"
               style={{ background: '#CDB8D4' }}
             >
@@ -98,7 +98,7 @@ const Choice = () => {
               </Row>
             </Col>
             <Col
-              onClick={() => handleTag('gym')}
+              onClick={() => handleTag('5fbfcdb39fecb21cd4418ffa')}
               className="choice-sports-objects"
               style={{ background: '#CA6D6D' }}
             >
@@ -111,21 +111,9 @@ const Choice = () => {
                 <Col className="choice-sports-text">Siłownia</Col>
               </Row>
             </Col>
+
             <Col
-              className="choice-sports-objects"
-              style={{ background: '#AB9382' }}
-            >
-              <Row>
-                <Col className="choice-sports-body quidditch">
-                  <FaQuidditch className="choice-sports-icons" />
-                </Col>
-              </Row>
-              <Row>
-                <Col className="choice-sports-text">Quidditch</Col>
-              </Row>
-            </Col>
-            <Col
-              onClick={() => handleTag('fight')}
+              onClick={() => handleTag('5fbfcdc89fecb21cd4418ffc')}
               className="choice-sports-objects"
               style={{ background: '#DABB6C' }}
             >

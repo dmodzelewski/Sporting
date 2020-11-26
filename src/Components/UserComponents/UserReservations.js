@@ -20,24 +20,24 @@ const useStyles = makeStyles({
 })
 
 const appointments = gql`
-{
-  userReservations(user:"${localStorage.getItem('userid')}") {
-    gym{
-      _id
-      name   
-      sportObject{
+  query userReservations($user: ID!) {
+    userReservations(user: $user) {
+      gym {
+        _id
+        name
+        sportObject {
+          _id
+        }
+      }
+      user {
         _id
       }
-    }
-    user{
       _id
+      title
+      startDateTime
+      endDateTime
     }
-    _id
-    title
-    startDateTime
-    endDateTime
   }
-}
 `
 
 const rows = [].sort((a, b) => (a.calories < b.calories ? -1 : 1))
@@ -45,6 +45,7 @@ const rows = [].sort((a, b) => (a.calories < b.calories ? -1 : 1))
 export default function DenseTable() {
   const classes = useStyles()
   const res = useQuery(appointments, {
+    variables: { user: localStorage.getItem('userid') },
     pollInterval: 500,
   })
   if (res.loading) return <Skeleton />

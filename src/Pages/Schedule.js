@@ -27,8 +27,9 @@ import moment from 'moment'
 import PropTypes from 'prop-types'
 import { ToastContainer, toast } from 'react-toastify'
 
-const Sched = ({ match }) => {
+const Sched = ({ match, location }) => {
   const appointmentData = []
+  // const { availability } = location.state
 
   const [currentDate, setcurrentDate] = useState(new Date())
   const [data, setDate] = useState(appointmentData)
@@ -53,7 +54,6 @@ const Sched = ({ match }) => {
       }
     }
   `
-
   const createAppointment = gql`
     mutation {
       addReservation(
@@ -142,11 +142,20 @@ const Sched = ({ match }) => {
     return dateArr
   }
   const OutDated = () => toast('Nie można dodać spotkania')
-
+  const OutNumbered = () => toast('Brak miejsc')
+  const FormatDate = (dateToFormat) => {
+    const BeginDate = new Intl.DateTimeFormat('pl', {
+      day: 'numeric',
+      month: 'numeric',
+      year: 'numeric',
+    }).format(dateToFormat)
+    return BeginDate
+  }
   const onCommitChanges = useCallback(
     ({ added, changed, deleted }) => {
       if (added) {
-        if (added.startDate <= currentDate) {
+        console.log()
+        if (FormatDate(currentDate) !== FormatDate(added.startDate)) {
           OutDated()
         } else {
           setTitle(added.title)
@@ -236,6 +245,7 @@ const Sched = ({ match }) => {
     </>
   )
 }
+
 Sched.propTypes = {
   match: PropTypes.object.isRequired,
 }

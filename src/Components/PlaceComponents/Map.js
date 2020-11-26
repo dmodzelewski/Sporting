@@ -3,6 +3,7 @@ import ReactMapGl, { Marker, Popup } from 'react-map-gl'
 import PropTypes from 'prop-types'
 import { Col, Row } from 'react-bootstrap'
 import RoomIcon from '@material-ui/icons/Room'
+
 const Map = (props) => {
   const [show, setshow] = useState()
   const [viewPort, setviewPort] = useState({
@@ -19,29 +20,25 @@ const Map = (props) => {
     <>
       <ReactMapGl
         {...viewPort}
-        mapboxApiAccessToken={
-          'pk.eyJ1IjoibW9kejNsMSIsImEiOiJja2Vwd3ZuZXYybHE0MzBwY3FnMmJoOWl3In0.gXqZXY5scsggIr2Vl05QOA'
-        }
+        mapboxApiAccessToken="pk.eyJ1IjoibW9kejNsMSIsImEiOiJja2Vwd3ZuZXYybHE0MzBwY3FnMmJoOWl3In0.gXqZXY5scsggIr2Vl05QOA"
         mapStyle="mapbox://styles/modz3l1/ckepxnbns4mdq19o2qqkxxqxi"
         onViewportChange={(x) => {
           setviewPort(x)
         }}
       >
-        {
-          <Marker
-            key={destinationCords[0]}
-            latitude={fromCords[1]}
-            longitude={fromCords[0]}
-          >
-            <RoomIcon
-              onClick={(e) => {
-                e.preventDefault()
-                setshow(props.address)
-                console.log(show)
-              }}
-            />
-          </Marker>
-        }
+        <Marker
+          key={destinationCords[0]}
+          latitude={fromCords[1]}
+          longitude={fromCords[0]}
+        >
+          <RoomIcon
+            onClick={(e) => {
+              e.preventDefault()
+              setshow(props.address)
+              console.log(show)
+            }}
+          />
+        </Marker>
         {show ? (
           <Popup
             latitude={show.geoPoint[0]}
