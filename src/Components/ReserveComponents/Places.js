@@ -16,20 +16,27 @@ const useStyles = makeStyles((theme) => ({
   },
 }))
 
-const Places = ({ price, opinion, type, choosenType, other, tag }) => {
+const Places = ({
+  price,
+  opinion,
+  type,
+  choosenType,
+  other,
+  tag,
+  availability,
+  city,
+}) => {
   const classes = useStyles()
   const [anchorEl, setAnchorEl] = useState(null)
   const handleClick = (event) => {
     setAnchorEl(event.currentTarget)
   }
-
   const handleClose = () => {
     setAnchorEl(null)
   }
 
   const open = Boolean(anchorEl)
   const id = open ? 'simple-popover' : undefined
-
   const SetType = (type) => {
     if (type) {
       return type
@@ -51,6 +58,9 @@ const Places = ({ price, opinion, type, choosenType, other, tag }) => {
     }
     return tag
   }
+  const setCity = (city) => {
+    return city.trim()
+  }
   const places = gql`
     query GymFilter(
       $maxPrice: Float
@@ -58,8 +68,10 @@ const Places = ({ price, opinion, type, choosenType, other, tag }) => {
       $starRate: Float
       $gymType: ID
       $gymTags: [ID]
+      $availability: Int
+      $city: String
     ) {
-      sportObjects {
+      sportObjectsByCity(city: $city) {
         name
         _id
         address {
@@ -80,6 +92,7 @@ const Places = ({ price, opinion, type, choosenType, other, tag }) => {
           starRate: $starRate
           gymType: $gymType
           gymTags: $gymTags
+          availability: $availability
         ) {
           _id
           gymType {
@@ -120,13 +133,15 @@ const Places = ({ price, opinion, type, choosenType, other, tag }) => {
       starRate: SetOpinion(opinion),
       gymType: SetType(type),
       gymTags: SetTag(tag),
+      availability,
+      city: setCity(city),
     },
   })
   if (loading) return <Skeleton variant="rect" width={800} height={118} />
   if (error) return `Error! ${error.message} `
   const HowManyGyms = () => {
     let length = 0
-    data.sportObjects.map((item) => {
+    data.sportObjectsByCity.map((item) => {
       length += item.gymsFilter.length
     })
     return length
@@ -175,7 +190,7 @@ const Places = ({ price, opinion, type, choosenType, other, tag }) => {
         </Col>
       </Row>
 
-      {data.sportObjects.map((building) =>
+      {data.sportObjectsByCity.map((building) =>
         building.gymsFilter.map((gym) => (
           <>
             <li key={gym._id} style={{ listStyleType: 'none' }}>
@@ -280,8 +295,7 @@ const Places = ({ price, opinion, type, choosenType, other, tag }) => {
     </>
   )
 }
-Places.propTypes = {
-  location: PropTypes.object.isRequired,
+Places.defaultProps = {
+  city: 'Gdańsk',
 }
-
 export default Places

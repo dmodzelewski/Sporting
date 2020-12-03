@@ -219,6 +219,7 @@ h6 {
   .search-button {
     color: black;
     background: #8aa718;
+    border: #8aa718;
     box-shadow: 0px 6px 4px rgba(0, 0, 0, 0.42);
     border-radius: 17px;
     font-size: 24px;
@@ -828,8 +829,7 @@ h6 {
 }
 .admin-panel-button {
   display: flex;
-  margin: 10px 5px;
-  justify-content: flex-end;
+  padding: 0px;
 }
 .gyms-objects {
   display: flex;
@@ -876,4 +876,15 @@ h6 {
 .password-bar {
   margin-top: 5px;
   margin-bottom: 0px;
+}
+.home-section {
+  margin-top: 20px;
+}
+.home-header {
+  display: flex;
+  justify-content: center;
+}
+.home-paragraph {
+  text-align: justify;
+  text-justify: inter-word;
 }

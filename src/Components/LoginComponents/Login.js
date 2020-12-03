@@ -347,6 +347,8 @@ const Login = (props) => {
                   Stwórz konto
                 </Button>
               )}
+
+              <Col>* Wymagane Pola</Col>
               <ToastContainer />
             </Col>
           </ValidatorForm>

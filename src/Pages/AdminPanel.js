@@ -63,11 +63,6 @@ const AdminPanel = () => {
                 <SportObjectsAdmin SportObjects={res.data.sportObjects} />
               </Col>
             </Row>
-            <Row>
-              <Col className="admin-panel-button">
-                <Button>Dodaj Sale do Obiektu</Button>
-              </Col>
-            </Row>
           </Container>
         </Tab>
         <Tab eventKey="contact" title="Więcj w przyszłości.." disabled />

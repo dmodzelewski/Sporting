@@ -68,8 +68,13 @@ const TypeFilter = ({ Type }) => {
   if (error) return `Error! ${error.message} `
 
   const handleChange = (event) => {
-    setchangeType(event.target.value)
-    Type(event.target.value)
+    if (event === '') {
+      setchangeType(null)
+      Type(null)
+    } else {
+      setchangeType(event.target.value)
+      Type(event.target.value)
+    }
   }
   // Inspired by blueprintjs
   const StyledRadio = (props) => {
@@ -96,7 +101,7 @@ const TypeFilter = ({ Type }) => {
       >
         <FormControlLabel
           key="Default"
-          value={null}
+          value=""
           control={<StyledRadio />}
           label="Wszystkie elementy"
           onChange={(e) => handleChange(e.target.value)}

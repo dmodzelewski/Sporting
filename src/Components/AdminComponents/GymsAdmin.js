@@ -100,7 +100,7 @@ const GymsAdmin = () => {
   const res = useQuery(gyms)
   if (res.loading) return <Skeleton />
   if (res.error) return `Error! ${res.error.message} `
-
+  console.log(res.data.sportObjects)
   return (
     <>
       {res.data.sportObjects.map((object) => (
@@ -141,7 +141,7 @@ const GymsAdmin = () => {
                   color="primary"
                   onClick={handleOpen}
                 >
-                  Dodaj salę do obiektu
+                  Dodaj wyposażenie do Salki
                 </Button>
                 <Modal
                   aria-labelledby="transition-modal-title"

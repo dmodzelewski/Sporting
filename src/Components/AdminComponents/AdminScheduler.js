@@ -33,7 +33,7 @@ const Sched = ({ match, location }) => {
 
   const [currentDate, setcurrentDate] = useState(new Date())
   const [data, setDate] = useState(appointmentData)
-  const [currentView, setCurrentView] = useState('day')
+  const [currentView, setCurrentView] = useState('month')
   const [addedAppointment, setAddedAppointment] = useState({})
   const [, setIsAppointmentBeingCreated] = useState(false)
   const [title, setTitle] = useState('Brak Tytułu')
@@ -216,6 +216,7 @@ const Sched = ({ match, location }) => {
                 currentDate={currentDate}
                 onCurrentDateChange={(x) => setcurrentDate(x)}
                 currentViewName={currentView}
+                onCurrentViewNameChange={(x) => setCurrentView(x)}
               />
               <EditingState
                 onCommitChanges={onCommitChanges}
@@ -224,6 +225,9 @@ const Sched = ({ match, location }) => {
               />
               <IntegratedEditing />
               <DayView name="day" startDayHour={9} endDayHour={18} />
+
+              <WeekView startDayHour={9} endDayHour={19} />
+              <MonthView name="month" />
 
               <Toolbar />
               <ViewSwitcher />

@@ -13,9 +13,7 @@ const Map = (props) => {
     height: '40vh',
     zoom: 13,
   })
-  console.log(props)
   const fromCords = [props.address.geoPoint[1], props.address.geoPoint[0]]
-  const destinationCords = [props.passLatitude, props.passLongitude]
   return (
     <>
       <ReactMapGl
@@ -27,7 +25,7 @@ const Map = (props) => {
         }}
       >
         <Marker
-          key={destinationCords[0]}
+          key={fromCords[0]}
           latitude={fromCords[1]}
           longitude={fromCords[0]}
         >

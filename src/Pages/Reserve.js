@@ -80,7 +80,7 @@ const Reserve = (props) => {
   const res = useQuery(types)
   if (res.loading) return <Skeleton variant="rect" width={800} height={118} />
   if (res.error) return `Error! ${res.error.message} `
-
+  console.log(props.location.state.passCity)
   return (
     <>
       <Search />
@@ -173,6 +173,8 @@ const Reserve = (props) => {
               choosenType={props.location.state.passTag}
               other={props.location.state}
               tag={tag}
+              city={props.location.state.passCity}
+              availability={props.location.state.passQuantity}
             />
           </Col>
         </Row>

@@ -49,6 +49,9 @@ const CalendarField = ({ GetDate }) => {
   )
 }
 CalendarField.propTypes = {
-  GetDate: PropTypes.object.isRequired,
+  GetDate: PropTypes.func,
+}
+CalendarField.defaultProps = {
+  GetDate: new Date(),
 }
 export default CalendarField

@@ -80,7 +80,7 @@ const Search = () => {
 
   const RenderData = () => {
     if (loading) return <p className="search-filter-city">Loading...</p>
-    if (error) return `Error! ${error.message} `
+    if (error) return `Error! Nie udało się pobrać lokalizacji `
     if (city === '') return ''
 
     return (
@@ -135,7 +135,7 @@ const Search = () => {
           <Row>
             <Col className="search-filters">
               <Row>
-                <Col sm={12} md={3} className="center-items">
+                <Col sm={12} md={3}>
                   <Row>
                     <Col>
                       <b>Lokalizacja</b>
