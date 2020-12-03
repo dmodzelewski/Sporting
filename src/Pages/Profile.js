@@ -1,44 +1,71 @@
-import React, { Component } from "react";
-import PropTypes from "prop-types";
+/* eslint-disable no-undef */
+import React from 'react'
+import { Col, Container, Row } from 'react-bootstrap'
+import { gql, useQuery } from '@apollo/client'
+import PropTypes from 'prop-types'
+import Skeleton from '@material-ui/lab/Skeleton'
+import UserReservations from '../Components/UserComponents/UserReservations'
 
-class Profile extends Component {
-  state = {
-    profile: null,
-    error: "",
-  };
+const Profile = ({ location }) => {
+  const userInfo = gql`
+    query userByEmail($loginEmail: String!) {
+      userByEmail(loginEmail: $loginEmail) {
+        firstName
+        lastName
+        birthDate
+        role
+        registeredDate
+      }
+    }
+  `
 
-  componentDidMount() {
-    this.loadUserProfile();
-  }
+  const { loading, error, data } = useQuery(userInfo, {
+    errorPolicy: 'all',
+    variables: {
+      loginEmail: localStorage.getItem('email'),
+    },
+  })
+  if (loading) return <Skeleton />
 
-  loadUserProfile() {
-    this.props.auth.getProfile((profile, error) =>
-      this.setState({ profile, error })
-    );
-  }
-
-  render() {
-    const { profile } = this.state;
-    if (!profile) return null;
-    return (
-      <>
-        <h1>Twój Profil</h1>
-        <div>
-          <h1> Witaj {profile.name}</h1>
-        </div>
-        <br />
-        <img
-          style={{ maxWidth: 50, maxHeight: 50 }}
-          src={profile.picture}
-          alt="profile pic"
-        />
-        <p>Tu masz co jest wyciągane z Profilu i można zamieścić</p>
-        <pre>{JSON.stringify(profile, null, 2)}</pre>
-      </>
-    );
-  }
+  console.log(
+    `${data.userByEmail.firstName} ${data.userByEmail.lastName} ${data.userByEmail.birthDate} ${data.userByEmail.role} ${data.userByEmail.registeredDate}`,
+  )
+    
+  return (
+    <>
+      <Container>
+        <Row>
+          <Col>
+            <Row>
+              <Col className="center">
+                <h1>Twój Profil</h1>
+              </Col>
+            </Row>
+            <Row>
+              <Col className="center">
+                <h1>
+                  {' '}
+                  Witaj{' '}
+                  {`${data.userByEmail.firstName} ${data.userByEmail.lastName}`}{' '}
+                </h1>
+              </Col>
+            </Row>
+            <Col>
+              <Col>
+                <h2>Twoje Rezerwacje</h2>
+              </Col>
+              <Col>
+                <UserReservations />
+              </Col>
+            </Col>
+          </Col>
+        </Row>
+      </Container>
+    </>
+  )
 }
 Profile.propTypes = {
-  auth: PropTypes.object.isRequired,
-};
-export default Profile;
+  location: PropTypes.object.isRequired,
+}
+
+export default Profile

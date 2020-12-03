@@ -1,33 +1,33 @@
 /* eslint-disable no-undef */
 
-const path = require("path");
-const HtmlWebPackPlugin = require("html-webpack-plugin");
-const MiniCssExtractPlugin = require("mini-css-extract-plugin");
-const webpackBundleAnalyzer = require("webpack-bundle-analyzer");
+const path = require('path')
+const HtmlWebPackPlugin = require('html-webpack-plugin')
+const MiniCssExtractPlugin = require('mini-css-extract-plugin')
+const webpackBundleAnalyzer = require('webpack-bundle-analyzer')
 
-process.env.NODE_ENV = "production";
+process.env.NODE_ENV = 'production'
 
 module.exports = {
-  mode: "production",
-  target: "web",
-  devtool: "source-map",
-  entry: "./src/index.js",
+  mode: 'production',
+  target: 'web',
+  devtool: 'source-map',
+  entry: './src/index.js',
   output: {
-    path: path.join(__dirname, "/distProd"),
-    publicPath: "/",
-    filename: "bundle.js",
+    path: path.join(__dirname, '/distProd'),
+    publicPath: '/',
+    filename: 'bundle.js',
   },
   plugins: [
-    new webpackBundleAnalyzer.BundleAnalyzerPlugin({ analyzerMode: "static" }),
+    new webpackBundleAnalyzer.BundleAnalyzerPlugin({ analyzerMode: 'static' }),
     new MiniCssExtractPlugin({
-      filename: "[name].[hash].css",
-      chunkFilename: "[id].[hash].css",
+      filename: '[name].[hash].css',
+      chunkFilename: '[id].[hash].css',
     }),
     new HtmlWebPackPlugin({
       hash: true,
-      filename: "index.html",
-      template: "src/index.html",
-      favicon: "src/favicon.ico",
+      filename: 'index.html',
+      template: 'src/index.html',
+      favicon: 'src/favicon.ico',
       minify: {
         removeComents: true,
         collapseWhitespace: true,
@@ -45,14 +45,14 @@ module.exports = {
   module: {
     rules: [
       {
-        enforce: "pre",
+        enforce: 'pre',
         test: /\.jsx?$/,
         exclude: /node_modules/,
         use: [
           {
-            loader: "eslint-loader",
+            loader: 'eslint-loader',
             options: {
-              eslintPath: "eslint",
+              eslintPath: 'eslint',
               emitWarning: true,
             },
           },
@@ -62,10 +62,10 @@ module.exports = {
         test: /\.jsx?$/,
         exclude: /node_modules/,
         use: {
-          loader: "babel-loader",
+          loader: 'babel-loader',
           options: {
-            presets: ["@babel/preset-env", "@babel/preset-react"],
-            plugins: ["@babel/plugin-proposal-class-properties"],
+            presets: ['@babel/preset-env', '@babel/preset-react'],
+            plugins: ['@babel/plugin-proposal-class-properties'],
           },
         },
       },
@@ -74,13 +74,13 @@ module.exports = {
         use: [
           MiniCssExtractPlugin.loader,
           {
-            loader: "css-loader",
+            loader: 'css-loader',
             options: {
               sourceMap: true,
             },
           },
           {
-            loader: "sass-loader",
+            loader: 'sass-loader',
             options: {
               sourceMap: true,
             },
@@ -91,13 +91,13 @@ module.exports = {
         test: /\.(png|jpg|gif)$/,
         use: [
           {
-            loader: "file-loader",
+            loader: 'file-loader',
           },
         ],
       },
     ],
   },
   resolve: {
-    extensions: [".js", ".jsx", ".scss"],
+    extensions: ['.js', '.jsx', '.scss'],
   },
-};
+}

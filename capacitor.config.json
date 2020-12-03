@@ -1,8 +1,14 @@
 {
-  "appId": "com.isportio.android",
+  "appId": "com.example.app",
   "appName": "isportio",
   "bundledWebRuntime": false,
   "npmClient": "npm",
-  "webDir": "dist",
+  "webDir": "distDev",
+  "linuxAndroidStudioPath": "/snap/bin/android-studio",
+  "plugins": {
+    "SplashScreen": {
+      "launchShowDuration": 0
+    }
+  },
   "cordova": {}
 }

@@ -1,9 +1,9 @@
-import React from "react";
-import { Container, Row, Col } from "react-bootstrap";
+import React from 'react'
+import { Row, Col } from 'react-bootstrap'
 
 const Footer = () => {
   return (
-    <Container fluid>
+    <Col className="footer">
       <Row className="footer-headers">
         <Col>Informacje</Col>
         <Col>Dla właścicieli obiektów sportowych </Col>
@@ -31,7 +31,7 @@ const Footer = () => {
           <Row>Centrum pomocy</Row>
         </Col>
       </Row>
-    </Container>
-  );
-};
-export default Footer;
+    </Col>
+  )
+}
+export default Footer

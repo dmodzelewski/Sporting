@@ -1,88 +1,57 @@
-import React, { Component } from "react";
-import { Col, Row, Form } from "react-bootstrap";
-import Calendar from "react-calendar";
-import "react-calendar/dist/Calendar.css";
-import PropTypes from "prop-types";
+import React, { useState } from 'react'
+import { Col } from 'react-bootstrap'
+import 'react-calendar/dist/Calendar.css'
+import PropTypes from 'prop-types'
+import DateFnsUtils from '@date-io/date-fns'
+import {
+  MuiPickersUtilsProvider,
+  KeyboardDatePicker,
+} from '@material-ui/pickers'
 
-export default class CalendarField extends Component {
-  state = {
-    isClicked: false,
-    date: new Date(),
-  };
+const CalendarField = ({ GetDate }) => {
+  const [date, setDate] = useState(new Date())
 
-  FormatDate = (dateToFormat) => {
-    const BeginDate = new Intl.DateTimeFormat("pl", {
-      day: "numeric",
-      month: "short",
-    }).format(dateToFormat[0]);
-    const EndDate = new Intl.DateTimeFormat("pl", {
-      day: "numeric",
-      month: "short",
-    }).format(dateToFormat[1]);
-    if (BeginDate == EndDate) {
-      this.props.getDate(BeginDate);
-      return BeginDate;
-    } else {
-      const FullDate = BeginDate + " - " + EndDate;
-      this.props.getDate(FullDate);
-      return FullDate;
-    }
-  };
-  //Set Type of JS object
-  toType = function (obj) {
-    return {}.toString
-      .call(obj)
-      .match(/\s([a-zA-Z]+)/)[1]
-      .toLowerCase();
-  };
-
-  Calendarhandler = () => {
-    this.setState({ isClicked: !this.state.isClicked });
-  };
-
-  HowMany = (dates) => {
-    if (this.toType(dates)) {
-      return this.FormatDate(dates);
-    } else if (this.toType(dates)) {
-      return this.FormatDate(dates);
-    }
-  };
-
-  onChange = (date) => this.setState({ date });
-
-  render() {
-    return (
-      <Col sm={3}>
-        <Row>
-          <Col className="search-filters-headers">Kalendarz</Col>
-        </Row>
-        <Row>
-          <Col>
-            <Form.Control
-              plaintext
-              placeholder="Podaj datę"
-              onClick={this.Calendarhandler}
-              value={this.HowMany(this.state.date)}
-              readOnly
-            />
-            <Col
-              className={
-                this.state.isClicked
-                  ? "search-calendarShow"
-                  : "search-calendarHide"
-              }
-            >
-              <Calendar
-                onChange={this.onChange}
-                defaultValue={this.state.date}
-              />
-            </Col>
-          </Col>
-        </Row>
-      </Col>
-    );
+  const FormatDate = (dateToFormat) => {
+    const BeginDate = new Intl.DateTimeFormat('pl', {
+      day: 'numeric',
+      month: 'short',
+    }).format(dateToFormat[0])
+    return BeginDate
   }
+
+  const onChange = (dateToChange) => {
+    setDate(dateToChange)
+
+    GetDate(FormatDate(dateToChange))
+  }
+
+  return (
+    <>
+      <Col>
+        <b>Wybierz date</b>
+      </Col>
+
+      <Col>
+        <MuiPickersUtilsProvider utils={DateFnsUtils}>
+          <KeyboardDatePicker
+            margin="normal"
+            id="date-picker-dialog"
+            format="dd/MM/yyyy"
+            value={date}
+            onChange={(x) => onChange(x)}
+            KeyboardButtonProps={{
+              'aria-label': 'change date',
+            }}
+          />
+        </MuiPickersUtilsProvider>
+      </Col>
+    </>
+  )
 }
 CalendarField.propTypes = {
-  getDate: PropTypes.func.isRequired,
-};
+  GetDate: PropTypes.func,
+}
+CalendarField.defaultProps = {
+  GetDate: new Date(),
+}
+export default CalendarField
