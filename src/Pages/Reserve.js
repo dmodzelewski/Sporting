@@ -14,7 +14,7 @@ import Search from '../Components/CommonComponents/Search/Search'
 const Checkbox = ({ type = 'checkbox', name, checked = false, onChange }) => {
   return <input type={type} name={name} checked={checked} onChange={onChange} />
 }
-const Reserve = (props) => {
+const Reserve = ({ location }) => {
   const types = gql`
     {
       gymTags {
@@ -80,7 +80,6 @@ const Reserve = (props) => {
   const res = useQuery(types)
   if (res.loading) return <Skeleton variant="rect" width={800} height={118} />
   if (res.error) return `Error! ${res.error.message} `
-  console.log(props.location.state.passCity)
   return (
     <>
       <Search />
@@ -170,11 +169,12 @@ const Reserve = (props) => {
               price={price}
               opinion={opinion}
               type={type}
-              choosenType={props.location.state.passTag}
-              other={props.location.state}
+              choosenType={location.state.passTag}
+              other={location.state}
               tag={tag}
-              city={props.location.state.passCity}
-              availability={props.location.state.passQuantity}
+              city={location.state.passCity}
+              availability={location.state.passQuantity}
+              date={location.state.passDate}
             />
           </Col>
         </Row>

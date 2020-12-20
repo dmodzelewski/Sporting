@@ -11,18 +11,10 @@ import {
 const CalendarField = ({ GetDate }) => {
   const [date, setDate] = useState(new Date())
 
-  const FormatDate = (dateToFormat) => {
-    const BeginDate = new Intl.DateTimeFormat('pl', {
-      day: 'numeric',
-      month: 'short',
-    }).format(dateToFormat[0])
-    return BeginDate
-  }
-
   const onChange = (dateToChange) => {
     setDate(dateToChange)
 
-    GetDate(FormatDate(dateToChange))
+    GetDate(dateToChange)
   }
 
   return (

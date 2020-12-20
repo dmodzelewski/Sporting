@@ -1,9 +1,9 @@
 import React from 'react'
+import { Col, Container, Row } from 'react-bootstrap'
 import Search from '../Components/CommonComponents/Search/Search'
 import Choice from '../Components/HomeComponents/Choice'
 import '../Styles/choice.scss'
 import Slider from '../Components/HomeComponents/Slider'
-import { Col, Container, Row } from 'react-bootstrap'
 
 const Home = () => {
   return (

@@ -14,6 +14,7 @@ import './Styles/app.scss'
 import Profile from './Pages/Profile'
 import PlaceInfo from './Pages/PlaceInfo'
 import AdminPanel from './Pages/AdminPanel'
+import AdminCalendar from './Components/AdminComponents/AdminCalendar'
 
 const clientApollo = new ApolloClient({
   uri: 'http://159.69.41.224:3001/graphql',
@@ -42,6 +43,11 @@ const App = () => {
             component={PlaceInfo}
           />
           <Route exact path="/adminpanel" component={AdminPanel} />
+          <Route
+            exact
+            path="/admincalendar/:buildingid/:gymid"
+            component={AdminCalendar}
+          />
           <Route component={Error} />
         </Switch>
         <Footer />

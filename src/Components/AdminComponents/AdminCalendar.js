@@ -27,10 +27,10 @@ import moment from 'moment'
 import PropTypes from 'prop-types'
 import { ToastContainer, toast } from 'react-toastify'
 
-const Sched = ({ match, location }) => {
+const AdminCalendar = ({ match }) => {
   const appointmentData = []
   // const { availability } = location.state
-  const [currentDate, setcurrentDate] = useState(new Date(location.state.date))
+  const [currentDate, setcurrentDate] = useState(new Date())
   const [data, setDate] = useState(appointmentData)
   const [currentView, setCurrentView] = useState('day')
   const [addedAppointment, setAddedAppointment] = useState({})
@@ -45,7 +45,7 @@ const Sched = ({ match, location }) => {
   const [updatedEndDate, setupdatedEndDate] = useState('')
   const appointments = gql`
     {
-      userReservations(user:"${localStorage.getItem('userid')}") {
+      reservations {
         _id
         startDateTime
         endDateTime
@@ -188,7 +188,7 @@ const Sched = ({ match, location }) => {
   const GetData = () => {
     res.refetch()
 
-    res.data.userReservations.map((x) => {
+    res.data.reservations.map((x) => {
       const Startdate = moment(x.startDateTime)
       const Enddate = moment(x.endDateTime)
       appointmentData.push({
@@ -240,7 +240,7 @@ const Sched = ({ match, location }) => {
   )
 }
 
-Sched.propTypes = {
+AdminCalendar.propTypes = {
   match: PropTypes.object.isRequired,
 }
-export default Sched
+export default AdminCalendar

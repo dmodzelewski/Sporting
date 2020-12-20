@@ -96,7 +96,12 @@ export default function DenseTable() {
               <TableCell align="right">{row.gym.name}</TableCell>
               <TableCell align="right">
                 <Link
-                  to={`/scheduler/${`${row.gym.sportObject._id}/${row.gym._id}/${row.user._id}`}`}
+                  to={{
+                    pathname: `/scheduler/${`${row.gym.sportObject._id}/${row.gym._id}/${row.user._id}`}`,
+                    state: {
+                      date: row.startDateTime,
+                    },
+                  }}
                 >
                   Przejdź
                 </Link>

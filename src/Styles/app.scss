@@ -16,8 +16,10 @@ $darkShadow: 4px 10px 5px 0px rgba(0, 0, 0, 0.5);
 $mainBorder: 10px;
 //global settings
 body {
+  font-family: $mainFontFamily !important;
   width: 100%;
   background: #ffffff;
+  height: 100vh;
 }
 .no-padding {
   padding: 0px;
@@ -31,39 +33,45 @@ body {
 
 //fonts settings
 h1 {
-  font-family: $mainFontFamily;
+  font-family: $mainFontFamily !important;
   font-size: 3em;
   line-height: 1;
   margin-bottom: 0.5em;
 }
 h2 {
-  font-family: $mainFontFamily;
+  font-family: $mainFontFamily !important;
   font-size: 2em;
   margin-bottom: 0.75em;
 }
 h3 {
-  font-family: $mainFontFamily;
+  font-family: $mainFontFamily !important;
   font-size: 1.5em;
   line-height: 1;
   margin-bottom: 1em;
 }
 h4 {
-  font-family: $mainFontFamily;
+  font-family: $mainFontFamily !important;
   font-size: 1.2em;
   line-height: 1.25;
   margin-bottom: 1.25em;
 }
 h5 {
-  font-family: $mainFontFamily;
+  font-family: $mainFontFamily !important;
   font-size: 1em;
   font-weight: bold;
   margin-bottom: 1.5em;
 }
 h6 {
-  font-family: $mainFontFamily;
+  font-family: $mainFontFamily !important;
   font-size: 1em;
   font-weight: bold;
   margin-bottom: 1.5em;
+}
+p {
+  font-family: $mainFontFamily !important;
+}
+span {
+  font-family: $mainFontFamily !important;
 }
 //Start navbar
 .Slider {
@@ -180,6 +188,8 @@ h6 {
 //End navbar
 //Start footbar
 .footer {
+  // position: absolute;
+  // bottom: 0;
   display: flex;
   flex-direction: column;
   margin-top: 10vh;
@@ -766,11 +776,12 @@ h6 {
 .signIn-box {
   margin-top: 10vh;
   display: flex;
-  flex-direction: column;
 
+  justify-content: center;
   border: 1px solid black;
-  padding: 20px;
+  padding: 20px 0px;
 }
+
 .login {
   display: flex;
 }
@@ -800,6 +811,9 @@ h6 {
   display: flex;
   justify-content: flex-start;
   align-content: space-around;
+}
+.text-loggin-place-off {
+  display: none;
 }
 .loggin-place {
   display: flex;

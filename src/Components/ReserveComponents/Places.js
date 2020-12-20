@@ -1,6 +1,5 @@
 import React, { useState } from 'react'
 import { Row, Col, Image, Container } from 'react-bootstrap'
-import PropTypes from 'prop-types'
 import { gql, useQuery } from '@apollo/client'
 import StarRateIcon from '@material-ui/icons/StarRate'
 import { Link } from 'react-router-dom'
@@ -25,9 +24,11 @@ const Places = ({
   tag,
   availability,
   city,
+  date,
 }) => {
   const classes = useStyles()
   const [anchorEl, setAnchorEl] = useState(null)
+  const [first, setFirst] = useState(2)
   const handleClick = (event) => {
     setAnchorEl(event.currentTarget)
   }
@@ -70,6 +71,8 @@ const Places = ({
       $gymTags: [ID]
       $availability: Int
       $city: String
+      $first: Int
+      $skip: Int
     ) {
       sportObjectsByCity(city: $city) {
         name
@@ -93,6 +96,8 @@ const Places = ({
           gymType: $gymType
           gymTags: $gymTags
           availability: $availability
+          first: $first
+          skip: $skip
         ) {
           _id
           gymType {
@@ -135,6 +140,7 @@ const Places = ({
       gymTags: SetTag(tag),
       availability,
       city: setCity(city),
+      first,
     },
   })
   if (loading) return <Skeleton variant="rect" width={800} height={118} />
@@ -176,9 +182,9 @@ const Places = ({
     })
     return equipments
   }
-
-  const showMore = () => {}
-
+  const showMore = () => {
+    setFirst((x) => x + 2)
+  }
   return (
     <>
       <Row>
@@ -268,7 +274,12 @@ const Places = ({
                         <Col className="places-stack ">{gym.price} zł/h</Col>
                         <Link
                           className="places-button"
-                          to={`/placeinfo/${building._id}/${gym._id}`}
+                          to={{
+                            pathname: `/placeinfo/${building._id}/${gym._id}`,
+                            state: {
+                              date,
+                            },
+                          }}
                         >
                           Wyśwetl Obiekt
                         </Link>

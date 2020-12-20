@@ -38,7 +38,7 @@ const useStyles = makeStyles((theme) => ({
     margin: '10px 50px',
   },
 }))
-const PlaceInfo = ({ match }) => {
+const PlaceInfo = ({ match, location }) => {
   const classes = useStyles()
   const [open, setOpen] = useState(false)
 
@@ -75,13 +75,20 @@ const PlaceInfo = ({ match }) => {
           <Reservation
             match={match}
             remainingReservation={res.data.gymById.availability}
+            date={location.state.date}
           />
         </Col>
         <Col>
           <Comments match={match} />
         </Col>
         <Col className="loggin-place">
-          <Col className="text-loggin-place">
+          <Col
+            className={
+              localStorage.getItem('token')
+                ? 'text-loggin-place-off'
+                : 'text-loggin-place'
+            }
+          >
             <p>
               Aby zarezerwować się do obiektu, lub by dodawać komentarze musisz
               być zalogowany!
@@ -112,6 +119,7 @@ const PlaceInfo = ({ match }) => {
             >
               <Fade in={open}>
                 <Col className={classes.paper}>
+                  <h1>Logowanie</h1>
                   <Login url={match.url} />
                 </Col>
               </Fade>

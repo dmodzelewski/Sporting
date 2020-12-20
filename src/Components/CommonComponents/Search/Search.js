@@ -16,7 +16,7 @@ const Search = () => {
   const [lat, setLat] = useState(10)
   const [city, setCity] = useState('')
   const [quantity, setQuantity] = useState(1)
-  const [date, setDate] = useState(new Intl.DateTimeFormat().format(new Date()))
+  const [date, setDate] = useState(new Date())
 
   const history = useHistory()
   // City filter part

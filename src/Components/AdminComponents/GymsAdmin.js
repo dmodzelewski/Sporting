@@ -14,6 +14,7 @@ import Modal from '@material-ui/core/Modal'
 import Backdrop from '@material-ui/core/Backdrop'
 import Fade from '@material-ui/core/Fade'
 import AddGymObjectToGym from './AddGymObjectToGym'
+import { Link } from 'react-router-dom'
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -143,6 +144,15 @@ const GymsAdmin = () => {
                 >
                   Dodaj wyposażenie do Salki
                 </Button>
+                <Link
+                  className="places-button"
+                  to={{
+                    pathname: `/admincalendar/${object._id}/${gym._id}`,
+                  }}
+                >
+                  Zobacz Kalendarz
+                </Link>
+
                 <Modal
                   aria-labelledby="transition-modal-title"
                   aria-describedby="transition-modal-description"

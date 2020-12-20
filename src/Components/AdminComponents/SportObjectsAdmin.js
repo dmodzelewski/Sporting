@@ -54,8 +54,8 @@ const SportObjectsAdmin = ({ SportObjects }) => {
     <>
       <Col>
         <Row>
-          {SportObjects.map((object) => (
-            <Col md={3} key={object._id}>
+          {SportObjects.map((building) => (
+            <Col md={3} key={building._id}>
               <Row>
                 <Col>
                   {' '}
@@ -67,7 +67,7 @@ const SportObjectsAdmin = ({ SportObjects }) => {
                 </Col>
               </Row>
               <Row>
-                <Col className="admin-objects">{object.name}</Col>
+                <Col className="admin-objects">{building.name}</Col>
               </Row>
               <Row>
                 <Col>
@@ -96,7 +96,7 @@ const SportObjectsAdmin = ({ SportObjects }) => {
                       horizontal: 'center',
                     }}
                   >
-                    <Map object={object.address} />
+                    <Map {...building} />
                   </Popover>
                 </Col>
               </Row>
@@ -124,7 +124,7 @@ const SportObjectsAdmin = ({ SportObjects }) => {
                   >
                     <Fade in={OpenModal}>
                       <Col className={classes.paper}>
-                        <AddGymObjectToGym objectid={object._id} />
+                        <AddGymObjectToGym objectid={building._id} />
                       </Col>
                     </Fade>
                   </Modal>

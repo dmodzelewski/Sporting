@@ -5,11 +5,11 @@ import {
   FaBasketballBall,
   FaFutbol,
   FaDumbbell,
-  FaQuidditch,
 } from 'react-icons/fa'
 import SportsKabaddiIcon from '@material-ui/icons/SportsKabaddi'
 import { useHistory } from 'react-router-dom'
 import { IoMdTennisball } from 'react-icons/io'
+import { GrYoga } from 'react-icons/gr'
 
 const Choice = () => {
   const history = useHistory()
@@ -90,7 +90,7 @@ const Choice = () => {
             >
               <Row>
                 <Col className="choice-sports-body yoga">
-                  <FaSwimmingPool className="choice-sports-icons" />
+                  <GrYoga className="choice-sports-icons" />
                 </Col>
               </Row>
               <Row>

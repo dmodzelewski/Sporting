@@ -4,13 +4,14 @@ import { Col } from 'react-bootstrap'
 import { Link } from 'react-router-dom'
 import PropTypes from 'prop-types'
 
-const Reservation = ({ match, remainingReservation }) => {
+const Reservation = ({ match, remainingReservation, date }) => {
   const isLogged = () => {
     if (localStorage.getItem('token')) {
       return false
     }
     return true
   }
+  console.log(date)
   return (
     <>
       <Col className="place-comment no-padding">
@@ -25,6 +26,7 @@ const Reservation = ({ match, remainingReservation }) => {
                 }/${localStorage.getItem('userid')}`,
                 state: {
                   availability: remainingReservation,
+                  date,
                 },
               }}
             >
