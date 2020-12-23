@@ -1,11 +1,28 @@
 /* eslint-disable jsx-a11y/anchor-is-valid */
 import React from 'react'
-import { Col } from 'react-bootstrap'
+import { Button, Col } from 'react-bootstrap'
 import PropTypes from 'prop-types'
 import ExploreIcon from '@material-ui/icons/Explore'
 import { gql, useQuery } from '@apollo/client'
 import Skeleton from '@material-ui/lab/Skeleton'
+import { Plugins, CameraResultType } from '@capacitor/core'
 
+const { Camera } = Plugins
+
+const takePicture = async () => {
+  const image = await Camera.getPhoto({
+    quality: 90,
+    allowEditing: true,
+    resultType: CameraResultType.Base64,
+  })
+  // image.webPath will contain a path that can be set as an image src.
+  // You can access the original file using image.path, which can be
+  // passed to the Filesystem API to read the raw data of the image,
+  // if desired (or pass resultType: CameraResultType.Base64 to getPhoto)
+  const imageUrl = image.base64String
+  // Can be set to the src of an image now
+  console.log(imageUrl)
+}
 const Header = ({ match }) => {
   const address = gql`
   {
@@ -33,6 +50,7 @@ const Header = ({ match }) => {
       }
     }
   `
+
   const getPhoneNumber = (phoneNumber) => {
     if (phoneNumber == null) {
       return 'Brak numeru telefonu'
@@ -80,6 +98,7 @@ const Header = ({ match }) => {
             {getPhoneNumber(secondRes.data.gymById.phoneNumber)}
           </a>
         </Col>
+        <Button onClick={() => takePicture()} />
       </Col>
     </>
   )

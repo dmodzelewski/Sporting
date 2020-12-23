@@ -96,7 +96,9 @@ const Login = (props) => {
         surname === '' ||
         email === '' ||
         password === '' ||
-        repeatPassword === ''
+        repeatPassword === '' ||
+        password.length < 8 ||
+        password !== repeatPassword
       ) {
         return true
       }

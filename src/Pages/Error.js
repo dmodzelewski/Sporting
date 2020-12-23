@@ -1,24 +1,33 @@
 import React from 'react'
-import { Col, Container, Image, Row } from 'react-bootstrap'
-import image from '../Image/tenor.gif'
+import { Nav, Col, Container, Row } from 'react-bootstrap'
+import { NavLink } from 'react-router-dom'
 
 const Error = () => {
   return (
-    <Container>
-      <Row>
-        <Col>
-          <Row>
-            <Col className="center error text">
-              <h1>Chyba się zgubiłeś</h1>
-            </Col>
-          </Row>
-          <Row>
-            <Col className="error-gif">
-              <Image src={image} />
-            </Col>
-          </Row>
-        </Col>
-      </Row>
+    <Container fluid className="error">
+      <Col>
+        <Row>
+          <Col className="error-position">
+            <Row>
+              <Col>
+                <h1 className="error-header">Error 404</h1>
+              </Col>
+            </Row>
+            <Row>
+              <Col className="error-subheader">
+                <Row>
+                  <p>Niestety wybrana przez Ciebie strona nie istnieje</p>
+                </Row>
+                <Row>
+                  <Nav.Link className="error-link" as={NavLink} exact to="/">
+                    Wróc do iSportio
+                  </Nav.Link>
+                </Row>
+              </Col>
+            </Row>
+          </Col>
+        </Row>
+      </Col>
     </Container>
   )
 }

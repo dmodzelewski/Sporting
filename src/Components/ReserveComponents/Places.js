@@ -209,7 +209,7 @@ const Places = ({
                       <Image
                         className="places-photo"
                         src={gym.mainPhoto}
-                        alt="Zdjęcie"
+                        alt="brak zdjęcia"
                       />
                     </Col>
                     <Col

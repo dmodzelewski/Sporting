@@ -1,7 +1,6 @@
 import { Route, Switch } from 'react-router-dom'
 import { ApolloClient, InMemoryCache, ApolloProvider } from '@apollo/client'
 import React from 'react'
-import PropTypes from 'prop-types'
 import Home from './Pages/Home'
 import Reserve from './Pages/Reserve'
 import About from './Pages/About'

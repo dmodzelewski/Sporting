@@ -44,55 +44,63 @@ const AdminCalendar = ({ match }) => {
   const [updatedStartDate, setupdatedStartDate] = useState('')
   const [updatedEndDate, setupdatedEndDate] = useState('')
   const appointments = gql`
-    {
-      reservations {
-        _id
-        startDateTime
-        endDateTime
-        title
+    query gymById($gymId: ID) {
+      gymById(gymId: $gymId) {
+        reservations {
+          _id
+          title
+          user {
+            loginEmail
+          }
+          endDateTime
+          startDateTime
+          gym {
+            name
+          }
+        }
       }
     }
   `
   const createAppointment = gql`
-    mutation {
-      addReservation(
-        title: "${title}"
-        startDateTime: "${startDate}"
-        endDateTime: "${endDate}"
-        user: "${localStorage.getItem('userid')}"
-        gym: "${match.params.gymid}"
-      ) {
-        createdAt
-        title
-      }
+  mutation {
+    addReservation(
+      title: "${title}"
+      startDateTime: "${startDate}"
+      endDateTime: "${endDate}"
+      user: "${localStorage.getItem('userid')}"
+      gym: "${match.params.gymid}"
+    ) {
+      createdAt
+      title
     }
-  `
+  }
+`
   const updateAppointment = gql`
-    mutation {
-      updateReservationById(
-        reservation: "${updated}"
-        title: "${updatedTitle}"
-        startDateTime: "${updatedStartDate}"
-        endDateTime: "${updatedEndDate}"
-        gym: "${match.params.gymid}"
-      ) {
-        title
-        startDateTime
-        endDateTime
-        createdAt
-      }
+  mutation {
+    updateReservationById(
+      reservation: "${updated}"
+      title: "${updatedTitle}"
+      startDateTime: "${updatedStartDate}"
+      endDateTime: "${updatedEndDate}"
+      gym: "${match.params.gymid}"
+    ) {
+      title
+      startDateTime
+      endDateTime
+      createdAt
     }
-  `
+  }
+`
   const deleteAppointment = gql`
-    mutation {
-      delReservationById(reservation: "${deleted}") {
-        title
-        startDateTime
-        endDateTime
-        createdAt
-      }
+  mutation {
+    delReservationById(reservation: "${deleted}") {
+      title
+      startDateTime
+      endDateTime
+      createdAt
     }
-  `
+  }
+`
 
   const [CreateAppointment] = useMutation(createAppointment)
   const [UpdatedAppointment] = useMutation(updateAppointment)
@@ -182,13 +190,17 @@ const AdminCalendar = ({ match }) => {
     setAddedAppointment(appointment)
     setIsAppointmentBeingCreated(true)
   })
-  const res = useQuery(appointments)
+  const res = useQuery(appointments, {
+    variables: {
+      gymId: match.params.gymid,
+    },
+  })
   if (res.loading) return <Skeleton />
   if (res.error) return `Error! ${res.error.message} `
   const GetData = () => {
     res.refetch()
 
-    res.data.reservations.map((x) => {
+    res.data.gymById.reservations.map((x) => {
       const Startdate = moment(x.startDateTime)
       const Enddate = moment(x.endDateTime)
       appointmentData.push({

@@ -96,7 +96,11 @@ const Search = () => {
                 key={NAZWA + Wojewodztwo + Gmina}
                 onClick={SelectCityHandler.bind(this)}
               >
-                Miasto: {NAZWA}, Województwo: {Wojewodztwo}, Gmina : {Gmina}
+                <Col>
+                  <Row>Miasto: {NAZWA}</Row>
+                  <Row>Gmina : {Gmina}</Row>
+                  <Row>Województwo: {Wojewodztwo}</Row>
+                </Col>
               </li>
             ))}
           </ul>
@@ -159,7 +163,7 @@ const Search = () => {
                 <Col sm={12} md={3}>
                   <Row>
                     <Col>
-                      <b> Liczba osób</b>
+                      <b> Liczba dostępnych miejsc</b>
                     </Col>
                   </Row>
                   <Row>

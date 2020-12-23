@@ -11,11 +11,13 @@ import CardMedia from '@material-ui/core/CardMedia'
 import Button from '@material-ui/core/Button'
 import Typography from '@material-ui/core/Typography'
 import Modal from '@material-ui/core/Modal'
+import { Link } from 'react-router-dom'
 import Backdrop from '@material-ui/core/Backdrop'
+import { Plugins, CameraResultType } from '@capacitor/core'
 import Fade from '@material-ui/core/Fade'
 import AddGymObjectToGym from './AddGymObjectToGym'
-import { Link } from 'react-router-dom'
 
+const { Camera } = Plugins
 const useStyles = makeStyles((theme) => ({
   root: {
     maxHeight: 306,
@@ -91,7 +93,20 @@ const GymsAdmin = () => {
       }
     }
   `
-
+  const takePicture = async () => {
+    const image = await Camera.getPhoto({
+      quality: 90,
+      allowEditing: true,
+      resultType: CameraResultType.Base64,
+    })
+    // image.webPath will contain a path that can be set as an image src.
+    // You can access the original file using image.path, which can be
+    // passed to the Filesystem API to read the raw data of the image,
+    // if desired (or pass resultType: CameraResultType.Base64 to getPhoto)
+    const imageUrl = image.base64String
+    // Can be set to the src of an image now
+    console.log(imageUrl)
+  }
   const SetAvgRate = (rate) => {
     if (rate) {
       return rate.toFixed(2)
@@ -102,6 +117,8 @@ const GymsAdmin = () => {
   if (res.loading) return <Skeleton />
   if (res.error) return `Error! ${res.error.message} `
   console.log(res.data.sportObjects)
+
+  const InsertImage = () => {}
   return (
     <>
       {res.data.sportObjects.map((object) => (
@@ -143,6 +160,14 @@ const GymsAdmin = () => {
                   onClick={handleOpen}
                 >
                   Dodaj wyposażenie do Salki
+                </Button>{' '}
+                <Button
+                  className="admin-objects-button"
+                  variant="contained"
+                  color="secondary"
+                  onClick={takePicture}
+                >
+                  Dodaj zdjęcie do salki
                 </Button>
                 <Link
                   className="places-button"
@@ -152,7 +177,6 @@ const GymsAdmin = () => {
                 >
                   Zobacz Kalendarz
                 </Link>
-
                 <Modal
                   aria-labelledby="transition-modal-title"
                   aria-describedby="transition-modal-description"

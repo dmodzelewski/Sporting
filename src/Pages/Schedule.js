@@ -97,7 +97,6 @@ const Sched = ({ match, location }) => {
   const [CreateAppointment] = useMutation(createAppointment)
   const [UpdatedAppointment] = useMutation(updateAppointment)
   const [DeleteAppointment] = useMutation(deleteAppointment)
-
   useEffect(() => {
     if (title !== 'Brak Tytułu') {
       CreateAppointment()
@@ -124,6 +123,7 @@ const Sched = ({ match, location }) => {
     DeleteAppointment()
       .then(function (val) {
         console.log(val)
+        console.log(location)
       })
       .catch(() => {
         console.log('Nie udało się usunąć')

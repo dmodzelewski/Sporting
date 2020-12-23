@@ -49,11 +49,17 @@ const Reserve = ({ location }) => {
   }
   useEffect(() => {
     const allTags = Object.entries(checked).map((x) => {
+      console.log(x)
       if (x[1] === true) {
         return x[0]
       }
+      return 'del'
     })
-    setTag(allTags)
+    const abc = allTags.filter((x) => {
+      return x !== 'del'
+    })
+    console.log(abc)
+    setTag(abc)
   }, [checked])
 
   const handleCheckboxChange = useCallback((event) => {
