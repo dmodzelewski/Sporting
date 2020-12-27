@@ -8,10 +8,8 @@ import {
 } from '@devexpress/dx-react-scheduler'
 import {
   Scheduler,
-  WeekView,
   Toolbar,
   DateNavigator,
-  MonthView,
   ViewSwitcher,
   DayView,
   TodayButton,
@@ -208,8 +206,9 @@ const Sched = ({ match, location }) => {
           <Col className="scheduler-greetings">
             <h2>Wybierz dogodny dla Ciebie Termin</h2>
           </Col>
+
           <Paper>
-            <Scheduler data={GetData()} height={700}>
+            <Scheduler locale="pl-PL" data={GetData()} height={700}>
               <ViewState
                 currentDate={currentDate}
                 onCurrentDateChange={(x) => setcurrentDate(x)}
@@ -224,7 +223,6 @@ const Sched = ({ match, location }) => {
               <DayView name="day" startDayHour={9} endDayHour={18} />
 
               <Toolbar />
-              <ViewSwitcher />
               <DateNavigator />
               <TodayButton />
               <Appointments />

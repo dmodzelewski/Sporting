@@ -1,5 +1,6 @@
 import { Route, Switch } from 'react-router-dom'
 import { ApolloClient, InMemoryCache, ApolloProvider } from '@apollo/client'
+import { offsetLimitPagination } from '@apollo/client/utilities'
 import React from 'react'
 import Home from './Pages/Home'
 import Reserve from './Pages/Reserve'
@@ -17,7 +18,15 @@ import AdminCalendar from './Components/AdminComponents/AdminCalendar'
 
 const clientApollo = new ApolloClient({
   uri: 'http://159.69.41.224:3001/graphql',
-  cache: new InMemoryCache(),
+  cache: new InMemoryCache({
+    typePolicies: {
+      Query: {
+        fields: {
+          sportObjectsByCity: offsetLimitPagination(),
+        },
+      },
+    },
+  }),
 })
 
 const App = () => {
@@ -27,7 +36,7 @@ const App = () => {
         <NavigationBar />
         <Switch>
           <Route exact path="/" component={Home} />
-          <Route exact path="/reserve" component={Reserve} />
+          <Route exact path="/filterplace" component={Reserve} />
           <Route exact path="/about" component={About} />
           <Route
             exact

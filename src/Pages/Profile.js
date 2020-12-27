@@ -37,12 +37,7 @@ const Profile = ({ location }) => {
         <Row>
           <Col>
             <Row>
-              <Col className="center">
-                <h1>Twój Profil</h1>
-              </Col>
-            </Row>
-            <Row>
-              <Col className="center">
+              <Col className="center profile-info">
                 <h1>
                   {' '}
                   Witaj{' '}

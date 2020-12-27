@@ -8,10 +8,8 @@ import {
 } from '@devexpress/dx-react-scheduler'
 import {
   Scheduler,
-  WeekView,
   Toolbar,
   DateNavigator,
-  MonthView,
   ViewSwitcher,
   DayView,
   TodayButton,
@@ -32,7 +30,7 @@ const AdminCalendar = ({ match }) => {
   // const { availability } = location.state
   const [currentDate, setcurrentDate] = useState(new Date())
   const [data, setDate] = useState(appointmentData)
-  const [currentView, setCurrentView] = useState('day')
+  const [currentView] = useState('day')
   const [addedAppointment, setAddedAppointment] = useState({})
   const [, setIsAppointmentBeingCreated] = useState(false)
   const [title, setTitle] = useState('Brak Tytułu')
@@ -109,14 +107,8 @@ const AdminCalendar = ({ match }) => {
   useEffect(() => {
     if (title !== 'Brak Tytułu') {
       CreateAppointment()
-        .then(function (val) {
-          console.log(val)
-        })
-        .catch(() => {
-          console.log('Coś poszło nie tak')
-        })
-    } else {
-      console.log('Nie dodano')
+        .then(function (val) {})
+        .catch(() => {})
     }
   }, [title])
   useEffect(() => {
@@ -130,12 +122,8 @@ const AdminCalendar = ({ match }) => {
   }, [updated])
   useEffect(() => {
     DeleteAppointment()
-      .then(function (val) {
-        console.log(val)
-      })
-      .catch(() => {
-        console.log('Nie udało się usunąć')
-      })
+      .then(function () {})
+      .catch(() => {})
   }, [deleted])
   const getTime = (date) => {
     const year = date.get('year')
@@ -149,7 +137,6 @@ const AdminCalendar = ({ match }) => {
     return dateArr
   }
   const OutDated = () => toast('Nie można dodać spotkania')
-  const OutNumbered = () => toast('Brak miejsc')
   const FormatDate = (dateToFormat) => {
     const BeginDate = new Intl.DateTimeFormat('pl', {
       day: 'numeric',
@@ -161,7 +148,6 @@ const AdminCalendar = ({ match }) => {
   const onCommitChanges = useCallback(
     ({ added, changed, deleted }) => {
       if (added) {
-        console.log()
         if (FormatDate(currentDate) !== FormatDate(added.startDate)) {
           OutDated()
         } else {
@@ -221,7 +207,7 @@ const AdminCalendar = ({ match }) => {
             <h2>Wybierz dogodny dla Ciebie Termin</h2>
           </Col>
           <Paper>
-            <Scheduler data={GetData()} height={700}>
+            <Scheduler locale="pl-PL" data={GetData()} height={700}>
               <ViewState
                 currentDate={currentDate}
                 onCurrentDateChange={(x) => setcurrentDate(x)}

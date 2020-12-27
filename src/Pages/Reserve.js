@@ -49,7 +49,6 @@ const Reserve = ({ location }) => {
   }
   useEffect(() => {
     const allTags = Object.entries(checked).map((x) => {
-      console.log(x)
       if (x[1] === true) {
         return x[0]
       }
@@ -58,7 +57,6 @@ const Reserve = ({ location }) => {
     const abc = allTags.filter((x) => {
       return x !== 'del'
     })
-    console.log(abc)
     setTag(abc)
   }, [checked])
 
@@ -97,10 +95,12 @@ const Reserve = ({ location }) => {
             </Row>
             <Row className="filters">
               <Col>
-                <Col>Checked item name : {checked['check-box-1']} </Col> <br />
                 {checkboxes.map((item) => (
-                  <Col key={item.key}>
-                    {item.name}
+                  <Col className="filter-section-checkbox" key={item.key}>
+                    <Col sm={4} md={9} className="filter-section-checkbox-name">
+                      {item.name}
+                    </Col>
+
                     <Checkbox
                       name={item.id}
                       checked={checked[item.id]}
@@ -164,10 +164,12 @@ const Reserve = ({ location }) => {
             <Row>
               <Col className="filter-section-header">Typy</Col>
             </Row>
-            <Col className="filters">
+            <Col className="filters-end">
               <TypeFilter Type={FilterType} />
             </Col>
-            <Button onClick={() => clearFilters()}>Wyczyść</Button>
+            <Button className="filter-button" onClick={() => clearFilters()}>
+              Wyczyść
+            </Button>
           </Col>
 
           <Col md={9}>

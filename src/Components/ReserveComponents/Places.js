@@ -28,7 +28,7 @@ const Places = ({
 }) => {
   const classes = useStyles()
   const [anchorEl, setAnchorEl] = useState(null)
-  const [first, setFirst] = useState(2)
+  const [first, setFirst] = useState(1)
   const handleClick = (event) => {
     setAnchorEl(event.currentTarget)
   }
@@ -131,7 +131,8 @@ const Places = ({
       }
     }
   `
-  const { loading, error, data } = useQuery(places, {
+
+  const res = useQuery(places, {
     variables: {
       minPrice: price[0],
       maxPrice: price[1],
@@ -141,17 +142,44 @@ const Places = ({
       availability,
       city: setCity(city),
       first,
+      skip: 0,
     },
   })
-  if (loading) return <Skeleton variant="rect" width={800} height={118} />
-  if (error) return `Error! ${error.message} `
-  const HowManyGyms = () => {
+
+  const res2 = useQuery(places, {
+    variables: {
+      minPrice: price[0],
+      maxPrice: price[1],
+      starRate: SetOpinion(opinion),
+      gymType: SetType(type),
+      gymTags: SetTag(tag),
+      availability,
+      city: setCity(city),
+    },
+  })
+
+  if (res.loading) return <Skeleton variant="rect" width={800} height={118} />
+  if (res.error) return `Error! ${res.error.message} `
+
+  if (res2.loading) return <Skeleton variant="rect" width={800} height={118} />
+  if (res2.error) return `Error! ${res.error.message} `
+
+  const HowManyGymsShown = () => {
     let length = 0
-    data.sportObjectsByCity.map((item) => {
+    res.data.sportObjectsByCity.map((item) => {
       length += item.gymsFilter.length
     })
     return length
   }
+
+  const HowManyGyms = () => {
+    let length = 0
+    res2.data.sportObjectsByCity.map((item) => {
+      length += item.gymsFilter.length
+    })
+    return length
+  }
+
   const HowManyOpininons = (opinions) => {
     if (opinions === 0) {
       return 'Brak Opinii'
@@ -183,7 +211,22 @@ const Places = ({
     return equipments
   }
   const showMore = () => {
-    setFirst((x) => x + 2)
+    let currentLength = 0
+    res.data.sportObjectsByCity.map((item) => {
+      currentLength += item.gymsFilter.length
+      return currentLength
+    })
+    res
+      .fetchMore({
+        variables: {
+          skip: currentLength,
+          limit: 2,
+        },
+      })
+      .then((fetchMoreresult) => {
+        const newLength = 1
+        setFirst(currentLength + newLength)
+      })
   }
   return (
     <>
@@ -192,15 +235,15 @@ const Places = ({
       </Row>
       <Row>
         <Col className="places-counter no-padding">
-          {HowManyGyms()} z {HowManyGyms()} obiektów
+          {HowManyGymsShown()} z {HowManyGyms()} obiektów
         </Col>
       </Row>
 
-      {data.sportObjectsByCity.map((building) =>
+      {res.data.sportObjectsByCity.map((building) =>
         building.gymsFilter.map((gym) => (
           <>
             <li key={gym._id} style={{ listStyleType: 'none' }}>
-              {loading ? (
+              {res.loading ? (
                 <Skeleton variant="rect" width={800} height={118} />
               ) : (
                 <Container className="places-object-main">

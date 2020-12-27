@@ -111,6 +111,9 @@ export default function DenseTable() {
               </TableCell>
             </TableRow>
           ))}
+          {res.data.userReservations.length > 0 ? null : (
+            <h1>Brak rezerwacji</h1>
+          )}
         </TableBody>
       </Table>
     </TableContainer>

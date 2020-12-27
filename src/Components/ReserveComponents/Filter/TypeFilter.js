@@ -76,7 +76,6 @@ const TypeFilter = ({ Type }) => {
       Type(event.target.value)
     }
   }
-  // Inspired by blueprintjs
   const StyledRadio = (props) => {
     const classes = useStyles()
     return (

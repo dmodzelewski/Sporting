@@ -15,7 +15,7 @@ const Choice = () => {
   const history = useHistory()
   const handleTag = (tag) => {
     history.push({
-      pathname: '/reserve',
+      pathname: '/filterplace',
       state: { passTag: tag },
     })
   }

@@ -76,10 +76,11 @@ span {
 //Start navbar
 .Slider {
   height: 70vh;
+  .Slider-main {
+    margin-bottom: 50px;
+  }
 }
-.Slider-main {
-  margin-bottom: 50px;
-}
+
 .navbar {
   align-items: unset !important;
   height: 90px;
@@ -188,8 +189,8 @@ span {
 //End navbar
 //Start footbar
 .footer {
-  // position: absolute;
-  // bottom: 0;
+  position: absolute;
+  bottom: 0;
   display: flex;
   flex-direction: column;
 }
@@ -392,6 +393,17 @@ span {
   align-items: flex-start;
   justify-content: flex-start;
 }
+.filters-end {
+  padding: 2em 1em;
+  font-size: 14px;
+  display: flex;
+  align-items: flex-start;
+  justify-content: flex-start;
+}
+.filter-button {
+  display: flex;
+  margin-bottom: 2em;
+}
 .filters-header {
   display: flex;
   align-items: center;
@@ -402,6 +414,17 @@ span {
   display: flex;
   justify-content: center;
   align-items: flex-start;
+}
+.filter-section-checkbox {
+  display: flex;
+  flex-grow: 0 !important;
+  padding: 0;
+  flex-direction: row;
+}
+.filter-section-checkbox-name {
+  display: flex;
+  flex-wrap: nowrap;
+  flex-grow: 0.8;
 }
 .filter-price {
   display: flex;
@@ -954,4 +977,8 @@ span {
 .home-paragraph {
   text-align: justify;
   text-justify: inter-word;
+}
+.profile-info {
+  margin-top: 1.5em;
+  margin-bottom: 2em;
 }

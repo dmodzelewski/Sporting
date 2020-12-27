@@ -114,7 +114,7 @@ const Login = (props) => {
   }
 
   const CreateAccountNotify = () => toast('Konto zostało utworzone!')
-  const BadPasswordNotify = () => toast('Złe hasło!')
+  const BadPasswordNotify = () => toast('Zły login lub hasło!')
   const EmailNotify = () => toast('Adres email jest juz do kogoś przypisany!')
   const EmailNotExist = () => toast('Podany adres email nie istnieje!')
   const LoginNotify = () => toast('Pomyślnie się zalogowano!')
@@ -249,7 +249,7 @@ const Login = (props) => {
                   <MuiPickersUtilsProvider utils={DateFnsUtils}>
                     <KeyboardDatePicker
                       variant="inline"
-                      format="MM/dd/yyyy"
+                      format="dd/MM/yyyy"
                       margin="normal"
                       id="date-picker-dialog"
                       label="Podaj datę urodzenia"

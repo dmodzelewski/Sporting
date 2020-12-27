@@ -116,7 +116,7 @@ const Search = () => {
   }
   const SearchHandle = () => {
     history.push({
-      pathname: '/reserve',
+      pathname: '/filterplace',
       state: {
         passCity: city,
         passDate: date,
