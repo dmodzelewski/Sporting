@@ -94,37 +94,6 @@ const PlaceInfo = ({ match, location }) => {
               być zalogowany!
             </p>
           </Col>
-          <Col className="button-loggin-place">
-            <Button
-              onClick={handleOpen}
-              style={
-                isLogged()
-                  ? { visibility: 'visible' }
-                  : { visibility: 'hidden' }
-              }
-            >
-              Zaloguj Się
-            </Button>
-            <Modal
-              aria-labelledby="transition-modal-title"
-              aria-describedby="transition-modal-description"
-              className={classes.modal}
-              open={open}
-              onClose={handleClose}
-              closeAfterTransition
-              BackdropComponent={Backdrop}
-              BackdropProps={{
-                timeout: 500,
-              }}
-            >
-              <Fade in={open}>
-                <Col className={classes.paper}>
-                  <h1>Logowanie</h1>
-                  <Login url={match.url} />
-                </Col>
-              </Fade>
-            </Modal>
-          </Col>
         </Col>
       </Container>
     </>

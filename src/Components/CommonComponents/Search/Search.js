@@ -17,6 +17,7 @@ const Search = () => {
   const [city, setCity] = useState('')
   const [quantity, setQuantity] = useState(1)
   const [date, setDate] = useState(new Date())
+  const [isClicked, setisClicked] = useState(false)
 
   const history = useHistory()
   // City filter part
@@ -66,11 +67,12 @@ const Search = () => {
     Promise.resolve(myCity).then(function (val) {
       setCity(val)
     })
+    setisClicked(true)
   }
 
   const SelectCityHandler = (e) => {
     const formatCity = e.target.innerHTML.toString().split(',')[0].split(':')[1]
-
+    setisClicked(true)
     setCity(formatCity)
   }
 
@@ -85,7 +87,9 @@ const Search = () => {
 
     return (
       <>
-        <div className="search-filter-city">
+        <div
+          className={isClicked ? 'search-filter-hide' : 'search-filter-city'}
+        >
           <ul role="listbox">
             <li onClick={() => SetCityByLocalization(ReverseGeocoding())}>
               <RoomIcon />
@@ -98,13 +102,12 @@ const Search = () => {
               >
                 <Col>
                   <Row>Miasto: {NAZWA}</Row>
-                  <Row>Gmina : {Gmina}</Row>
-                  <Row>Województwo: {Wojewodztwo}</Row>
                 </Col>
               </li>
             ))}
           </ul>
         </div>
+        <RoomIcon />
       </>
     )
   }
@@ -137,11 +140,11 @@ const Search = () => {
       <Row>
         <Col className="search-object">
           <Row>
-            <Col className="search-filters">
+            <Col md={12} className="search-filters">
               <Row>
-                <Col sm={12} md={3}>
+                <Col sm={12} md={3} className="search-filter-elements">
                   <Row>
-                    <Col>
+                    <Col className="search-filters-center-headers">
                       <b>Lokalizacja</b>
                     </Col>
                   </Row>
@@ -157,25 +160,28 @@ const Search = () => {
                     </Col>
                   </Row>
                 </Col>
-                <Col sm={12} md={3} className="no-padding">
+                <Col sm={12} md={3} className="search-filter-elements">
                   <CalendarField GetDate={whenis} />
                 </Col>
-                <Col sm={12} md={3}>
+                <Col sm={12} md={3} className="search-filter-elements">
                   <Row>
-                    <Col>
+                    <Col className="search-filters-center-headers">
                       <b> Liczba dostępnych miejsc</b>
                     </Col>
                   </Row>
                   <Row>
-                    <Col className="search-filters-quantity">
+                    <Col className="search-filters-quantity search-filters-center-headers">
                       <RemoveIcon onClick={() => CheckNegative()} />
                       {quantity}
                       <AddIcon onClick={() => setQuantity(quantity + 1)} />
                     </Col>
                   </Row>
                 </Col>
-
-                <Col sm={12} md={3}>
+                <Col
+                  className="search-filters-center-search search-filter-elements"
+                  sm={12}
+                  md={3}
+                >
                   <Button className="search-button" onClick={SearchHandle}>
                     <Row>
                       <Col sm={3}>

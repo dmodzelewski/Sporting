@@ -33,7 +33,7 @@ const Profile = ({ location }) => {
 
   return (
     <>
-      <Container>
+      <Container style={{paddingBottom:"212px"}}>
         <Row>
           <Col>
             <Row>

@@ -10,7 +10,7 @@ const Home = () => {
     <>
       <Search />
       <Choice />
-      <Container fluid>
+      <Container fluid style={{ marginBottom: '40px' }}>
         <Col className="no-padding">
           <Row>
             <Col className="no-padding" sm={12} md={6}>

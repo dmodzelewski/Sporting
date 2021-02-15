@@ -3,14 +3,14 @@ import { Container, Row } from 'react-bootstrap'
 import Faq from 'react-faq-component'
 
 const data = {
-  title: 'FAQ (Jak działa nasza stronsa)',
+  title: 'FAQ (Jak działa nasza strona)',
   rows: [
     {
       title: 'Jak wyszukiwać obiekty',
       content: `Aby wyszukać obiekt należy wprowadzić szukaną miejscowość, określić datę spotkania, a także wybrac ilość osób które będa uczestniczyły`,
     },
     {
-      title: 'Nunc maximus, magna at ultricies elementum',
+      title: 'Nie mogę się zalogować',
       content:
         'Nunc maximus, magna at ultricies elementum, risus turpis vulputate quam, vitae convallis ex tortor sed dolor.',
     },
@@ -44,7 +44,7 @@ const config = {
 
 const About = () => {
   return (
-    <Container>
+    <Container style={{ paddingBottom: '230px' }}>
       <Row>
         <Faq data={data} styles={styles} config={config} />
       </Row>

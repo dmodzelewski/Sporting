@@ -118,7 +118,6 @@ const Login = (props) => {
   const EmailNotify = () => toast('Adres email jest juz do kogoś przypisany!')
   const EmailNotExist = () => toast('Podany adres email nie istnieje!')
   const LoginNotify = () => toast('Pomyślnie się zalogowano!')
-  const Verify = () => toast('Błąd weryfikacji!')
 
   const CreateUser = () => {
     isEmailValid({
@@ -229,7 +228,9 @@ const Login = (props) => {
                     placeholder="Podaj Imię"
                     value={name}
                     errorMessages={['Niepoprawne imię']}
-                    validators={['matchRegexp:^[a-zA-Z]+$']}
+                    validators={[
+                      'matchRegexp:^[AaĄąBbCcĆćDdEeĘęFfGgHhIiJjKkLlŁłMmNnŃńOoÓóPpRrSsŚśTtUuWwYyZzŹźŻż]+$',
+                    ]}
                     onChange={(e) => setName(e.target.value)}
                   />
                 )}
@@ -241,7 +242,9 @@ const Login = (props) => {
                     placeholder="Podaj Nazwisko"
                     value={surname}
                     errorMessages={['Niepoprawne imię']}
-                    validators={['matchRegexp:^[a-zA-Z]+$']}
+                    validators={[
+                      'matchRegexp:^[AaĄąBbCcĆćDdEeĘęFfGgHhIiJjKkLlŁłMmNnŃńOoÓóPpRrSsŚśTtUuWwYyZzŹźŻż]+$',
+                    ]}
                     onChange={(e) => setSurname(e.target.value)}
                   />
                 )}
@@ -318,7 +321,7 @@ const Login = (props) => {
                 )}
               </Col>
               <br />
-              {login ? null : (
+              {/* {login ? null : (
                 <Col>
                   <Form.Group>
                     <Form.Label>Podaj Rodzaj konta</Form.Label>
@@ -332,7 +335,7 @@ const Login = (props) => {
                     </Form.Control>
                   </Form.Group>
                 </Col>
-              )}
+              )} */}
               <Col>
                 <Col onClick={() => setlogin(!login)}>
                   {login ? 'Nie masz jeszcze konta?' : 'Posiadasz już konto?'}

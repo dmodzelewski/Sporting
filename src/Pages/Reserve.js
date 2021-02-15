@@ -86,7 +86,6 @@ const Reserve = ({ location }) => {
   if (res.error) return `Error! ${res.error.message} `
   return (
     <>
-      <Search />
       <Container className="reserve">
         <Row>
           <Col className="filter" md={3}>

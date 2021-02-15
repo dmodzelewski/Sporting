@@ -19,11 +19,11 @@ const CalendarField = ({ GetDate }) => {
 
   return (
     <>
-      <Col>
+      <Col className="search-filters-center-headers">
         <b>Wybierz date</b>
       </Col>
 
-      <Col>
+      <Col className="search-filters-center-headers">
         <MuiPickersUtilsProvider utils={DateFnsUtils}>
           <KeyboardDatePicker
             margin="normal"

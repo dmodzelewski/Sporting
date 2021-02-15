@@ -305,7 +305,7 @@ const Places = ({
                             horizontal: 'center',
                           }}
                         >
-                          <Map {...building} {...other} />
+                          <Map {...building} />
                         </Popover>
                         <Col className="no-padding places-localization-place">
                           {building.address.city}
