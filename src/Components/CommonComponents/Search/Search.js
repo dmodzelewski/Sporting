@@ -135,6 +135,10 @@ const Search = () => {
     },
     [date, setDate],
   )
+  const ClearSearch = () => {
+    setCity('')
+    setisClicked(false)
+  }
   return (
     <Container fluid className="search-bg">
       <Row>
@@ -156,6 +160,13 @@ const Search = () => {
                         onChange={(e) => setCity(e.target.value)}
                         value={city}
                       />
+                      {isClicked ? (
+                        <a className="clear" onClick={ClearSearch}>
+                          Wyczyść
+                        </a>
+                      ) : (
+                        <h1>{null}</h1>
+                      )}
                       {RenderData()}
                     </Col>
                   </Row>

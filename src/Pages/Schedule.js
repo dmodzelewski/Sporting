@@ -161,9 +161,10 @@ const Sched = ({ match, location }) => {
         }
       }
       if (changed) {
+        console.log(changed)
         setUpdated(Object.keys(changed))
         Object.values(changed).map((x) => {
-          console.log(added)
+          console.log(x)
           setupdatedTitle(x.title)
           setupdatedStartDate(x.startDate)
           setupdatedEndDate(x.endDate)
